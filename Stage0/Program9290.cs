@@ -9,8 +9,6 @@ namespace Stage0
             Welcome9290();
             Welcome0514();
             Console.ReadKey();
-            hi=0;
-            //heloo
 
 
         }

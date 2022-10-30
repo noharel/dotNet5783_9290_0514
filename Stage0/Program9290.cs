@@ -10,6 +10,7 @@ namespace Stage0
             Welcome0514();
             Console.ReadKey();
             hi=0;
+            //heloo
 
 
         }

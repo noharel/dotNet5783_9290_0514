@@ -5,6 +5,6 @@ Hello git!56
 talel how are you doing?
 
 try
-not done
+is not done
 teetuyv
 yes it is going to work

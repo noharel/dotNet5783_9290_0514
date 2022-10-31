@@ -9,8 +9,7 @@ namespace Stage0
             Welcome9290();
             Welcome0514();
             Console.ReadKey();
-            Console.WriteLine("worked for Talel");
-
+            Console.WriteLine("talel");
         }
         static partial void Welcome0514();
         private static void Welcome9290()

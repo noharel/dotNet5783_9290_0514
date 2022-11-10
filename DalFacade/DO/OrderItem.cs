@@ -4,7 +4,7 @@
 using System.Xml.Linq;
 
 namespace DO;
-public struct Ordetitem
+public struct OrderItem
 {
     // Unique Id of the OrderItem
     public int ID { get; set; }

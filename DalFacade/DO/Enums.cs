@@ -2,4 +2,4 @@
 
 namespace DO;
 
-public enum Category { Ring, Bracelet, Necklace, Anklet, Earinngs, Watch}
+public enum Category { BMW,Bentley,Porshe,Cadillac,LandRover,RollsRoyce,Mercedes,Audi,Lexsus,Ferrari,Lamborghini,Jaguar}

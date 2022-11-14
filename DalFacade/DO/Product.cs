@@ -13,9 +13,9 @@ public struct Product
     //Category of the product
     public Category Category { get; set; }
     //if the product is in stock
-    public int InStock { get; set; }
+    public int InStock { get; set ; }
     //If the order item was deleted 
-    public bool IsDeleted { get; set; }
+    public bool IsDeleted { get; set ; }
     public override string ToString() => $@"
         Product ID= {ID}: {Name}, 
         category - {Category}

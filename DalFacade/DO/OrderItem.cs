@@ -20,7 +20,7 @@ public struct OrderItem
     public bool IsDeleted { get; set; }
     public override string ToString() => $@"
         Order Item ID= {ID}
-        Product ID= {OrderID} 
+        Product ID= {PrudoctID} 
         Order ID= {OrderID}
         Price: {Price}
         Amount: {Amount}";

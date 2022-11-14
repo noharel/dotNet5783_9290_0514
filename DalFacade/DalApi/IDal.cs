@@ -10,7 +10,7 @@ public interface IDal
 {
     IOrder Order { get; }
     IProduct Product { get; }
-    IOrderItem orderItem { get; }
+    IOrderItem OrderItem { get; }
 
 
 }

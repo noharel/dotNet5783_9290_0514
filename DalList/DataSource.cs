@@ -14,9 +14,9 @@ internal class DataSource
     private DataSource() { s_initialize(); }
 
     //lists
-    internal List<Order?> _orders { get; } = new List<Order?> { };
+    internal List<Order> _orders { get; } = new List<Order> { };
     internal List<OrderItem> _orderItems { get; } = new List<OrderItem> { };
-    internal List<Product?> _products { get; } = new List<Product?> { };
+    internal List<Product> _products { get; } = new List<Product> { };
     private const int product_total = 20;
     private const int order_total = 10;
 
@@ -106,7 +106,7 @@ internal class DataSource
                     OrderID = s_rand.Next(config.s_startOrderNumber, config.s_startOrderNumber + _orders.Count),
                     PrudoctID = product?.ID ?? 0,
                     Price = product?.Price ?? 0,
-                    Amount = s_rand.Next(5),
+                    Amount = s_rand.Next(1,5),
                     ID = config.NextOrderNumber,
                     IsDeleted=false,
 

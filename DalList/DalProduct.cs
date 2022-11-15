@@ -7,22 +7,21 @@ namespace Dal;
 public class DalProduct: IProduct
 {
     DataSource _ds = DataSource.s_instance;
-    public int Add(Product product)
+    public int Add(Product product)  //add new product
     {
         if (_ds._products == null)
             throw new NotImplementedException();
-        //product.ID = DataSource.configP.NextOrderNumber;
         _ds._products.Add(product);
         return product.ID;
     }
-    public void Delete(int id)
+    public void Delete(int id) //delete
     {
-        if (_ds?._products.RemoveAll(product => product.ID == id) == 0)
+        if (_ds?._products.RemoveAll(product => product.ID == id) == 0)  //delete
         {
             throw new Exception("Can't delete that does not exist");
         }
-        Product p= GetById(id);  
-        p.IsDeleted = true;
+        Product p= GetById(id);   
+        p.IsDeleted = true; //update IsDeleted
     }
     public IEnumerable<Product> GetAll(Func<Product, bool>? filter) =>
         (filter == null ?
@@ -30,26 +29,26 @@ public class DalProduct: IProduct
         _ds?._products.Where(filter))
         ?? throw new Exception("Missing product");
 
-    public Product GetById(int id)
+    public Product GetById(int id)  //get by id
     {
         if (_ds._products == null)
             throw new Exception("Missing order id");
         foreach (Product p in _ds._products)
         {
             if (p.ID == id)
-                return p;
+                return p; //return product
         }
         return new Product();
 
     }
-    public void Update(Product product)
+    public void Update(Product product)  //update
     {
         if (_ds._products == null) throw new NotImplementedException();
 
-        _ds._products.Remove(GetById(product.ID));
-        _ds._products.Add(product);
+        _ds._products.Remove(GetById(product.ID)); //remove the old one
+        _ds._products.Add(product);  //add new one
     }
-    public IEnumerable<Product> GetAll()
+    public IEnumerable<Product> GetAll() //get all products
     {
         return (from Product _products in _ds._products select _products).ToList();
     }

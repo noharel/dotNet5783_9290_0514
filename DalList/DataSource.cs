@@ -7,10 +7,13 @@ namespace Dal;
 
 internal class DataSource 
 {
+    // randome
     private static readonly Random s_rand = new Random();
-    //static Random s_rand = new Random(DateTime.Now.Millisecond);
+
+    //called by the progarm
     internal static DataSource s_instance { get; } = new DataSource();
 
+    //initialize
     private DataSource() { s_initialize(); }
 
     //lists
@@ -28,16 +31,14 @@ internal class DataSource
         "Ariana Grande","Riahana"};
     String[] cars = {"X8","E20","LS","Q8","CLS","A9","E-tron","Class","Bentayaga","NT","Series 3","F-Type","XC40",
         "MODEL 2","INFINITI","XJ","Phantom"};
-    private void createOrders()
+    private void createOrders()  //create orders list
     {
-
-        for (int i = order_total; i > 0; i--)
+        for (int i = order_total; i > 0; i--)  //initialize orders
         {
             int customer = s_rand.Next(customers.Length);
             bool shipped = s_rand.NextDouble() < 0.7D;
             bool delivered = s_rand.NextDouble() < 0.3D;
             DateTime order_date = DateTime.Now - new TimeSpan(s_rand.NextInt64(10L * 1000L * 1000L * 3600L * 24L * 100L));
-            // DateTime ship_date?? 0;
             DateTime ship_date = (DateTime.MinValue);
             if (i<order_total*0.8)
             {
@@ -48,7 +49,7 @@ internal class DataSource
             {
                delivery_date = ship_date - new TimeSpan(s_rand.NextInt64(10L * 1000L * 1000L * 3600L * 24L * 7L));
             }
-            Order order = new()
+            Order order = new()  //create new order
             {
                 ID = config.NextOrderNumber,
                 CustomerName = customers[customer],
@@ -60,14 +61,14 @@ internal class DataSource
                 IsDeleted = false,
 
             };
-            _orders.Add(order);
+            _orders.Add(order); //add the order
         }
     }
 
-    private void createProducts()
+    private void createProducts()  //create products list
     {
 
-        for (int i = 0; i < product_total; i++)
+        for (int i = 0; i < product_total; i++)  //initlialize
         {
             int car = s_rand.Next(cars.Length);
             int category = s_rand.Next(Enum.GetNames(typeof(Category)).Length);
@@ -77,31 +78,28 @@ internal class DataSource
                 in_stock = s_rand.Next(1, 30);
 
             }
-                _products.Add(
-                new Product
-                {
-                    ID = configP.NextOrderNumber,
-                    Name = cars[car],
-                    Price = s_rand.Next(500000, 3000000),
-                    Category = (Category)category,
-                    InStock= in_stock,
-                    IsDeleted= false,   
+            _products.Add(
+            new Product  //create new product
+            {
+                ID = configP.NextOrderNumber,
+                Name = cars[car],
+                Price = s_rand.Next(500000, 3000000),
+                Category = (Category)category,
+                InStock = in_stock,
+                IsDeleted = false,
 
-                }
-                ); ;
-          
+            }
+            );
         }
-
-        Product add_Product = new Product() { ID = s_rand.Next(100000, 1000000), };
     }
     
-    private void createOrderItems()
+    private void createOrderItems()  //craete order items list
     {
-        for (int i = 0; i < 40; i++)
+        for (int i = 0; i < 40; i++)  //initialize
         {
             Product? product = _products[s_rand.Next(_products.Count)];
             _orderItems.Add(
-                new OrderItem
+                new OrderItem  //new order item
                 {
                     OrderID = s_rand.Next(config.s_startOrderNumber, config.s_startOrderNumber + _orders.Count),
                     PrudoctID = product?.ID ?? 0,
@@ -115,14 +113,14 @@ internal class DataSource
     }
 
 
-    void s_initialize()
+    void s_initialize() //called by the program
     {
         createProducts();
         createOrders();
         createOrderItems();
     }
 
-    internal static class config
+    internal static class config //for the order and order item id
     {
         internal const int s_startOrderNumber = 1000;
         private static int s_nextOrderNumber = s_startOrderNumber;
@@ -130,7 +128,7 @@ internal class DataSource
 
         
     }
-    internal static class configP
+    internal static class configP  //for the product ID
     {
         internal const int s_startOrderNumber = 100000;
         private static int s_nextOrderNumber = s_startOrderNumber;

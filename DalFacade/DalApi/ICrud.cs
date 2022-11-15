@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DalApi;
 
-public interface ICrud<T> where T : struct //נסביר בהמשך את כל הכותרת 
+public interface ICrud<T> where T : struct //abstarct interface
 {
     int Add(T item);
     T GetById(int id);

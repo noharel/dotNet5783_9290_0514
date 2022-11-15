@@ -10,18 +10,17 @@ public class DalOrder : IOrder
     {
         if (_ds._orders == null)
             throw new NotImplementedException();
-        //order.ID = DataSource.config.NextOrderNumber;
         _ds._orders.Add(order); 
         return order.ID;
     }
-    public void Delete(int id)
+    public void Delete(int id) //delete order
     {
-        if (_ds?._orders.RemoveAll(order => order.ID == id) == 0)
+        if (_ds?._orders.RemoveAll(order => order.ID == id) == 0) //delete order
         {
             throw new Exception("Can't delete that does not exist");
         }
-        Order O = GetById(id);
-        O.IsDeleted = true;
+        Order O = GetById(id); 
+        O.IsDeleted = true; //update the IsDeleted
     }
     public IEnumerable<Order> GetAll(Func<Order, bool>? filter) =>
         (filter == null ?
@@ -29,7 +28,7 @@ public class DalOrder : IOrder
         _ds?._orders.Where(filter))
         ?? throw new Exception("Missing order");
 
-    public Order GetById(int id)
+    public Order GetById(int id)  //get order by id
     {
         if (_ds._orders == null)
             throw new Exception("Missing order id");
@@ -41,16 +40,16 @@ public class DalOrder : IOrder
         return new Order();
 
     }
-    public void Update(Order order)
+    public void Update(Order order) //update the orderd
     {
         if (_ds._orders == null) throw new NotImplementedException();
 
-        _ds._orders.Remove(GetById(order.ID));
-        _ds._orders.Add(order);
+        _ds._orders.Remove(GetById(order.ID)); //remove the old order
+        _ds._orders.Add(order);  //add the new order
 
     }
 
-    public IEnumerable<Order> GetAll()
+    public IEnumerable<Order> GetAll()  //get all orders
     {
         return (from Order _orders in _ds._orders select _orders).ToList();
     }

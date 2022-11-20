@@ -16,10 +16,11 @@ public struct Product
     public int InStock { get; set ; }
     //If the order item was deleted 
     public bool IsDeleted { get; set ; }
-    public override string ToString() => $@"
-        Product ID= {ID}: {Name}, 
-        category - {Category}
-        Price: {Price}
-        Amount in Stock: {InStock}";
+
+    public override string ToString()
+    {
+        return ToolStringClass.ToStringProperty(this);
+    }
+   
 }
 

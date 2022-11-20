@@ -18,11 +18,9 @@ public struct OrderItem
     public int Amount { get; set; }
     //If the order item was deleted 
     public bool IsDeleted { get; set; }
-    public override string ToString() => $@"
-        Order Item ID= {ID}
-        Product ID= {PrudoctID} 
-        Order ID= {OrderID}
-        Price: {Price}
-        Amount: {Amount}";
+    public override string ToString()
+    {
+        return ToolStringClass.ToStringProperty(this);
+    }
 }
 

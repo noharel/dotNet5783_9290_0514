@@ -3,7 +3,7 @@
 namespace DalApi;
 public interface IOrderItem : ICrud<OrderItem>   //abstract interface
 {
-    List<OrderItem> GetListOrder(int id);
+    IEnumerable<OrderItem> GetListOrder(int id);
     public OrderItem GetProduct(int orderID, int itemID);
 
 }

@@ -5,13 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using BlApi;
 using DalApi;
-using DO;
+
 
 namespace BlImplementation;
 
 internal class Cart :BlApi.ICart
 {
-    IDal Dal = DalList();
+
+    DalApi.IDal Dal = DalApi.Factory.Get();
     public BO.Cart AddProductToCart(BO.Cart cart, int id)
     {
         bool flag=false;

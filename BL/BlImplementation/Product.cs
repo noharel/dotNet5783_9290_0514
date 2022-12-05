@@ -9,7 +9,7 @@ namespace BlImplementation;
 
 internal class Product: BlApi.IProduct
 {
-    DalApi.IDal Dal= new DalList();
+    DalApi.IDal Dal= DalApi.Factory.Get();
     public IEnumerable<BO.ProductForList> GetListProduct()//בקשת רשימת מוצרים
     {
         IEnumerable<BO.ProductForList> productForLists = new List<BO.ProductForList>();

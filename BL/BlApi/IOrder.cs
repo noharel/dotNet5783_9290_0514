@@ -10,10 +10,10 @@ namespace BlApi;
 public interface IOrder
 {
     public IEnumerable<OrderForList> GetOrders();
-    public Order OrderInfo(int orderId);
-    public Order UpdateDelivery(int orderId);
-    public Order UpdateStock(int orderId);
-    public OrderTracking TrackingOrder(int orderId);
+    public BO.Order OrderInfo(int orderId);
+    public BO.Order UpdateShip(int orderId);
+    public BO.Order UpdateDelivery(int orderId);
+    public BO.OrderTracking TrackingOrder(int orderId);
 
-    public Order UpdateByManager(int orderItemId, int amount);
+    public void UpdateByManager(int orderID,int orderItemId, int amount);//bonus
 }

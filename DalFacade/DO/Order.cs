@@ -12,11 +12,11 @@ public struct Order
     //The customer adress of the customer who placed the order
     public string CustomerAddress { get; set; }
     //The date the order that was placed
-    public DateTime OrderDate { get; set; }
+    public DateTime? OrderDate { get; set; }
     //The date the order that was shipped
-    public DateTime ShipDate { get; set; }
+    public DateTime? ShipDate { get; set; }
     //The date the order that was delivered
-    public DateTime DeliveryrDate { get; set; }
+    public DateTime? DeliveryrDate { get; set; }
     //If the order item was deleted 
     public bool IsDeleted { get; set; }
     public override string ToString()

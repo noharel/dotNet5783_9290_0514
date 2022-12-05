@@ -1,7 +1,4 @@
-﻿
-
-namespace DO;
-
+﻿namespace DO;
 public struct Product
 {
     // Unique Id of the OrderItem
@@ -16,11 +13,8 @@ public struct Product
     public int InStock { get; set ; }
     //If the order item was deleted 
     public bool IsDeleted { get; set ; }
-
     public override string ToString()
     {
         return ToolStringClass.ToStringProperty(this);
     }
-   
 }
-

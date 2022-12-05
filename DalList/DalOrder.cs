@@ -37,7 +37,7 @@ public class DalOrder : IOrder
             if (o.ID == id)
                 return o;
         }
-        return new Order();
+        return new Order() { ID=-1};
 
     }
     public void Update(Order order) //update the orderd

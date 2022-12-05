@@ -54,9 +54,9 @@ public class DalOrderItem:IOrderItem
         return (from OrderItem _orderItems in _ds._orderItems select _orderItems).ToList();
     }
 
-    public List<OrderItem> GetListOrder(int id) //get all the items in the same order
+    public IEnumerable<OrderItem> GetListOrder(int id) //get all the items in the same order
     {
-        List<OrderItem> list = new List<OrderItem>();
+        IEnumerable<OrderItem> list = new List<OrderItem>();
         foreach (var orderItem in _ds._orderItems)
         {
             if(orderItem.OrderID==id)

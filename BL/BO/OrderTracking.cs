@@ -10,6 +10,8 @@ public class OrderTracking
 {
     public int ID { get; set; }
     public OrderStatus Status { get; set; }
+    public IEnumerable<(DateTime?, string)> tuplesList;
+    
 
     public override string ToString()
     { return ToolStringClass.ToStringProperty(this); }

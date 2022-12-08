@@ -13,15 +13,26 @@ public class Order
     public string CustomerEmail { get; set; }
     public string CustomerAddress { get; set; }
     public DateTime? OrderDate { get; set; }
-    public OrderStatus Status { get; set; }
-    //public DateTime? PaymentDate { get; set; }
+  
     public DateTime? ShipDate { get; set; }
     public DateTime? DeliveryrDate { get; set; }
-    public IEnumerable<BO.OrderItem>? Items { get; set; }
+    public OrderStatus Status { get; set; }
+    public IEnumerable<BO.OrderItem> Items { get; set; }
     public double TotalPrice { get; set; }
 
     public override string ToString()
-    { return ToolStringClass.ToStringProperty(this); }
+    {
+        int i = 1;
+        string s = "ID:" + ID + "\nCustomerName:" + CustomerName + "\nCustomerEmail:" + CustomerEmail + "\nCustomerAddress:" + CustomerAddress + "\nOrderDate:" + OrderDate+ "\nShipDate:" + ShipDate+ "\nDeliveryrDate:" + DeliveryrDate + "\nStatus:" + Status + "\nItems:" + "\n";
+        foreach(BO.OrderItem var in Items)
+        {
+            s += i + ":";
+            s += var.ToString() + "\n";
+            i++;
+        }
+        return s;
+    }
+    
 
 
 }

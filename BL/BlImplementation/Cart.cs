@@ -9,17 +9,20 @@ using DalApi;
 
 namespace BlImplementation;
 
-internal class Cart :BlApi.ICart
+internal class Cart : BlApi.ICart
 {
 
+    
     DalApi.IDal Dal = DalApi.Factory.Get();
+
+
     public BO.Cart AddProductToCart(BO.Cart cart, int id)
     {
         bool flag=false;
         BO.OrderItem orderItem=new BO.OrderItem();
-        foreach(BO.OrderItem var in cart.Items )
+        foreach(BO.OrderItem? var in cart.Items )
         {
-            if (var.ID == id)
+            if (var.ProductID == id)
             {
                 flag = true;  //FOUND THE PRODUCT IN THE CART
                 orderItem = var;
@@ -30,8 +33,9 @@ internal class Cart :BlApi.ICart
             if (Dal.Product.GetById(id).InStock > 0)
             {
                 orderItem.Amount++;
-                orderItem.Price += Dal.Product.GetById(id).Price;
-                cart.TotalPrice += Dal.Product.GetById(id).Price;
+                orderItem.Price = Dal.Product.GetById(id).Price;
+                orderItem.TotalPrice =orderItem.Price*orderItem.Amount;
+                cart.TotalPrice += Dal.Product.GetById(id).Price ;
 
             }
             else
@@ -48,7 +52,7 @@ internal class Cart :BlApi.ICart
                 {
                     Random rand = new Random();
                     BO.OrderItem newOrderItem=new BO.OrderItem() { ID =  rand.Next(1000,9999), Name = product.Name, ProductID = product.ID, Price = product.Price, Amount = 1, TotalPrice = product.Price };
-                    cart.Items.Append(newOrderItem);
+                    cart.Items.Add(newOrderItem);
                     cart.TotalPrice+=product.Price;
                 }
                 else
@@ -68,14 +72,17 @@ internal class Cart :BlApi.ICart
 
     public BO.Cart UpdateAmountInCart(BO.Cart cart, int id, int amount)
     {
-        IEnumerable<BO.OrderItem> ourItem = from var in cart.Items 
-                               where var.ID == id 
-                               select var;
+        List<BO.OrderItem> ourItem = new List<BO.OrderItem>(from var in cart.Items
+                                                            where var.ProductID == id
+                                                            select var);
         BO.OrderItem ourOrderItem = ourItem.FirstOrDefault();
         int amountItem = ourOrderItem.Amount;
         if (amountItem < amount)
         {
-            AddProductToCart(cart, amountItem);
+            for (int i = amountItem; i < amount; i++) 
+            { 
+            AddProductToCart(cart, id);
+            }
         }
         if(amountItem > amount)
         {
@@ -86,9 +93,9 @@ internal class Cart :BlApi.ICart
         }
         if(amountItem == 0)
         {
-            cart.Items= from var in cart.Items
+            cart.Items= new List<BO.OrderItem>(from var in cart.Items
                         where var.ID != id
-                        select var;
+                        select var);
             cart.TotalPrice -= ourOrderItem.TotalPrice;
         }
         return cart;
@@ -116,9 +123,10 @@ internal class Cart :BlApi.ICart
         if (flag)
         {
             Random rand = new Random();
-            DO.Order newOrder = new DO.Order() { ID = rand.Next(1000, 9999), CustomerAddress = cart.CustomerAddress, CustomerEmail = cart.CustomerEmail, CustomerName = cart.CustomerName, OrderDate = DateTime.Now, IsDeleted = false };
             try
             {
+             //figure out how to make sure the random id is not the same as configp
+                DO.Order newOrder = new DO.Order() { ID = rand.Next(1000, 9999), CustomerAddress = cart.CustomerAddress, CustomerEmail = cart.CustomerEmail, CustomerName = cart.CustomerName, OrderDate = DateTime.Now, IsDeleted = false };
                 int newOrderID = Dal.Order.Add(newOrder);
                 foreach (BO.OrderItem var in cart.Items)
                 {

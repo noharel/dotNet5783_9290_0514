@@ -14,5 +14,13 @@ public class OrderTracking
     
 
     public override string ToString()
-    { return ToolStringClass.ToStringProperty(this); }
+    { 
+        string s;
+        s = "ID: " + ID + "\nStatus:" + Status + "\n";
+        foreach(var tuple in tuplesList)
+        {
+            s+=tuple.ToString()+"\n";
+        }
+        return s;
+    }
 }

@@ -10,7 +10,7 @@ public class DalOrderItem:IOrderItem
     public int Add(OrderItem orderItem)
     {
         if (_ds._orderItems == null)
-            throw new NotImplementedException();
+            throw new DoesntExistExeption("Products list does not exist");
         _ds._orderItems.Add(orderItem);
         return orderItem.ID;
     }
@@ -18,7 +18,7 @@ public class DalOrderItem:IOrderItem
     {
         if (_ds?._orderItems.RemoveAll(orderItem => orderItem.ID == id) == 0) //delete
         {
-            throw new Exception("Can't delete that does not exist");
+            throw new DoesntExistExeption("Can't delete that does not exist");
         }
         OrderItem oI = GetById(id);
         oI.IsDeleted = true;  //update IsDelteted
@@ -28,12 +28,12 @@ public class DalOrderItem:IOrderItem
         (filter == null ?
         _ds?._orderItems.Select(item => item) :
         _ds?._orderItems.Where((filter)))
-        ?? throw new Exception("Missing orderItem");
+        ?? throw new DoesntExistExeption("Missing orderItem");
 
     public OrderItem GetById(int id)  //get by id
     {
         if (_ds._orders == null)
-            throw new Exception("Missing order item id");
+            throw new DoesntExistExeption("Missing order item id");
         foreach (OrderItem oI in _ds._orderItems)
         {
             if (oI.ID == id)
@@ -43,7 +43,7 @@ public class DalOrderItem:IOrderItem
     }
     public void Update(OrderItem orderItem) //update
     {
-        if (_ds._orderItems == null) throw new NotImplementedException();
+        if (_ds._orderItems == null) throw new DoesntExistExeption("Products list does not exist");
 
         _ds._orderItems.Remove(GetById(orderItem.ID)); //remove the old one
         _ds._orderItems.Add(orderItem); //add the new one
@@ -56,12 +56,15 @@ public class DalOrderItem:IOrderItem
 
     public IEnumerable<OrderItem> GetListOrder(int id) //get all the items in the same order
     {
-        IEnumerable<OrderItem> list = new List<OrderItem>();
+        
+        List<OrderItem> list = new List<OrderItem>();
         foreach (var orderItem in _ds._orderItems)
         {
-            if(orderItem.OrderID==id)
+            if (orderItem.OrderID == id)
             {
+
                 list.Add(orderItem); //add the product 
+
             }
         }
         return list; //return all the products

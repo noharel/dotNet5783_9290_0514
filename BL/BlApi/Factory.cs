@@ -9,6 +9,6 @@ public class Factory
 {
     public static IBl Get()
     {
-        return new BlImplementation.BI();
+        return new BlImplementation.Bl();
     }
 }

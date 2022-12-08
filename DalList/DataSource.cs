@@ -1,6 +1,9 @@
 ﻿using DO;
 using System;
 using System.Diagnostics;
+using System.Globalization;
+using System.Runtime.InteropServices;
+using System.Threading.Channels;
 using static Dal.DataSource;
 
 namespace Dal;
@@ -33,36 +36,72 @@ internal class DataSource
         "MODEL 2","INFINITI","XJ","Phantom"};
     private void createOrders()  //create orders list
     {
+        //  
         for (int i = order_total; i > 0; i--)  //initialize orders
         {
             int customer = s_rand.Next(customers.Length);
             bool shipped = s_rand.NextDouble() < 0.7D;
             bool delivered = s_rand.NextDouble() < 0.3D;
             DateTime order_date = DateTime.Now - new TimeSpan(s_rand.NextInt64(10L * 1000L * 1000L * 3600L * 24L * 100L));
-            DateTime ship_date = (DateTime.MinValue);
-            if (i<order_total*0.8)
-            {
-                ship_date = (order_date - new TimeSpan(s_rand.NextInt64(10L * 1000L * 1000L * 3600L * 24L * 7L)));
-            }
+            //DateTime ship_date = (DateTime.MinValue);
+            
             DateTime delivery_date = (DateTime.MinValue);
-            if (i < order_total * 0.6)
+          
+            if (i < order_total * 0.8)
             {
-               delivery_date = ship_date - new TimeSpan(s_rand.NextInt64(10L * 1000L * 1000L * 3600L * 24L * 7L));
-            }
-            Order order = new()  //create new order
-            {
-                ID = config.NextOrderNumber,
-                CustomerName = customers[customer],
-                CustomerAddress = cities[s_rand.Next(cities.Length)],
-                CustomerEmail = customers[customer] + "@jctmail.com",
-                OrderDate = order_date,
-                ShipDate=ship_date,
-                DeliveryrDate=delivery_date,    
-                IsDeleted = false,
+                if (i < order_total * 0.6)
+                {
+                    DateTime ship_date = (order_date + new TimeSpan(s_rand.NextInt64(10L * 1000L * 1000L * 3600L * 24L * 7L)));
+                    delivery_date = ship_date + new TimeSpan(s_rand.NextInt64(10L * 1000L * 1000L * 3600L * 24L * 3L));
 
-            };
-            _orders.Add(order); //add the order
+                    Order order = new()  //create new order
+                    {
+                        ID = config.NextOrderNumber,
+                        CustomerName = customers[customer],
+                        CustomerAddress = cities[s_rand.Next(cities.Length)],
+                        CustomerEmail = customers[customer] + "@jctmail.com",
+                        OrderDate = order_date,
+                        IsDeleted = false,
+                        DeliveryrDate = delivery_date,
+                        ShipDate = ship_date
+                    };
+                    _orders.Add(order); //add the order
+                }
+                else
+                {
+                    DateTime ship_date = (order_date + new TimeSpan(s_rand.NextInt64(10L * 1000L * 1000L * 3600L * 24L * 7L)));
+
+                    Order order = new()  //create new order
+                    {
+                        ID = config.NextOrderNumber,
+                        CustomerName = customers[customer],
+                        CustomerAddress = cities[s_rand.Next(cities.Length)],
+                        CustomerEmail = customers[customer] + "@jctmail.com",
+                        OrderDate = order_date,
+                        IsDeleted = false,
+                        ShipDate = ship_date,
+                    };
+                    _orders.Add(order); //add the order
+                }
+
+            }
+            else
+            {
+                    Order order = new()  //create new order
+                    {
+                        ID = config.NextOrderNumber,
+                        CustomerName = customers[customer],
+                        CustomerAddress = cities[s_rand.Next(cities.Length)],
+                        CustomerEmail = customers[customer] + "@jctmail.com",
+                        OrderDate = order_date,
+                        IsDeleted = false,
+
+                    };
+                _orders.Add(order); //add the order
+
+            }
         }
+
     }
 
     private void createProducts()  //create products list
@@ -101,7 +140,7 @@ internal class DataSource
             _orderItems.Add(
                 new OrderItem  //new order item
                 {
-                    OrderID = s_rand.Next(config.s_startOrderNumber, config.s_startOrderNumber + _orders.Count),
+                    OrderID = s_rand.Next(config.s_startOrderNumber-1, config.s_startOrderNumber + _orders.Count +1),
                     PrudoctID = product?.ID ?? 0,
                     Price = product?.Price ?? 0,
                     Amount = s_rand.Next(1,5),

@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace BlImplementation;
 
-sealed public class BI:IBl
+sealed public class Bl:IBl
 {
-    public ICart Cart=> new Cart();
-    public IOrder Order => new Order();
-
-    public IProduct Product => new Product();
+    public ICart? Cart=> new Cart();
+    public IOrder? Order => new Order();
+    public IProduct? Product => new Product();
 }

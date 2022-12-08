@@ -17,6 +17,9 @@ public class ProductItem
     public bool InStock { get; set; }
 
     public override string ToString()
-    { return ToolStringClass.ToStringProperty(this); }
+    { 
+        Console.WriteLine(    "in to string product");
+        return ToolStringClass.ToStringProperty(this);
+    }
 
 }

@@ -38,7 +38,9 @@ public class DalProduct: IProduct
             if (p.ID == id)
                 return p; //return product
         }
-        return new Product();
+        throw new DoesntExistExeption("Missing order id");
+
+
 
     }
     public void Update(Product product)  //update

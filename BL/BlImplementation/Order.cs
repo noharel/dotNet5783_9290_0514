@@ -76,7 +76,7 @@ internal class Order : BlApi.IOrder
         }
         else
         {
-            throw new Exception("Invalid order Id");
+            throw new BO.InvalidInputExeption("Invalid order Id");
         }
     }
 
@@ -150,19 +150,19 @@ internal class Order : BlApi.IOrder
                     Dal.Order.Update(DOorder);
                     return BOorder;
                 }
-                catch (Exception e)
+                catch (DO.DoesntExistExeption e)
                 {
-                    throw e;
+                    throw new BO.DoesntExistExeption("couldn't find", e);
                 }
             }
             else
             {
-                throw new Exception("order already deliverd or not shipped yet");
+                throw new BO.ContradictoryDataExeption("order already deliverd or not shipped yet");
             }
         }
         else
         {
-            throw new Exception("order does not exsist");
+            throw new BO.DoesntExistExeption("order does not exsist");
         }
     }
     public BO.OrderTracking TrackingOrder(int orderId)
@@ -190,7 +190,7 @@ internal class Order : BlApi.IOrder
         }
         else
         {
-            throw new Exception("order does not exsist");
+            throw new BO.DoesntExistExeption("order does not exsist");
         }
     }
     public void UpdateByManager(int orderID, int orderItemId, int amount )//bonus
@@ -207,12 +207,12 @@ internal class Order : BlApi.IOrder
             }
             else
             {
-                throw new Exception("Order was already shipped, can not update it");
+                throw new BO.ContradictoryDataExeption("Order was already shipped, can not update it");
             }
         }
         else
         {
-            throw new Exception("order does not exsist");
+            throw new BO.DoesntExistExeption("order does not exsist");
         }
 
     }

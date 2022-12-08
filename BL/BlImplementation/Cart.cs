@@ -40,7 +40,7 @@ internal class Cart : BlApi.ICart
             }
             else
             {
-                throw new Exception("Not in stock");
+                throw new BO.ContradictoryDataExeption("Not in stock");
             }
         }
         else //NOT FOUND
@@ -57,13 +57,13 @@ internal class Cart : BlApi.ICart
                 }
                 else
                 {
-                    throw new Exception("product does not exsist");
+                    throw new BO.DoesntExistExeption("product does not exsist");
                 }
 
             }
-            catch (Exception e)
+            catch (DO.DoesntExistExeption e)
             {
-                throw e;
+                throw new BO.DoesntExistExeption("couldn't find " , e);
             }
         }
         return cart;
@@ -125,8 +125,18 @@ internal class Cart : BlApi.ICart
             Random rand = new Random();
             try
             {
-             //figure out how to make sure the random id is not the same as configp
-                DO.Order newOrder = new DO.Order() { ID = rand.Next(1000, 9999), CustomerAddress = cart.CustomerAddress, CustomerEmail = cart.CustomerEmail, CustomerName = cart.CustomerName, OrderDate = DateTime.Now, IsDeleted = false };
+                //figure out how to make sure the random id is not the same as configp
+                int temp;
+                List<DO.Order> listOrder;
+                do//makes sure that the id that we crate for order is not already an order id
+                {
+                    temp = rand.Next(1000, 9999);
+                    listOrder = new List<DO.Order>(from var in Dal.Order.GetAll()
+                                                   where var.ID == temp
+                                                   select var);
+
+                }while (listOrder.Count > 0);
+                DO.Order newOrder = new DO.Order() { ID = temp, CustomerAddress = cart.CustomerAddress, CustomerEmail = cart.CustomerEmail, CustomerName = cart.CustomerName, OrderDate = DateTime.Now, IsDeleted = false };
                 int newOrderID = Dal.Order.Add(newOrder);
                 foreach (BO.OrderItem var in cart.Items)
                 {
@@ -138,18 +148,18 @@ internal class Cart : BlApi.ICart
                         DO.Product updateProduct = new DO.Product() { ID = newProduct.ID, Name = newProduct.Name, Price = newProduct.Price, Category = newProduct.Category, InStock = newProduct.InStock - newOrderItem.Amount, IsDeleted = false };
                         Dal.Product.Update(updateProduct);
                     }
-                    catch(Exception e)
+                    catch (DO.DoesntExistExeption e)
                     {
-                        throw e;
+                        throw new BO.DoesntExistExeption("couldn't find", e);
                     }
                 }
             }
-            catch(Exception e)
+            catch(BO.DoesntExistExeption e)
             {
-                throw e;
+                throw new BO.DoesntExistExeption("couldn't find", e);
             }
            
         }
-        else throw new Exception("invalid information");
+        else throw new BO.InvalidInputExeption("invalid information");
     }
 }

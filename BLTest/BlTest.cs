@@ -10,7 +10,7 @@ internal class BlTest
     static void funcProduct(IBl bl)
     {
 
-        string ch;
+        string? ch;
         do
         {
             /*
@@ -33,74 +33,121 @@ internal class BlTest
         e-home");
             ch = Console.ReadLine();
             int id,inStock,price;
-            string s,name;
+            string? s;
+            string? name;
             Category c;
+            bool flag = true;
             switch (ch)
             {
                 case "1":  //List of products
                     Console.WriteLine("The prouducts are:");
                     foreach (BO.ProductForList var in bl.Product.GetListProduct())
                     {
-                        //Console.WriteLine(var.ID);
-                        //Console.WriteLine("case 1 p");
                         Console.WriteLine(var);
                     }
                     break;
 
                 case "2":  //Get product info for manager
                     Console.WriteLine("Enter product id:");
-                    s= Console.ReadLine();
-                    int.TryParse(s,out id);
-                    Console.WriteLine(bl.Product.GetProductInfo_manager(id));
+                    s = Console.ReadLine();
+
+                    if (int.TryParse(s, out id))
+                    {
+                        Console.WriteLine(bl.Product.GetProductInfo_manager(id));
+                    }
+                    else
+                    {
+                        Console.WriteLine("Not a number");
+                    }
                     break;
 
                 case "3":  //Add product
                     Console.WriteLine("Enter product Id:");
                     s = Console.ReadLine();
-                    int.TryParse(s, out id);
+                    flag = (int.TryParse(s, out id))&&flag;
                     Console.WriteLine("Enter product name:");
-                    name = Console.ReadLine();
+                    name= Console.ReadLine();
                     Console.WriteLine("Enter product category:");
                     s = Console.ReadLine();
                     Category.TryParse(s, out c);
                     Console.WriteLine("Enter amount in stock:");
                     s = Console.ReadLine();
-                    int.TryParse(s, out inStock);
+                    flag = int.TryParse(s, out inStock)&&flag;
                     Console.WriteLine("Enter price:");
                     s = Console.ReadLine();
-                    int.TryParse(s, out price);
-
-
-                    BO.Product prod = new BO.Product() { Category=c, ID=id, Name=name, InStock=inStock, Price=price};
-                    try
+                    flag = int.TryParse(s, out price)&&flag;
+                    if (flag)//valid input
                     {
-                        bl.Product.AddProdut(prod);
-                    }
-                    catch(BO.DoesntExistExeption e)
-                    {
-                        Console.WriteLine(e.Message);
-                        Console.WriteLine(e.InnerException.Message);
-                    }
 
+                        BO.Product prod = new BO.Product() { Category = c, ID = id, Name = name, InStock = inStock, Price = price };
+                        try
+                        {
+                            bl.Product.AddProdut(prod);
+                        }
+                        catch (BO.DoesntExistExeption e)
+                        {
+                            Console.WriteLine(e.Message);
+                            if (e.InnerException != null)
+                                Console.WriteLine(e.InnerException.Message);
+                        }
+                        catch (BO.InvalidInputExeption e)
+                        {
+                            Console.WriteLine(e.Message);
+                            if (e.InnerException != null)
+                                Console.WriteLine(e.InnerException.Message);
+                        }
+                        catch (BO.ContradictoryDataExeption e)
+                        {
+                            Console.WriteLine(e.Message);
+                            if (e.InnerException != null)
+                                Console.WriteLine(e.InnerException.Message);
+                        }
+
+
+                    }
+                    else//invalid input
+                    {
+                        Console.WriteLine("Not a valid input for product");
+                    }
                     break;
                 case "4"://Delete product
                     Console.WriteLine("Enter product Id to delete:");
                     s = Console.ReadLine();
-                    int.TryParse(s, out id);
-                    try
+                    if (int.TryParse(s, out id))//valid input
                     {
-                        bl.Product.DeleteProduct(id);
+                        try
+                        {
+                            bl.Product.DeleteProduct(id);
+                        }
+                        catch (BO.DoesntExistExeption e)
+                        {
+                            Console.WriteLine(e.Message);
+                            if (e.InnerException != null)
+                                Console.WriteLine(e.InnerException.Message);
+                        }
+                        catch (BO.InvalidInputExeption e)
+                        {
+                            Console.WriteLine(e.Message);
+                            if (e.InnerException != null)
+                                Console.WriteLine(e.InnerException.Message);
+                        }
+                        catch (BO.ContradictoryDataExeption e)
+                        {
+                            Console.WriteLine(e.Message);
+                            if (e.InnerException != null)
+                                Console.WriteLine(e.InnerException.Message);
+                        }
                     }
-                    catch (BO.DoesntExistExeption e)
+                    else//invalid input
                     {
-                        Console.WriteLine(e.Message);
-                        Console.WriteLine(e.InnerException.Message);
+                        Console.WriteLine("Not a number");
                     }
                     break;
                 case "5"://Update product
+                    flag = true;
                     Console.WriteLine("Enter product Id:");
                     s = Console.ReadLine();
-                    int.TryParse(s, out id);
+                    flag=int.TryParse(s, out id)&&flag;
                     Console.WriteLine("Enter product name:");
                     name = Console.ReadLine();
                     Console.WriteLine("Enter product category:");
@@ -108,22 +155,31 @@ internal class BlTest
                     Category.TryParse(s, out c);
                     Console.WriteLine("Enter amount in stock:");
                     s = Console.ReadLine();
-                    int.TryParse(s, out inStock);
+                    flag=int.TryParse(s, out inStock)&&flag;
                     Console.WriteLine("Enter price:");
                     s = Console.ReadLine();
-                    int.TryParse(s, out price);
-                    BO.Product prodforUp = new BO.Product() { Category = c, ID = id, Name = name, InStock = inStock, Price = price };
-                    bl.Product.UpdateProduct(prodforUp);
+                    flag=int.TryParse(s, out price)&&flag;
+                    if (flag) //valid input
+                    {
+                        BO.Product prodforUp = new BO.Product() { Category = c, ID = id, Name = name, InStock = inStock, Price = price };
+                        bl.Product.UpdateProduct(prodforUp);
+                    }
+                    else//invalid input
+                    {
+                        Console.WriteLine("Not a number");
+                    }
                     break;
 
                 case "e":  //to exit
                     break;
+                default: Console.WriteLine("ERROR"); break;
             }
         } while (ch != "e");
     }
     static void funcOrder(IBl bl)
     {
-        string ch;
+        string? ch;
+        bool flag;
         do
         {
             /*public IEnumerable<OrderForList> GetOrders();
@@ -146,9 +202,8 @@ internal class BlTest
         6-Update by manager
         e-home");
             ch = Console.ReadLine();
-            int id, inStock, price;
-            string s, name;
-            Category c;
+            int id;
+            string? s;
             switch (ch)
             {
                 case "1":  //List of orders
@@ -162,94 +217,184 @@ internal class BlTest
                 case "2":  //Get order info 
                     Console.WriteLine("Enter order id:");
                     s = Console.ReadLine();
-                    int.TryParse(s, out id);
-                    try
+                    if (int.TryParse(s, out id))
                     {
-                        Console.WriteLine(bl.Order.OrderInfo(id));
+                        try
+                        {
+                            Console.WriteLine(bl.Order.OrderInfo(id));
+                        }
+                        catch (BO.DoesntExistExeption e)
+                        {
+                            Console.WriteLine(e.Message);
+                            if (e.InnerException != null)
+                                Console.WriteLine(e.InnerException.Message);
+                        }
+                        catch (BO.InvalidInputExeption e)
+                        {
+                            Console.WriteLine(e.Message);
+                            if (e.InnerException != null)
+                                Console.WriteLine(e.InnerException.Message);
+                        }
+                        catch (BO.ContradictoryDataExeption e)
+                        {
+                            Console.WriteLine(e.Message);
+                            if (e.InnerException != null)
+                                Console.WriteLine(e.InnerException.Message);
+                        }
                     }
-                    catch (BO.DoesntExistExeption e)
+                    else
                     {
-                        Console.WriteLine(e.Message);
-                        Console.WriteLine(e.InnerException.Message);
+                        Console.WriteLine("Invalid id input,not a number");
                     }
                     break;
 
                 case "3":  //Update ship date
                     Console.WriteLine("Enter  Id:");
                     s = Console.ReadLine();
-                    int.TryParse(s, out id);
-                    try
+                    if (int.TryParse(s, out id))
                     {
-                        Console.WriteLine(bl.Order.UpdateShip(id));
+                        try
+                        {
+                            Console.WriteLine(bl.Order.UpdateShip(id));
+                        }
+                        catch (BO.DoesntExistExeption e)
+                        {
+                            Console.WriteLine(e.Message);
+                            if (e.InnerException != null)
+                                Console.WriteLine(e.InnerException.Message);
+                        }
+                        catch (BO.InvalidInputExeption e)
+                        {
+                            Console.WriteLine(e.Message);
+                            if (e.InnerException != null)
+                                Console.WriteLine(e.InnerException.Message);
+                        }
+                        catch (BO.ContradictoryDataExeption e)
+                        {
+                            Console.WriteLine(e.Message);
+                            if (e.InnerException != null)
+                                Console.WriteLine(e.InnerException.Message);
+                        }
                     }
-                    catch (BO.DoesntExistExeption e)
+                    else
                     {
-                        Console.WriteLine(e.Message);
-                        Console.WriteLine(e.InnerException.Message);
+                        Console.WriteLine("Invalid id input,not a number");
+
                     }
                     break;
                 case "4"://Update delivery date
                     Console.WriteLine("Enter  Id:");
                     s = Console.ReadLine();
-                    int.TryParse(s, out id);
-                    try
+                    if(int.TryParse(s, out id))//valid input id
                     {
-                        Console.WriteLine(bl.Order.UpdateDelivery(id));
+                        try
+                        {
+                            Console.WriteLine(bl.Order.UpdateDelivery(id));
+                        }
+                        catch (BO.DoesntExistExeption e)
+                        {
+                            Console.WriteLine(e.Message);
+                            Console.WriteLine(e.InnerException.Message);
+                        }
                     }
-                    catch (BO.DoesntExistExeption e)
+                    else//invalid input id
                     {
-                        Console.WriteLine(e.Message);
-                        Console.WriteLine(e.InnerException.Message);
+                        Console.WriteLine("Invalid id input,not a number");
+
                     }
                     break;
                 case "5"://Tracking order
                     Console.WriteLine("Enter order Id:");
                     s = Console.ReadLine();
-                    int.TryParse(s, out id);
-                    try
+                    if (int.TryParse(s, out id))//valid input id
                     {
-                        Console.WriteLine( bl.Order.TrackingOrder(id));
+                        try
+                        {
+                            Console.WriteLine(bl.Order.TrackingOrder(id));
+                        }
+                        catch (BO.DoesntExistExeption e)
+                        {
+                            Console.WriteLine(e.Message);
+                            if (e.InnerException != null)
+                                Console.WriteLine(e.InnerException.Message);
+                        }
+                        catch (BO.InvalidInputExeption e)
+                        {
+                            Console.WriteLine(e.Message);
+                            if (e.InnerException != null)
+                                Console.WriteLine(e.InnerException.Message);
+                        }
+                        catch (BO.ContradictoryDataExeption e)
+                        {
+                            Console.WriteLine(e.Message);
+                            if (e.InnerException != null)
+                                Console.WriteLine(e.InnerException.Message);
+                        }
                     }
-                    catch (BO.DoesntExistExeption e)
+                    else//ivalid input id
                     {
-                        Console.WriteLine(e.Message);
-                        Console.WriteLine(e.InnerException.Message);
+                        Console.WriteLine("Invalid id input,not a number");
                     }
+
                     break;
                 case "6"://Update by manager
                     int orderID, orderItemId, amount;
+                    flag = true;
                     Console.WriteLine("Enter order Id:");
                     s = Console.ReadLine();
-                    int.TryParse(s, out orderID);
+                    flag=int.TryParse(s, out orderID)&&flag;
                     Console.WriteLine("Enter order item Id:");
                     s = Console.ReadLine();
-                    int.TryParse(s, out orderItemId);
+                    flag=int.TryParse(s, out orderItemId)&&flag;
                     Console.WriteLine("Enter amount:");
                     s = Console.ReadLine();
-                    int.TryParse(s, out amount);
-                    try
+                    flag=int.TryParse(s, out amount)&&flag;
+                    if (flag)//vaid input
                     {
-                       bl.Order.UpdateByManager(orderID,orderItemId,amount);
+                        try
+                        {
+                            bl.Order.UpdateByManager(orderID, orderItemId, amount);
+                        }
+                        catch (BO.DoesntExistExeption e)
+                        {
+                            Console.WriteLine(e.Message);
+                            if (e.InnerException != null)
+                                Console.WriteLine(e.InnerException.Message);
+                        }
+                        catch (BO.InvalidInputExeption e)
+                        {
+                            Console.WriteLine(e.Message);
+                            if (e.InnerException != null)
+                                Console.WriteLine(e.InnerException.Message);
+                        }
+                        catch (BO.ContradictoryDataExeption e)
+                        {
+                            Console.WriteLine(e.Message);
+                            if (e.InnerException != null)
+                                Console.WriteLine(e.InnerException.Message);
+                        }
                     }
-                    catch (BO.DoesntExistExeption e)
+                    else//invalid input
                     {
-                        Console.WriteLine(e.Message);
-                        Console.WriteLine(e.InnerException.Message);
+                        Console.WriteLine("inalid order input");
                     }
                     break;
                 case "e":  //to exit
                     break;
+                default: Console.WriteLine("ERROR"); break;
+
             }
         } while (ch != "e");
     }
     static void funcCart(IBl bl)
     {
-        int id, price,amount;
-        string s, name, customerAddress, customerEmail;
+        int id,amount;
+        bool flag = true;
+        string? s, name, customerAddress, customerEmail;
         Console.WriteLine("Enter information for cart:");
         Console.WriteLine("Enter customer address:");
         customerAddress = Console.ReadLine();
-        Console.WriteLine("Enter customer email:");
+        Console.WriteLine("Enter customer email:"); //לבדוק אם צריך לבדוק סיומת @JCT
         customerEmail = Console.ReadLine();
         Console.WriteLine("Enter customer name:");
         name = Console.ReadLine();
@@ -278,39 +423,76 @@ internal class BlTest
                 case "1"://Add product to cart
                     Console.WriteLine("Enter  Id:");
                     s = Console.ReadLine();
-                    int.TryParse(s, out id);
-                    try
+                    if (int.TryParse(s, out id))//valid input id
                     {
-                        cart=bl.Cart.AddProductToCart(cart,id);
-                        Console.WriteLine(cart);
+                        try
+                        {
+                            cart = bl.Cart.AddProductToCart(cart, id);
+                            Console.WriteLine(cart);
 
+                        }
+                        catch (BO.DoesntExistExeption e)
+                        {
+                            Console.WriteLine(e.Message);
+                            if (e.InnerException != null)
+                                Console.WriteLine(e.InnerException.Message);
+                        }
+                        catch (BO.InvalidInputExeption e)
+                        {
+                            Console.WriteLine(e.Message);
+                            if (e.InnerException != null)
+                                Console.WriteLine(e.InnerException.Message);
+                        }
+                        catch (BO.ContradictoryDataExeption e)
+                        {
+                            Console.WriteLine(e.Message);
+                            if (e.InnerException != null)
+                                Console.WriteLine(e.InnerException.Message);
+                        }
                     }
-                    catch (BO.DoesntExistExeption e)
+                    else//indalid input id
                     {
-                        Console.WriteLine(e.Message);
-                        Console.WriteLine(e.InnerException.Message);
+                        Console.WriteLine("invalid order id, not a number");
                     }
-
                     break;
 
                 case "2"://Update amount in cart  
                     Console.WriteLine("Enter  Id:");
                     s = Console.ReadLine();
-                    int.TryParse(s, out id);
+                    flag=int.TryParse(s, out id)&&flag;
                     Console.WriteLine("Enter  amount:");
                     s = Console.ReadLine();
-                    int.TryParse(s, out amount);
-
-                    try
+                    flag=int.TryParse(s, out amount)&&flag;
+                    if (flag)//valid input
                     {
-                        cart = bl.Cart.UpdateAmountInCart(cart,id,amount);
-                        Console.WriteLine(cart);
+                        try
+                        {
+                            cart = bl.Cart.UpdateAmountInCart(cart, id, amount);
+                            Console.WriteLine(cart);
 
+                        }
+                        catch (BO.DoesntExistExeption e)
+                        {
+                            Console.WriteLine(e.Message);
+                            if (e.InnerException != null)
+                                Console.WriteLine(e.InnerException.Message);
+                        }
+                        catch (BO.InvalidInputExeption e)
+                        {
+                            Console.WriteLine(e.Message);
+                            if (e.InnerException != null)
+                                Console.WriteLine(e.InnerException.Message);
+                        }
+                        catch (BO.ContradictoryDataExeption e)
+                        {
+                            Console.WriteLine(e.Message);
+                            if (e.InnerException != null)
+                                Console.WriteLine(e.InnerException.Message);
+                        }
                     }
-                    catch (BO.DoesntExistExeption e)
+                    else//invalid input
                     {
-                        Console.WriteLine(e.Message);
-                        Console.WriteLine(e.InnerException.Message);
+                        Console.WriteLine("invalid input");
                     }
                     break;
 
@@ -320,6 +502,8 @@ internal class BlTest
                
                 case "e":  //to exit
                     break;
+                default: Console.WriteLine("ERROR"); break;
+
             }
         } while (ch != "e");
     }
@@ -327,7 +511,7 @@ internal class BlTest
     {
         IBl bl = new Bl();
         
-        string ch;
+        string? ch;
         do
         {
             Console.WriteLine($@"
@@ -352,6 +536,8 @@ internal class BlTest
                 case "e":  //to exit
                     Console.WriteLine("Have an amazing Day! Remember to always drive safe and that someone loves you :)");
                     break;
+                default: Console.WriteLine("ERROR"); break;
+
             }
         } while (ch != "e");
 

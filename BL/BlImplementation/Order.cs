@@ -14,7 +14,7 @@ internal class Order : BlApi.IOrder
     DalApi.IDal Dal = DalApi.Factory.Get();
     public IEnumerable<BO.OrderForList> GetOrders()
     {
-        IEnumerable<DO.Order> orderList;
+        IEnumerable<DO.Order?> orderList;
         List<BO.OrderForList> orderForList = new List<BO.OrderForList>();
         orderList = Dal.Order.GetAll();
         foreach (DO.Order var in orderList)
@@ -26,7 +26,7 @@ internal class Order : BlApi.IOrder
             if (var.DeliveryrDate != null)
                 stat = (BO.OrderStatus)2;
 
-            IEnumerable<DO.OrderItem> listOrderItem = Dal.OrderItem.GetListOrder(var.ID);
+            IEnumerable<DO.OrderItem?> listOrderItem = Dal.OrderItem.GetListOrder(var.ID);
             double price = 0;
             foreach (DO.OrderItem orderItem in listOrderItem)
             {
@@ -46,7 +46,7 @@ internal class Order : BlApi.IOrder
                 DO.Order newOrder = Dal.Order.GetById(orderId);
                 try
                 {
-                    IEnumerable<DO.OrderItem> listOrder = Dal.OrderItem.GetListOrder(orderId);
+                    IEnumerable<DO.OrderItem?> listOrder = Dal.OrderItem.GetListOrder(orderId);
                     List<BO.OrderItem> BOlistOrder = new List<BO.OrderItem>();
                     double totalPriceOrder = 0;
                     foreach (DO.OrderItem item in listOrder)
@@ -91,7 +91,7 @@ internal class Order : BlApi.IOrder
             if (DOorder.ShipDate == null)
             {
                 List<BO.OrderItem> BOlistOrder = new List<BO.OrderItem>();
-                IEnumerable<DO.OrderItem> listOrder = Dal.OrderItem.GetListOrder(orderId);
+                IEnumerable<DO.OrderItem?> listOrder = Dal.OrderItem.GetListOrder(orderId);
 
                 double totalPriceOrder = 0;
                 foreach (DO.OrderItem item in listOrder)
@@ -133,7 +133,7 @@ internal class Order : BlApi.IOrder
             if ((DOorder.ShipDate != null) && (DOorder.DeliveryrDate == null))
             {
                 List<BO.OrderItem> BOlistOrder = new List<BO.OrderItem>();
-                IEnumerable<DO.OrderItem> listOrder = Dal.OrderItem.GetListOrder(orderId);
+                IEnumerable<DO.OrderItem?> listOrder = Dal.OrderItem.GetListOrder(orderId);
 
                 double totalPriceOrder = 0;
                 foreach (DO.OrderItem item in listOrder)
@@ -200,9 +200,9 @@ internal class Order : BlApi.IOrder
         {
             if(DOorder.ShipDate == null)
             {
-                DO.OrderItem DOorderItem = Dal.OrderItem.GetProduct(orderID, orderItemId);
+                DO.OrderItem DOorderItem =(DO.OrderItem) Dal.OrderItem.GetProduct(orderID, orderItemId);
                 DOorderItem.Amount += amount;
-                Dal.OrderItem.Update(DOorderItem);
+                Dal.OrderItem.Update((DO.OrderItem )DOorderItem);
                 //we're not sure if instock needs to be updated
             }
             else

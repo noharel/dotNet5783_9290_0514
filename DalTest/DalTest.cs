@@ -14,7 +14,7 @@ partial class DalTest
 {
     static void product_func(DalProduct product) // operations on the product
     {
-        string ch;
+        string? ch;
         //print the options
         Console.WriteLine($@"     
         choose one of the following commands:
@@ -27,12 +27,13 @@ partial class DalTest
         if (ch == "a")  //Add new product to the list
         {
             int ID, price, iS;
-            string s, name;
+            string? s;
+            string? name;
             Category category;
             Product p = new Product();  //new product
             Console.WriteLine("enter information for a product to add: ");
             Console.WriteLine("enter ID: ");
-            s = Console.ReadLine();
+            s=Console.ReadLine();
             int.TryParse(s, out ID);
             p.ID = ID;  //new ID
             Console.WriteLine("enter name: ");
@@ -57,13 +58,13 @@ partial class DalTest
             }
             catch(NotImplementedException e)  //catch exeption
             {
-                Console.WriteLine("ERROR");
+                Console.WriteLine(e.Message);
             }
         }
 
         if (ch == "b") //GET BY ID
         {
-            string s;
+            string? s;
             int ID;
             Console.WriteLine("enter ID: ");
             s = Console.ReadLine();  //get the ID
@@ -74,14 +75,14 @@ partial class DalTest
             }
             catch (Exception e) //catch exeption
             {
-                Console.WriteLine(e);
+                Console.WriteLine(e.Message);
             }
         }
 
         if (ch == "c") //print all the products
         {
             Console.WriteLine("The products are:");
-            foreach (Product product_from_list in product.GetAll()) //goes through all the products
+            foreach (Product? product_from_list in product.GetAll()) //goes through all the products
             {
                 Console.WriteLine(product_from_list); 
             }
@@ -90,7 +91,7 @@ partial class DalTest
         if (ch == "d") // update
         {
 
-            string s, name;
+            string? s, name;
             int ID, iS, price;
             Product p = new Product();
             Category category;
@@ -185,14 +186,14 @@ partial class DalTest
             }
             catch(NotImplementedException e)  //catch exception
             {
-                Console.WriteLine("ERROR");
+                Console.WriteLine(e.Message);
             }
         }
 
         if (ch == "e") //delete product
         {
             int ID;
-            string s;
+            string? s;
             Console.WriteLine("enter id of product to delete");
             s = Console.ReadLine(); //get the ID of the product to delete
             int.TryParse(s, out ID);
@@ -200,15 +201,15 @@ partial class DalTest
             {
                 product.Delete(ID); //delete the product
             }
-            catch (Exception e)  //catch eception
+            catch (DoesntExistExeption e)  //catch eception
             {
-                Console.WriteLine(e); //print the error
+                Console.WriteLine(e.Message); //print the error
             }
         }
     }
     static void order_func(DalOrder order)  //operations on orders
     {
-        string ch;
+        string? ch;
         //print the options
         Console.WriteLine($@"
         choose one of the following commands:
@@ -221,8 +222,8 @@ partial class DalTest
         Random s_rand = new Random();
         if (ch == "a")  //Add a new order
         {
-            int ID, price, iS;
-            string s, name;
+            int ID;
+            string? s, name;
             DateTime dt;
             Order o = new Order();  //build a new order
             Console.WriteLine("enter information for an order to add: ");
@@ -256,14 +257,14 @@ partial class DalTest
             {
                 order.Add(o); //add the new order
             }
-            catch(NotImplementedException e) //catch exception
+            catch (DoesntExistExeption e)  //catch eception
             {
-                Console.WriteLine("ERROR");
+                Console.WriteLine(e.Message); //print the error
             }
         }
         if (ch == "b") //GET BY ID
         {
-            string s;
+            string? s;
             int ID;
             Console.WriteLine("enter ID: ");
             s = Console.ReadLine();  //get the ID
@@ -272,16 +273,16 @@ partial class DalTest
             {
                 Console.WriteLine(order.GetById(ID));  //print the order
             }
-            catch (Exception e) //catch exception
+            catch (DoesntExistExeption e)  //catch eception
             {
-                Console.WriteLine(e);
+                Console.WriteLine(e.Message); //print the error
             }
         }
 
         if (ch == "c") //print all orders
         {
             Console.WriteLine("The orders are:");
-            foreach (Order order_from_list in order.GetAll()) //goes through all the orders
+            foreach (Order? order_from_list in order.GetAll()) //goes through all the orders
             {
                 Console.WriteLine(order_from_list); //print it
             }
@@ -289,8 +290,8 @@ partial class DalTest
 
         if (ch == "d") //update
         {
-            string s, name;
-            int ID, iS, price;
+            string ?s, name;
+            int ID;
             Order o = new Order();
             DateTime dt;
             Console.WriteLine("enter ID: ");//prints product before update
@@ -329,9 +330,9 @@ partial class DalTest
                 {
                     o.CustomerEmail = order.GetById(ID).CustomerEmail; //no change
                 }
-                catch (Exception e) //Catch exception
+                catch (DoesntExistExeption e)  //catch eception
                 {
-                    Console.WriteLine(e);
+                    Console.WriteLine(e.Message); //print the error
                 }
             }
             else
@@ -345,9 +346,9 @@ partial class DalTest
                 {
                     o.CustomerAddress = order.GetById(ID).CustomerAddress; //no change
                 }
-                catch (Exception e) //catch exeption
+                catch (DoesntExistExeption e)  //catch eception
                 {
-                    Console.WriteLine(e);
+                    Console.WriteLine(e.Message); //print the error
                 }
             }
             else
@@ -361,9 +362,9 @@ partial class DalTest
                 {
                     o.OrderDate = order.GetById(ID).OrderDate; //no change
                 }
-                catch (Exception e) //catch exception
+                catch (DoesntExistExeption e)  //catch eception
                 {
-                    Console.WriteLine(e);
+                    Console.WriteLine(e.Message); //print the error
                 }
             }
             else
@@ -380,9 +381,9 @@ partial class DalTest
                 {
                     o.ShipDate = order.GetById(ID).ShipDate; //no change
                 }
-                catch (Exception e) //catch exception
+                catch (DoesntExistExeption e)  //catch eception
                 {
-                    Console.WriteLine(e);
+                    Console.WriteLine(e.Message); //print the error
                 }
             }
             else
@@ -398,10 +399,10 @@ partial class DalTest
                 try
                 {
                     o.DeliveryrDate = order.GetById(ID).DeliveryrDate; //no change
-                } 
-                catch (Exception e) //catch exception
+                }
+                catch (DoesntExistExeption e)  //catch eception
                 {
-                    Console.WriteLine(e);
+                    Console.WriteLine(e.Message); //print the error
                 }
             }
             else
@@ -413,24 +414,24 @@ partial class DalTest
             {
                 o.IsDeleted = order.GetById(ID).IsDeleted; //IsDeleted with no change
             }
-            catch (Exception e) //catch exception
+            catch (DoesntExistExeption e)  //catch eception
             {
-                Console.WriteLine(e);
+                Console.WriteLine(e.Message); //print the error
             }
             try
             {
                 order.Update(o); //update the order
             }
-            catch (NotImplementedException e) //catch exception
+            catch (DoesntExistExeption e)  //catch eception
             {
-                Console.WriteLine("ERROR");
+                Console.WriteLine(e.Message); //print the error
             }
         }
 
         if (ch == "e") //delete order
         {
             int ID;
-            string s;
+            string ?s;
             Console.WriteLine("enter id of order to delete");
             s = Console.ReadLine();  //get the ID
             int.TryParse(s, out ID);
@@ -438,16 +439,16 @@ partial class DalTest
             {
                 order.Delete(ID); //delete the order
             }
-            catch(Exception e) //catch exception
+            catch (DoesntExistExeption e)  //catch eception
             {
-                Console.WriteLine(e);
+                Console.WriteLine(e.Message); //print the error
             }
         }
     }
 
     static void orderItem_func(DalOrderItem orderItem)  //poerations on order item
     {
-        string ch;
+        string ?ch;
         //print the prtions
         Console.WriteLine($@"
         choose one of the following commands:
@@ -463,9 +464,8 @@ partial class DalTest
 
         if (ch == "a")  //Add
         {
-            int ID, price, iS, amount;
-            string s, name;
-            DateTime dt;
+            int ID, price,  amount;
+            string? s;
             OrderItem oi = new OrderItem();  //build a new order item
             Console.WriteLine("enter information for an order Item to add: ");
             Console.WriteLine("enter ID: ");
@@ -493,15 +493,15 @@ partial class DalTest
             {
                 orderItem.Add(oi); //add the new order item to the list
             }
-            catch(NotImplementedException e) //catc exception
+            catch (DoesntExistExeption e)  //catch eception
             {
-                Console.WriteLine("ERROR");
+                Console.WriteLine(e.Message); //print the error
             }
         }
 
         if (ch == "b") //GET BY ID
         {
-            string s;
+            string? s;
             int ID;
             Console.WriteLine("enter ID: ");
             s = Console.ReadLine(); //get ID
@@ -510,9 +510,9 @@ partial class DalTest
             {
                 Console.WriteLine(orderItem.GetById(ID)); //print the order item
             }
-            catch (Exception e) //catch exception
+            catch (DoesntExistExeption e)  //catch eception
             {
-                Console.WriteLine(e);
+                Console.WriteLine(e.Message); //print the error
             }
         }
 
@@ -520,7 +520,7 @@ partial class DalTest
         {
             Console.WriteLine("The orders items are:");
 
-            foreach (OrderItem orderitem_from_list in orderItem.GetAll()) //goes through all order items
+            foreach (OrderItem? orderitem_from_list in orderItem.GetAll()) //goes through all order items
             {
                 Console.WriteLine(orderitem_from_list); //print it
             }
@@ -528,10 +528,9 @@ partial class DalTest
 
         if (ch == "d") //update
         {
-            string s, name;
-            int ID, iS, price, amount;
+            string? s;
+            int ID, price, amount;
             OrderItem oi = new OrderItem();
-            DateTime dt;
             Console.WriteLine("enter ID: ");//prints product before update
             s = Console.ReadLine();//prints product before update
             int.TryParse(s, out ID);//prints product before update
@@ -552,9 +551,9 @@ partial class DalTest
                 {
                     oi.PrudoctID = orderItem.GetById(ID).PrudoctID; //no change
                 }
-                catch (Exception e) //catch exception
+                catch (DoesntExistExeption e)  //catch eception
                 {
-                    Console.WriteLine(e);
+                    Console.WriteLine(e.Message); //print the error
                 }
             }
             else
@@ -570,9 +569,9 @@ partial class DalTest
                 {
                     oi.OrderID = orderItem.GetById(ID).OrderID; //no change
                 }
-                catch (Exception e) //catch exception
+                catch (DoesntExistExeption e)  //catch eception
                 {
-                    Console.WriteLine(e);
+                    Console.WriteLine(e.Message); //print the error
                 }
             }
             else
@@ -588,9 +587,9 @@ partial class DalTest
                 {
                     oi.Price = orderItem.GetById(ID).Price; //no change
                 }
-                catch (Exception e) //catch exception
+                catch (DoesntExistExeption e)  //catch eception
                 {
-                    Console.WriteLine(e);
+                    Console.WriteLine(e.Message); //print the error
                 }
             }
             else
@@ -607,9 +606,9 @@ partial class DalTest
                 {
                     oi.Amount = orderItem.GetById(ID).Amount; //no change
                 }
-                catch (Exception e) //catch exception
+                catch (DoesntExistExeption e)  //catch eception
                 {
-                    Console.WriteLine(e);
+                    Console.WriteLine(e.Message); //print the error
                 }
             }
             else
@@ -621,24 +620,24 @@ partial class DalTest
             {
                 oi.IsDeleted = orderItem.GetById(ID).IsDeleted; //no change
             }
-            catch (Exception e) //catch exception
+            catch (DoesntExistExeption e)  //catch eception
             {
-                Console.WriteLine(e);
+                Console.WriteLine(e.Message); //print the error
             }
             try
             { 
                 orderItem.Update(oi);  //update 
             }
-            catch (NotImplementedException e) //catch exception
+            catch (DoesntExistExeption e)  //catch eception
             {
-                Console.WriteLine("ERROR");
+                Console.WriteLine(e.Message); //print the error
             }
         }
 
         if (ch == "e") //delete 
         {
             int ID;
-            string s;
+            string? s;
             Console.WriteLine("enter id of Order Item to delete");
             s = Console.ReadLine(); //get ID
             int.TryParse(s, out ID);
@@ -646,21 +645,21 @@ partial class DalTest
             {
                 orderItem.Delete(ID); //delete
             }
-            catch (Exception e)  //catch exception
+            catch (DoesntExistExeption e)  //catch eception
             {
-                Console.WriteLine(e);
+                Console.WriteLine(e.Message); //print the error
             }
         }
 
         if (ch == "f") //get all the order items in the same order
         {
             int ID;
-            string s;
+            string? s;
             Console.WriteLine("enter ID");
             s = Console.ReadLine(); //get order ID
             int.TryParse(s, out ID);
             Console.WriteLine("The List of the orders with this Id are:");
-            foreach (OrderItem orderitem_from_list in orderItem.GetListOrder(ID)) //goes through all the order items in the same order
+            foreach (OrderItem? orderitem_from_list in orderItem.GetListOrder(ID)) //goes through all the order items in the same order
             {
                 Console.WriteLine(orderitem_from_list);
             }
@@ -669,7 +668,7 @@ partial class DalTest
         if (ch == "g") //get product by order id and item id
         {
             int ID, prodID;
-            string s;
+            string ?s;
             Console.WriteLine("enter ID");
             s = Console.ReadLine();
             int.TryParse(s, out ID);
@@ -685,7 +684,7 @@ partial class DalTest
         DalOrder order = new DalOrder();
         DalProduct product = new DalProduct();
 
-        string ch, ch2;
+        string? ch;
         do
         {
             Console.WriteLine($@"

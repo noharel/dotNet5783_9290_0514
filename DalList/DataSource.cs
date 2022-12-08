@@ -20,9 +20,9 @@ internal class DataSource
     private DataSource() { s_initialize(); }
 
     //lists
-    internal List<Order> _orders { get; } = new List<Order> { };
-    internal List<OrderItem> _orderItems { get; } = new List<OrderItem> { };
-    internal List<Product> _products { get; } = new List<Product> { };
+    internal List<Order?> _orders { get; } = new List<Order?> { };
+    internal List<OrderItem?> _orderItems { get; } = new List<OrderItem?> { };
+    internal List<Product?> _products { get; } = new List<Product?> { };
     private const int product_total = 20;
     private const int order_total = 10;
 

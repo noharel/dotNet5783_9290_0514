@@ -9,7 +9,7 @@ namespace BlApi;
 
 public interface IProduct 
 {
-    public IEnumerable<ProductForList> GetListProduct();//בקשת רשימת מוצרים
+    public IEnumerable<ProductForList?> GetListProduct();//בקשת רשימת מוצרים
     public Product GetProductInfo_manager(int id);//בקשת פרטי מוצר עבור מסך מנהל
     public ProductItem GetProductInfo_client(int id,Cart cart);//בקשת פרטי מוצר עבור מסך לקוח
 

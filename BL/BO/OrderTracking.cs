@@ -10,16 +10,20 @@ public class OrderTracking
 {
     public int ID { get; set; }
     public OrderStatus Status { get; set; }
-    public IEnumerable<(DateTime?, string)> tuplesList;
+    public IEnumerable<(DateTime?, string?)>? tuplesList; //nullable?
     
 
     public override string ToString()
     { 
         string s;
         s = "ID: " + ID + "\nStatus:" + Status + "\n";
-        foreach(var tuple in tuplesList)
+        if(tuplesList != null)
         {
-            s+=tuple.ToString()+"\n";
+
+            foreach (var tuple in tuplesList)
+            {
+                s += tuple.ToString() + "\n";
+            }
         }
         return s;
     }

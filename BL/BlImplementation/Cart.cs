@@ -20,6 +20,9 @@ internal class Cart : BlApi.ICart
     {
         bool flag=false;
         BO.OrderItem orderItem=new BO.OrderItem();
+
+        //List<BO.OrderItem> listoder = Dal.OrderItem.GetAll(flag => )
+        //Dal.Order.GetById(flag => id=  )      למבדה
         foreach(BO.OrderItem? var in cart.Items )
         {
             if (var.ProductID == id)
@@ -103,7 +106,7 @@ internal class Cart : BlApi.ICart
 
     public void MakingAnOrder(BO.Cart cart)
     {
-        IEnumerable<DO.Product> productsLit = Dal.Product.GetAll();
+        IEnumerable<DO.Product?> productsLit = Dal.Product.GetAll();
         bool flag = true;
 
         foreach (BO.OrderItem var in cart.Items)
@@ -131,7 +134,7 @@ internal class Cart : BlApi.ICart
                 do//makes sure that the id that we crate for order is not already an order id
                 {
                     temp = rand.Next(1000, 9999);
-                    listOrder = new List<DO.Order>(from var in Dal.Order.GetAll()
+                    listOrder = new List<DO.Order>(from DO.Order var in Dal.Order.GetAll()
                                                    where var.ID == temp
                                                    select var);
 

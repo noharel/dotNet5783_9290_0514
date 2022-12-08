@@ -41,7 +41,7 @@ internal class BlTest
             {
                 case "1":  //List of products
                     Console.WriteLine("The prouducts are:");
-                    foreach (BO.ProductForList var in bl.Product.GetListProduct())
+                    foreach (BO.ProductForList? var in bl.Product.GetListProduct())
                     {
                         Console.WriteLine(var);
                     }
@@ -208,7 +208,7 @@ internal class BlTest
             {
                 case "1":  //List of orders
                     Console.WriteLine("The orders are:");
-                    foreach (BO.OrderForList var in bl.Order.GetOrders())
+                    foreach (BO.OrderForList? var in bl.Order.GetOrders())
                     {
                         Console.WriteLine(var);
                     }
@@ -294,7 +294,8 @@ internal class BlTest
                         catch (BO.DoesntExistExeption e)
                         {
                             Console.WriteLine(e.Message);
-                            Console.WriteLine(e.InnerException.Message);
+                            if (e.InnerException != null)
+                                Console.WriteLine(e.InnerException.Message);
                         }
                     }
                     else//invalid input id
@@ -402,7 +403,7 @@ internal class BlTest
 
  
 
-        string ch;
+        string? ch;
         do
         {
             /*

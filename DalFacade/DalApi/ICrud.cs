@@ -13,7 +13,8 @@ public interface ICrud<T> where T : struct //abstarct interface
     void Update(T item);
     void Delete(int id);
 
-    IEnumerable<T> GetAll(Func<T, bool>? filter = null);
-    IEnumerable<T> GetAll();
+    IEnumerable<T?> GetAll(Func<T?, bool>? filter = null);
+    T? GetById(Func<T?, bool>? filter);
+    IEnumerable<T?> GetAll();
 }
 

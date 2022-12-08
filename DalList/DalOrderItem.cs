@@ -16,7 +16,7 @@ public class DalOrderItem:IOrderItem
     }
     public void Delete(int id)  //delete
     {
-        if (_ds?._orderItems.RemoveAll(orderItem => orderItem.ID == id) == 0) //delete
+        if (_ds._orderItems.RemoveAll(orderItem => orderItem?.ID == id) == 0) //delete
         {
             throw new DoesntExistExeption("Can't delete that does not exist");
         }
@@ -24,22 +24,28 @@ public class DalOrderItem:IOrderItem
         oI.IsDeleted = true;  //update IsDelteted
 
     }
-    public IEnumerable<OrderItem> GetAll(Func<OrderItem, bool>? filter) =>
+    public IEnumerable<OrderItem?> GetAll(Func<OrderItem?, bool>? filter) =>
         (filter == null ?
         _ds?._orderItems.Select(item => item) :
         _ds?._orderItems.Where((filter)))
         ?? throw new DoesntExistExeption("Missing orderItem");
 
+    public OrderItem? GetById(Func<OrderItem?, bool>? filter) =>
+     (filter == null ?
+     _ds?._orderItems.Select(item => item).FirstOrDefault() :
+     _ds?._orderItems.Where(filter).FirstOrDefault())
+     ?? throw new DoesntExistExeption("Missing orderItem");
+
     public OrderItem GetById(int id)  //get by id
     {
-        if (_ds._orders == null)
+        if (_ds?._orders == null)
             throw new DoesntExistExeption("Missing order item id");
-        foreach (OrderItem oI in _ds._orderItems)
+        foreach (OrderItem? oI in _ds._orderItems)
         {
-            if (oI.ID == id)
-                return oI; //return the order item
+            if (oI?.ID == id)
+                return (OrderItem)oI; //return the order item
         }
-        return new OrderItem();
+        throw new DoesntExistExeption("Missing order item id");
     }
     public void Update(OrderItem orderItem) //update
     {
@@ -49,32 +55,30 @@ public class DalOrderItem:IOrderItem
         _ds._orderItems.Add(orderItem); //add the new one
 
     }
-    public IEnumerable<OrderItem> GetAll() //get all order item
+    public IEnumerable<OrderItem?> GetAll() //get all order item
     {
-        return (from OrderItem _orderItems in _ds._orderItems select _orderItems).ToList();
+        return (from OrderItem? _orderItems in _ds._orderItems select _orderItems).ToList();
     }
 
-    public IEnumerable<OrderItem> GetListOrder(int id) //get all the items in the same order
+    public IEnumerable<OrderItem?> GetListOrder(int id) //get all the items in the same order
     {
         
-        List<OrderItem> list = new List<OrderItem>();
-        foreach (var orderItem in _ds._orderItems)
+        List<OrderItem?> list = new List<OrderItem?>();
+        foreach (OrderItem? orderItem in _ds._orderItems)
         {
-            if (orderItem.OrderID == id)
+
+            if (orderItem?.OrderID == id)
             {
-
                 list.Add(orderItem); //add the product 
-
             }
         }
         return list; //return all the products
     }
-   public  OrderItem GetProduct(int orderID, int itemID) //get product by order id and item id
+   public  OrderItem? GetProduct(int orderID, int itemID) //get product by order id and item id
     {
-        OrderItem o = new OrderItem();
-        foreach (var orderItem in _ds._orderItems)
+        foreach (OrderItem? orderItem in _ds._orderItems)
         {
-            if ((orderItem.OrderID == orderID)&(orderItem.PrudoctID==itemID))
+            if ((orderItem?.OrderID == orderID)&(orderItem?.PrudoctID==itemID))
             {
                 return orderItem; //return product
             }

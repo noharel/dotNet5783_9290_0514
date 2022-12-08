@@ -15,29 +15,36 @@ public class DalOrder : IOrder
     }
     public void Delete(int id) //delete order
     {
-        if (_ds?._orders.RemoveAll(order => order.ID == id) == 0) //delete order
+        if (_ds._orders.RemoveAll(order => order?.ID == id) == 0) //delete order
         {
             throw new DoesntExistExeption("Can't delete that does not exist");
         }
         Order O = GetById(id); 
         O.IsDeleted = true; //update the IsDeleted
     }
-    public IEnumerable<Order> GetAll(Func<Order, bool>? filter) =>
+    public IEnumerable<Order?> GetAll(Func<Order?, bool>? filter) =>
         (filter == null ?
         _ds?._orders.Select(item => item) :
         _ds?._orders.Where(filter))
+        ?? throw new DoesntExistExeption("Missing order");
+
+    public Order? GetById(Func<Order?, bool>? filter)=>
+        (filter == null ?
+        _ds?._orders.Select(item => item).FirstOrDefault() :
+        _ds?._orders.Where(filter).FirstOrDefault())
         ?? throw new DoesntExistExeption("Missing order");
 
     public Order GetById(int id)  //get order by id
     {
         if (_ds._orders == null)
             throw new DoesntExistExeption("Missing order id");
-        foreach (Order o in _ds._orders)
+        foreach (Order? o in _ds._orders)
         {
-            if (o.ID == id)
-                return o;
+            if (o?.ID == id)
+                return (Order)o;
         }
-        return new Order() { ID=-1};
+
+        throw new DoesntExistExeption("Missing order id");
     }
     public void Update(Order order) //update the orderd
     {
@@ -48,9 +55,9 @@ public class DalOrder : IOrder
 
     }
 
-    public IEnumerable<Order> GetAll()  //get all orders
+    public IEnumerable<Order?> GetAll()  //get all orders
     {
-        return (from Order _orders in _ds._orders select _orders).ToList();
+        return (from Order? _orders in _ds._orders select _orders).ToList();
     }
 
 }

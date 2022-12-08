@@ -6,11 +6,11 @@ public struct Order
     // Unique Id of the order
     public int ID { get; set; }
     //The name of the customer who placed the order
-    public string CustomerName { get; set; }
+    public string? CustomerName { get; set; }
     //The email adress of the customer who placed the order
-    public string CustomerEmail { get; set; }
+    public string? CustomerEmail { get; set; }
     //The customer adress of the customer who placed the order
-    public string CustomerAddress { get; set; }
+    public string? CustomerAddress { get; set; }
     //The date the order that was placed
     public DateTime? OrderDate { get; set; }
     //The date the order that was shipped

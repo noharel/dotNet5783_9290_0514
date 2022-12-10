@@ -19,10 +19,8 @@ internal class Cart : BlApi.ICart
     public BO.Cart AddProductToCart(BO.Cart cart, int id)
     {
         bool flag=false;
+        BO.OrderItem x;
         BO.OrderItem orderItem=new BO.OrderItem();
-
-        //List<BO.OrderItem> listoder = Dal.OrderItem.GetAll(flag => )
-        //Dal.Order.GetById(flag => id=  )      למבדה
         foreach(BO.OrderItem? var in cart.Items )
         {
             if (var.ProductID == id)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using BlApi;
@@ -15,13 +16,33 @@ internal class Product: BlApi.IProduct
     public IEnumerable<BO.ProductForList> GetListProduct()//בקשת רשימת מוצרים
     {
         List <BO.ProductForList> productForLists = new List<BO.ProductForList>();
-        IEnumerable < DO.Product > productList = Dal.Product.GetAll();
+        IEnumerable < DO.Product? > productList = Dal.Product.GetAll();
         foreach (DO.Product var in productList)
         {
             BO.ProductForList productForListsTemp = new BO.ProductForList{ID = var.ID,Name=var.Name,Category= (BO.Category)var.Category,Price=var.Price};
             productForLists.Add(productForListsTemp);
         }
         return productForLists;
+    }
+    public IEnumerable<BO.ProductForList> GetListProduct(Func<ProductForList?, bool>? filter)//בקשת רשימת מוצרים
+    {
+        List<BO.ProductForList> productForLists = new List<BO.ProductForList>();
+        List <DO.Product?> productList = (List < DO.Product? >) Dal.Product.GetAll();
+        
+        foreach (DO.Product var in productList)
+        {
+            BO.ProductForList productForListsTemp = new BO.ProductForList { ID = var.ID, Name = var.Name, Category = (BO.Category)var.Category, Price = var.Price };
+            productForLists.Add(productForListsTemp);
+        }
+
+        IEnumerable<BO.ProductForList> productForListsFiltered =(from x in productForLists
+                                                                 where filter(x)
+                                                                 select x).ToList();
+         
+        return productForListsFiltered;
+        
+
+
     }
     public BO.Product GetProductInfo_manager(int id)//בקשת פרטי מוצר עבור מסך מנהל
     {
@@ -67,10 +88,10 @@ internal class Product: BlApi.IProduct
     public void DeleteProduct(int id)
     {
         bool flag = true;
-        IEnumerable<DO.Order> orderList = Dal.Order.GetAll();
+        IEnumerable<DO.Order?> orderList = Dal.Order.GetAll();
         foreach (DO.Order var in orderList)
         {
-            IEnumerable<DO.OrderItem> listOfOrder = Dal.OrderItem.GetListOrder(var.ID);
+            IEnumerable<DO.OrderItem?> listOfOrder = Dal.OrderItem.GetListOrder(var.ID);
             foreach(DO.OrderItem item in listOfOrder)
             {
                 if (item.PrudoctID == id) flag = false;

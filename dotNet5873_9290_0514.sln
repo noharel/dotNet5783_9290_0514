@@ -3,7 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B78F4E1F-5819-4B16-94CA-5C0865DE5EE0}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "bonus", "bonus", "{B78F4E1F-5819-4B16-94CA-5C0865DE5EE0}"
+	ProjectSection(SolutionItems) = preProject
+		bonus.txt = bonus.txt
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalFacade", "DalFacade\DalFacade.csproj", "{F6CD2881-8E16-4262-8687-D49C85CF2B08}"
 EndProject
@@ -21,6 +24,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{4532BB81-F17
 	ProjectSection(SolutionItems) = preProject
 		xml\dal-config.xml = xml\dal-config.xml
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PL", "PL\PL.csproj", "{32197B16-B7EE-4B20-B8E0-96E135BB288B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,6 +57,10 @@ Global
 		{BB39C8E9-FA55-451F-BDC2-E74D07B15FF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB39C8E9-FA55-451F-BDC2-E74D07B15FF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB39C8E9-FA55-451F-BDC2-E74D07B15FF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32197B16-B7EE-4B20-B8E0-96E135BB288B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32197B16-B7EE-4B20-B8E0-96E135BB288B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32197B16-B7EE-4B20-B8E0-96E135BB288B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32197B16-B7EE-4B20-B8E0-96E135BB288B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

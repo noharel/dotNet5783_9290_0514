@@ -1,6 +1,5 @@
 ﻿using BlApi;
 using BlImplementation;
-using BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,8 +28,8 @@ public partial class ProductListWindow : Window
         // d:ItemsSource="{d:SampleData ItemCount=5}"
         ProductListView.ItemsSource = bl.Product.GetListProduct();
         CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Category));
-        this.ClearChoice.MouseEnter += ClearChoice_Click_1;
-        this.AddButton.MouseEnter += AddButton_Click;
+        this.ClearChoice.MouseDoubleClick += ClearChoice_Click_1;
+        this.AddButton.MouseDoubleClick += AddButton_Click;
 
 
 
@@ -47,7 +46,7 @@ public partial class ProductListWindow : Window
 
     private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        Category? category = (Category?)CategorySelector.SelectedItem;
+        BO.Category? category = (BO.Category?)CategorySelector.SelectedItem;
         ProductListView.ItemsSource = bl.Product.GetListProduct(x => x == null ? throw new Exception() : x.Category == category);
 
     }

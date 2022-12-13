@@ -26,7 +26,7 @@ namespace PL
         public MainWindow()
         {
             InitializeComponent(); 
-            this.Products.MouseEnter += ProductsMouseEnter;
+            this.Products.MouseDoubleClick += ProductsMouseEnter;
 
         }
        

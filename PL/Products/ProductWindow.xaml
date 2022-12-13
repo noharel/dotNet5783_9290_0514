@@ -7,6 +7,20 @@
         mc:Ignorable="d"
         Title="ProductWindow" Height="450" Width="800">
     <Grid>
-        
+        <Label Name="ID" Content="ID:" HorizontalAlignment="Left" Margin="164,138,0,0" VerticalAlignment="Top"/>
+        <Label Name="Category" Content="Category:" HorizontalAlignment="Left" Margin="164,0,0,0" VerticalAlignment="Center"/>
+        <Label Name="Name" Content="Name:" HorizontalAlignment="Left" Margin="164,170,0,0" VerticalAlignment="Top"/>
+        <Label Name="InStock" Content="Amount in stock:" HorizontalAlignment="Left" Margin="164,235,0,0" VerticalAlignment="Top"/>
+        <Label Name="Price" Content="Price:" HorizontalAlignment="Left" Margin="164,266,0,0" VerticalAlignment="Top"/>
+        <Label Name="Instructions" Content="Please enter info for a new product:" HorizontalAlignment="Left" Margin="164,87,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+        <TextBox Name="inputID" HorizontalAlignment="Left" Margin="194,142,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" TextChanged="TextBoxID"/>
+        <TextBox Name="inputName" HorizontalAlignment="Left" Margin="214,174,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" TextChanged="inputNameFunc"/>
+        <TextBox Name="inputInStock" HorizontalAlignment="Left" Margin="274,239,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" TextChanged="inputInStockFunc"/>
+        <TextBox Name="inputPrice" HorizontalAlignment="Left" Margin="214,270,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" TextChanged="inputPriceFunc"/>
+        <ComboBox Name="inputCategory" HorizontalAlignment="Left" Margin="230,0,0,0" VerticalAlignment="Center" Width="120" SelectionChanged="inputCategoryFunc"/>
+        <Button Name="completeAdd" Content="Add" HorizontalAlignment="Left" Margin="164,306,0,0" VerticalAlignment="Top" Height="27" Width="267" Click="completeAdd_Click"/>
+        <Label Name="added" Content="Product added succesfully" HorizontalAlignment="Left" Margin="92,0,0,0" VerticalAlignment="Center" Height="80" Width="424" FontSize="36" Background="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Visibility="Collapsed"/>
+
+
     </Grid>
 </Window>

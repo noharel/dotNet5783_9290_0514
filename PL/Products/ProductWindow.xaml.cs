@@ -19,14 +19,15 @@ namespace PL.Products;
 /// </summary>
 public partial class ProductWindow : Window
 {
-    BlApi.IBl? bl = BlApi.Factory.Get();
+    BlApi.IBl? bl = BlApi.Factory.Get(); // get bl
     BO.Category? category;
-    string ?nameOfProd;
+    string? nameOfProd;
     int inStock = int.MinValue;
     int id = int.MinValue;
     double price= int.MinValue;
     BO.ProductForList? prod;
-    public ProductWindow(BO.ProductForList? product = null)
+
+    public ProductWindow(BO.ProductForList? product = null) // cunstructor
     {
         prod = product;
         InitializeComponent();

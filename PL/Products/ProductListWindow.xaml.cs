@@ -20,16 +20,13 @@ namespace PL.Products;
 public partial class ProductListWindow : Window
 {
     BlApi.IBl? bl = BlApi.Factory.Get();
-    public ProductListWindow()
+    public ProductListWindow() // constructor
     {
         InitializeComponent();
         ProductListView.ItemsSource = bl.Product.GetListProduct();
         CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Category));
         this.ClearChoice.MouseDoubleClick += ClearChoice_Click_1;
         this.AddButton.MouseDoubleClick += AddButton_Click;
-
-
-
     }
 
 

@@ -21,15 +21,12 @@ namespace PL
     public partial class MainWindow : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
-        public MainWindow()
+        public MainWindow() // constructor
         {
             InitializeComponent(); 
-           // this.Products.Click += ProductsMouseEnter;
 
         }
 
-
-        //private void ProductsMouseEnter(object sender, MouseEventArgs e) => new PL.Products.ProductListWindow().Show();
         private void ProductsMouseEnter(object sender, MouseEventArgs e)
         {
             var win = new PL.Products.ProductListWindow();

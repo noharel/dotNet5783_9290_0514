@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BlApi;
-using BO;
-using DO;
-
+﻿
 namespace BlImplementation;
 
 /// <summary>
@@ -142,7 +133,7 @@ internal class Order : BlApi.IOrder
                     }
                     DOorder.ShipDate = DateTime.Now; // UPDATE SHIP DATE
                     // MAKES THE UPDATED ORDER
-                    BOorder = new BO.Order() { ID = DOorder.ID, ShipDate = DOorder.ShipDate, CustomerAddress = DOorder.CustomerAddress, CustomerEmail = DOorder.CustomerEmail, CustomerName = DOorder.CustomerName, DeliveryrDate = DOorder.DeliveryrDate, Items = BOlistOrder, TotalPrice = totalPriceOrder, OrderDate = DOorder.OrderDate, Status = OrderStatus.shipped };
+                    BOorder = new BO.Order() { ID = DOorder.ID, ShipDate = DOorder.ShipDate, CustomerAddress = DOorder.CustomerAddress, CustomerEmail = DOorder.CustomerEmail, CustomerName = DOorder.CustomerName, DeliveryrDate = DOorder.DeliveryrDate, Items = BOlistOrder, TotalPrice = totalPriceOrder, OrderDate = DOorder.OrderDate, Status = BO.OrderStatus.shipped };
                     try
                     {
                         Dal.Order.Update(DOorder); // UPDATE THE ORDER
@@ -155,7 +146,7 @@ internal class Order : BlApi.IOrder
                 }
                 else // ORDER SHIPED ALREADY - CAN'T UPDATE
                 {
-                    throw new ContradictoryDataExeption("already shipped");
+                    throw new BO.ContradictoryDataExeption("already shipped");
                 }
             }
             else // ORDER ID IS NOT VALID
@@ -201,7 +192,7 @@ internal class Order : BlApi.IOrder
                     }
                     DOorder.DeliveryrDate = DateTime.Now; // UPDATES DELIVERY DATE
                     // MAKES THE UPDATED ORDER
-                    BOorder = new BO.Order() { ID = DOorder.ID, ShipDate = DOorder.ShipDate, CustomerAddress = DOorder.CustomerAddress, CustomerEmail = DOorder.CustomerEmail, CustomerName = DOorder.CustomerName, DeliveryrDate = DOorder.DeliveryrDate, Items = BOlistOrder, TotalPrice = totalPriceOrder, OrderDate = DOorder.OrderDate, Status = OrderStatus.arrived };
+                    BOorder = new BO.Order() { ID = DOorder.ID, ShipDate = DOorder.ShipDate, CustomerAddress = DOorder.CustomerAddress, CustomerEmail = DOorder.CustomerEmail, CustomerName = DOorder.CustomerName, DeliveryrDate = DOorder.DeliveryrDate, Items = BOlistOrder, TotalPrice = totalPriceOrder, OrderDate = DOorder.OrderDate, Status = BO.OrderStatus.arrived };
                     try
                     {
                         Dal.Order.Update(DOorder); // UPDATE THE ORDER

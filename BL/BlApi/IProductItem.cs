@@ -8,7 +8,7 @@ using BO;
 namespace BlApi;
 
 /// <summary>
-/// 
+/// INTERFACE FOR PRODUCT ITEM (HELP ENTITY)
 /// </summary>
 public interface IProductItem { }
 

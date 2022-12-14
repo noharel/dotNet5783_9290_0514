@@ -1,23 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace BO;
-
+/// <summary>
+/// Tracking of order 
+/// </summary>
 public class OrderTracking
 {
-    public int ID { get; set; }
-    public OrderStatus Status { get; set; }
-    public IEnumerable<(DateTime?, string?)>? tuplesList; //nullable?
-    
+    public int ID { get; set; }//ID for order we are Tracking
+    public OrderStatus Status { get; set; }//status of order we are tracking
+    public IEnumerable<(DateTime?, string?)>? tuplesList; //the info of traking
 
-    public override string ToString()
-    { 
+
+    public override string ToString()//for printing
+    {
         string s;
         s = "ID: " + ID + "\nStatus:" + Status + "\n";
-        if(tuplesList != null)
+        if (tuplesList != null)//for each item in tupleslist add it to the string
         {
 
             foreach (var tuple in tuplesList)

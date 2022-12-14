@@ -10,7 +10,8 @@ using DalApi;
 namespace BlImplementation;
 
 /// <summary>
-/// A cart class that implements the interface
+/// 
+/// A CART CLASS THAT IMPLEMENTS THE INTERFACE
 /// </summary>
 internal class Cart : BlApi.ICart
 {

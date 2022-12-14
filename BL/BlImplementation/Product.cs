@@ -12,14 +12,14 @@ using DO;
 namespace BlImplementation;
 
 /// <summary>
-/// A cart class that implements the interface
+/// A PRODUCT CLASS THAT IMPLEMENTS THE INTERFACE
 /// </summary>
 internal class Product : BlApi.IProduct
 {
     DalApi.IDal Dal = DalApi.Factory.Get(); //DalList object Type
 
     /// <summary>
-    /// Gets list of products
+    /// GET LIST OF PRODUCT
     /// </summary>
     /// <returns>list of products</returns>
     /// <exception cref="BO.DoesntExistExeption"></exception>
@@ -43,7 +43,7 @@ internal class Product : BlApi.IProduct
         }
     }
     /// <summary>
-    /// Get List of filtered Products
+    /// GET LIST PRODUCT WITH FILTER
     /// </summary>
     /// <param name="filter"></param>
     /// <returns>list of filtered products</returns>
@@ -124,7 +124,7 @@ internal class Product : BlApi.IProduct
         }
     }
     /// <summary>
-    /// Add the Product
+    /// Add the Product- FOR MANAGER
     /// </summary>
     /// <param name="product"></param>
     /// <exception cref="BO.InvalidInputExeption"></exception>
@@ -143,7 +143,7 @@ internal class Product : BlApi.IProduct
         }
     }
     /// <summary>
-    /// Deletes the Product
+    /// Deletes the Product - FOR MANAGER
     /// </summary>
     /// <param name="id"></param>
     /// <exception cref="BO.DoesntExistExeption"></exception>
@@ -191,7 +191,7 @@ internal class Product : BlApi.IProduct
         }
     }
     /// <summary>
-    /// Updates the Product
+    /// Updates the Product - FOR MANAGER
     /// </summary>
     /// <param name="product"></param>
     /// <exception cref="BO.InvalidInputExeption"></exception>

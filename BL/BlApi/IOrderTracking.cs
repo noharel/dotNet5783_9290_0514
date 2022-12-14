@@ -8,7 +8,7 @@ using BO;
 namespace BlApi;
 
 /// <summary>
-/// 
+/// INTERFACE FOR ORDER TRACKING (HELP ENTITY)
 /// </summary>
 public interface IOrderTracking { }
 

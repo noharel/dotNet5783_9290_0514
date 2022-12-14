@@ -1,8 +1,6 @@
 ﻿using DO;
 
 namespace DalApi;
-public interface IProduct : ICrud<Product>  //abstract interface
-{
+public interface IProduct : ICrud<Product> { }  // ABSTRACT INTERFACE
 
-}
 

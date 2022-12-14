@@ -4,17 +4,31 @@ using DO;
 
 namespace Dal;
 
-public class DalOrderItem:IOrderItem
+
+public class DalOrderItem: IOrderItem  // A CLASS THAT IMPLEMENTS THE INTERFACE IOrderItem
 {
-    DataSource _ds = DataSource.s_instance;
-    public int Add(OrderItem orderItem) //ADD
-    {
-        if (_ds._orderItems == null)
+    DataSource _ds = DataSource.s_instance; //initialize
+
+    /// <summary>
+    /// ADD ORDER ITEM
+    /// </summary>
+    /// <param name="orderItem"></param>
+    /// <returns></returns>
+    /// <exception cref="DoesntExistExeption"></exception>
+    public int Add(OrderItem orderItem) 
+    { 
+        if (_ds._orderItems == null) // there are no order items
             throw new DoesntExistExeption("Products list does not exist");
-        _ds._orderItems.Add(orderItem);
+        _ds._orderItems.Add(orderItem); // add
         return orderItem.ID;
     }
-    public void Delete(int id)  //delete
+
+    /// <summary>
+    /// DELETE ORDER ITEM
+    /// </summary>
+    /// <param name="id"></param>
+    /// <exception cref="DoesntExistExeption"></exception>
+    public void Delete(int id)  
     {
         if (_ds._orderItems.RemoveAll(orderItem => orderItem?.ID == id) == 0) //delete
         {
@@ -24,19 +38,38 @@ public class DalOrderItem:IOrderItem
         oI.IsDeleted = true;  //update IsDelteted
 
     }
+
+    /// <summary>
+    /// GET ALL ORDER ITEMS BY FILTER
+    /// </summary>
+    /// <param name="filter"></param>
+    /// <returns></returns>
+    /// <exception cref="DoesntExistExeption"></exception>
     public IEnumerable<OrderItem?> GetAll(Func<OrderItem?, bool>? filter) =>
         (filter == null ?
         _ds?._orderItems.Select(item => item) :
-        _ds?._orderItems.Where((filter)))
+        _ds?._orderItems.Where((filter))) // choose by the filter
         ?? throw new DoesntExistExeption("Missing orderItem");
 
+    /// <summary>
+    /// GET ORDER ITEM BY FILTER
+    /// </summary>
+    /// <param name="filter"></param>
+    /// <returns></returns>
+    /// <exception cref="DoesntExistExeption"></exception>
     public OrderItem? GetById(Func<OrderItem?, bool>? filter) =>
      (filter == null ?
      _ds?._orderItems.Select(item => item).FirstOrDefault() :
-     _ds?._orderItems.Where(filter).FirstOrDefault())
+     _ds?._orderItems.Where(filter).FirstOrDefault()) // choose cy the filter
      ?? throw new DoesntExistExeption("Missing orderItem");
 
-    public OrderItem GetById(int id)  //get by id
+    /// <summary>
+    /// GET ORDER ITEM BY ID
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    /// <exception cref="DoesntExistExeption"></exception>
+    public OrderItem GetById(int id)  
     {
         if (_ds?._orders == null)
             throw new DoesntExistExeption("Missing order item id");
@@ -47,7 +80,13 @@ public class DalOrderItem:IOrderItem
         }
         throw new DoesntExistExeption("Missing order item id");
     }
-    public void Update(OrderItem orderItem) //update
+
+    /// <summary>
+    /// UPDATE ORDER ITEM
+    /// </summary>
+    /// <param name="orderItem"></param>
+    /// <exception cref="DoesntExistExeption"></exception>
+    public void Update(OrderItem orderItem) 
     {
         if (_ds._orderItems == null) throw new DoesntExistExeption("Products list does not exist");
 
@@ -55,15 +94,25 @@ public class DalOrderItem:IOrderItem
         _ds._orderItems.Add(orderItem); //add the new one
 
     }
-    public IEnumerable<OrderItem?> GetAll() //get all order item
+
+    /// <summary>
+    /// GET ALL ORDER ITEMS
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerable<OrderItem?> GetAll() 
     {
         return (from OrderItem? _orderItems in _ds._orderItems select _orderItems).ToList();
     }
 
-    public IEnumerable<OrderItem?> GetListOrder(int id) //get all the items in the same order
+    /// <summary>
+    /// GET LIST ORDER - RETURN ALL THE ITEMS IN THE SAME ORDER
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public IEnumerable<OrderItem?> GetListOrder(int id) 
     {
         
-        List<OrderItem?> list = new List<OrderItem?>();
+        List<OrderItem?> list = new List<OrderItem?>(); // list for all the items
         foreach (OrderItem? orderItem in _ds._orderItems)
         {
 
@@ -74,16 +123,22 @@ public class DalOrderItem:IOrderItem
         }
         return list; //return all the products
     }
-   public  OrderItem? GetProduct(int orderID, int itemID) //get product by order id and item id
+
+    /// <summary>
+    /// GET ITEM FROM ORDER, BY ID
+    /// </summary>
+    /// <param name="orderID"></param>
+    /// <param name="itemID"></param>
+    /// <returns></returns>
+   public  OrderItem? GetProduct(int orderID, int itemID)
     {
         foreach (OrderItem? orderItem in _ds._orderItems)
         {
             if ((orderItem?.OrderID == orderID)&(orderItem?.PrudoctID==itemID))
             {
-                return orderItem; //return product
+                return orderItem; //return item
             }
         }
-
         return new OrderItem();
     }
 

@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Runtime.Serialization;
+ 
+// EXCEPTION FOR DO LAYER
+
 
 namespace DO
 {
+    // INCALID INPUT
     [Serializable]
     public class InvalidInputExeption : Exception, ISerializable
     {
@@ -16,6 +20,7 @@ namespace DO
      
     }
 
+    // ALREADY EXICT
     [Serializable]
     public class AlreadyExistExeption : Exception, ISerializable
     {
@@ -25,6 +30,7 @@ namespace DO
         protected AlreadyExistExeption(SerializationInfo info, StreamingContext context) : base(info, context) { }
     }
 
+    // DOEAN'T EXICT
     [Serializable]
     public class DoesntExistExeption : Exception, ISerializable
     {
@@ -34,6 +40,7 @@ namespace DO
         protected DoesntExistExeption(SerializationInfo info, StreamingContext context) : base(info, context) { }
     }
 
+    // DAL CONFIG
     [Serializable]
     public class DalConfigException : Exception
     {

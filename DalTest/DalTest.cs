@@ -15,6 +15,7 @@ partial class DalTest
     static void product_func(DalProduct product) // operations on the product
     {
         string? ch;
+
         //print the options
         Console.WriteLine($@"     
         choose one of the following commands:
@@ -24,65 +25,67 @@ partial class DalTest
         d-update
         e-delete");
         ch = Console.ReadLine(); //get the choice from the user
-        if (ch == "a")  //Add new product to the list
+
+        if (ch == "a")  // Add new product to the list
         {
             int ID, price, iS;
             string? s;
             string? name;
             Category category;
-            Product p = new Product();  //new product
+            Product p = new Product();  // new product
             Console.WriteLine("enter information for a product to add: ");
             Console.WriteLine("enter ID: ");
             s=Console.ReadLine();
             int.TryParse(s, out ID);
-            p.ID = ID;  //new ID
+            p.ID = ID;  // new ID
             Console.WriteLine("enter name: ");
             name = Console.ReadLine();
-            p.Name = name;  //new name
+            p.Name = name;  // new name
             Console.WriteLine("enter price: ");
             s = Console.ReadLine();
             int.TryParse(s, out price);
-            p.Price = price;  //new price
+            p.Price = price;  // new price
             Console.WriteLine("enter category: ");
             s = Console.ReadLine();
             Category.TryParse(s, out category);
-            p.Category = (Category)category;  //new category
+            p.Category = (Category)category;  // new category
             Console.WriteLine("enter in stock: ");
             s = Console.ReadLine();
             int.TryParse(s, out iS);
-            p.InStock = iS;  //new amount
+            p.InStock = iS;  // new amount
             p.IsDeleted = false;
             try
             {
-                product.Add(p);  //add the new product to the list
+                product.Add(p);  // add the new product to the list
             }
-            catch(NotImplementedException e)  //catch exeption
+            catch(NotImplementedException e)  // catch exeption
             {
                 Console.WriteLine(e.Message);
             }
         }
 
-        if (ch == "b") //GET BY ID
+        if (ch == "b") // GET BY ID
         {
             string? s;
             int ID;
             Console.WriteLine("enter ID: ");
-            s = Console.ReadLine();  //get the ID
+            s = Console.ReadLine();  // get the ID
             int.TryParse(s, out ID);
+
             try
             {
-                Console.WriteLine(product.GetById(ID)); //print the product
+                Console.WriteLine(product.GetById(ID)); // print the product
             }
-            catch (Exception e) //catch exeption
+            catch (Exception e) // catch exeption
             {
                 Console.WriteLine(e.Message);
             }
         }
 
-        if (ch == "c") //print all the products
+        if (ch == "c") // print all the products
         {
             Console.WriteLine("The products are:");
-            foreach (Product? product_from_list in product.GetAll()) //goes through all the products
+            foreach (Product? product_from_list in product.GetAll()) // goes through all the products
             {
                 Console.WriteLine(product_from_list); 
             }
@@ -98,6 +101,7 @@ partial class DalTest
             Console.WriteLine("enter ID: ");//prints product before update
             s = Console.ReadLine();//prints product before update
             int.TryParse(s, out ID);//prints product before update
+
             try
             {
                 Console.WriteLine(product.GetById(ID));//prints product before update
@@ -106,6 +110,7 @@ partial class DalTest
             {
                 Console.WriteLine(e);
             }
+
             p.ID=ID;     //gets the ID of the product we want to update
             Console.WriteLine("enter new name: ");
             name = Console.ReadLine();  //get a new name
@@ -190,7 +195,7 @@ partial class DalTest
             }
         }
 
-        if (ch == "e") //delete product
+        if (ch == "e") // delete product
         {
             int ID;
             string? s;
@@ -207,9 +212,10 @@ partial class DalTest
             }
         }
     }
-    static void order_func(DalOrder order)  //operations on orders
+    static void order_func(DalOrder order)  // operations on orders
     {
         string? ch;
+
         //print the options
         Console.WriteLine($@"
         choose one of the following commands:
@@ -220,6 +226,7 @@ partial class DalTest
         e-delete");
         ch = Console.ReadLine(); //get the choice
         Random s_rand = new Random();
+
         if (ch == "a")  //Add a new order
         {
             int ID;
@@ -253,6 +260,7 @@ partial class DalTest
             DateTime.TryParse(s, out dt); 
             o.DeliveryrDate = dt;
             o.IsDeleted = false;
+
             try
             {
                 order.Add(o); //add the new order
@@ -262,6 +270,7 @@ partial class DalTest
                 Console.WriteLine(e.Message); //print the error
             }
         }
+
         if (ch == "b") //GET BY ID
         {
             string? s;
@@ -449,6 +458,7 @@ partial class DalTest
     static void orderItem_func(DalOrderItem orderItem)  //poerations on order item
     {
         string ?ch;
+
         //print the prtions
         Console.WriteLine($@"
         choose one of the following commands:
@@ -462,14 +472,14 @@ partial class DalTest
         ch = Console.ReadLine(); //get the choice
         Random s_rand = new Random();
 
-        if (ch == "a")  //Add
+        if (ch == "a")  // Add
         {
             int ID, price,  amount;
             string? s;
-            OrderItem oi = new OrderItem();  //build a new order item
+            OrderItem oi = new OrderItem();  // build a new order item
             Console.WriteLine("enter information for an order Item to add: ");
             Console.WriteLine("enter ID: ");
-            s = Console.ReadLine(); //get ID
+            s = Console.ReadLine(); // get ID
             int.TryParse(s, out ID);
             oi.ID = ID;
             Console.WriteLine("enter product ID: ");
@@ -489,6 +499,7 @@ partial class DalTest
             int.TryParse(s, out amount);
             oi.Amount = amount;
             oi.IsDeleted = false;
+
             try
             {
                 orderItem.Add(oi); //add the new order item to the list
@@ -693,7 +704,8 @@ partial class DalTest
         o-for an order
         oI-for an orderItem
         e-exit");  //print the options
-            ch = Console.ReadLine();
+            ch = Console.ReadLine(); // get the option
+
             switch (ch)
             {
                 case "p":  //for product

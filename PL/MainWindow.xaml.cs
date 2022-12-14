@@ -20,17 +20,18 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
-        BlApi.IBl? bl = BlApi.Factory.Get();
+        BlApi.IBl? bl = BlApi.Factory.Get(); // get bl
+
         public MainWindow() // constructor
         {
             InitializeComponent(); 
-
         }
 
-        private void ProductsMouseEnter(object sender, MouseEventArgs e)
+        private void ProductsMouseEnter(object sender, MouseEventArgs e) // product buttom
         {
+            // open the ProductListWindow
             var win = new PL.Products.ProductListWindow();
-            win.Owner = this;
+            win.Owner = this; // for the new window to be first
             win.Show();
         }
     }

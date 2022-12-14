@@ -20,6 +20,7 @@ namespace PL.Products;
 public partial class ProductWindow : Window
 {
     BlApi.IBl? bl = BlApi.Factory.Get(); // get bl
+
     BO.Category? category;
     string? nameOfProd;
     int inStock = int.MinValue;
@@ -31,45 +32,51 @@ public partial class ProductWindow : Window
     {
         prod = product;
         InitializeComponent();
-        inputCategory.ItemsSource = Enum.GetValues(typeof(BO.Category));
-        if(product != null)//for update
+        inputCategory.ItemsSource = Enum.GetValues(typeof(BO.Category)); // to choose category for the product
+
+        if(product != null) // for update
         {
-            completeAdd.Visibility = Visibility.Collapsed;
-            completeUpdate.Visibility = Visibility.Visible;
+            completeAdd.Visibility = Visibility.Collapsed; // add button not available
+            completeUpdate.Visibility = Visibility.Visible; 
             int id = product.ID;
             
-            inputID.Text=(id.ToString());
-            inputName.Text=(product.Name);
-            inputPrice.Text = (product.Price.ToString());
+            // put all the values of the product
+            inputID.Text=id.ToString();
+            inputName.Text=product.Name;
+            inputPrice.Text = product.Price.ToString();
             inputInStock.Text=(bl.Product.GetProductInfo_manager(product.ID)).InStock.ToString();
             inputCategory.Text=product.Category.ToString();
-            inputID.IsEnabled = false;
+            inputID.IsEnabled = false; // can't change id
         }
-        else//for add
+
+        else //for add
         {
             completeAdd.Visibility = Visibility.Visible;
-            completeUpdate.Visibility = Visibility.Collapsed;
-            completeAdd.IsEnabled = false;
-            //update button should be visible
+            completeUpdate.Visibility = Visibility.Collapsed; // updae button not available
+            completeAdd.IsEnabled = false; // can't click ADD
+           
         }
 
     }
 
-    private void CompleteAdd_MouseDoubleClick(object sender, RoutedEventArgs e)
+    private void CompleteAdd_MouseDoubleClick(object sender, RoutedEventArgs e) // COMPLETE ADD BUTTON
     {
+        // makes product
         BO.Product product = new BO.Product() { ID = id, Category = category, InStock = inStock, Name = nameOfProd, Price = price };
         try
         {
-            bl!.Product.AddProdut(product);
-            MessageBox.Show("Product added succefully");
+            bl!.Product.AddProdut(product); // add the product to the list
+            MessageBox.Show("Product added succefully"); // Notice to the user
             this.Close();
         }
+
+        // catch all exception from add product function
         catch (BO.DoesntExistExeption ex)
         {
             string innerEx = "";
             if(ex.InnerException!=null)
                 innerEx = ": "+ex.InnerException.Message;
-            MessageBox.Show("unsucessfull addition:"+ex.Message+innerEx);    
+            MessageBox.Show("unsucessfull addition:"+ex.Message+innerEx); // print exception 
             
         }
         catch (BO.InvalidInputExeption ex)
@@ -77,7 +84,7 @@ public partial class ProductWindow : Window
             string innerEx = "";
             if (ex.InnerException != null)
                 innerEx = ": " + ex.InnerException.Message;
-            MessageBox.Show("unsucessfull addition:" + ex.Message + innerEx);
+            MessageBox.Show("unsucessfull addition:" + ex.Message + innerEx); // print exception
 
 
         }
@@ -86,74 +93,80 @@ public partial class ProductWindow : Window
             string innerEx = "";
             if (ex.InnerException != null)
                 innerEx = ": " + ex.InnerException.Message;
-            MessageBox.Show("unsucessfull addition:" + ex.Message + innerEx);
+            MessageBox.Show("unsucessfull addition:" + ex.Message + innerEx); // print exception
 
         }
     }
 
-    private void TextBoxID(object sender, TextChangedEventArgs e)
+    private void TextBoxID(object sender, TextChangedEventArgs e) // text box for id input
     {
-        if((int.TryParse(inputID.Text, out id))&&(completeUpdate.Visibility==Visibility.Collapsed))//for add and input was a number
+        if(int.TryParse(inputID.Text, out id)&&(completeUpdate.Visibility==Visibility.Collapsed)) // if it is on an 'ADD' mode and if id is digits
         {
-            if((id>0)&& ((id.ToString()).Length == 6))//valid id
+            if((id>0) && (id.ToString().Length == 6)) // valid id
             {
-                if ((id != int.MinValue) && (price != int.MinValue) && (inStock != int.MinValue) && (nameOfProd != null) && (category != null))
+                if ((id != int.MinValue) && (price != int.MinValue) && (inStock != int.MinValue) && (nameOfProd != null) && (category != null)) // if user put input in all of this
                 {
-                    completeAdd.IsEnabled = true;
+                    completeAdd.IsEnabled = true; // can click ADD
                 }
             }
             else
             {
-                id = -1;//as if no id was inputted
+                //as if no id was inputted
+                //id = -1;
+                id = int.MinValue;
             }
         }
     }
 
-    private void inputCategoryFunc(object sender, SelectionChangedEventArgs e)
+    private void inputCategoryFunc(object sender, SelectionChangedEventArgs e) // combo box to choose category
     {
-        category = (BO.Category)inputCategory.SelectedItem;
-        if (completeUpdate.Visibility == Visibility.Collapsed)//for add
+        category = (BO.Category)inputCategory.SelectedItem; // get the input
+        if (completeUpdate.Visibility == Visibility.Collapsed) // if it is on an ADD mode
         {
-            if ((id != int.MinValue) && (price != int.MinValue) && (inStock != int.MinValue) && (nameOfProd != null) && (category != null))
+            if ((id != int.MinValue) && (price != int.MinValue) && (inStock != int.MinValue) && (nameOfProd != null) && (category != null)) // if the user put input in those text box
             {
-                completeAdd.IsEnabled = true;
+                completeAdd.IsEnabled = true; //can click ADD
             }
         }
     }
 
 
-    private void inputNameFunc(object sender, TextChangedEventArgs e)
+    private void inputNameFunc(object sender, TextChangedEventArgs e) // text box for name product
     {
-        nameOfProd =inputName.Text;
-        if (completeUpdate.Visibility == Visibility.Collapsed)//for add 
+        nameOfProd =inputName.Text; // get the name
+        if (completeUpdate.Visibility == Visibility.Collapsed) // if it is on an ADD mode
         {
-            if ((id != int.MinValue) && (price != int.MinValue) && (inStock != int.MinValue) && (nameOfProd != null) && (category != null))
+            if ((id != int.MinValue) && (price != int.MinValue) && (inStock != int.MinValue) && (nameOfProd != null) && (category != null))  // if the user put values
             {
-                completeAdd.IsEnabled = true;
+                completeAdd.IsEnabled = true; // can click ADD
             }
         }
     }
 
-    private void completeUpdate_Click(object sender, RoutedEventArgs e)
+    private void completeUpdate_Click(object sender, RoutedEventArgs e) // COMPLETE UPDATE BUTTON
     {
-        if (price == int.MinValue) price = prod!.Price;
-        if (nameOfProd == null) nameOfProd = prod!.Name;
-        if(inStock== int.MinValue) inStock= (bl!.Product.GetProductInfo_manager(prod!.ID)).InStock;
-        if (category == null) category = prod!.Category;
+        if (price == int.MinValue) price = prod!.Price; // the id with no change
+        if (nameOfProd == null) nameOfProd = prod!.Name; // te name with no change
+        if(inStock== int.MinValue) inStock= bl!.Product.GetProductInfo_manager(prod!.ID).InStock; // in stock with no change
+        if (category == null) category = prod!.Category; // category with no change
+
+        // makes the product
         BO.Product product = new BO.Product() { ID = id, Category = category, InStock = inStock, Name = nameOfProd, Price = price };
 
         try
         {
-            bl!.Product.UpdateProduct(product);
-            MessageBox.Show("Product updated succefully");
+            bl!.Product.UpdateProduct(product); // upadte
+            MessageBox.Show("Product updated succefully"); // notice the user
             this.Close();
         }
-        catch (BO.DoesntExistExeption ex)
+
+        // catch update products exception
+        catch (BO.DoesntExistExeption ex) 
         {
             string innerEx = "";
             if (ex.InnerException != null)
                 innerEx = ": " + ex.InnerException.Message;
-            MessageBox.Show("unsucessfull update:" + ex.Message + innerEx);
+            MessageBox.Show("unsucessfull update:" + ex.Message + innerEx); // print the exception
 
         }
         catch (BO.InvalidInputExeption ex)
@@ -161,7 +174,7 @@ public partial class ProductWindow : Window
             string innerEx = "";
             if (ex.InnerException != null)
                 innerEx = ": " + ex.InnerException.Message;
-            MessageBox.Show("unsucessfull update:" + ex.Message + innerEx);
+            MessageBox.Show("unsucessfull update:" + ex.Message + innerEx); // print the exception
 
         }
         catch (BO.ContradictoryDataExeption ex)
@@ -169,7 +182,7 @@ public partial class ProductWindow : Window
             string innerEx = "";
             if (ex.InnerException != null)
                 innerEx = ": " + ex.InnerException.Message;
-            MessageBox.Show("unsucessfull update:" + ex.Message + innerEx);
+            MessageBox.Show("unsucessfull update:" + ex.Message + innerEx); // print the exception
 
         }
 
@@ -177,26 +190,26 @@ public partial class ProductWindow : Window
 
     }
 
-    private void inputInStockFunc(object sender, TextChangedEventArgs e)
+    private void inputInStockFunc(object sender, TextChangedEventArgs e) // text box in stock input
     {
        
-        if ((int.TryParse(inputInStock.Text, out inStock))&&(completeUpdate.Visibility == Visibility.Collapsed))//for add and input was a number
+        if (int.TryParse(inputInStock.Text, out inStock)&&(completeUpdate.Visibility == Visibility.Collapsed)) // if it is on an ADD mode and in stock input is digits
         {
-            if ((id != int.MinValue) && (price != int.MinValue) && (inStock != int.MinValue) && (nameOfProd != null) && (category != null))
+            if ((id != int.MinValue) && (price != int.MinValue) && (inStock != int.MinValue) && (nameOfProd != null) && (category != null)) // if the user filled all of those text boxes
             {
-                completeAdd.IsEnabled = true;
+                completeAdd.IsEnabled = true; // can click ADD
             }
         }
     }
 
-    private void inputPriceFunc(object sender, TextChangedEventArgs e)
+    private void inputPriceFunc(object sender, TextChangedEventArgs e) // text box for price input
     {
         
-        if ((double.TryParse(inputPrice.Text, out price))&&(completeUpdate.Visibility == Visibility.Collapsed))//for add and input was a number
+        if (double.TryParse(inputPrice.Text, out price)&&(completeUpdate.Visibility == Visibility.Collapsed)) // 'ADD' mode and price input is digits
         {
-            if ((id != int.MinValue) && (price != int.MinValue) && (inStock != int.MinValue) && (nameOfProd != null) && (category != null))
+            if ((id != int.MinValue) && (price != int.MinValue) && (inStock != int.MinValue) && (nameOfProd != null) && (category != null)) // if the user filled all of those text boxes
             {
-                completeAdd.IsEnabled = true;
+                completeAdd.IsEnabled = true; // can click ADD
             }
         }
     }

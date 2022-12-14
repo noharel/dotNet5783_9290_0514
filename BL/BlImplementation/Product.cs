@@ -131,13 +131,13 @@ internal class Product : BlApi.IProduct
     /// <exception cref="BO.DoesntExistExeption"></exception>
     public void AddProdut(BO.Product product)
     {
-        if ((product.ID < 0) || (((product.ID).ToString()).Length != 6) || (product.Name == "") || (product.Price < 0) || (product.InStock < 0))//if invalid information for a product was sent
+        if ((product.ID < 0) || (product.ID.ToString().Length != 6) || (product.Name == "") || (product.Price < 0) || (product.InStock < 0))//if invalid information for a product was sent
             throw new BO.InvalidInputExeption("incorrect product information");
         try
         {
             Dal.Product.Add(new DO.Product { ID = product.ID, Name = product.Name, Category = (DO.Category)product.Category!, InStock = product.InStock, Price = product.Price });//adds the product to list of all products
         }
-        catch (DO.DoesntExistExeption e)//catch for Add
+        catch (DO.DoesntExistExeption e) // catch for Add
         {
             throw new BO.DoesntExistExeption("couldn't add product", e);
         }

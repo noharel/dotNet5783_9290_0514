@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace DalApi;
 
+// INTERFACE FOR DALLIST
 public interface IDal  
 {
     IOrder Order { get; }

@@ -34,4 +34,10 @@ namespace DO
         protected DoesntExistExeption(SerializationInfo info, StreamingContext context) : base(info, context) { }
     }
 
+    [Serializable]
+    public class DalConfigException : Exception
+    {
+        public DalConfigException(string msg) : base(msg) { }
+        public DalConfigException(string msg, Exception ex) : base(msg, ex) { }
+    }
 }

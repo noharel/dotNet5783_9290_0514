@@ -7,6 +7,8 @@ using BO;
 
 namespace BlApi;
 
-public interface IProductItem
-{
-}
+/// <summary>
+/// 
+/// </summary>
+public interface IProductItem { }
+

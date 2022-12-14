@@ -7,6 +7,8 @@ using BO;
 
 namespace BlApi;
 
-public interface IOrderTracking
-{
-}
+/// <summary>
+/// 
+/// </summary>
+public interface IOrderTracking { }
+

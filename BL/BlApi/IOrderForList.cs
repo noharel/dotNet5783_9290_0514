@@ -7,6 +7,8 @@ using BO;
 
 namespace BlApi;
 
-public interface IOrderForList
-{
-}
+/// <summary>
+/// 
+/// </summary>
+public interface IOrderForList { }
+

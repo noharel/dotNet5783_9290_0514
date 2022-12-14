@@ -10,59 +10,79 @@ using DO;
 
 namespace BlImplementation;
 
+/// <summary>
+/// AN ORDER CLASS THAT INMPLEMENTS AN INTERFACE
+/// </summary>
 internal class Order : BlApi.IOrder
 {
-    DalApi.IDal Dal = DalApi.Factory.Get();
+    DalApi.IDal Dal = DalApi.Factory.Get(); // DalList object Type
+
+    /// <summary>
+    /// GET LIST OF ALL THE ORDERS - FOR MANAGER
+    /// </summary>
+    /// <returns></returns>
+    /// <exception cref="BO.DoesntExistExeption"></exception>
     public IEnumerable<BO.OrderForList> GetOrders()
     {
         IEnumerable<DO.Order?> orderList;
         List<BO.OrderForList> orderForList = new List<BO.OrderForList>();
         try
         {
-            orderList = Dal.Order.GetAll();
-            foreach (DO.Order? var in orderList)
+            orderList = Dal.Order.GetAll(); // GET ALL THE ORDERS FROM DAL
+            foreach (DO.Order? var in orderList) // GO THROWGH ALL THE ORDERS
             {
-                BO.OrderStatus stat = (BO.OrderStatus)0;
-                if (var?.ShipDate != null)
+                BO.OrderStatus stat = 0;
+                if (var?.ShipDate != null) // ORDER SHIPED
                     stat = (BO.OrderStatus)1;
 
-                if (var?.DeliveryrDate != null)
+                if (var?.DeliveryrDate != null) // ORDER DELIVERED
                     stat = (BO.OrderStatus)2;
-                int id = (int)(var?.ID)!;
-                IEnumerable<DO.OrderItem?> listOrderItem = Dal.OrderItem.GetListOrder(id);
+
+                int id = (int)(var?.ID)!; 
+                IEnumerable<DO.OrderItem?> listOrderItem = Dal.OrderItem.GetListOrder(id); // GET ALL ITEMS IN SAME ORDER
                 double price = 0;
                 foreach (DO.OrderItem? orderItem in listOrderItem)
                 {
-                    price += (double)(orderItem?.Price * orderItem?.Amount)!;
+                    price += (double)(orderItem?.Price * orderItem?.Amount)!; // CALCULATE THE TOTAL PRICE FOR EACH ORDER
                 }
+                // MAKES THE NEW ORDER
                 BO.OrderForList newOrderForList = new BO.OrderForList { ID =id, CustomerName = var?.CustomerName, Status = stat, AmountOfItems = listOrderItem.Count(), TotalPrice = price };
-                orderForList.Add(newOrderForList);
+                orderForList.Add(newOrderForList); // ADD THE NEW ORDER TO THE LIST
             }
-            return orderForList;
+            return orderForList; // RETURNS THE LIST WITH ALL THE ORDERS
         }
-        catch (DO.DoesntExistExeption e)
+        catch (DO.DoesntExistExeption e) // CATCH GETALL FUNCTION EXCEPTION
         {
             throw new BO.DoesntExistExeption("Couldn't get list of orders", e);
         }
     }
+
+    /// <summary>
+    /// GET ORDER INFORMATION
+    /// </summary>
+    /// <param name="orderId"></param>
+    /// <returns></returns>
+    /// <exception cref="BO.DoesntExistExeption"></exception>
+    /// <exception cref="BO.InvalidInputExeption"></exception>
     public BO.Order OrderInfo(int orderId)
     {
-        if ((orderId >= 0)&& (((orderId).ToString()).Length == 4))
+        if ((orderId >= 0)&& (orderId.ToString().Length == 4))  // VALID ORDER ID
         {
             try
             {
-                DO.Order newOrder = Dal.Order.GetById(orderId);
+                DO.Order newOrder = Dal.Order.GetById(orderId); // GET THE ORDER
                 try
                 {
-                    IEnumerable<DO.OrderItem?> listOrder = Dal.OrderItem.GetListOrder(orderId);
+                    IEnumerable<DO.OrderItem?> listOrder = Dal.OrderItem.GetListOrder(orderId); // GET ALL THE ITEMS IN THE ORDER
                     List<BO.OrderItem> BOlistOrder = new List<BO.OrderItem>();
                     double totalPriceOrder = 0;
-                    foreach (DO.OrderItem? item in listOrder)
+                    foreach (DO.OrderItem? item in listOrder) // GO THROWGH ALL THE ITEMS
                     {
+                        // MAKES ITEM
                         BO.OrderItem newOrderItem = new BO.OrderItem() { ID = (int)item?.ID!, Amount = (int)item?.Amount!, Name = newOrder.CustomerName, Price = (double)item?.Price!, ProductID = (int)item?.PrudoctID!, TotalPrice =(int)( item?.Amount * item?.Price)! };
-                        totalPriceOrder += (double)(item?.Price*item?.Amount)!;
+                        totalPriceOrder += (double)(item?.Price*item?.Amount)!; // CALCULATE THE TOTAL PRICE
 
-                        BOlistOrder.Add(newOrderItem);
+                        BOlistOrder.Add(newOrderItem); // ADD THE ITEM
                     }
                     BO.OrderStatus status = BO.OrderStatus.ordered;
                     if (newOrder.ShipDate != null)
@@ -71,18 +91,18 @@ internal class Order : BlApi.IOrder
                         status = BO.OrderStatus.arrived;
                     return new BO.Order() { Items = BOlistOrder, ID = newOrder.ID, CustomerAddress = newOrder.CustomerAddress, CustomerEmail = newOrder.CustomerEmail, ShipDate = newOrder.ShipDate, OrderDate = newOrder.OrderDate, DeliveryrDate = newOrder.DeliveryrDate, CustomerName = newOrder.CustomerName, TotalPrice = totalPriceOrder, Status = status };
                 }
-                catch (DO.DoesntExistExeption e)
+                catch (DO.DoesntExistExeption e) // CATCH GETLISTORDER FUNCTION EXCPETION 
                 {
                     throw new BO.DoesntExistExeption("Couldn't Get order info",e);
                 }
 
             }
-            catch (DO.DoesntExistExeption e)
+            catch (DO.DoesntExistExeption e) // CATCH GETBYID FUNCTION EXCEPTION
             {
                 throw new BO.DoesntExistExeption("couldn't find order", e);
             }
         }
-        else
+        else //INVALID ORDER ID
         {
             throw new BO.InvalidInputExeption("Invalid order Id");
         }

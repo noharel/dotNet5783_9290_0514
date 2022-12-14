@@ -1,6 +1,4 @@
-﻿using BlApi;
-using BlImplementation;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,15 +20,21 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
-        IBl bl=new Bl();
+        BlApi.IBl? bl = BlApi.Factory.Get();
         public MainWindow()
         {
             InitializeComponent(); 
-            this.Products.MouseDoubleClick += ProductsMouseEnter;
+           // this.Products.Click += ProductsMouseEnter;
 
         }
-       
 
-        private void ProductsMouseEnter(object sender, MouseEventArgs e) => new PL.Products.ProductListWindow().Show();
+
+        //private void ProductsMouseEnter(object sender, MouseEventArgs e) => new PL.Products.ProductListWindow().Show();
+        private void ProductsMouseEnter(object sender, MouseEventArgs e)
+        {
+            var win = new PL.Products.ProductListWindow();
+            win.Owner = this;
+            win.Show();
+        }
     }
 }

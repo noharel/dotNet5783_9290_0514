@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BlApi;
 using BO;
+using DO;
 
 namespace BlImplementation;
 
@@ -16,30 +17,37 @@ internal class Order : BlApi.IOrder
     {
         IEnumerable<DO.Order?> orderList;
         List<BO.OrderForList> orderForList = new List<BO.OrderForList>();
-        orderList = Dal.Order.GetAll();
-        foreach (DO.Order var in orderList)
+        try
         {
-            BO.OrderStatus stat = (BO.OrderStatus)0;
-            if (var.ShipDate != null)
-                stat = (BO.OrderStatus)1;
-
-            if (var.DeliveryrDate != null)
-                stat = (BO.OrderStatus)2;
-
-            IEnumerable<DO.OrderItem?> listOrderItem = Dal.OrderItem.GetListOrder(var.ID);
-            double price = 0;
-            foreach (DO.OrderItem orderItem in listOrderItem)
+            orderList = Dal.Order.GetAll();
+            foreach (DO.Order? var in orderList)
             {
-                price += orderItem.Price*orderItem.Amount;
+                BO.OrderStatus stat = (BO.OrderStatus)0;
+                if (var?.ShipDate != null)
+                    stat = (BO.OrderStatus)1;
+
+                if (var?.DeliveryrDate != null)
+                    stat = (BO.OrderStatus)2;
+                int id = (int)(var?.ID)!;
+                IEnumerable<DO.OrderItem?> listOrderItem = Dal.OrderItem.GetListOrder(id);
+                double price = 0;
+                foreach (DO.OrderItem? orderItem in listOrderItem)
+                {
+                    price += (double)(orderItem?.Price * orderItem?.Amount)!;
+                }
+                BO.OrderForList newOrderForList = new BO.OrderForList { ID =id, CustomerName = var?.CustomerName, Status = stat, AmountOfItems = listOrderItem.Count(), TotalPrice = price };
+                orderForList.Add(newOrderForList);
             }
-            BO.OrderForList newOrderForList = new BO.OrderForList { ID = var.ID, CustomerName = var.CustomerName, Status = stat, AmountOfItems = listOrderItem.Count(), TotalPrice = price };
-            orderForList.Add(newOrderForList);
+            return orderForList;
         }
-        return orderForList;
+        catch (DO.DoesntExistExeption e)
+        {
+            throw new BO.DoesntExistExeption("Couldn't get list of orders", e);
+        }
     }
     public BO.Order OrderInfo(int orderId)
     {
-        if (orderId > 0)
+        if ((orderId >= 0)&& (((orderId).ToString()).Length == 4))
         {
             try
             {
@@ -49,10 +57,10 @@ internal class Order : BlApi.IOrder
                     IEnumerable<DO.OrderItem?> listOrder = Dal.OrderItem.GetListOrder(orderId);
                     List<BO.OrderItem> BOlistOrder = new List<BO.OrderItem>();
                     double totalPriceOrder = 0;
-                    foreach (DO.OrderItem item in listOrder)
+                    foreach (DO.OrderItem? item in listOrder)
                     {
-                        BO.OrderItem newOrderItem = new BO.OrderItem() { ID = item.ID, Amount = item.Amount, Name = newOrder.CustomerName, Price = item.Price, ProductID = item.PrudoctID, TotalPrice =( item.Amount * item.Price) };
-                        totalPriceOrder += (item.Price*item.Amount);
+                        BO.OrderItem newOrderItem = new BO.OrderItem() { ID = (int)item?.ID!, Amount = (int)item?.Amount!, Name = newOrder.CustomerName, Price = (double)item?.Price!, ProductID = (int)item?.PrudoctID!, TotalPrice =(int)( item?.Amount * item?.Price)! };
+                        totalPriceOrder += (double)(item?.Price*item?.Amount)!;
 
                         BOlistOrder.Add(newOrderItem);
                     }
@@ -83,136 +91,167 @@ internal class Order : BlApi.IOrder
     public BO.Order UpdateShip(int orderId)
     {
 
-        DO.Order DOorder = Dal.Order.GetById(orderId);
-        BO.Order BOorder;
-
-        if (DOorder.ID > 0)
+        
+        try
         {
-            if (DOorder.ShipDate == null)
+            DO.Order DOorder = Dal.Order.GetById(orderId);
+            BO.Order BOorder;
+
+            if ((DOorder.ID >= 0) && (((DOorder.ID).ToString()).Length == 4))
             {
-                List<BO.OrderItem> BOlistOrder = new List<BO.OrderItem>();
-                IEnumerable<DO.OrderItem?> listOrder = Dal.OrderItem.GetListOrder(orderId);
+                if (DOorder.ShipDate == null)
+                {
+                    List<BO.OrderItem> BOlistOrder = new List<BO.OrderItem>();
+                    IEnumerable<DO.OrderItem?> listOrder = Dal.OrderItem.GetListOrder(orderId);
 
-                double totalPriceOrder = 0;
-                foreach (DO.OrderItem item in listOrder)
-                {
-                    BO.OrderItem newOrderItem = new BO.OrderItem() { ID = item.ID, Amount = item.Amount, Name = DOorder.CustomerName, Price = item.Price, ProductID = item.PrudoctID, TotalPrice = item.Amount * item.Price };
-                    BOlistOrder.Add(newOrderItem);
-                    totalPriceOrder += newOrderItem.TotalPrice;
+                    double totalPriceOrder = 0;
+                    foreach (DO.OrderItem? item in listOrder)
+                    {
+                        BO.OrderItem newOrderItem = new BO.OrderItem() { ID = (int)item?.ID!, Amount = (int)item?.Amount!, Name = DOorder.CustomerName, Price = (double)item?.Price!, ProductID = (int)item?.PrudoctID!, TotalPrice = (double)(item?.Amount * item?.Price)! };
+                        BOlistOrder.Add(newOrderItem);
+                        totalPriceOrder += newOrderItem.TotalPrice;
 
+                    }
+                    DOorder.ShipDate = DateTime.Now;
+                    BOorder = new BO.Order() { ID = DOorder.ID, ShipDate = DOorder.ShipDate, CustomerAddress = DOorder.CustomerAddress, CustomerEmail = DOorder.CustomerEmail, CustomerName = DOorder.CustomerName, DeliveryrDate = DOorder.DeliveryrDate, Items = BOlistOrder, TotalPrice = totalPriceOrder, OrderDate = DOorder.OrderDate, Status = OrderStatus.shipped };
+                    try
+                    {
+                        Dal.Order.Update(DOorder);
+                        return BOorder;
+                    }
+                    catch (DO.DoesntExistExeption e)
+                    {
+                        throw new BO.DoesntExistExeption("coudln't update", e);
+                    }
                 }
-                DOorder.ShipDate = DateTime.Now;
-                BOorder = new BO.Order() { ID = DOorder.ID, ShipDate = DOorder.ShipDate, CustomerAddress = DOorder.CustomerAddress, CustomerEmail = DOorder.CustomerEmail, CustomerName = DOorder.CustomerName, DeliveryrDate = DOorder.DeliveryrDate, Items = BOlistOrder, TotalPrice = totalPriceOrder, OrderDate = DOorder.OrderDate, Status = OrderStatus.shipped };
-                try
+                else
                 {
-                    Dal.Order.Update(DOorder);
-                    return BOorder;
-                }
-                catch (DO.DoesntExistExeption e)
-                {
-                    throw new BO.DoesntExistExeption("coudln't update", e);
+                    throw new ContradictoryDataExeption("already shipped");
                 }
             }
             else
             {
-                throw new ContradictoryDataExeption("already shipped");
+                throw new BO.DoesntExistExeption("order does not exsist");
             }
         }
-        else
-        {
-            throw new BO.DoesntExistExeption("order does not exsist");
+        catch (DO.DoesntExistExeption e)
+        { 
+            throw new BO.DoesntExistExeption("couldn't get order", e); 
         }
     }
     public BO.Order UpdateDelivery(int orderId)
     {
-        DO.Order DOorder = Dal.Order.GetById(orderId);
-        BO.Order BOorder;
-
-        if (DOorder.ID > 0)//if order exsist
+        
+        try
         {
-            if ((DOorder.ShipDate != null) && (DOorder.DeliveryrDate == null))
+            DO.Order DOorder = Dal.Order.GetById(orderId);
+            BO.Order BOorder;
+
+            if ((DOorder.ID >= 0) && (((DOorder.ID).ToString()).Length == 4))//if order exsist
             {
-                List<BO.OrderItem> BOlistOrder = new List<BO.OrderItem>();
-                IEnumerable<DO.OrderItem?> listOrder = Dal.OrderItem.GetListOrder(orderId);
+                if ((DOorder.ShipDate != null) && (DOorder.DeliveryrDate == null))
+                {
+                    List<BO.OrderItem> BOlistOrder = new List<BO.OrderItem>();
+                    IEnumerable<DO.OrderItem?> listOrder = Dal.OrderItem.GetListOrder(orderId);
 
-                double totalPriceOrder = 0;
-                foreach (DO.OrderItem item in listOrder)
-                {
-                    BO.OrderItem newOrderItem = new BO.OrderItem() { ID = item.ID, Amount = item.Amount, Name = DOorder.CustomerName, Price = item.Price, ProductID = item.PrudoctID, TotalPrice = item.Amount * item.Price };
-                    BOlistOrder.Add(newOrderItem);
-                    totalPriceOrder += newOrderItem.TotalPrice;
+                    double totalPriceOrder = 0;
+                    foreach (DO.OrderItem? item in listOrder)
+                    {
+                        BO.OrderItem newOrderItem = new BO.OrderItem() { ID = (int)item?.ID!, Amount = (int)item?.Amount!, Name = DOorder.CustomerName, Price = (double)item?.Price!, ProductID = (int)item?.PrudoctID!, TotalPrice = (double)(item?.Amount * item?.Price)! };
+                        BOlistOrder.Add(newOrderItem);
+                        totalPriceOrder += newOrderItem.TotalPrice;
 
+                    }
+                    DOorder.DeliveryrDate = DateTime.Now;
+                    BOorder = new BO.Order() { ID = DOorder.ID, ShipDate = DOorder.ShipDate, CustomerAddress = DOorder.CustomerAddress, CustomerEmail = DOorder.CustomerEmail, CustomerName = DOorder.CustomerName, DeliveryrDate = DOorder.DeliveryrDate, Items = BOlistOrder, TotalPrice = totalPriceOrder, OrderDate = DOorder.OrderDate, Status = OrderStatus.arrived };
+                    try
+                    {
+                        Dal.Order.Update(DOorder);
+                        return BOorder;
+                    }
+                    catch (DO.DoesntExistExeption e)
+                    {
+                        throw new BO.DoesntExistExeption("couldn't find", e);
+                    }
                 }
-                DOorder.DeliveryrDate = DateTime.Now;
-                BOorder = new BO.Order() { ID = DOorder.ID, ShipDate = DOorder.ShipDate, CustomerAddress = DOorder.CustomerAddress, CustomerEmail = DOorder.CustomerEmail, CustomerName = DOorder.CustomerName, DeliveryrDate = DOorder.DeliveryrDate, Items = BOlistOrder, TotalPrice = totalPriceOrder, OrderDate = DOorder.OrderDate, Status = OrderStatus.arrived };
-                try
+                else
                 {
-                    Dal.Order.Update(DOorder);
-                    return BOorder;
-                }
-                catch (DO.DoesntExistExeption e)
-                {
-                    throw new BO.DoesntExistExeption("couldn't find", e);
+                    throw new BO.ContradictoryDataExeption("order already deliverd or not shipped yet");
                 }
             }
             else
             {
-                throw new BO.ContradictoryDataExeption("order already deliverd or not shipped yet");
+                throw new BO.DoesntExistExeption("order does not exsist");
             }
         }
-        else
+        catch (DO.DoesntExistExeption e)
         {
-            throw new BO.DoesntExistExeption("order does not exsist");
+            throw new BO.DoesntExistExeption("couldn't get order", e);
         }
+
     }
     public BO.OrderTracking TrackingOrder(int orderId)
     {
+        try
+        {
+            DO.Order DOorder = Dal.Order.GetById(orderId);
+            if ((DOorder.ID >= 0) && ((((DOorder.ID).ToString()).Length == 4)))//if order exist
+            {
+                List<(DateTime?, string)> tupList = new List<(DateTime?, string)>();
+                BO.OrderStatus status = BO.OrderStatus.ordered;
+                tupList.Add((DOorder.OrderDate, "Order was placed"));
+                if (DOorder.ShipDate != null)
+                {
+                    status = BO.OrderStatus.shipped;
+                    tupList.Add((DOorder.ShipDate, "Order was shipped"));
 
-        DO.Order DOorder = Dal.Order.GetById(orderId);
-        if (DOorder.ID > 0)//if order exist
-        {
-            List<(DateTime?, string)> tupList = new List<(DateTime?, string)>();
-            BO.OrderStatus status = BO.OrderStatus.ordered;
-            tupList.Add((DOorder.OrderDate, "Order was placed"));
-            if (DOorder.ShipDate != null)
-            {
-                status = BO.OrderStatus.shipped;
-                tupList.Add((DOorder.ShipDate, "Order was shipped"));
-
-            }
-            if (DOorder.DeliveryrDate != null)
-            {
-                status = BO.OrderStatus.arrived;
-                tupList.Add((DOorder.DeliveryrDate, "Order was arrived"));
-            }
-            BO.OrderTracking orderTracking = new BO.OrderTracking() { ID = orderId, Status = status, tuplesList = tupList };
-            return orderTracking;
-        }
-        else
-        {
-            throw new BO.DoesntExistExeption("order does not exsist");
-        }
-    }
-    public void UpdateByManager(int orderID, int orderItemId, int amount )//bonus
-    {
-        DO.Order DOorder = Dal.Order.GetById(orderID);
-        if (DOorder.ID > 0)//if order exist
-        {
-            if(DOorder.ShipDate == null)
-            {
-                DO.OrderItem DOorderItem =(DO.OrderItem) Dal.OrderItem.GetProduct(orderID, orderItemId);
-                DOorderItem.Amount += amount;
-                Dal.OrderItem.Update((DO.OrderItem )DOorderItem);
-                //we're not sure if instock needs to be updated
+                }
+                if (DOorder.DeliveryrDate != null)
+                {
+                    status = BO.OrderStatus.arrived;
+                    tupList.Add((DOorder.DeliveryrDate, "Order was arrived"));
+                }
+                BO.OrderTracking orderTracking = new BO.OrderTracking() { ID = orderId, Status = status, tuplesList = tupList! };
+                return orderTracking;
             }
             else
             {
-                throw new BO.ContradictoryDataExeption("Order was already shipped, can not update it");
+                throw new BO.DoesntExistExeption("order does not exsist");
             }
         }
-        else
+        catch (DO.DoesntExistExeption e)
         {
-            throw new BO.DoesntExistExeption("order does not exsist");
+            throw new BO.DoesntExistExeption("couldn't get order", e);
+        }
+
+    }
+    public void UpdateByManager(int orderID, int orderItemId, int amount )//bonus
+    {
+        try
+        {
+            DO.Order DOorder = Dal.Order.GetById(orderID);
+            if ((DOorder.ID >= 0) && ((((DOorder.ID).ToString()).Length == 4)))//if order exist
+            {
+                if (DOorder.ShipDate == null)
+                {
+                    DO.OrderItem DOorderItem = (DO.OrderItem)Dal.OrderItem.GetProduct(orderID, orderItemId)!;
+                    DOorderItem.Amount += amount;
+                    Dal.OrderItem.Update((DO.OrderItem)DOorderItem);
+                    //we're not sure if instock needs to be updated
+                }
+                else
+                {
+                    throw new BO.ContradictoryDataExeption("Order was already shipped, can not update it");
+                }
+            }
+            else
+            {
+                throw new BO.DoesntExistExeption("order does not exsist");
+            }
+        }
+        catch (DO.DoesntExistExeption e)
+        {
+            throw new BO.DoesntExistExeption("couldn't get order", e);
         }
 
     }

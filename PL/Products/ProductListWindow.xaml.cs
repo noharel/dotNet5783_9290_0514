@@ -1,6 +1,4 @@
-﻿using BlApi;
-using BlImplementation;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,11 +19,10 @@ namespace PL.Products;
 /// </summary>
 public partial class ProductListWindow : Window
 {
-    IBl bl = new Bl();
+    BlApi.IBl? bl = BlApi.Factory.Get();
     public ProductListWindow()
     {
         InitializeComponent();
-        // d:ItemsSource="{d:SampleData ItemCount=5}"
         ProductListView.ItemsSource = bl.Product.GetListProduct();
         CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Category));
         this.ClearChoice.MouseDoubleClick += ClearChoice_Click_1;
@@ -37,37 +34,76 @@ public partial class ProductListWindow : Window
 
 
 
-    /*private void ProductListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        Category? category = (Category?)CategorySelector.SelectedItem;
-        ProductListView.ItemsSource = bl.Product.GetListProduct(x => x == null ? throw new Exception(): x.Category == category) ;
-
-    }*/
 
     private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         BO.Category? category = (BO.Category?)CategorySelector.SelectedItem;
-        ProductListView.ItemsSource = bl.Product.GetListProduct(x => x == null ? throw new Exception() : x.Category == category);
+        try
+        {
+            ProductListView.ItemsSource = bl!.Product.GetListProduct(x => x == null ? throw new Exception() : x.Category == category);
+        }
+        catch(BO.DoesntExistExeption ex)
+        {
+            string innerEx = "";
+            if (ex.InnerException != null)
+                innerEx = ": " + ex.InnerException.Message;
+            MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx);
+
+        }
 
     }
 
     private void ClearChoice_Click_1(object sender, RoutedEventArgs e)
     {
-        ProductListView.ItemsSource = bl.Product.GetListProduct();
+        try
+        {
+            ProductListView.ItemsSource = bl!.Product.GetListProduct();
+        }
+        catch (BO.DoesntExistExeption ex)
+        {
+            string innerEx = "";
+            if (ex.InnerException != null)
+                innerEx = ": " + ex.InnerException.Message;
+            MessageBox.Show("unsucessfull click:" + ex.Message + innerEx);
+
+        }
+    }
+
+
+
+    private void AddButton_Click(object sender, RoutedEventArgs e)
+    {
+        new ProductWindow().ShowDialog();
+        try
+        {
+            ProductListView.ItemsSource = bl!.Product.GetListProduct();
+        }
+        catch (BO.DoesntExistExeption ex)
+        {
+            string innerEx = "";
+            if (ex.InnerException != null)
+                innerEx = ": " + ex.InnerException.Message;
+            MessageBox.Show("unsucessfull click:" + ex.Message + innerEx);
+
+        }
 
     }
 
-    // private void addButton(object sender, RoutedEventArgs e) => new ;
-
-    private void AddButton_Click(object sender, RoutedEventArgs e) => new ProductWindow().Show();
-
-    private void ProductListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    private void ProductListView_SelectionChanged(object sender, MouseButtonEventArgs e)
     {
+        var hg = new ProductWindow((BO.ProductForList)ProductListView.SelectedItem);
+        hg.ShowDialog();
+        try
+        {
+            ProductListView.ItemsSource = bl!.Product.GetListProduct();
+        }
+        catch (BO.DoesntExistExeption ex)
+        {
+            string innerEx = "";
+            if (ex.InnerException != null)
+                innerEx = ": " + ex.InnerException.Message;
+            MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx);
 
+        }
     }
 };
-
- //<ListView Name = "ProductListView" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="CategorySelector_SelectionChanged" />
- //           <ListView.View>
- //             <GridView/>
- //           </ListView.View>

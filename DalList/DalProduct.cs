@@ -16,12 +16,20 @@ public class DalProduct: IProduct
     }
     public void Delete(int id) //delete
     {
+        try
+        {
+            Product p = GetById(id);
+            p.IsDeleted = true; //update IsDeleted
+        }
+        catch (DO.DoesntExistExeption e)
+        {
+            throw e;
+        }
         if (_ds?._products.RemoveAll(product => product?.ID == id) == 0)  //delete
         {
             throw new DoesntExistExeption("Can't delete that does not exist");
         }
-        Product p= GetById(id);   
-        p.IsDeleted = true; //update IsDeleted
+        
     }
     public IEnumerable<Product?> GetAll(Func<Product?, bool>? filter) =>
         (filter == null ?
@@ -38,13 +46,13 @@ public class DalProduct: IProduct
     public Product GetById(int id)  //get by id
     {
         if (_ds._products == null)
-            throw new DoesntExistExeption("Missing order id");
+            throw new DoesntExistExeption("there are no products");
         foreach (Product? p in _ds._products)
         {
             if (p?.ID == id)
                 return (Product)p; //return product
         }
-        throw new DoesntExistExeption("Missing order id");
+        throw new DoesntExistExeption("Missing product id");
 
     }
     public void Update(Product product)  //update
@@ -56,7 +64,9 @@ public class DalProduct: IProduct
     }
     public IEnumerable<Product?> GetAll() //get all products
     {
-        return (from Product? _products in _ds._products select _products).ToList();
+        IEnumerable<Product?> list=(from Product? _products in _ds._products select _products).ToList();
+        if(list==null)throw new DoesntExistExeption("Missing product");
+        else return list;
     }
 
 }

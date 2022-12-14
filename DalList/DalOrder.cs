@@ -57,7 +57,9 @@ public class DalOrder : IOrder
 
     public IEnumerable<Order?> GetAll()  //get all orders
     {
-        return (from Order? _orders in _ds._orders select _orders).ToList();
+        IEnumerable<Order?> list=(from Order? _orders in _ds._orders select _orders).ToList();
+        if (list == null) new DoesntExistExeption("Missing order");
+        return list!;
     }
 
 }

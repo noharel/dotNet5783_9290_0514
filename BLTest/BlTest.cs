@@ -1,6 +1,5 @@
 ﻿using BlApi;
-using BlImplementation;
-using BO;
+
 using Microsoft.VisualBasic;
 
 namespace BLTest;
@@ -35,29 +34,59 @@ internal class BlTest
             int id,inStock,price;
             string? s;
             string? name;
-            Category c;
+            BO.Category c;
             bool flag = true;
             switch (ch)
             {
                 case "1":  //List of products
                     Console.WriteLine("The prouducts are:");
-                    foreach (BO.ProductForList? var in bl.Product.GetListProduct())
+                    try
                     {
-                        Console.WriteLine(var);
+                        foreach (BO.ProductForList? var in bl.Product.GetListProduct())
+                        {
+                            Console.WriteLine(var);
+                        }
+                    }
+                    catch(BO.DoesntExistExeption ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        if(ex.InnerException!=null)
+                            Console.WriteLine(ex.Message);
                     }
                     break;
 
                 case "2":  //Get product info for manager
                     Console.WriteLine("Enter product id:");
                     s = Console.ReadLine();
+                    try
+                    {
 
-                    if (int.TryParse(s, out id))
-                    {
-                        Console.WriteLine(bl.Product.GetProductInfo_manager(id));
+                        if (int.TryParse(s, out id))
+                        {
+                            Console.WriteLine(bl.Product.GetProductInfo_manager(id));
+                        }
+                        else
+                        {
+                            Console.WriteLine("Not a number");
+                        }
                     }
-                    else
+                    catch (BO.DoesntExistExeption e)
                     {
-                        Console.WriteLine("Not a number");
+                        Console.WriteLine(e.Message);
+                        if (e.InnerException != null)
+                            Console.WriteLine(e.InnerException.Message);
+                    }
+                    catch (BO.InvalidInputExeption e)
+                    {
+                        Console.WriteLine(e.Message);
+                        if (e.InnerException != null)
+                            Console.WriteLine(e.InnerException.Message);
+                    }
+                    catch (BO.ContradictoryDataExeption e)
+                    {
+                        Console.WriteLine(e.Message);
+                        if (e.InnerException != null)
+                            Console.WriteLine(e.InnerException.Message);
                     }
                     break;
 
@@ -69,7 +98,7 @@ internal class BlTest
                     name= Console.ReadLine();
                     Console.WriteLine("Enter product category:");
                     s = Console.ReadLine();
-                    Category.TryParse(s, out c);
+                    BO.Category.TryParse(s, out c);
                     Console.WriteLine("Enter amount in stock:");
                     s = Console.ReadLine();
                     flag = int.TryParse(s, out inStock)&&flag;
@@ -152,7 +181,7 @@ internal class BlTest
                     name = Console.ReadLine();
                     Console.WriteLine("Enter product category:");
                     s = Console.ReadLine();
-                    Category.TryParse(s, out c);
+                    BO.Category.TryParse(s, out c);
                     Console.WriteLine("Enter amount in stock:");
                     s = Console.ReadLine();
                     flag=int.TryParse(s, out inStock)&&flag;
@@ -162,7 +191,29 @@ internal class BlTest
                     if (flag) //valid input
                     {
                         BO.Product prodforUp = new BO.Product() { Category = c, ID = id, Name = name, InStock = inStock, Price = price };
-                        bl.Product.UpdateProduct(prodforUp);
+                        try
+                        { 
+                            bl.Product.UpdateProduct(prodforUp); 
+                        }
+                        catch (BO.DoesntExistExeption e)
+                        {
+                            Console.WriteLine(e.Message);
+                            if (e.InnerException != null)
+                                Console.WriteLine(e.InnerException.Message);
+                        }
+                        catch (BO.InvalidInputExeption e)
+                        {
+                            Console.WriteLine(e.Message);
+                            if (e.InnerException != null)
+                                Console.WriteLine(e.InnerException.Message);
+                        }
+                        catch (BO.ContradictoryDataExeption e)
+                        {
+                            Console.WriteLine(e.Message);
+                            if (e.InnerException != null)
+                                Console.WriteLine(e.InnerException.Message);
+                        }
+
                     }
                     else//invalid input
                     {
@@ -208,9 +259,30 @@ internal class BlTest
             {
                 case "1":  //List of orders
                     Console.WriteLine("The orders are:");
-                    foreach (BO.OrderForList? var in bl.Order.GetOrders())
+                    try
                     {
-                        Console.WriteLine(var);
+                        foreach (BO.OrderForList? var in bl.Order.GetOrders())
+                        {
+                            Console.WriteLine(var);
+                        }
+                    }
+                    catch (BO.DoesntExistExeption e)
+                    {
+                        Console.WriteLine(e.Message);
+                        if (e.InnerException != null)
+                            Console.WriteLine(e.InnerException.Message);
+                    }
+                    catch (BO.InvalidInputExeption e)
+                    {
+                        Console.WriteLine(e.Message);
+                        if (e.InnerException != null)
+                            Console.WriteLine(e.InnerException.Message);
+                    }
+                    catch (BO.ContradictoryDataExeption e)
+                    {
+                        Console.WriteLine(e.Message);
+                        if (e.InnerException != null)
+                            Console.WriteLine(e.InnerException.Message);
                     }
                     break;
 
@@ -399,7 +471,7 @@ internal class BlTest
         customerEmail = Console.ReadLine();
         Console.WriteLine("Enter customer name:");
         name = Console.ReadLine();
-        Cart cart = new Cart() { CustomerAddress = customerAddress, CustomerEmail = customerEmail, CustomerName = name, Items = new List<BO.OrderItem>(), TotalPrice = 0 };
+        BO.Cart cart = new BO.Cart() { CustomerAddress = customerAddress, CustomerEmail = customerEmail, CustomerName = name, Items = new List<BO.OrderItem>(), TotalPrice = 0 };
 
  
 
@@ -498,7 +570,28 @@ internal class BlTest
                     break;
 
                 case "3"://Make an order  
-                    bl.Cart.MakingAnOrder(cart);
+                    try
+                    {
+                        bl.Cart.MakingAnOrder(cart);
+                    }
+                    catch (BO.DoesntExistExeption e)
+                    {
+                        Console.WriteLine(e.Message);
+                        if (e.InnerException != null)
+                            Console.WriteLine(e.InnerException.Message);
+                    }
+                    catch (BO.InvalidInputExeption e)
+                    {
+                        Console.WriteLine(e.Message);
+                        if (e.InnerException != null)
+                            Console.WriteLine(e.InnerException.Message);
+                    }
+                    catch (BO.ContradictoryDataExeption e)
+                    {
+                        Console.WriteLine(e.Message);
+                        if (e.InnerException != null)
+                            Console.WriteLine(e.InnerException.Message);
+                    }
                     break;
                
                 case "e":  //to exit
@@ -510,8 +603,8 @@ internal class BlTest
     }
     static void Main(string[] args)
     {
-        IBl bl = new Bl();
-        
+        BlApi.IBl? bl = BlApi.Factory.Get();
+
         string? ch;
         do
         {

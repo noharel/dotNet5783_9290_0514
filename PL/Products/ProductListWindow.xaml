@@ -5,29 +5,41 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Products"
         mc:Ignorable="d"
-        Title="ProductListWindow" Height="640" Width="800">
+        Title="ProductListWindow" Height="450" Width="800">
     <Grid Name="MainGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="387*"/>
+            <ColumnDefinition Width="13*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="9*"/>
-            <RowDefinition Height="181*"/>
-            <RowDefinition Height="18*"/>
+            <RowDefinition Height="42*"/>
+            <RowDefinition Height="323*"/>
+            <RowDefinition Height="69*"/>
         </Grid.RowDefinitions>
-        <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto">
+        <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
-            <ComboBox Name="CategorySelector" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="CategorySelector_SelectionChanged" />
-            <Label Content="Category" Grid.Column="0" />
+            <ComboBox Name="CategorySelector" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Rockwell Condensed" SelectionChanged="CategorySelector_SelectionChanged" FontSize="16" Foreground="#FF1C0B57" >
+                <ComboBox.Background>
+                    <LinearGradientBrush EndPoint="0,1">
+                        <GradientStop Color="#FFF0F0F0"/>
+                        <GradientStop Color="#FF050505" Offset="1"/>
+                        <GradientStop Color="#FF0B0B0B" Offset="0.974"/>
+                    </LinearGradientBrush>
+                </ComboBox.Background>
+            </ComboBox>
+            <Label Content="Category" Grid.Column="0" FontFamily="Rockwell Condensed" FontSize="22" HorizontalContentAlignment="Center" Foreground="#FF1C0B57" />
         </Grid>
-        <ListView Name="ProductListView" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,4,0,0" Grid.Row="1">
+        <ListView Name="ProductListView" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,4,0,0" Grid.Row="1" Grid.ColumnSpan="2" MouseDoubleClick="ProductListView_SelectionChanged" FontFamily="Rockwell Condensed" FontSize="16">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Name="ClearChoice" Content="clear choice" HorizontalAlignment="Left" Margin="658,5,0,0" VerticalAlignment="Top" Click="ClearChoice_Click_1" Height="20" Width="66" Grid.Row="1"/>
-        <Button Name="AddButton" Content="Add new Product" Grid.Row="2" HorizontalAlignment="Left" Margin="639,5,0,5" Padding="5" Click="AddButton_Click" Width="104" />
+        <Button Name="ClearChoice" Content="clear choice" HorizontalAlignment="Left" Margin="647,30,0,0" VerticalAlignment="Top" Click="ClearChoice_Click_1" Height="31" Width="96" Grid.Row="1" FontFamily="Rockwell Condensed" FontSize="16" Foreground="#FF1C0B57"/>
+        <Button Name="AddButton" Content="Add new Product" Grid.Row="2" HorizontalAlignment="Left" Margin="639,5,0,5" Padding="5" Click="AddButton_Click" Width="104" FontFamily="Rockwell Condensed" FontSize="16" Foreground="#FF1C0B57" />
     </Grid>
 </Window>

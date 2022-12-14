@@ -8,22 +8,22 @@ using BO;
 namespace BlApi;
 
 /// <summary>
-/// ריכוז הממשקים של השכבה לקריאה בלבד
+/// ריכוז הממשקים של השכבה, לקריאה בלבד
 /// </summary>
 public interface IBl
 {
     /// <summary>
-    /// for getting a product
+    /// GET A PRODUCT FONCTION
     /// </summary>
     public IProduct Product { get;} 
 
     /// <summary>
-    /// 
+    /// GET AN ORDER FUNCTION
     /// </summary>
     public IOrder Order { get;}
 
     /// <summary>
-    /// 
+    /// GET A CARY FUNCTION
     /// </summary>
     public ICart Cart { get;}
 }

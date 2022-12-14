@@ -8,7 +8,7 @@ using BO;
 namespace BlApi;
 
 /// <summary>
-/// 
+/// INTERFACE FOR CART FUNCTION
 /// </summary>
 public interface ICart
 {

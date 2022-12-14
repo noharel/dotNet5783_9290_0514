@@ -5,5 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BO;
-public enum Category { BMW, Bentley, Porshe, Cadillac, LandRover, RollsRoyce, Mercedes, Audi, Lexsus, Ferrari, Lamborghini, Jaguar }
-public enum OrderStatus {ordered,shipped,arrived};
+/// <summary>
+/// Enums for BO
+/// </summary>
+public enum Category { BMW, Bentley, Porshe, Cadillac, LandRover, RollsRoyce, Mercedes, Audi, Lexsus, Ferrari, Lamborghini, Jaguar }//categories
+public enum OrderStatus { ordered, shipped, arrived };// statuses for orders

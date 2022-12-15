@@ -29,9 +29,6 @@ public partial class ProductListWindow : Window
         this.AddButton.MouseDoubleClick += AddButton_Click; // add button
     }
 
-
-
-
     private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e) //get selection for category
     {
         BO.Category? category = (BO.Category?)CategorySelector.SelectedItem; // get the asked category
@@ -66,8 +63,6 @@ public partial class ProductListWindow : Window
 
         }
     }
-
-
 
     private void AddButton_Click(object sender, RoutedEventArgs e) //add button 
     {

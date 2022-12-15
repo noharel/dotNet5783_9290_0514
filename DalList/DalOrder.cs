@@ -19,8 +19,20 @@ public class DalOrder : IOrder // A CLASS THAT IMPLEMENTS THE INTERFACE IORDER
     {
         if (_ds._orders == null) // there are no orders
             throw new DoesntExistExeption("Products list does not exist");
-        _ds._orders.Add(order); // add
-        return order.ID; 
+        
+        Order? orderCheck;
+        orderCheck = new List<Order>(from Order var in _ds._orders
+                                        where var.ID == order.ID
+                                        select var).FirstOrDefault(); // get the order with the same id
+
+        if (orderCheck == null) // if there is no order with the same id
+        {
+            // Add and return
+            _ds._orders.Add(order);
+            return order.ID;
+        }
+        else // The ID is in use
+            throw new AlreadyExistExeption("The order ID number is already exict");
     }
 
     /// <summary>

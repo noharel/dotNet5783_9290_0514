@@ -220,11 +220,19 @@ internal class Cart : BlApi.ICart
                             {
                                 throw new BO.DoesntExistExeption("couldn't find", e);
                             }
+                            catch (DO.AlreadyExistExeption e)
+                            {
+                                throw new BO.AlreadyExistExeption("can't add,", e);
+                            }
                         }
                     }
                     catch (DO.DoesntExistExeption e) // catch ADD function exception - unsuccessful addition
                     {
                         throw new BO.DoesntExistExeption("couldn't find", e);
+                    }
+                    catch (DO.AlreadyExistExeption e)
+                    {
+                        throw new BO.AlreadyExistExeption("can't add,", e);
                     }
                 }
                 catch (BO.DoesntExistExeption e) // catch GetAll function exception

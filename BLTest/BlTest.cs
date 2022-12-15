@@ -130,6 +130,12 @@ internal class BlTest
                             if (e.InnerException != null)
                                 Console.WriteLine(e.InnerException.Message);
                         }
+                        catch (BO.AlreadyExistExeption e)
+                        {
+                            Console.WriteLine(e.Message);
+                            if (e.InnerException != null)
+                                Console.WriteLine(e.InnerException.Message);
+                        }
 
 
                     }
@@ -643,6 +649,12 @@ internal class BlTest
                             Console.WriteLine(e.InnerException.Message);
                     }
                     catch (BO.ContradictoryDataExeption e)
+                    {
+                        Console.WriteLine(e.Message);
+                        if (e.InnerException != null)
+                            Console.WriteLine(e.InnerException.Message);
+                    }
+                    catch(BO.AlreadyExistExeption e)
                     {
                         Console.WriteLine(e.Message);
                         if (e.InnerException != null)

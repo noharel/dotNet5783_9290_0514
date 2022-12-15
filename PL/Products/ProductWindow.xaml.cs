@@ -94,7 +94,13 @@ public partial class ProductWindow : Window
             if (ex.InnerException != null)
                 innerEx = ": " + ex.InnerException.Message;
             MessageBox.Show("unsucessfull addition:" + ex.Message + innerEx); // print exception
-
+        }
+        catch (BO.AlreadyExistExeption ex)
+        {
+            string innerEx = "";
+            if (ex.InnerException != null)
+                innerEx = ": " + ex.InnerException.Message;
+            MessageBox.Show("unsucessfull addition:" + ex.Message + innerEx); // print exception
         }
     }
 

@@ -137,9 +137,15 @@ internal class Product : BlApi.IProduct
         {
             Dal.Product.Add(new DO.Product { ID = product.ID, Name = product.Name, Category = (DO.Category)product.Category!, InStock = product.InStock, Price = product.Price });//adds the product to list of all products
         }
-        catch (DO.DoesntExistExeption e) // catch for Add
+
+        // catch for Add
+        catch (DO.DoesntExistExeption e) 
         {
             throw new BO.DoesntExistExeption("couldn't add product", e);
+        }
+        catch(DO.AlreadyExistExeption e)
+        {
+            throw new BO.AlreadyExistExeption("can't add,", e);
         }
     }
     /// <summary>

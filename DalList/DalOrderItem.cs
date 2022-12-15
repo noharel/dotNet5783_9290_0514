@@ -19,8 +19,20 @@ public class DalOrderItem: IOrderItem  // A CLASS THAT IMPLEMENTS THE INTERFACE 
     { 
         if (_ds._orderItems == null) // there are no order items
             throw new DoesntExistExeption("Products list does not exist");
-        _ds._orderItems.Add(orderItem); // add
-        return orderItem.ID;
+
+        OrderItem? orderitemCheck;
+        orderitemCheck = new List<OrderItem>(from OrderItem var in _ds._orderItems
+                                     where var.ID == orderItem.ID
+                                     select var).FirstOrDefault(); // get the order item with the same id
+
+        if (orderitemCheck == null) // if there is no order with the same id
+        {
+            // Add and return
+            _ds._orderItems.Add(orderItem);
+            return orderItem.ID;
+        }
+        else // The ID is in use
+            throw new AlreadyExistExeption("The order item ID number is already exict");
     }
 
     /// <summary>

@@ -19,8 +19,22 @@ public class DalProduct: IProduct // A CLASS THAT IMPLEMENTS THE INTERFACE IProd
     {
         if (_ds._products == null) // there are no products
             throw new DoesntExistExeption("Products list does not exist");
-        _ds._products.Add(product); // add
-        return product.ID;
+
+        Product? productCheck;
+        productCheck = new List<Product>(from Product var in _ds._products
+                                        where var.ID == product.ID
+                                        select var).FirstOrDefault(); // get all the products with the same id
+
+        if (productCheck == null) // if there is no product with the same id
+        {
+            // Add and return
+            _ds._products.Add(product);
+            return product.ID;
+        }
+        else // The ID is in use
+            throw new AlreadyExistExeption("The prouct ID number is already exict");
+
+
     }
 
     /// <summary>

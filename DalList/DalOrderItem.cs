@@ -4,7 +4,7 @@ using DO;
 
 namespace Dal;
 
-
+//linq done
 public class DalOrderItem: IOrderItem  // A CLASS THAT IMPLEMENTS THE INTERFACE IOrderItem
 {
     DataSource _ds = DataSource.s_instance; //initialize
@@ -20,12 +20,11 @@ public class DalOrderItem: IOrderItem  // A CLASS THAT IMPLEMENTS THE INTERFACE 
         if (_ds._orderItems == null) // there are no order items
             throw new DoesntExistExeption("Products list does not exist");
 
-        OrderItem? orderitemCheck;
-        orderitemCheck = new List<OrderItem>(from OrderItem var in _ds._orderItems
-                                     where var.ID == orderItem.ID
-                                     select var).FirstOrDefault(); // get the order item with the same id
+        List<OrderItem?>? orderitemCheck;
+        orderitemCheck = _ds._orderItems.Where(item => item?.ID == orderItem.ID).ToList(); // get the order item with the same id
 
-        if (orderitemCheck == null) // if there is no order with the same id
+       
+        if (orderitemCheck.Count() == 0) // if there is no order with the same id
         {
             // Add and return
             _ds._orderItems.Add(orderItem);
@@ -85,12 +84,9 @@ public class DalOrderItem: IOrderItem  // A CLASS THAT IMPLEMENTS THE INTERFACE 
     {
         if (_ds?._orders == null)
             throw new DoesntExistExeption("Missing order item id");
-        foreach (OrderItem? oI in _ds._orderItems)
-        {
-            if (oI?.ID == id)
-                return (OrderItem)oI; //return the order item
-        }
-        throw new DoesntExistExeption("Missing order item id");
+        return _ds._orderItems.Where(oI => oI?.ID == id).FirstOrDefault() //chhose order item by id
+            ?? throw new DoesntExistExeption("Missing order item id");
+    
     }
 
     /// <summary>
@@ -113,7 +109,12 @@ public class DalOrderItem: IOrderItem  // A CLASS THAT IMPLEMENTS THE INTERFACE 
     /// <returns></returns>
     public IEnumerable<OrderItem?> GetAll() 
     {
-        return (from OrderItem? _orderItems in _ds._orderItems select _orderItems).ToList();
+        IEnumerable<OrderItem?> list = (from OrderItem? _orderItems in _ds._orderItems select _orderItems).ToList();
+        if (list == null) // there are on order items
+            throw new DoesntExistExeption("Missing order item");
+        else
+            return list; //return all the orderitems
+        
     }
 
     /// <summary>
@@ -123,17 +124,8 @@ public class DalOrderItem: IOrderItem  // A CLASS THAT IMPLEMENTS THE INTERFACE 
     /// <returns></returns>
     public IEnumerable<OrderItem?> GetListOrder(int id) 
     {
-        
-        List<OrderItem?> list = new List<OrderItem?>(); // list for all the items
-        foreach (OrderItem? orderItem in _ds._orderItems)
-        {
-
-            if (orderItem?.OrderID == id)
-            {
-                list.Add(orderItem); //add the product 
-            }
-        }
-        return list; //return all the products
+        return _ds._orderItems.Where(orderItem => orderItem?.OrderID == id);//retruns a list of products with the id
+       
     }
 
     /// <summary>
@@ -144,14 +136,9 @@ public class DalOrderItem: IOrderItem  // A CLASS THAT IMPLEMENTS THE INTERFACE 
     /// <returns></returns>
    public  OrderItem? GetProduct(int orderID, int itemID)
     {
-        foreach (OrderItem? orderItem in _ds._orderItems)
-        {
-            if ((orderItem?.OrderID == orderID)&(orderItem?.PrudoctID==itemID))
-            {
-                return orderItem; //return item
-            }
-        }
-        return new OrderItem();
+        //return the order item with the order id and product id wanted
+        return _ds._orderItems.Where(orderItem => (orderItem?.OrderID == orderID) & (orderItem?.PrudoctID == itemID)).FirstOrDefault(); 
+        
     }
 
 }

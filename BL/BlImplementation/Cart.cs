@@ -28,17 +28,10 @@ internal class Cart : BlApi.ICart
     /// <exception cref="BO.DoesntExistExeption"></exception>
     public BO.Cart AddProductToCart(BO.Cart cart, int id)
     {
-        bool flag=false; // Flag for finding the id
         BO.OrderItem orderItem=new BO.OrderItem();
-        foreach(BO.OrderItem? var in cart.Items!)  // Go through the items in the cart
-        {
-            if (var.ProductID == id)
-            {
-                flag = true;  //FOUND THE PRODUCT IN THE CART
-                orderItem = var;
-            }
-        }
-        if (flag)//THR PPRODUCT IS IN THE CART
+        orderItem=cart.Items!.Where(p => p.ProductID == id).FirstOrDefault()!; //choose the orderitem with the same product id
+ 
+        if (orderItem!=null)//THR PPRODUCT IS IN THE CART
         {
             try
             {
@@ -82,7 +75,7 @@ internal class Cart : BlApi.ICart
 
                     // makes the product
                     BO.OrderItem newOrderItem=new BO.OrderItem() { ID =  rand.Next(1000,9999), Name = product.Name, ProductID = product.ID, Price = product.Price, Amount = 1, TotalPrice = product.Price };
-                    cart.Items.Add(newOrderItem); // ADD
+                    cart.Items!.Add(newOrderItem); // ADD
                     cart.TotalPrice+=product.Price;  //Update the total price of cart
                 }
                 else  // The product is not in stock
@@ -166,19 +159,24 @@ internal class Cart : BlApi.ICart
             // check valid cart values
             IEnumerable<DO.Product?> productsList = Dal.Product.GetAll();  // get all products
             bool flag = true;
-
+           // cart.Items.Select()
             foreach (BO.OrderItem var in cart.Items!)  // go throwgh items in the cart
             {
                 bool internalFlag = false;
+                //DO.Product? askedproduct = productsList.Where(prod => var.ProductID == prod?.ID).FirstOrDefault(); // find the product
+                //flag = flag  & (askedproduct?.InStock > 0); // product is in stock
+                //internalFlag = askedproduct != null; // update flag
+
                 foreach (DO.Product? prod in productsList) //go throwgh product all te products
                 {
-                    if (var.ProductID == prod?.ID) // fonid the product
+                    if (var.ProductID == prod?.ID)
                     {
-                        // update flag
-                        internalFlag = true; 
-                        flag = flag && (prod?.InStock > 0);  // product is in stock
+
+                        internalFlag = true;
+                        flag = flag && (prod?.InStock > 0);
                     }
                 }
+
                 flag = flag && internalFlag && var.Amount > 0; // product is in the cart and amount>0
             }
             flag = flag && cart.CustomerName != null && cart.CustomerEmail != null && cart.CustomerAddress != null; //strings are not null
@@ -205,6 +203,9 @@ internal class Cart : BlApi.ICart
                     try
                     {
                         int newOrderID = Dal.Order.Add(newOrder);  //ADD order
+
+                        //needs to be turned to linq!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
                         foreach (BO.OrderItem var in cart.Items)  // go throwgh all the items in the cart
                         {
                             //copy item

@@ -165,10 +165,12 @@ internal class Product : BlApi.IProduct
                 try
                 {
                     IEnumerable<DO.OrderItem?> listOfOrder = Dal.OrderItem.GetListOrder((int)var?.ID!);
-                    foreach (DO.OrderItem? item in listOfOrder)
-                    {
-                        if (item?.PrudoctID == id) flag = false;//found product in list of orders
-                    }
+                    flag = flag & listOfOrder.Where(item => item?.PrudoctID == id).FirstOrDefault() == null; //found product in list of orders
+                                                                                                            
+                    //foreach (DO.OrderItem? item in listOfOrder)
+                    //{
+                    //    if (item?.PrudoctID == id) flag = false;
+                    //}
                 }
                 catch (DO.DoesntExistExeption e)//catch for GetLiistOrder
                 {

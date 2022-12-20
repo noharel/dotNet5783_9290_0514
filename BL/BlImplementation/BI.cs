@@ -1,6 +1,8 @@
 ﻿using BlApi;
+using DalApi;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,19 +14,19 @@ namespace BlImplementation;
 /// </summary>
 sealed public class Bl:IBl
 {
-
+    public static IBl Instance { get; } = new Bl(); // singelton
     /// <summary>
     /// TO GET CART FANCTIONS
     /// </summary>
-    public ICart Cart=> new Cart();
+    public ICart Cart { get; } = new Cart();
 
     /// <summary>
     /// TO GET ORDER FUNCTIONS
     /// </summary>
-    public IOrder Order => new Order();
+    public BlApi.IOrder Order { get; } = new Order();
 
     /// <summary>
     /// TO GET PRODUCTS FUNCTIONS
     /// </summary>
-    public IProduct Product => new Product();
+    public BlApi.IProduct Product { get; } = new Product();
 }

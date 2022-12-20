@@ -3,6 +3,8 @@
 using Microsoft.VisualBasic;
 
 namespace BLTest;
+
+//linq done besides where we need to print each item
 internal class BlTest
 {
     static void funcProduct(IBl bl) // check products functions
@@ -273,7 +275,7 @@ internal class BlTest
                     Console.WriteLine("The orders are:");
                     try
                     {
-                        // go through all the orders and print each one
+                        // go through all the orders and print each one, there is no linq for this
                         foreach (BO.OrderForList? var in bl.Order.GetOrders())
                         {
                             Console.WriteLine(var);

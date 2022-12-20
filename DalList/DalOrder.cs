@@ -4,7 +4,7 @@ using DO;
 
 namespace Dal;
 
-
+//linq done
 public class DalOrder : IOrder // A CLASS THAT IMPLEMENTS THE INTERFACE IORDER
 {
     DataSource _ds = DataSource.s_instance; // initialize
@@ -20,12 +20,11 @@ public class DalOrder : IOrder // A CLASS THAT IMPLEMENTS THE INTERFACE IORDER
         if (_ds._orders == null) // there are no orders
             throw new DoesntExistExeption("Products list does not exist");
         
-        Order? orderCheck;
-        orderCheck = new List<Order>(from Order var in _ds._orders
-                                        where var.ID == order.ID
-                                        select var).FirstOrDefault(); // get the order with the same id
+        List< Order?>? orderCheck;
 
-        if (orderCheck == null) // if there is no order with the same id
+        orderCheck = _ds._orders.Where(item => item?.ID == order.ID).ToList();
+
+        if (orderCheck.Count()==0) // if there is no order with the same id
         {
             // Add and return
             _ds._orders.Add(order);
@@ -80,17 +79,13 @@ public class DalOrder : IOrder // A CLASS THAT IMPLEMENTS THE INTERFACE IORDER
     /// <param name="id"></param>
     /// <returns></returns>
     /// <exception cref="DoesntExistExeption"></exception>
-    public Order GetById(int id) 
+    public Order GetById(int id)
     {
         if (_ds._orders == null)
             throw new DoesntExistExeption("Missing order id");
-        foreach (Order? o in _ds._orders) // find the order with the same id
-        {
-            if (o?.ID == id)
-                return (Order)o; // return the order
-        }
-
-        throw new DoesntExistExeption("Missing order id");
+        return _ds!._orders.Where(o => o?.ID == id).FirstOrDefault() //choose the order by the id
+            ?? throw new DoesntExistExeption("Missing order id"); 
+        
     }
 
     /// <summary>

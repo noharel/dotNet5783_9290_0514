@@ -8,6 +8,7 @@ using System.Xml.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Linq.Expressions;
 
+//linq done - besides where we need to print each item
 
 namespace DalTest;
 partial class DalTest
@@ -85,7 +86,7 @@ partial class DalTest
         if (ch == "c") // print all the products
         {
             Console.WriteLine("The products are:");
-            foreach (Product? product_from_list in product.GetAll()) // goes through all the products
+            foreach (Product? product_from_list in product.GetAll()) // goes through all the products,there is no linq to do this
             {
                 Console.WriteLine(product_from_list); 
             }
@@ -291,7 +292,7 @@ partial class DalTest
         if (ch == "c") //print all orders
         {
             Console.WriteLine("The orders are:");
-            foreach (Order? order_from_list in order.GetAll()) //goes through all the orders
+            foreach (Order? order_from_list in order.GetAll()) //goes through all the orders,there is no linq for this
             {
                 Console.WriteLine(order_from_list); //print it
             }
@@ -531,7 +532,7 @@ partial class DalTest
         {
             Console.WriteLine("The orders items are:");
 
-            foreach (OrderItem? orderitem_from_list in orderItem.GetAll()) //goes through all order items
+            foreach (OrderItem? orderitem_from_list in orderItem.GetAll()) //goes through all order items,there is no linq for this
             {
                 Console.WriteLine(orderitem_from_list); //print it
             }
@@ -670,7 +671,7 @@ partial class DalTest
             s = Console.ReadLine(); //get order ID
             int.TryParse(s, out ID);
             Console.WriteLine("The List of the orders with this Id are:");
-            foreach (OrderItem? orderitem_from_list in orderItem.GetListOrder(ID)) //goes through all the order items in the same order
+            foreach (OrderItem? orderitem_from_list in orderItem.GetListOrder(ID)) //goes through all the order items in the same order,there is no linq for this
             {
                 Console.WriteLine(orderitem_from_list);
             }

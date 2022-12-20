@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace Dal;
 
-
+// linq done
 public class DalProduct: IProduct // A CLASS THAT IMPLEMENTS THE INTERFACE IProduct
 {
     DataSource _ds = DataSource.s_instance; //initialize
@@ -20,19 +20,17 @@ public class DalProduct: IProduct // A CLASS THAT IMPLEMENTS THE INTERFACE IProd
         if (_ds._products == null) // there are no products
             throw new DoesntExistExeption("Products list does not exist");
 
-        Product? productCheck;
-        productCheck = new List<Product>(from Product var in _ds._products
-                                        where var.ID == product.ID
-                                        select var).FirstOrDefault(); // get all the products with the same id
-
-        if (productCheck == null) // if there is no product with the same id
+        List<Product?>? productCheck;
+        productCheck = _ds._products.Where(item=>item?.ID== product.ID).ToList(); //GET ALL THE PRODUCTS WITH THE SAME ID
+      
+        if (productCheck.Count==0) // if there is no product with the same id
         {
             // Add and return
             _ds._products.Add(product);
             return product.ID;
         }
         else // The ID is in use
-            throw new AlreadyExistExeption("The prouct ID number is already exict");
+            throw new AlreadyExistExeption("The prouct ID number is already exist");
 
 
     }
@@ -95,12 +93,8 @@ public class DalProduct: IProduct // A CLASS THAT IMPLEMENTS THE INTERFACE IProd
     {
         if (_ds._products == null) // there are no products
             throw new DoesntExistExeption("there are no products");
-        foreach (Product? p in _ds._products)
-        {
-            if (p?.ID == id)
-                return (Product)p; //return product
-        }
-        throw new DoesntExistExeption("Missing product id");
+        return _ds._products.Where(p => p?.ID == id).FirstOrDefault() // choose product by id
+            ?? throw new DoesntExistExeption("Missing product id");
 
     }
 

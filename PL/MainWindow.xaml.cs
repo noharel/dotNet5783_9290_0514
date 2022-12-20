@@ -20,7 +20,7 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
-        BlApi.IBl? bl = BlApi.Factory.Get(); // get bl
+        BlApi.IBl? bl = BlApi.Factory.Get(); // get bl from factory
 
         public MainWindow() // constructor
         {

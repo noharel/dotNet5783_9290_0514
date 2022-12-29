@@ -86,10 +86,15 @@ partial class DalTest
         if (ch == "c") // print all the products
         {
             Console.WriteLine("The products are:");
-            foreach (Product? product_from_list in product.GetAll()) // goes through all the products,there is no linq to do this
-            {
-                Console.WriteLine(product_from_list); 
-            }
+
+            // goes through all the products and prints them
+            product.GetAll().ToList().ForEach(delegate (Product? product_from_list) { Console.WriteLine(product_from_list); });
+
+            //  CHANGE TO LINQ
+            //foreach (Product? product_from_list in product.GetAll()) // goes through all the products,there is no linq to do this
+            //{
+            //    Console.WriteLine(product_from_list); 
+            //}
         }
 
         if (ch == "d") // update
@@ -292,10 +297,15 @@ partial class DalTest
         if (ch == "c") //print all orders
         {
             Console.WriteLine("The orders are:");
-            foreach (Order? order_from_list in order.GetAll()) //goes through all the orders,there is no linq for this
-            {
-                Console.WriteLine(order_from_list); //print it
-            }
+
+            //goes through all the orders and print them
+            order.GetAll().ToList().ForEach(delegate (Order? order_from_list) { Console.WriteLine(order_from_list); });
+
+                //    CHANGE TO LINQ
+            //foreach (Order? order_from_list in order.GetAll()) //goes through all the orders,there is no linq for this
+            //{
+            //    Console.WriteLine(order_from_list); //print it
+            //}
         }
 
         if (ch == "d") //update
@@ -532,10 +542,15 @@ partial class DalTest
         {
             Console.WriteLine("The orders items are:");
 
-            foreach (OrderItem? orderitem_from_list in orderItem.GetAll()) //goes through all order items,there is no linq for this
-            {
-                Console.WriteLine(orderitem_from_list); //print it
-            }
+            //goes through all order items and prints them
+            orderItem.GetAll().ToList().ForEach(delegate (OrderItem? orderitem_from_list) { Console.WriteLine(orderitem_from_list); });
+
+
+            //   CHANGE TO LINQ
+            //foreach (OrderItem? orderitem_from_list in orderItem.GetAll()) //goes through all order items,there is no linq for this
+            //{
+            //    Console.WriteLine(orderitem_from_list); //print it
+            //}
         }
 
         if (ch == "d") //update
@@ -671,10 +686,15 @@ partial class DalTest
             s = Console.ReadLine(); //get order ID
             int.TryParse(s, out ID);
             Console.WriteLine("The List of the orders with this Id are:");
-            foreach (OrderItem? orderitem_from_list in orderItem.GetListOrder(ID)) //goes through all the order items in the same order,there is no linq for this
-            {
-                Console.WriteLine(orderitem_from_list);
-            }
+
+            //goes through all the order items in the same order and print them
+            orderItem.GetListOrder(ID).ToList().ForEach(delegate (OrderItem? orderitem_from_list) { Console.WriteLine(orderitem_from_list); });
+           
+            //            CHANGE TO LINQ
+            //foreach (OrderItem? orderitem_from_list in orderItem.GetListOrder(ID)) //goes through all the order items in the same order,there is no linq for this
+            //{
+            //    Console.WriteLine(orderitem_from_list);
+            //}
         }
 
         if (ch == "g") //get product by order id and item id

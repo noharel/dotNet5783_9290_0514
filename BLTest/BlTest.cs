@@ -35,10 +35,13 @@ internal class BlTest
                     try
                     {
                         // go through all the products and print each one of them
-                        foreach (BO.ProductForList? var in bl.Product.GetListProduct()) 
-                        {
-                            Console.WriteLine(var); 
-                        }
+                        bl.Product.GetListProduct().ToList().ForEach(delegate (BO.ProductForList? var) { Console.WriteLine(var); });
+
+                        //    CHANGE TO LINQ
+                        //foreach (BO.ProductForList? var in bl.Product.GetListProduct()) 
+                        //{
+                        //    Console.WriteLine(var); 
+                        //}
                     }
                     catch(BO.DoesntExistExeption ex) // catch get list product exception
                     {
@@ -276,10 +279,13 @@ internal class BlTest
                     try
                     {
                         // go through all the orders and print each one, there is no linq for this
-                        foreach (BO.OrderForList? var in bl.Order.GetOrders())
-                        {
-                            Console.WriteLine(var);
-                        }
+                        bl.Order.GetOrders().ToList().ForEach(delegate (BO.OrderForList? var) { Console.WriteLine(var); });
+
+                        //   CHANGE TO LINQ
+                        //foreach (BO.OrderForList? var in bl.Order.GetOrders())
+                        //{
+                        //    Console.WriteLine(var);
+                        //}
                     }
                     
                     // catch GetOrders function exception and print it

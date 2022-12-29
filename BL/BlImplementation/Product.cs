@@ -23,18 +23,29 @@ internal class Product : BlApi.IProduct
     /// </summary>
     /// <returns>list of products</returns>
     /// <exception cref="BO.DoesntExistExeption"></exception>
-    public IEnumerable<BO.ProductForList> GetListProduct()//בקשת רשימת מוצרים
+    public IEnumerable<BO.ProductForList> GetListProduct() //בקשת רשימת מוצרים
     {
         List<BO.ProductForList> productForLists = new List<BO.ProductForList>();
         try
         {
             //gets a list of DO.products from dl and turns it into list of BO.products
-            IEnumerable<DO.Product?> productList = Dal.Product.GetAll();
-            foreach (DO.Product? var in productList)//for every item in productList add its content to ProductForList
+            List<DO.Product?> productList = Dal.Product.GetAll().ToList();
+
+
+            //for every item in productList add its content to ProductForList
+            productList.ForEach(delegate (DO.Product? var)
             {
                 BO.ProductForList productForListsTemp = new BO.ProductForList { ID = (int)var?.ID!, Name = var?.Name, Category = (BO.Category)var?.Category!, Price = (double)var?.Price! };
                 productForLists.Add(productForListsTemp);
-            }
+            });
+
+            //          CHANGE TO LINQ
+            //foreach (DO.Product? var in productList)//for every item in productList add its content to ProductForList
+            //{
+            //    BO.ProductForList productForListsTemp = new BO.ProductForList { ID = (int)var?.ID!, Name = var?.Name, Category = (BO.Category)var?.Category!, Price = (double)var?.Price! };
+            //    productForLists.Add(productForListsTemp);
+            //}
+
             return productForLists;
         }
         catch (DO.DoesntExistExeption e)//catch exception for getall
@@ -54,13 +65,22 @@ internal class Product : BlApi.IProduct
         try
         {
             //gets a list of DO.products from dl and turns it into list of BO.products
-            List<DO.Product?> productList = (List<DO.Product?>)Dal.Product.GetAll();
+            List<DO.Product?> productList = Dal.Product.GetAll().ToList();
 
-            foreach (DO.Product? var in productList)//for every item in productList add its content to ProductForList
+            //for every item in productList add its content to ProductForList
+            productList.ForEach(delegate (DO.Product? var)
             {
+
                 BO.ProductForList productForListsTemp = new BO.ProductForList { ID = (int)var?.ID!, Name = var?.Name, Category = (BO.Category)var?.Category!, Price = (double)var?.Price! };
                 productForLists.Add(productForListsTemp);
-            }
+            });
+
+            //        CHANGE TO LINQ
+            //foreach (DO.Product? var in productList)//for every item in productList add its content to ProductForList
+            //{
+            //    BO.ProductForList productForListsTemp = new BO.ProductForList { ID = (int)var?.ID!, Name = var?.Name, Category = (BO.Category)var?.Category!, Price = (double)var?.Price! };
+            //    productForLists.Add(productForListsTemp);
+            //}
 
             IEnumerable<BO.ProductForList> productForListsFiltered = (from x in productForLists//filters list of all products
                                                                       where filter!(x)
@@ -68,6 +88,7 @@ internal class Product : BlApi.IProduct
 
             return productForListsFiltered;
         }
+
         catch (DO.DoesntExistExeption e)//catch exception for getall
         {
             throw new BO.DoesntExistExeption("Couldn't get list of products", e);
@@ -159,24 +180,43 @@ internal class Product : BlApi.IProduct
         bool flag = true;
         try
         {
-            IEnumerable<DO.Order?> orderList = Dal.Order.GetAll();
-            foreach (DO.Order? var in orderList)
+            List<DO.Order?> orderList = Dal.Order.GetAll().ToList();
+
+            orderList.ForEach(delegate (DO.Order? var)
             {
                 try
                 {
                     IEnumerable<DO.OrderItem?> listOfOrder = Dal.OrderItem.GetListOrder((int)var?.ID!);
                     flag = flag & listOfOrder.Where(item => item?.PrudoctID == id).FirstOrDefault() == null; //found product in list of orders
-                                                                                                            
-                    //foreach (DO.OrderItem? item in listOfOrder)
-                    //{
-                    //    if (item?.PrudoctID == id) flag = false;
-                    //}
+
                 }
                 catch (DO.DoesntExistExeption e)//catch for GetLiistOrder
                 {
                     throw new BO.DoesntExistExeption("Couldn't get list of products", e);
                 }
-            }
+            });
+
+
+            //      CHANGE TO LINQ
+            //foreach (DO.Order? var in orderList)
+            //{
+            //    try
+            //    {
+            //        IEnumerable<DO.OrderItem?> listOfOrder = Dal.OrderItem.GetListOrder((int)var?.ID!);
+            //        flag = flag & listOfOrder.Where(item => item?.PrudoctID == id).FirstOrDefault() == null; //found product in list of orders
+                    
+            //        //        CHANGE TO LINQ
+            //        //foreach (DO.OrderItem? item in listOfOrder)
+            //        //{
+            //        //    if (item?.PrudoctID == id) flag = false;
+            //        //}
+            //    }
+            //    catch (DO.DoesntExistExeption e)//catch for GetLiistOrder
+            //    {
+            //        throw new BO.DoesntExistExeption("Couldn't get list of products", e);
+            //    }
+            //}
+
             if (flag)//product isn't in orders
             {
                 try

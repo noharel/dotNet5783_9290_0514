@@ -18,6 +18,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="pics\mainWindowCarsNew.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="pics\mainWindowCarsNew.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BL\BL.csproj" />
   </ItemGroup>
 

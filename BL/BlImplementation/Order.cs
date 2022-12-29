@@ -15,12 +15,13 @@ internal class Order : BlApi.IOrder
     /// <exception cref="BO.DoesntExistExeption"></exception>
     public IEnumerable<BO.OrderForList> GetOrders()
     {
-        IEnumerable<DO.Order?> orderList;
+        List<DO.Order?> orderList;
         List<BO.OrderForList> orderForList = new List<BO.OrderForList>();
         try
         {
-            orderList = Dal.Order.GetAll(); // GET ALL THE ORDERS FROM DAL
-            foreach (DO.Order? var in orderList) // GO THROWGH ALL THE ORDERS
+            orderList = Dal.Order.GetAll().ToList(); // GET ALL THE ORDERS FROM DAL
+
+            orderList.ForEach(delegate (DO.Order? var) // GO THROWGH ALL THE ORDERS
             {
                 BO.OrderStatus stat = 0;
                 if (var?.ShipDate != null) // ORDER SHIPED
@@ -29,17 +30,40 @@ internal class Order : BlApi.IOrder
                 if (var?.DeliveryrDate != null) // ORDER DELIVERED
                     stat = (BO.OrderStatus)2;
 
-                int id = (int)(var?.ID)!; 
-                IEnumerable<DO.OrderItem?> listOrderItem = Dal.OrderItem.GetListOrder(id); // GET ALL ITEMS IN SAME ORDER
+                int id = (int)(var?.ID)!;
+                List<DO.OrderItem?> listOrderItem = Dal.OrderItem.GetListOrder(id).ToList(); // GET ALL ITEMS IN SAME ORDER
                 double price = 0;
-                foreach (DO.OrderItem? orderItem in listOrderItem)
-                {
+                listOrderItem.ForEach(delegate (DO.OrderItem? orderItem) {
                     price += (double)(orderItem?.Price * orderItem?.Amount)!; // CALCULATE THE TOTAL PRICE FOR EACH ORDER
-                }
+                });
                 // MAKES THE NEW ORDER
-                BO.OrderForList newOrderForList = new BO.OrderForList { ID =id, CustomerName = var?.CustomerName, Status = stat, AmountOfItems = listOrderItem.Count(), TotalPrice = price };
+                BO.OrderForList newOrderForList = new BO.OrderForList { ID = id, CustomerName = var?.CustomerName, Status = stat, AmountOfItems = listOrderItem.Count(), TotalPrice = price };
                 orderForList.Add(newOrderForList); // ADD THE NEW ORDER TO THE LIST
-            }
+            });
+
+            //   CHANGE TO LINQ
+
+            //foreach (DO.Order? var in orderList) // GO THROWGH ALL THE ORDERS
+            //{
+            //    BO.OrderStatus stat = 0;
+            //    if (var?.ShipDate != null) // ORDER SHIPED
+            //        stat = (BO.OrderStatus)1;
+
+            //    if (var?.DeliveryrDate != null) // ORDER DELIVERED
+            //        stat = (BO.OrderStatus)2;
+
+            //    int id = (int)(var?.ID)!; 
+            //    IEnumerable<DO.OrderItem?> listOrderItem = Dal.OrderItem.GetListOrder(id); // GET ALL ITEMS IN SAME ORDER
+            //    double price = 0;
+            //    foreach (DO.OrderItem? orderItem in listOrderItem)
+            //    {
+            //        price += (double)(orderItem?.Price * orderItem?.Amount)!; // CALCULATE THE TOTAL PRICE FOR EACH ORDER
+            //    }
+            //    // MAKES THE NEW ORDER
+            //    BO.OrderForList newOrderForList = new BO.OrderForList { ID =id, CustomerName = var?.CustomerName, Status = stat, AmountOfItems = listOrderItem.Count(), TotalPrice = price };
+            //    orderForList.Add(newOrderForList); // ADD THE NEW ORDER TO THE LIST
+            //}
+
             return orderForList; // RETURNS THE LIST WITH ALL THE ORDERS
         }
         catch (DO.DoesntExistExeption e) // CATCH GETALL FUNCTION EXCEPTION
@@ -64,17 +88,30 @@ internal class Order : BlApi.IOrder
                 DO.Order newOrder = Dal.Order.GetById(orderId); // GET THE ORDER
                 try
                 {
-                    IEnumerable<DO.OrderItem?> listOrder = Dal.OrderItem.GetListOrder(orderId); // GET ALL THE ITEMS IN THE ORDER
+                    List<DO.OrderItem?> listOrder = Dal.OrderItem.GetListOrder(orderId).ToList(); // GET ALL THE ITEMS IN THE ORDER
                     List<BO.OrderItem> BOlistOrder = new List<BO.OrderItem>();
                     double totalPriceOrder = 0;
-                    foreach (DO.OrderItem? item in listOrder) // GO THROWGH ALL THE ITEMS
-                    {
+
+                    listOrder.ForEach(delegate (DO.OrderItem? item) {   // GO THROWGH ALL THE ITEMS
                         // MAKES ITEM
-                        BO.OrderItem newOrderItem = new BO.OrderItem() { ID = (int)item?.ID!, Amount = (int)item?.Amount!, Name = newOrder.CustomerName, Price = (double)item?.Price!, ProductID = (int)item?.PrudoctID!, TotalPrice =(int)( item?.Amount * item?.Price)! };
-                        totalPriceOrder += (double)(item?.Price*item?.Amount)!; // CALCULATE THE TOTAL PRICE
+                        BO.OrderItem newOrderItem = new BO.OrderItem() { ID = (int)item?.ID!, Amount = (int)item?.Amount!, Name = newOrder.CustomerName, Price = (double)item?.Price!, ProductID = (int)item?.PrudoctID!, TotalPrice = (int)(item?.Amount * item?.Price)! };
+                        totalPriceOrder += (double)(item?.Price * item?.Amount)!; // CALCULATE THE TOTAL PRICE
 
                         BOlistOrder.Add(newOrderItem); // ADD THE ITEM
-                    }
+                    });
+
+
+                    //          CHANGE TO LINQ
+
+                    //foreach (DO.OrderItem? item in listOrder) // GO THROWGH ALL THE ITEMS
+                    //{
+                    //    // MAKES ITEM
+                    //    BO.OrderItem newOrderItem = new BO.OrderItem() { ID = (int)item?.ID!, Amount = (int)item?.Amount!, Name = newOrder.CustomerName, Price = (double)item?.Price!, ProductID = (int)item?.PrudoctID!, TotalPrice =(int)( item?.Amount * item?.Price)! };
+                    //    totalPriceOrder += (double)(item?.Price*item?.Amount)!; // CALCULATE THE TOTAL PRICE
+
+                    //    BOlistOrder.Add(newOrderItem); // ADD THE ITEM
+                    //}
+
                     BO.OrderStatus status = BO.OrderStatus.ordered;  // DEFUALT
                     if (newOrder.ShipDate != null) // IF THE ORDER SHIPED 
                         status = BO.OrderStatus.shipped;
@@ -120,17 +157,26 @@ internal class Order : BlApi.IOrder
                 if (DOorder.ShipDate == null) // MANAGER CAN UPDATE SHIP DATE JUST IF THE ORDER IS NOT SHIPED YET
                 {
                     List<BO.OrderItem> BOlistOrder = new List<BO.OrderItem>();
-                    IEnumerable<DO.OrderItem?> listOrder = Dal.OrderItem.GetListOrder(orderId); // GET ALL THE ITEMS IN THE ORDER
+                    List<DO.OrderItem?> listOrder = Dal.OrderItem.GetListOrder(orderId).ToList(); // GET ALL THE ITEMS IN THE ORDER
 
                     double totalPriceOrder = 0;
-                    foreach (DO.OrderItem? item in listOrder) // GO THROWGH ALL THE ITEMS
-                    {
+                    listOrder.ForEach(delegate (DO.OrderItem? item) {  // GO THROWGH ALL THE ITEMS
                         //CONVERT FROM DO TO BO
                         BO.OrderItem newOrderItem = new BO.OrderItem() { ID = (int)item?.ID!, Amount = (int)item?.Amount!, Name = DOorder.CustomerName, Price = (double)item?.Price!, ProductID = (int)item?.PrudoctID!, TotalPrice = (double)(item?.Amount * item?.Price)! };
                         BOlistOrder.Add(newOrderItem); // ADD THE ITEM
                         totalPriceOrder += newOrderItem.TotalPrice; // CALCULATE THE TOTAL PRICE OF THE ORDER
+                    });
 
-                    }
+                    //           CHANGE TO LINQ
+                    //foreach (DO.OrderItem? item in listOrder) // GO THROWGH ALL THE ITEMS
+                    //{
+                    //    //CONVERT FROM DO TO BO
+                    //    BO.OrderItem newOrderItem = new BO.OrderItem() { ID = (int)item?.ID!, Amount = (int)item?.Amount!, Name = DOorder.CustomerName, Price = (double)item?.Price!, ProductID = (int)item?.PrudoctID!, TotalPrice = (double)(item?.Amount * item?.Price)! };
+                    //    BOlistOrder.Add(newOrderItem); // ADD THE ITEM
+                    //    totalPriceOrder += newOrderItem.TotalPrice; // CALCULATE THE TOTAL PRICE OF THE ORDER
+
+                    //}
+
                     DOorder.ShipDate = DateTime.Now; // UPDATE SHIP DATE
                     // MAKES THE UPDATED ORDER
                     BOorder = new BO.Order() { ID = DOorder.ID, ShipDate = DOorder.ShipDate, CustomerAddress = DOorder.CustomerAddress, CustomerEmail = DOorder.CustomerEmail, CustomerName = DOorder.CustomerName, DeliveryrDate = DOorder.DeliveryrDate, Items = BOlistOrder, TotalPrice = totalPriceOrder, OrderDate = DOorder.OrderDate, Status = BO.OrderStatus.shipped };
@@ -179,18 +225,30 @@ internal class Order : BlApi.IOrder
                 if ((DOorder.ShipDate != null) && (DOorder.DeliveryrDate == null)) // THE ORDER SHIPED BUT NOT DELIVERED YET
                 {
                     List<BO.OrderItem> BOlistOrder = new List<BO.OrderItem>();
-                    IEnumerable<DO.OrderItem?> listOrder = Dal.OrderItem.GetListOrder(orderId); // GET ALL ITEMS IN THE ORDER
+                    List<DO.OrderItem?> listOrder = Dal.OrderItem.GetListOrder(orderId).ToList(); // GET ALL ITEMS IN THE ORDER
 
                     double totalPriceOrder = 0;
-                    foreach (DO.OrderItem? item in listOrder) // GO THROUGH ALL ITEMS
+                    listOrder.ForEach(delegate (DO.OrderItem? item)   // GO THROUGH ALL ITEMS
                     {
                         // CONVERT ITEM FROM 'DO' TO 'BO'
                         BO.OrderItem newOrderItem = new BO.OrderItem() { ID = (int)item?.ID!, Amount = (int)item?.Amount!, Name = DOorder.CustomerName, Price = (double)item?.Price!, ProductID = (int)item?.PrudoctID!, TotalPrice = (double)(item?.Amount * item?.Price)! };
                         BOlistOrder.Add(newOrderItem); // ADD ITEM
                         totalPriceOrder += newOrderItem.TotalPrice; // CALCULATES THE TOTAL PRICE OF ORDER
+                    });
 
-                    }
+
+                    ///           CHANGE TO LINQ
+                    //foreach (DO.OrderItem? item in listOrder) // GO THROUGH ALL ITEMS
+                    //{
+                    //    // CONVERT ITEM FROM 'DO' TO 'BO'
+                    //    BO.OrderItem newOrderItem = new BO.OrderItem() { ID = (int)item?.ID!, Amount = (int)item?.Amount!, Name = DOorder.CustomerName, Price = (double)item?.Price!, ProductID = (int)item?.PrudoctID!, TotalPrice = (double)(item?.Amount * item?.Price)! };
+                    //    BOlistOrder.Add(newOrderItem); // ADD ITEM
+                    //    totalPriceOrder += newOrderItem.TotalPrice; // CALCULATES THE TOTAL PRICE OF ORDER
+
+                    //}
+
                     DOorder.DeliveryrDate = DateTime.Now; // UPDATES DELIVERY DATE
+
                     // MAKES THE UPDATED ORDER
                     BOorder = new BO.Order() { ID = DOorder.ID, ShipDate = DOorder.ShipDate, CustomerAddress = DOorder.CustomerAddress, CustomerEmail = DOorder.CustomerEmail, CustomerName = DOorder.CustomerName, DeliveryrDate = DOorder.DeliveryrDate, Items = BOlistOrder, TotalPrice = totalPriceOrder, OrderDate = DOorder.OrderDate, Status = BO.OrderStatus.arrived };
                     try

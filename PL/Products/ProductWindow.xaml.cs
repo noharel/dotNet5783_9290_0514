@@ -46,7 +46,7 @@ public partial class ProductWindow : Window
             inputPrice.Text = product.Price.ToString();
             inputInStock.Text=(bl.Product.GetProductInfo_manager(product.ID)).InStock.ToString();
             inputCategory.Text=product.Category.ToString();
-            inputID.IsEnabled = false; // can't change id
+            // inputID.IsEnabled = false; // can't change id
         }
 
         else //for add

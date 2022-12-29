@@ -24,7 +24,7 @@ namespace PL
 
         public MainWindow() // constructor
         {
-            InitializeComponent(); 
+            InitializeComponent();
         }
 
         private void ProductsMouseEnter(object sender, MouseEventArgs e) // product buttom
@@ -33,6 +33,11 @@ namespace PL
             var win = new PL.Products.ProductListWindow();
             win.Owner = this; // for the new window to be first
             win.Show();
+        }
+
+        private void TrackOrder_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

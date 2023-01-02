@@ -6,6 +6,47 @@
         xmlns:local="clr-namespace:PL.Products"
         mc:Ignorable="d"
         Title="ProductListWindow" Height="450" Width="800">
+    <Window.Resources>
+        <Style x:Key="myComboBoxStyle"
+           TargetType="ComboBox">
+            <Setter Property="FontSize"
+              Value="36" />
+            <Setter Property="FontFamily"
+              Value="Rockwell Condensed" />
+            <Setter Property="FontWeight"
+              Value="Bold" />
+            <Setter Property="Foreground"
+                    Value="White"/>
+            <Setter Property="Background"
+                    Value="Black"/>
+        </Style>
+        <Style x:Key="myButtonStyle"
+           TargetType="Button">
+            <Setter Property="FontSize"
+              Value="36" />
+            <Setter Property="FontFamily"
+              Value="Rockwell Condensed" />
+            <Setter Property="FontWeight"
+              Value="Bold" />
+            <Setter Property="Foreground"
+                    Value="White"/>
+            <Setter Property="Background"
+                    Value="Black"/>
+        </Style>
+        <Style x:Key="myLabelStyle"
+           TargetType="Label">
+            <Setter Property="FontSize"
+              Value="36" />
+            <Setter Property="FontFamily"
+              Value="Rockwell Condensed" />
+            <Setter Property="FontWeight"
+              Value="Bold" />
+            <Setter Property="Foreground"
+                    Value="Black"/>
+            <Setter Property="Background"
+                    Value="White"/>
+        </Style>
+    </Window.Resources>
     <Grid Name="MainGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="387*"/>
@@ -21,7 +62,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
-            <ComboBox Name="CategorySelector" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Rockwell Condensed" SelectionChanged="CategorySelector_SelectionChanged" FontSize="16" Foreground="#FF1C0B57" >
+            <ComboBox Name="CategorySelector" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Rockwell Condensed" SelectionChanged="CategorySelector_SelectionChanged" Style="{StaticResource myComboBoxStyle}" >
                 <ComboBox.Background>
                     <LinearGradientBrush EndPoint="0,1">
                         <GradientStop Color="#FFF0F0F0"/>
@@ -30,16 +71,16 @@
                     </LinearGradientBrush>
                 </ComboBox.Background>
             </ComboBox>
-            <Label Content="Category" Grid.Column="0" FontFamily="Rockwell Condensed" FontSize="22" HorizontalContentAlignment="Center" Foreground="#FF1C0B57" />
+            <Label Content="Category" Grid.Column="0" FontFamily="Rockwell Condensed" FontSize="22" HorizontalContentAlignment="Center" Foreground="#FF1C0B57" Style="{StaticResource myLabelStyle}" />
         </Grid>
-        <ListView Name="ProductListView" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,4,0,0" Grid.Row="1" Grid.ColumnSpan="2" MouseDoubleClick="ProductListView_SelectionChanged" FontFamily="Rockwell Condensed" FontSize="16">
+        <ListView Name="ProductListView" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,4,-10,0" Grid.Row="1" Grid.ColumnSpan="2" MouseDoubleClick="ProductListView_SelectionChanged" FontFamily="Rockwell Condensed" FontSize="16">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Name="ClearChoice" Content="clear choice" HorizontalAlignment="Left" Margin="647,30,0,0" VerticalAlignment="Top" Click="ClearChoice_Click_1" Height="31" Width="96" Grid.Row="1" FontFamily="Rockwell Condensed" FontSize="16" Foreground="#FF1C0B57"/>
-        <Button Name="AddButton" Content="Add new Product" Grid.Row="2" HorizontalAlignment="Left" Margin="639,5,0,5" Padding="5" Click="AddButton_Click" Width="104" FontFamily="Rockwell Condensed" FontSize="16" Foreground="#FF1C0B57" />
+        <Button Name="ClearChoice" Content="clear choice" HorizontalAlignment="Left" Margin="647,30,0,0" VerticalAlignment="Top" Click="ClearChoice_Click_1" Height="31" Width="96" Grid.Row="1" Style="{StaticResource myButtonStyle}"/>
+        <Button Name="AddButton" Content="Add new Product" Grid.Row="2" HorizontalAlignment="Left" Margin="639,5,0,5" Padding="5" Click="AddButton_Click" Width="104" FontFamily="Rockwell Condensed" Style="{StaticResource myButtonStyle}"/>
     </Grid>
 </Window>

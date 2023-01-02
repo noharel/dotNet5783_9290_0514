@@ -21,7 +21,7 @@
         <Label Name="Price" Content="Price:" HorizontalAlignment="Left" Margin="164,266,0,0" VerticalAlignment="Top" FontFamily="Rockwell Condensed" FontSize="16" Foreground="#FF1E0C5C"/>
         <Label Name="Instructions" Content="Please enter info for product:" HorizontalAlignment="Left" Margin="164,87,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" FontFamily="Rockwell Condensed" Foreground="#FF1C0B57"/>
         
-        <TextBox Name="inputID" HorizontalAlignment="Left" Margin="194,142,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" FontFamily="Rockwell Condensed" TextChanged="TextBoxID" Foreground="#FF1C0B57" IsEnabled="{Binding ElementName=completeAdd, Path=IsEnabled}"/>
+        <TextBox Name="inputID" HorizontalAlignment="Left" Margin="194,142,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" FontFamily="Rockwell Condensed" TextChanged="TextBoxID" Foreground="#FF1C0B57" />
         <TextBox Name="inputName" HorizontalAlignment="Left" Margin="214,174,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" FontFamily="Rockwell Condensed" TextChanged="inputNameFunc" Foreground="#FF1C0B57"/>
         <TextBox Name="inputInStock" HorizontalAlignment="Left" Margin="274,239,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" FontFamily="Rockwell Condensed" TextChanged="inputInStockFunc" Foreground="#FF1E0C5C"/>
         <TextBox Name="inputPrice" HorizontalAlignment="Left" Margin="214,270,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Rockwell Condensed" Width="120" TextChanged="inputPriceFunc" Foreground="#FF1E0C5C"/>

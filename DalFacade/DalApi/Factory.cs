@@ -25,7 +25,7 @@ public static class Factory // Layer DAl producer class
             throw new DO.DalConfigException("Failed to load {dal}.dll package");
         }
 
-        Type? type = Type.GetType($"Dal.{dal}, {dal}") //Dal.DalList
+        Type? type = Type.GetType($"Dal.{dal}, {dal}") // Dal.DalList
             ?? throw new DO.DalConfigException($"Class Dal.{dal} was not found in {dal}.dll");
 
         return type.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static)?

@@ -56,11 +56,39 @@
             <ColumnDefinition Width="301*"/>
             <ColumnDefinition Width="99*"/>
         </Grid.ColumnDefinitions>
-        <Button Name="Products" Content="PRODUCTS" HorizontalAlignment="Left" Margin="257,40,0,0" VerticalAlignment="Top" MouseDoubleClick="ProductsMouseEnter" Height="72" Width="258" Style="{StaticResource myButtonStyle}"/>
-        <Button Name="TrackOrder" Content="TRACK" HorizontalAlignment="Left" Margin="0,69,0,0" VerticalAlignment="Top" Height="43" Width="257" Click="TrackOrder_Click" Style="{StaticResource myButtonStyle}" FontSize="30" IsEnabled="{Binding ElementName=orderTrackingNumber}"/>
-        <TextBox x:Name="orderTrackingNumber" Text="Enter Order ID" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="257" Height="29" Style="{StaticResource myTextBoxStyle}" FontSize="15" Margin="0,40,0,0"/>
-        <Image Source="pics\mainWindowCarsNew.png" HorizontalAlignment="Left" Height="838" VerticalAlignment="Top" Width="966" Margin="-83,112,0,0" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+        <Button Name="Products" 
+                Content="PRODUCTS" 
+                HorizontalAlignment="Left" 
+                Margin="257,40,0,0" 
+                VerticalAlignment="Top" 
+                MouseDoubleClick="ProductsMouseEnter" 
+                Height="72" Width="258" 
+                Style="{StaticResource myButtonStyle}"/>
+        <Button Name="TrackOrder" 
+                Content="TRACK" 
+                HorizontalAlignment="Left" 
+                Margin="0,69,0,0" 
+                VerticalAlignment="Top" 
+                Height="43" Width="257" 
+                Click="TrackOrder_Click" 
+                Style="{StaticResource myButtonStyle}" 
+                FontSize="30" 
+                IsEnabled="{Binding ElementName=orderTrackingNumber}"/>
+        <TextBox x:Name="orderTrackingNumber" 
+                 Text="Enter Order ID" 
+                 HorizontalAlignment="Left" 
+                 TextWrapping="Wrap" 
+                 VerticalAlignment="Top" 
+                 Width="257" Height="29" 
+                 Style="{StaticResource myTextBoxStyle}" 
+                 FontSize="15" Margin="0,40,0,0"/>
+        <Image Source="pics\mainWindowCarsNew.png" 
+               HorizontalAlignment="Left" 
+               Height="838" 
+               VerticalAlignment="Top" 
+               Width="966" Margin="-83,112,0,0" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
         <Button Name="adminButton" Content="ADMIN" HorizontalAlignment="Left" Margin="515,40,0,0" VerticalAlignment="Top" Style="{StaticResource myButtonStyle}" Grid.ColumnSpan="2" Width="285" Height="72"/>
         <Label Content="LUXARY CAR DEALERSHIP" HorizontalAlignment="Left" Margin="0,-12,0,0" VerticalAlignment="Top" Style="{StaticResource myLabelStyle}" Grid.ColumnSpan="2" Width="800" HorizontalContentAlignment="Center"/>
     </Grid>
 </Window>
+

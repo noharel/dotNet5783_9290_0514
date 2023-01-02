@@ -13,7 +13,7 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <RootNamespace />
-    <BaseOutputPath>C:\Users\noaha\source\repos\TalelGinsberg\dotNet5783_9290_0514\bin</BaseOutputPath>
+    <BaseOutputPath>$(SolutionDir)\bin\</BaseOutputPath>
   </PropertyGroup>
 
 </Project>

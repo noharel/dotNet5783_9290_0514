@@ -60,19 +60,28 @@
     <Grid>
         <Image Source="..\pics\carShipping.png" 
                HorizontalAlignment="Left" 
-               Height="645" 
+               Height="532" 
+               VerticalAlignment="Center" 
+               Width="398"/>
+        <Label Content="LUXARY CAR DEALERSHIP" 
+               HorizontalAlignment="Center" 
                VerticalAlignment="Top" 
-               Width="383" 
-               Margin="0,-55,0,0"/>
+               FontSize="36" 
+               FontFamily="Rockwell Condensed" 
+               FontWeight="Bold" 
+               Foreground="White"
+               Background="Black" 
+               Width="808" 
+               HorizontalContentAlignment="Center" Height="63"/>
         <TextBox Name="status" 
                  Text="arrived" 
                  HorizontalAlignment="Left" 
-                 Margin="88,10,0,0" 
+                 Margin="137,68,0,0" 
                  TextWrapping="Wrap" 
                  VerticalAlignment="Top" 
                  Width="181" 
                  Style="{StaticResource myTextBoxStyle}" 
-                 FontSize="70">
+                 FontSize="35">
             <TextBox.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" Opacity="0">
                     <GradientStop Color="Black"/>
@@ -81,52 +90,53 @@
             </TextBox.Background>
         </TextBox>
         <Label Content=" Traking Order For order Number " 
-               HorizontalAlignment="Left" 
-               Margin="388,63,0,0" 
-               VerticalAlignment="Top" 
+               Margin="379,69,0,0" 
                FontSize="26" 
                Style="{StaticResource myLabelStyle}" 
                Height="43"/>
         <TextBox Name="orderId" 
-                 Margin="679,69,56,0" 
+                 Margin="670,75,65,0" 
                  TextWrapping="Wrap" 
                  Text="1234" 
                  VerticalAlignment="Top"
                  FontSize="26"
                  Width="65" Style="{StaticResource myTextBoxStyle}" 
                  Height="31"/>
-        <Label Content="Was ordered on:" 
-               Margin="428,149,0,0" 
+        <Label Name="labelO" 
+               Content="Was ordered on:" 
+               Margin="394,154,0,0" 
                Style="{StaticResource myLabelStyle}"/>
-        <Label Content="Was shipped on:" 
-               Margin="428,206,0,0" 
+        <Label Name="labelS" 
+               Content="Was shipped on:" 
+               Margin="400,211,0,0" 
                Style="{StaticResource myLabelStyle}"/>
-        <Label Content="Was arrived on:" 
-               Margin="428,268,0,0" 
+        <Label Name="labelA" 
+               Content="Was arrived on:" 
+               Margin="400,273,0,0" 
                Style="{StaticResource myLabelStyle}"/>
         <TextBox Name="shippingDate" 
                  HorizontalAlignment="Left" 
-                 Margin="569,211,0,0" 
+                 Margin="541,216,0,0" 
                  TextWrapping="Wrap" 
                  Text="shipping date" 
                  VerticalAlignment="Top" 
-                 Width="120" 
+                 Width="205" 
                  Style="{StaticResource myTextBoxStyle}"/>
-        <TextBox Name="orderingingDate" 
+        <TextBox Name="orderingDate" 
                  HorizontalAlignment="Left" 
-                 Margin="567,154,0,0" 
+                 Margin="534,159,0,0" 
                  TextWrapping="Wrap" 
                  Text="ordering date" 
                  VerticalAlignment="Top" 
-                 Width="168" 
+                 Width="207" 
                  Style="{StaticResource myTextBoxStyle}"/>
         <TextBox Name="arrivalDate" 
                  HorizontalAlignment="Left" 
-                 Margin="567,273,0,0" 
+                 Margin="539,278,0,0" 
                  TextWrapping="Wrap" 
                  Text="arrival date" 
                  VerticalAlignment="Top" 
-                 Width="168" 
+                 Width="207" 
                  Style="{StaticResource myTextBoxStyle}"/>
     </Grid>
 </Window>

@@ -67,17 +67,15 @@
     </Window.Resources>
     <Grid>
         <Label Content="LUXARY CAR DEALERSHIP" 
-               HorizontalAlignment="Left" 
-               Margin="0,-12,0,0" 
+               HorizontalAlignment="Center" 
                VerticalAlignment="Top" 
                FontSize="36" 
                FontFamily="Rockwell Condensed" 
                FontWeight="Bold" 
                Foreground="White"
                Background="Black" 
-               Grid.ColumnSpan="2" 
-               Width="800" 
-               HorizontalContentAlignment="Center"/>
+               Width="808" 
+               HorizontalContentAlignment="Center" Height="63"/>
         <Label Name="ID" 
                Content="ID:" 
                HorizontalAlignment="Left" 

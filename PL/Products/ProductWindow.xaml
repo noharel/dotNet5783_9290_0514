@@ -23,10 +23,25 @@
             <Setter Property="Width"
                     Value="120"/>
         </Style>
+        <Style x:Key="myComboBoxStyle"
+           TargetType="ComboBox">
+            <Setter Property="FontSize"
+              Value="16" />
+            <Setter Property="FontFamily"
+              Value="Rockwell Condensed" />
+            <Setter Property="FontWeight"
+              Value="Bold" />
+            <Setter Property="Text"
+                    Value="White"/>
+            <Setter Property="Background"
+                    Value="Black"/>
+            <Setter Property="Width"
+                    Value="120"/>
+        </Style>
         <Style x:Key="myButtonStyle"
            TargetType="Button">
             <Setter Property="FontSize"
-              Value="36" />
+              Value="16" />
             <Setter Property="FontFamily"
               Value="Rockwell Condensed" />
             <Setter Property="FontWeight"
@@ -60,8 +75,8 @@
         <Label Name="Category" 
                Content="Category:" 
                HorizontalAlignment="Left" 
-               Margin="164,0,0,0" 
-               VerticalAlignment="Center" 
+               Margin="164,206,0,0" 
+               VerticalAlignment="Top" 
                Style="{StaticResource myLabelStyle}" />
         <Label Name="prodName" 
                Content="name:" 
@@ -94,15 +109,39 @@
                  Margin="194,142,0,0" 
                  TextWrapping="Wrap" 
                  Text="" 
-                 VerticalAlignment="Top" 
-                 Width="120" 
-                 FontFamily="Rockwell Condensed" 
+                 VerticalAlignment="Top"
                  TextChanged="TextBoxID" 
                  Style="{StaticResource myTextBoxStyle}"/>
-        <TextBox Name="inputName" HorizontalAlignment="Left" Margin="214,174,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" FontFamily="Rockwell Condensed" TextChanged="inputNameFunc" Foreground="#FF1C0B57"/>
-        <TextBox Name="inputInStock" HorizontalAlignment="Left" Margin="274,239,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" FontFamily="Rockwell Condensed" TextChanged="inputInStockFunc" Foreground="#FF1E0C5C"/>
-        <TextBox Name="inputPrice" HorizontalAlignment="Left" Margin="214,270,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Rockwell Condensed" Width="120" TextChanged="inputPriceFunc" Foreground="#FF1E0C5C"/>
-        <ComboBox Name="inputCategory" HorizontalAlignment="Left" Margin="230,0,0,0" VerticalAlignment="Center" Width="120" FontFamily="Rockwell Condensed" SelectionChanged="inputCategoryFunc" Foreground="#FF1C0B57">
+        <TextBox Name="inputName" 
+                 HorizontalAlignment="Left" 
+                 Margin="214,174,0,0" 
+                 TextWrapping="Wrap" 
+                 Text="" VerticalAlignment="Top" 
+                 TextChanged="inputNameFunc" 
+                 Style="{StaticResource myTextBoxStyle}"/>
+        <TextBox Name="inputInStock" 
+                 HorizontalAlignment="Left" 
+                 Margin="274,239,0,0" 
+                 TextWrapping="Wrap" 
+                 Text="" 
+                 VerticalAlignment="Top"
+                 TextChanged="inputInStockFunc"
+                 Style="{StaticResource myTextBoxStyle}"/>
+        <TextBox Name="inputPrice" 
+                 HorizontalAlignment="Left" 
+                 Margin="214,270,0,0" 
+                 TextWrapping="Wrap" 
+                 Text="" 
+                 VerticalAlignment="Top"
+                 TextChanged="inputPriceFunc"
+                 Style="{StaticResource myTextBoxStyle}"/>
+        <ComboBox Name="inputCategory" 
+                  HorizontalAlignment="Left" 
+                  Margin="226,206,0,0" 
+                  VerticalAlignment="Top"
+                  FontFamily="Rockwell Condensed" 
+                  SelectionChanged="inputCategoryFunc" 
+                  Style="{StaticResource myComboBoxStyle}" Height="29" Width="122" BorderBrush="#FFFAF7F7">
             <ComboBox.Background>
                 <LinearGradientBrush EndPoint="0,1">
                     <GradientStop Color="#FFF0F0F0"/>
@@ -110,8 +149,26 @@
                 </LinearGradientBrush>
             </ComboBox.Background>
         </ComboBox>
-        <Button Name="completeAdd" Content="Add" HorizontalAlignment="Left" Margin="165,306,0,0" VerticalAlignment="Top" Height="27" Width="266" Click="CompleteAdd_MouseDoubleClick" FontFamily="Rockwell Condensed" Foreground="#FF1E0C5C" Background="#FFDDDDDD"/>
-        <Button Name="completeUpdate" Content="Update" HorizontalAlignment="Left" Margin="165,306,0,0" VerticalAlignment="Top" Click="completeUpdate_Click" Height="27" Width="266" FontFamily="Rockwell Condensed" Foreground="#FF1E0C5C" Background="#FFDDDDDD"/>
+        <Button Name="completeAdd" 
+                Content="Add" 
+                HorizontalAlignment="Left" 
+                Margin="165,306,0,0" 
+                VerticalAlignment="Top" 
+                Height="27" 
+                Width="266" 
+                Click="CompleteAdd_MouseDoubleClick" 
+                FontFamily="Rockwell Condensed"
+                Style="{StaticResource myButtonStyle}"/>
+        <Button Name="completeUpdate" 
+                Content="Update" 
+                HorizontalAlignment="Left" 
+                Margin="165,306,0,0" 
+                VerticalAlignment="Top" 
+                Click="completeUpdate_Click" 
+                Height="27" 
+                Width="266" 
+                FontFamily="Rockwell Condensed"
+                Style="{StaticResource myButtonStyle}"/>
 
 
     </Grid>

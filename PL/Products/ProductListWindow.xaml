@@ -18,7 +18,7 @@
             <Setter Property="Foreground"
                     Value="Black"/>
             <Setter Property="Background"
-                    Value="PowderBlue"/>
+                    Value="White"/>
         </Style>
         <Style x:Key="myButtonStyle"
            TargetType="Button">
@@ -75,17 +75,25 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
-            <ComboBox Name="CategorySelector" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="CategorySelector_SelectionChanged" Style="{StaticResource myComboBoxStyle}" />
-            <Label Content="Category" Grid.Column="0" HorizontalContentAlignment="Center" Style="{StaticResource myLabelStyle}" />
+            <ComboBox Name="CategorySelector" Grid.Column="1" SelectionChanged="CategorySelector_SelectionChanged" Style="{StaticResource myComboBoxStyle}" Margin="0,36,0,-36" />
+            <Label Content="Category" Grid.Column="0" HorizontalContentAlignment="Center" Style="{StaticResource myLabelStyle}" Margin="0,36,0,-36" />
         </Grid>
-        <ListView Name="ProductListView" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,4,-10,0" Grid.Row="1" Grid.ColumnSpan="2" MouseDoubleClick="ProductListView_SelectionChanged" Style="{StaticResource myListViewStyle}" >
+        <Label Content="LUXARY CAR DEALERSHIP" 
+               HorizontalAlignment="Left" 
+               Margin="0,-6,0,0" 
+               VerticalAlignment="Top" 
+               Style="{StaticResource myLabelStyle}" 
+               Grid.ColumnSpan="2" 
+               Width="800" 
+               HorizontalContentAlignment="Center"/>
+        <ListView Name="ProductListView" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,37,0,0" Grid.Row="1" Grid.ColumnSpan="2" MouseDoubleClick="ProductListView_SelectionChanged" Style="{StaticResource myListViewStyle}" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Name="ClearChoice" Content="clear choice" HorizontalAlignment="Left" Margin="647,30,0,0" VerticalAlignment="Top" Click="ClearChoice_Click_1" Height="31" Width="96" Grid.Row="1" Style="{StaticResource myButtonStyle}"/>
+        <Button Name="ClearChoice" Content="clear choice" HorizontalAlignment="Left" Margin="666,37,0,0" VerticalAlignment="Top" Click="ClearChoice_Click_1" Height="19" Width="98" Grid.Row="1" Style="{StaticResource myButtonStyle}"/>
         <Button Name="AddButton" Content="Add new Product" Grid.Row="2" HorizontalAlignment="Left" Margin="613,5,0,5" Padding="5" Click="AddButton_Click" Width="151" Style="{StaticResource myButtonStyle}"/>
     </Grid>
 </Window>

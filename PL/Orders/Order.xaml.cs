@@ -25,6 +25,7 @@ public partial class Order : Window
         InitializeComponent();
         status.Text = bl.Order.TrackingOrder(x).Status.ToString();
         orderId.Text = x.ToString();
+        
 
     }
 

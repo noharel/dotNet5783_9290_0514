@@ -95,28 +95,38 @@
                  FontSize="26"
                  Width="65" Style="{StaticResource myTextBoxStyle}" 
                  Height="31"/>
-        <Label Content="Was shipped on:" 
+        <Label Content="Was ordered on:" 
                Margin="428,149,0,0" 
                Style="{StaticResource myLabelStyle}"/>
-        <Label Content="Was delivered on:" 
+        <Label Content="Was shipped on:" 
                Margin="428,206,0,0" 
                Style="{StaticResource myLabelStyle}"/>
         <Label Content="Was arrived on:" 
                Margin="428,268,0,0" 
                Style="{StaticResource myLabelStyle}"/>
-        <TextBox HorizontalAlignment="Left" 
-                 Margin="576,168,0,0" 
+        <TextBox Name="shippingDate" 
+                 HorizontalAlignment="Left" 
+                 Margin="569,211,0,0" 
                  TextWrapping="Wrap" 
                  Text="shipping date" 
                  VerticalAlignment="Top" 
                  Width="120" 
                  Style="{StaticResource myTextBoxStyle}"/>
-        <TextBox HorizontalAlignment="Left" 
-                 Margin="576,100,0,0" 
+        <TextBox Name="orderingingDate" 
+                 HorizontalAlignment="Left" 
+                 Margin="567,154,0,0" 
                  TextWrapping="Wrap" 
-                 Text="delevering date" 
+                 Text="ordering date" 
                  VerticalAlignment="Top" 
-                 Width="120" 
+                 Width="168" 
+                 Style="{StaticResource myTextBoxStyle}"/>
+        <TextBox Name="arrivalDate" 
+                 HorizontalAlignment="Left" 
+                 Margin="567,273,0,0" 
+                 TextWrapping="Wrap" 
+                 Text="arrival date" 
+                 VerticalAlignment="Top" 
+                 Width="168" 
                  Style="{StaticResource myTextBoxStyle}"/>
     </Grid>
 </Window>

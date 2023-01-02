@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Printing;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -37,7 +38,19 @@ namespace PL
 
         private void TrackOrder_Click(object sender, RoutedEventArgs e)
         {
-
+            int x;
+            bool flag;
+            flag = int.TryParse( orderTrackingNumber.Text,out x);
+            if (flag)
+            {
+                new PL.Orders.Order(x).Show();
+            }
+            else
+            {
+                MessageBox.Show("Order ID has to be a number");
+            }
+            
         }
+
     }
 }

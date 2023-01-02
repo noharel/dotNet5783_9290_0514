@@ -56,6 +56,14 @@
             <ColumnDefinition Width="301*"/>
             <ColumnDefinition Width="99*"/>
         </Grid.ColumnDefinitions>
+        <Image Source="pics\mainWindowCarsNew.png" 
+               HorizontalAlignment="Left" 
+               Height="1086" 
+               VerticalAlignment="Top" 
+               Width="1300" 
+               Margin="-272,0,0,0" 
+               Grid.ColumnSpan="2" 
+               Grid.RowSpan="2"/>
         <Button Name="Products" 
                 Content="PRODUCTS" 
                 HorizontalAlignment="Left" 
@@ -63,42 +71,59 @@
                 VerticalAlignment="Top" 
                 MouseDoubleClick="ProductsMouseEnter" 
                 Height="72" Width="258" 
-                Style="{StaticResource myButtonStyle}"/>
+                Style="{StaticResource myButtonStyle}" BorderBrush="{x:Null}" BorderThickness="0,0,0,1">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" Opacity="0.2">
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="White" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
         <Button Name="TrackOrder"  
                 Content="TRACK" 
                 HorizontalAlignment="Left" 
-                Margin="0,69,0,0" 
+                Margin="0,68,0,0" 
                 VerticalAlignment="Top" 
-                Height="43" Width="257" 
+                Height="44" Width="257" 
                 Click="TrackOrder_Click" 
                 Style="{StaticResource myButtonStyle}" 
                 FontSize="30" 
-                IsEnabled="{Binding ElementName=orderTrackingNumber}"/>
+                IsEnabled="{Binding ElementName=orderTrackingNumber,Path=Text.Length}" BorderBrush="{x:Null}" BorderThickness="0,1,0,0">
+            <Button.Background>
+                <SolidColorBrush Color="Black" Opacity="0"/>
+            </Button.Background>
+        </Button>
         <TextBox x:Name="orderTrackingNumber" 
-                Text="Enter Order ID" 
+                Text="" 
                 HorizontalAlignment="Left" 
                 TextWrapping="Wrap" 
                 VerticalAlignment="Top" 
-                Width="257" Height="29" 
+                Width="169" 
+                Height="29" 
                 Style="{StaticResource myTextBoxStyle}" 
-                FontSize="15" Margin="0,40,0,0"/>
-        <Image Source="pics\mainWindowCarsNew.png" 
-               HorizontalAlignment="Left" 
-               Height="838" 
-               VerticalAlignment="Top" 
-               Width="966" 
-               Margin="-83,112,0,0" 
-               Grid.ColumnSpan="2" 
-               Grid.RowSpan="2"/>
+                FontSize="15" 
+                Margin="88,40,0,0" BorderBrush="{x:Null}" BorderThickness="0,1,0,0">
+            <TextBox.Background>
+                <SolidColorBrush Color="Black" Opacity="0.2"/>
+            </TextBox.Background>
+        </TextBox>
         <Button Name="adminButton" 
                 Content="ADMIN" 
                 HorizontalAlignment="Left" 
                 Margin="515,40,0,0" 
                 VerticalAlignment="Top" 
                 Style="{StaticResource myButtonStyle}" 
-                Grid.ColumnSpan="2" 
                 Width="285" 
-                Height="72"/>
+                Height="72" Grid.ColumnSpan="2" BorderBrush="{x:Null}" BorderThickness="0,0,0,1">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" Opacity="0.2">
+                    <GradientStop Color="Black" Offset="0"/>
+                    <GradientStop Color="#FF120707"/>
+                    <GradientStop Color="#FFFEF7F7" Offset="1"/>
+                    <GradientStop Color="#FF140909" Offset="0.206"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
         <Label Content="LUXARY CAR DEALERSHIP" 
                HorizontalAlignment="Left" 
                Margin="0,-12,0,0" 
@@ -107,6 +132,20 @@
                Grid.ColumnSpan="2" 
                Width="800" 
                HorizontalContentAlignment="Center"/>
+        <Label Name="EnterId" 
+               Content="Enter Order ID" 
+               HorizontalAlignment="Left" 
+               Margin="0,40,0,0" 
+               VerticalAlignment="Top" 
+               Width="88" 
+               Height="29"
+               Style="{StaticResource myLabelStyle}"
+               FontSize="16"
+               Foreground="White">
+            <Label.Background>
+                <SolidColorBrush Color="Black" Opacity="0.2"/>
+            </Label.Background>
+        </Label>
     </Grid>
 </Window>
 

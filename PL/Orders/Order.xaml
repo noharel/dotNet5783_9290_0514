@@ -6,7 +6,117 @@
         xmlns:local="clr-namespace:PL.Orders"
         mc:Ignorable="d"
         Title="Order" Height="450" Width="800">
+    <Window.Resources>
+        <Style x:Key="myTextBoxStyle"
+           TargetType="TextBox">
+            <Setter Property="FontSize"
+              Value="24" />
+            <Setter Property="FontFamily"
+              Value="Rockwell Condensed" />
+            <Setter Property="FontWeight"
+              Value="Bold" />
+            <Setter Property="Foreground"
+                    Value="Black"/>
+            <Setter Property="Background"
+                    Value="White"/>
+            <Setter Property="BorderBrush"
+                    Value="{x:Null}"/>
+            <Setter Property="BorderThickness"
+                    Value="0,0,0,0"/>
+            <Setter Property="IsReadOnly"
+                    Value="True"/>
+        </Style>
+        <Style x:Key="myButtonStyle"
+           TargetType="Button">
+            <Setter Property="FontSize"
+              Value="36" />
+            <Setter Property="FontFamily"
+              Value="Rockwell Condensed" />
+            <Setter Property="FontWeight"
+              Value="Bold" />
+            <Setter Property="Foreground"
+                    Value="White"/>
+            <Setter Property="Background"
+                    Value="Black"/>
+        </Style>
+        <Style x:Key="myLabelStyle"
+           TargetType="Label">
+            <Setter Property="FontSize"
+              Value="24" />
+            <Setter Property="FontFamily"
+              Value="Rockwell Condensed" />
+            <Setter Property="FontWeight"
+              Value="Bold" />
+            <Setter Property="Foreground"
+                    Value="Black"/>
+            <Setter Property="Background"
+                    Value="White"/>
+            <Setter Property="HorizontalAlignment"
+                    Value="Left"/>
+            <Setter Property="VerticalAlignment"
+                    Value="Top"/>
+        </Style>
+    </Window.Resources>
     <Grid>
-        
+        <Image Source="..\pics\carShipping.png" 
+               HorizontalAlignment="Left" 
+               Height="645" 
+               VerticalAlignment="Top" 
+               Width="383" 
+               Margin="0,-55,0,0"/>
+        <TextBox Name="status" 
+                 Text="arrived" 
+                 HorizontalAlignment="Left" 
+                 Margin="88,10,0,0" 
+                 TextWrapping="Wrap" 
+                 VerticalAlignment="Top" 
+                 Width="181" 
+                 Style="{StaticResource myTextBoxStyle}" 
+                 FontSize="70">
+            <TextBox.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" Opacity="0">
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="White" Offset="1"/>
+                </LinearGradientBrush>
+            </TextBox.Background>
+        </TextBox>
+        <Label Content=" Traking Order For order Number " 
+               HorizontalAlignment="Left" 
+               Margin="388,63,0,0" 
+               VerticalAlignment="Top" 
+               FontSize="26" 
+               Style="{StaticResource myLabelStyle}" 
+               Height="43"/>
+        <TextBox Name="orderId" 
+                 Margin="679,69,56,0" 
+                 TextWrapping="Wrap" 
+                 Text="1234" 
+                 VerticalAlignment="Top"
+                 FontSize="26"
+                 Width="65" Style="{StaticResource myTextBoxStyle}" 
+                 Height="31"/>
+        <Label Content="Was shipped on:" 
+               Margin="428,149,0,0" 
+               Style="{StaticResource myLabelStyle}"/>
+        <Label Content="Was delivered on:" 
+               Margin="428,206,0,0" 
+               Style="{StaticResource myLabelStyle}"/>
+        <Label Content="Was arrived on:" 
+               Margin="428,268,0,0" 
+               Style="{StaticResource myLabelStyle}"/>
+        <TextBox HorizontalAlignment="Left" 
+                 Margin="576,168,0,0" 
+                 TextWrapping="Wrap" 
+                 Text="shipping date" 
+                 VerticalAlignment="Top" 
+                 Width="120" 
+                 Style="{StaticResource myTextBoxStyle}"/>
+        <TextBox HorizontalAlignment="Left" 
+                 Margin="576,100,0,0" 
+                 TextWrapping="Wrap" 
+                 Text="delevering date" 
+                 VerticalAlignment="Top" 
+                 Width="120" 
+                 Style="{StaticResource myTextBoxStyle}"/>
     </Grid>
 </Window>

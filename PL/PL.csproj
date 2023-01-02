@@ -18,7 +18,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="pics\carShipping.png" />
     <None Remove="pics\mainWindowCarsNew.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="pics\carShipping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

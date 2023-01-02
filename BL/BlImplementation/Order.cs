@@ -112,11 +112,11 @@ internal class Order : BlApi.IOrder
                     //    BOlistOrder.Add(newOrderItem); // ADD THE ITEM
                     //}
 
-                    BO.OrderStatus status = BO.OrderStatus.ordered;  // DEFUALT
+                    BO.OrderStatus status = BO.OrderStatus.Ordered;  // DEFUALT
                     if (newOrder.ShipDate != null) // IF THE ORDER SHIPED 
-                        status = BO.OrderStatus.shipped;
+                        status = BO.OrderStatus.Shipped;
                     if (newOrder.DeliveryrDate != null) // IF THE ORDER DELIVERED
-                        status = BO.OrderStatus.arrived;
+                        status = BO.OrderStatus.Arrived;
 
                     // RETURN THE NEW ORDER
                     return new BO.Order() { Items = BOlistOrder, ID = newOrder.ID, CustomerAddress = newOrder.CustomerAddress, CustomerEmail = newOrder.CustomerEmail, ShipDate = newOrder.ShipDate, OrderDate = newOrder.OrderDate, DeliveryrDate = newOrder.DeliveryrDate, CustomerName = newOrder.CustomerName, TotalPrice = totalPriceOrder, Status = status };
@@ -179,7 +179,7 @@ internal class Order : BlApi.IOrder
 
                     DOorder.ShipDate = DateTime.Now; // UPDATE SHIP DATE
                     // MAKES THE UPDATED ORDER
-                    BOorder = new BO.Order() { ID = DOorder.ID, ShipDate = DOorder.ShipDate, CustomerAddress = DOorder.CustomerAddress, CustomerEmail = DOorder.CustomerEmail, CustomerName = DOorder.CustomerName, DeliveryrDate = DOorder.DeliveryrDate, Items = BOlistOrder, TotalPrice = totalPriceOrder, OrderDate = DOorder.OrderDate, Status = BO.OrderStatus.shipped };
+                    BOorder = new BO.Order() { ID = DOorder.ID, ShipDate = DOorder.ShipDate, CustomerAddress = DOorder.CustomerAddress, CustomerEmail = DOorder.CustomerEmail, CustomerName = DOorder.CustomerName, DeliveryrDate = DOorder.DeliveryrDate, Items = BOlistOrder, TotalPrice = totalPriceOrder, OrderDate = DOorder.OrderDate, Status = BO.OrderStatus.Shipped };
                     try
                     {
                         Dal.Order.Update(DOorder); // UPDATE THE ORDER
@@ -250,7 +250,7 @@ internal class Order : BlApi.IOrder
                     DOorder.DeliveryrDate = DateTime.Now; // UPDATES DELIVERY DATE
 
                     // MAKES THE UPDATED ORDER
-                    BOorder = new BO.Order() { ID = DOorder.ID, ShipDate = DOorder.ShipDate, CustomerAddress = DOorder.CustomerAddress, CustomerEmail = DOorder.CustomerEmail, CustomerName = DOorder.CustomerName, DeliveryrDate = DOorder.DeliveryrDate, Items = BOlistOrder, TotalPrice = totalPriceOrder, OrderDate = DOorder.OrderDate, Status = BO.OrderStatus.arrived };
+                    BOorder = new BO.Order() { ID = DOorder.ID, ShipDate = DOorder.ShipDate, CustomerAddress = DOorder.CustomerAddress, CustomerEmail = DOorder.CustomerEmail, CustomerName = DOorder.CustomerName, DeliveryrDate = DOorder.DeliveryrDate, Items = BOlistOrder, TotalPrice = totalPriceOrder, OrderDate = DOorder.OrderDate, Status = BO.OrderStatus.Arrived };
                     try
                     {
                         Dal.Order.Update(DOorder); // UPDATE THE ORDER
@@ -292,16 +292,16 @@ internal class Order : BlApi.IOrder
             if ((DOorder.ID >= 0) && (DOorder.ID.ToString().Length == 4)) // VALID ORDER ID
             {
                 List<(DateTime?, string)> tupList = new List<(DateTime?, string)>(); 
-                BO.OrderStatus status = BO.OrderStatus.ordered; //DEFUALT
+                BO.OrderStatus status = BO.OrderStatus.Ordered; //DEFUALT
                 tupList.Add((DOorder.OrderDate, "Order was placed"));
                 if (DOorder.ShipDate != null) // ORDER SHIPED
                 {
-                    status = BO.OrderStatus.shipped;
+                    status = BO.OrderStatus.Shipped;
                     tupList.Add((DOorder.ShipDate, "Order was shipped"));
                 }
                 if (DOorder.DeliveryrDate != null) // ORDER DELIVERED
                 {
-                    status = BO.OrderStatus.arrived;
+                    status = BO.OrderStatus.Arrived;
                     tupList.Add((DOorder.DeliveryrDate, "Order was arrived"));
                 }
                 // MAKES THE ORDER TRACKING ENTITY

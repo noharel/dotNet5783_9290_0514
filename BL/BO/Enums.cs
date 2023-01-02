@@ -9,4 +9,4 @@ namespace BO;
 /// Enums for BO
 /// </summary>
 public enum Category { BMW, Bentley, Porshe, Cadillac, LandRover, RollsRoyce, Mercedes, Audi, Lexsus, Ferrari, Lamborghini, Jaguar }//categories
-public enum OrderStatus { ordered, shipped, arrived };// statuses for orders
+public enum OrderStatus { Ordered, Shipped, Arrived };// statuses for orders

@@ -12,16 +12,21 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace PL.Orders
+namespace PL.Orders;
+
+/// <summary>
+/// Interaction logic for Order.xaml
+/// </summary>
+public partial class Order : Window
 {
-    /// <summary>
-    /// Interaction logic for Order.xaml
-    /// </summary>
-    public partial class Order : Window
+    BlApi.IBl? bl = BlApi.Factory.Get(); // get bl from factory
+    public Order(int x = 0)
     {
-        public Order()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+        status.Text = bl.Order.TrackingOrder(x).Status.ToString();
+        orderId.Text = x.ToString();
+
     }
+
+
 }

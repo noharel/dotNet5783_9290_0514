@@ -4,24 +4,101 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Products"
+        xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="ProductWindow" Height="450" Width="800">
+    <Window.Resources>
+        <Style x:Key="myTextBoxStyle"
+           TargetType="TextBox">
+            <Setter Property="FontSize"
+              Value="16" />
+            <Setter Property="FontFamily"
+              Value="Rockwell Condensed" />
+            <Setter Property="FontWeight"
+              Value="Bold" />
+            <Setter Property="Foreground"
+                    Value="White"/>
+            <Setter Property="Background"
+                    Value="Black"/>
+            <Setter Property="Width"
+                    Value="120"/>
+        </Style>
+        <Style x:Key="myButtonStyle"
+           TargetType="Button">
+            <Setter Property="FontSize"
+              Value="36" />
+            <Setter Property="FontFamily"
+              Value="Rockwell Condensed" />
+            <Setter Property="FontWeight"
+              Value="Bold" />
+            <Setter Property="Foreground"
+                    Value="White"/>
+            <Setter Property="Background"
+                    Value="Black"/>
+        </Style>
+        <Style x:Key="myLabelStyle"
+           TargetType="Label">
+            <Setter Property="FontSize"
+              Value="16" />
+            <Setter Property="FontFamily"
+              Value="Rockwell Condensed" />
+            <Setter Property="FontWeight"
+              Value="Bold" />
+            <Setter Property="Foreground"
+                    Value="Black"/>
+            <Setter Property="Background"
+                    Value="White"/>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Label Name="ID" 
                Content="ID:" 
                HorizontalAlignment="Left" 
                Margin="164,138,0,0" 
                VerticalAlignment="Top" 
-               FontFamily="Rockwell Condensed" 
-               FontSize="16" 
-               Foreground="#FF1C0B57"/>
-        <Label Name="Category" Content="Category:" HorizontalAlignment="Left" Margin="164,0,0,0" VerticalAlignment="Center" FontFamily="Rockwell Condensed" FontSize="16" Foreground="#FF1E0C5C"/>
-        <Label Name="prodName" Content="name:" HorizontalAlignment="Left" Margin="164,170,0,0" VerticalAlignment="Top" FontFamily="Rockwell Condensed" FontSize="16" Foreground="#FF1E0C5C"/>
-        <Label Name="InStock" Content="Amount in stock:" HorizontalAlignment="Left" Margin="164,235,0,0" VerticalAlignment="Top" FontFamily="Rockwell Condensed" FontSize="16" Foreground="#FF1E0C5C"/>
-        <Label Name="Price" Content="Price:" HorizontalAlignment="Left" Margin="164,266,0,0" VerticalAlignment="Top" FontFamily="Rockwell Condensed" FontSize="16" Foreground="#FF1E0C5C"/>
-        <Label Name="Instructions" Content="Please enter info for product:" HorizontalAlignment="Left" Margin="164,87,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" FontFamily="Rockwell Condensed" Foreground="#FF1C0B57"/>
-        
-        <TextBox Name="inputID" HorizontalAlignment="Left" Margin="194,142,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" FontFamily="Rockwell Condensed" TextChanged="TextBoxID" Foreground="#FF1C0B57" />
+               Style="{StaticResource myLabelStyle}" />
+        <Label Name="Category" 
+               Content="Category:" 
+               HorizontalAlignment="Left" 
+               Margin="164,0,0,0" 
+               VerticalAlignment="Center" 
+               Style="{StaticResource myLabelStyle}" />
+        <Label Name="prodName" 
+               Content="name:" 
+               HorizontalAlignment="Left" 
+               Margin="164,170,0,0" 
+               VerticalAlignment="Top" 
+               Style="{StaticResource myLabelStyle}" />
+        <Label Name="InStock" 
+               Content="Amount in stock:" 
+               HorizontalAlignment="Left" 
+               Margin="164,235,0,0" 
+               VerticalAlignment="Top" 
+               Style="{StaticResource myLabelStyle}" />
+        <Label Name="Price" 
+               Content="Price:" 
+               HorizontalAlignment="Left" 
+               Margin="164,266,0,0" 
+               VerticalAlignment="Top" 
+               Style="{StaticResource myLabelStyle}"/>
+        <Label Name="Instructions" 
+               Content="Please enter info for product:" 
+               HorizontalAlignment="Left" 
+               Margin="164,87,0,0" 
+               VerticalAlignment="Top" 
+               FontSize="20" 
+               FontWeight="Bold" 
+               Style="{StaticResource myLabelStyle}" />
+        <TextBox Name="inputID" 
+                 HorizontalAlignment="Left" 
+                 Margin="194,142,0,0" 
+                 TextWrapping="Wrap" 
+                 Text="" 
+                 VerticalAlignment="Top" 
+                 Width="120" 
+                 FontFamily="Rockwell Condensed" 
+                 TextChanged="TextBoxID" 
+                 Style="{StaticResource myTextBoxStyle}"/>
         <TextBox Name="inputName" HorizontalAlignment="Left" Margin="214,174,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" FontFamily="Rockwell Condensed" TextChanged="inputNameFunc" Foreground="#FF1C0B57"/>
         <TextBox Name="inputInStock" HorizontalAlignment="Left" Margin="274,239,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" FontFamily="Rockwell Condensed" TextChanged="inputInStockFunc" Foreground="#FF1E0C5C"/>
         <TextBox Name="inputPrice" HorizontalAlignment="Left" Margin="214,270,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Rockwell Condensed" Width="120" TextChanged="inputPriceFunc" Foreground="#FF1E0C5C"/>

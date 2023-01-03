@@ -21,20 +21,21 @@ namespace PL.Orders;
 public partial class Order : Window
 {
     BlApi.IBl? bl = BlApi.Factory.Get(); // get bl from factory
+    int idRec = 0;
     public Order(int x = 0)
     {
         InitializeComponent();
-
+        idRec = x;
         status.Text = bl.Order.TrackingOrder(x).Status.ToString();
         orderId.Text = x.ToString();
 
-        
+
         List<(DateTime?, string?)>? tuplelist = bl.Order.TrackingOrder(x).tuplesList!.ToList();
         int size = tuplelist.Count();
         orderingDate.Text = tuplelist[0].Item1.ToString();
-        if (size > 1) 
+        if (size > 1)
             shippingDate.Text = tuplelist[1].Item1.ToString();
-        if (size > 2 ) arrivalDate.Text = tuplelist[2].Item1.ToString();
+        if (size > 2) arrivalDate.Text = tuplelist[2].Item1.ToString();
 
         if (size < 3)
         {
@@ -46,14 +47,14 @@ public partial class Order : Window
                 labelS.Visibility = Visibility.Collapsed;
             }
         }
-       
-        
-        
+
+
+
 
     }
 
     private void orderInfoButton_Click(object sender, RoutedEventArgs e)
     {
-        new PL.Orders.OrderInfo().ShowDialog();
+        new PL.Orders.OrderInfo(idRec).ShowDialog();
     }
 }

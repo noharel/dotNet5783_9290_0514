@@ -34,7 +34,7 @@ namespace PL
             // open the ProductListWindow
             //var win = new PL.Products.ProductListWindow();
             //win.Owner = this; // for the new window to be first
-            new PL.Products.ProductListWindow().ShowDialog();
+            new PL.Carts.productsListForCart().ShowDialog();
         }
 
         private void TrackOrder_Click(object sender, RoutedEventArgs e)

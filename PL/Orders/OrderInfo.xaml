@@ -71,143 +71,149 @@
         </Style>
     </Window.Resources>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="382*"/>
+            <ColumnDefinition Width="75*"/>
+            <ColumnDefinition Width="339*"/>
+            <ColumnDefinition Width="4*"/>
+        </Grid.ColumnDefinitions>
         <Label Content="LUXARY CAR DEALERSHIP" 
                HorizontalAlignment="Left" 
-               Margin="0,-12,0,0" 
                VerticalAlignment="Top" 
                Background="Black"
                Foreground="White"
                Style="{StaticResource myLabelStyle}" 
-               Grid.ColumnSpan="2" 
+               Grid.ColumnSpan="4" 
                Width="800" 
-               HorizontalContentAlignment="Center"/>
+               FontSize="26"
+               HorizontalContentAlignment="Center" Height="36"/>
         <Label Content="Product info for order number" 
                HorizontalAlignment="Left" 
-               Margin="373,34,0,0" 
+               Margin="373,39,0,0" 
                VerticalAlignment="Top" 
                FontSize="20"
-               Style="{StaticResource myLabelStyle}" />
+               Style="{StaticResource myLabelStyle}" Grid.ColumnSpan="3" Height="32" Width="221" />
         <Image Source="..\pics\orderInfo.png" 
                HorizontalAlignment="Left" 
-               Height="399" 
+               Height="404" 
                VerticalAlignment="Top" 
-               Width="288" 
-               Margin="0,41,0,0"/>
+               Width="275" 
+               Margin="0,36,0,0"/>
         <TextBox Name="id" 
                  HorizontalAlignment="Left" 
-                 Margin="675,39,0,0" 
+                 Margin="125,44,0,0" 
                  TextWrapping="Wrap" 
                  Text="id" 
                  VerticalAlignment="Top" 
                  FontSize="20"
                  Style="{StaticResource myTextBoxStyle}" 
-                 Width="163"/>
+                 Width="163" Grid.Column="2" Height="22"/>
         <Label Content="Customer's name:" 
                HorizontalAlignment="Left" 
-               Margin="295,68,0,0" 
+               Margin="286,72,0,0" 
                Style="{StaticResource myLabelStyle}" 
                VerticalAlignment="Top"/>
         <TextBox Name="name" 
                  HorizontalAlignment="Left" 
-                 Margin="394,74,0,0" 
+                 Margin="351,78,0,0" 
                  TextWrapping="Wrap" 
                  Text="name" 
                  VerticalAlignment="Top" 
                  Style="{StaticResource myTextBoxStyle}"
-                 Width="188"/>
+                 Width="188" Grid.ColumnSpan="3"/>
         <Label Content="Customer's address:" 
                HorizontalAlignment="Left" 
-               Margin="295,90,0,0" 
+               Margin="286,94,0,0" 
                Style="{StaticResource myLabelStyle}"
                VerticalAlignment="Top"/>
         <TextBox Name="address" 
                  HorizontalAlignment="Left" 
-                 Margin="400,95,0,0" 
+                 Margin="358,100,0,0" 
                  TextWrapping="Wrap" 
                  Text="address" 
                  VerticalAlignment="Top" 
                  Style="{StaticResource myTextBoxStyle}"
-                 Width="194"/>
+                 Width="194" Grid.ColumnSpan="3"/>
         <Label Content="Customer's email:" 
                HorizontalAlignment="Left" 
-               Margin="295,112,0,0" 
+               Margin="286,116,0,0" 
                Style="{StaticResource myLabelStyle}"
                VerticalAlignment="Top"/>
         <TextBox Name="email"
                  HorizontalAlignment="Left" 
-                 Margin="388,117,0,0" 
+                 Margin="351,121,0,0" 
                  TextWrapping="Wrap" 
                  Text="email" 
                  Style="{StaticResource myTextBoxStyle}"
-                 VerticalAlignment="Top" Width="120"/>
+                 VerticalAlignment="Top" Width="120" Grid.ColumnSpan="3"/>
         <Label Content="Date of order:" 
                HorizontalAlignment="Left" 
-               Margin="497,66,0,0"
+               Margin="63,72,0,0"
                Style="{StaticResource myLabelStyle}"
-               VerticalAlignment="Top"/>
+               VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="2"/>
         <TextBox Name="orderDate"
                  HorizontalAlignment="Left" 
-                 Margin="573,71,0,0" 
+                 Margin="43,78,0,0" 
                  TextWrapping="Wrap" 
                  Text="orderDate" 
                  VerticalAlignment="Top" 
                  Style="{StaticResource myTextBoxStyle}"
-                 Width="120"/>
+                 Width="120" Grid.Column="2"/>
         <Label Name="labelShipDate"
                Content="Date of shipment:" 
                HorizontalAlignment="Left" 
-               Margin="497,86,0,0" 
+               Margin="63,94,0,0" 
                Style="{StaticResource myLabelStyle}"
-               VerticalAlignment="Top"/>
+               VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="2"/>
         <TextBox Name="shipDate"
                  HorizontalAlignment="Left" 
-                 Margin="594,93,0,0" 
+                 Margin="54,99,0,0" 
                  TextWrapping="Wrap" 
                  Text="shipDate" 
                  VerticalAlignment="Top" 
                  Style="{StaticResource myTextBoxStyle}"
-                 Width="120"/>
+                 Width="120" Grid.Column="2"/>
         <Label Name="labelArrivalDate" 
                Content="Date of arrival:" 
                HorizontalAlignment="Left" 
-               Margin="497,112,0,0" 
+               Margin="63,116,0,0" 
                Style="{StaticResource myLabelStyle}"
-               VerticalAlignment="Top"/>
+               VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="2"/>
         <TextBox Name="arrivalDate" 
                  HorizontalAlignment="Left" 
-                 Margin="582,117,0,0" 
+                 Margin="48,121,0,0" 
                  TextWrapping="Wrap" 
                  Text="arrivalDate" 
                  VerticalAlignment="Top" 
                  Style="{StaticResource myTextBoxStyle}"
-                 Width="120"/>
+                 Width="120" Grid.Column="2"/>
         <Label Content="Status of order:" 
                HorizontalAlignment="Left" 
-               Margin="670,68,0,0" 
+               Margin="142,72,0,0" 
                Style="{StaticResource myLabelStyle}"
-               VerticalAlignment="Top"/>
+               VerticalAlignment="Top" Grid.Column="2"/>
         <TextBox Name="status" 
                  HorizontalAlignment="Left" 
-                 Margin="758,73,0,0" 
+                 Margin="202,78,0,0" 
                  TextWrapping="Wrap" 
                  Text="status" 
                  VerticalAlignment="Top" 
                  Style="{StaticResource myTextBoxStyle}"
-                 Width="120"/>
+                 Width="120" Grid.Column="2"/>
         <Label Content="Total price of order:" 
                HorizontalAlignment="Left" 
-               Margin="670,88,0,0" 
+               Margin="142,94,0,0" 
                Style="{StaticResource myLabelStyle}"
-               VerticalAlignment="Top"/>
+               VerticalAlignment="Top" Grid.Column="2"/>
         <TextBox Name="totalPrice" 
                  HorizontalAlignment="Left" 
-                 Margin="773,93,0,0" 
+                 Margin="217,99,0,0" 
                  TextWrapping="Wrap" 
                  Text="totalPrice" 
                  VerticalAlignment="Top" 
                  Style="{StaticResource myTextBoxStyle}"
-                 Width="120"/>
-        <ListView Name="products" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="295,184,27,21" Style="{StaticResource myListViewStyle}">
+                 Width="120" Grid.Column="2"/>
+        <ListView Name="products" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="295,184,23,21" Style="{StaticResource myListViewStyle}" Grid.ColumnSpan="3">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
@@ -216,10 +222,10 @@
         </ListView>
         <Label Content="Products in order" 
                HorizontalAlignment="Left" 
-               Margin="478,184,0,0" 
+               Margin="21,184,0,0" 
                FontSize="15"
                
                Style="{StaticResource myLabelStyle}"
-               VerticalAlignment="Top" Background="{x:Null}"/>
+               VerticalAlignment="Top" Background="{x:Null}" Grid.Column="2"/>
     </Grid>
 </Window>

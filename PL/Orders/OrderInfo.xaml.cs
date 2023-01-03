@@ -51,5 +51,6 @@ namespace PL.Orders
             totalPrice.Text = order.TotalPrice.ToString();
             products.ItemsSource = order.Items!.ToList();
         }
+
     }
 }

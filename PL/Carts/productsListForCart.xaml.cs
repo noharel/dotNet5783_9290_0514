@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using PL.Products;
 
 namespace PL.Carts
 {
@@ -25,6 +26,27 @@ namespace PL.Carts
         {
             InitializeComponent();
             producs.ItemsSource = bl.Product.GetListProduct().ToList();
+        }
+
+        private void producs_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            BO.ProductForList prod = (BO.ProductForList)producs.SelectedItem;
+            var hg = new Carts.productItem(prod.ID); // open ProductWindow on update and action mode
+            hg.ShowDialog(); // open 
+
+
+            try
+            {
+                producs.ItemsSource = bl!.Product.GetListProduct(); // update list of product to see changes
+            }
+            catch (BO.DoesntExistExeption ex) // get list product exception
+            {
+                string innerEx = "";
+                if (ex.InnerException != null)
+                    innerEx = ": " + ex.InnerException.Message;
+                MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); //print exception for user
+
+            }
         }
     }
 }

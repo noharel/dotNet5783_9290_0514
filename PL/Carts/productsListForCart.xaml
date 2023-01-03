@@ -69,7 +69,7 @@
                Grid.ColumnSpan="2" 
                Width="800" 
                HorizontalContentAlignment="Center"/>
-        <ListView Name="producs" d:ItemsSource="{d:SampleData ItemCount=5}">
+        <ListView Name="producs" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="producs_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>

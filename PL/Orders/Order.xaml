@@ -76,7 +76,7 @@
         <TextBox Name="status" 
                  Text="arrived" 
                  HorizontalAlignment="Left" 
-                 Margin="137,68,0,0" 
+                 Margin="128,65,0,0" 
                  TextWrapping="Wrap" 
                  VerticalAlignment="Top" 
                  Width="181" 

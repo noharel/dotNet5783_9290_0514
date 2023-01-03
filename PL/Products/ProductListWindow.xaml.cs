@@ -23,10 +23,22 @@ public partial class ProductListWindow : Window
     public ProductListWindow() // constructor
     {
         InitializeComponent();
-        ProductListView.ItemsSource = bl.Product.GetListProduct(); // get all products
+        try
+        {
+            ProductListView.ItemsSource = bl.Product.GetListProduct(); // get all products
+        }
+        catch(BO.DoesntExistExeption ex)
+        {
+            string innerEx = "";
+            if (ex.InnerException != null)
+                innerEx = ": " + ex.InnerException.Message;
+            MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
+        }
+
         CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Category)); // put them in the category selector
-        this.ClearChoice.MouseDoubleClick += ClearChoice_Click_1; // clear choice button
-        this.AddButton.MouseDoubleClick += AddButton_Click; // add button
+
+        ClearChoice.MouseDoubleClick += ClearChoice_Click_1; // clear choice button
+        AddButton.MouseDoubleClick += AddButton_Click; // add button
     }
 
     private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e) //get selection for category

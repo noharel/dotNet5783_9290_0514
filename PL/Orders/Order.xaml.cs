@@ -21,11 +21,10 @@ namespace PL.Orders;
 public partial class Order : Window
 {
     BlApi.IBl? bl = BlApi.Factory.Get(); // get bl from factory
-    int idRec = 0;
     public Order(int x = 0)
     {
         InitializeComponent();
-        idRec = x;
+
         status.Text = bl.Order.TrackingOrder(x).Status.ToString();
         orderId.Text = x.ToString();
 
@@ -55,6 +54,6 @@ public partial class Order : Window
 
     private void orderInfoButton_Click(object sender, RoutedEventArgs e)
     {
-        new PL.Orders.OrderInfo(idRec).ShowDialog();
+        new PL.Orders.OrderInfo().ShowDialog();
     }
 }

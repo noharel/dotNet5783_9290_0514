@@ -71,10 +71,30 @@
                 VerticalAlignment="Top" 
                 MouseDoubleClick="ProductsMouseEnter" 
                 Height="72" 
-                Width="258" 
-                Style="{StaticResource myButtonStyle}"
+                Width="258"
                 BorderBrush="{x:Null}" 
                 BorderThickness="0,0,0,1">
+            <Button.Style>
+                <Style BasedOn="{StaticResource myButtonStyle}" TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="black" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border x:Name="Border" Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="BorderThickness" Value="8,3,8,3" TargetName="Border"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+
+
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" Opacity="0.2">
                     <GradientStop Color="Black"/>
@@ -88,15 +108,38 @@
                 Margin="0,68,0,0" 
                 VerticalAlignment="Top" 
                 Height="44" Width="257" 
-                Click="TrackOrder_Click" 
-                Style="{StaticResource myButtonStyle}" 
+                Click="TrackOrder_Click"
                 FontSize="30" 
                 IsEnabled="{Binding ElementName=orderTrackingNumber,Path=Text.Length}" 
                 BorderBrush="{x:Null}" 
                 BorderThickness="0,1,0,0">
             <Button.Background>
-                <SolidColorBrush Color="Black" Opacity="0"/>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" Opacity="0.2">
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="WhiteSmoke" Offset="0.47"/>
+                </LinearGradientBrush>
             </Button.Background>
+            <Button.Style>
+                <Style BasedOn="{StaticResource myButtonStyle}" TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="black" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border x:Name="Border" Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="BorderThickness" Value="8,3,8,3" TargetName="Border"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+
+            
         </Button>
         <TextBox x:Name="orderTrackingNumber" 
                 Text="" 
@@ -117,9 +160,28 @@
                 HorizontalAlignment="Left" 
                 Margin="515,40,0,0" 
                 VerticalAlignment="Top" 
-                Style="{StaticResource myButtonStyle}" 
                 Width="285" 
                 Height="72" Grid.ColumnSpan="2" BorderBrush="{x:Null}" BorderThickness="0,0,0,1" Click="adminButton_Click">
+            <Button.Style>
+                <Style BasedOn="{StaticResource myButtonStyle}" TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="black" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border x:Name="Border" Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="BorderThickness" Value="8,3,8,3" TargetName="Border"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" Opacity="0.2">
                     <GradientStop Color="Black" Offset="0"/>

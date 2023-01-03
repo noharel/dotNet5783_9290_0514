@@ -88,12 +88,12 @@
                  Width="120"/>
         <Label Content="Name" 
                HorizontalAlignment="Left" 
-               Margin="189,145,0,0" 
+               Margin="196,109,0,0" 
                Style="{StaticResource myLabelStyle}"
                VerticalAlignment="Top"/>
         <TextBox Name="name" 
                  HorizontalAlignment="Left" 
-                 Margin="276,160,0,0" 
+                 Margin="276,114,0,0" 
                  TextWrapping="Wrap" 
                  Text="name" 
                  VerticalAlignment="Top" 
@@ -101,12 +101,12 @@
                  Width="120"/>
         <Label Content="Category" 
                HorizontalAlignment="Left" 
-               Margin="216,234,0,0" 
+               Margin="196,141,0,0" 
                Style="{StaticResource myLabelStyle}"
                VerticalAlignment="Top"/>
         <TextBox Name="category" 
                  HorizontalAlignment="Left" 
-                 Margin="336,263,0,0" 
+                 Margin="280,146,0,0" 
                  TextWrapping="Wrap" 
                  Text="category" 
                  VerticalAlignment="Top" 
@@ -114,23 +114,25 @@
                  Width="120"/>
         <Label Content="Amount in cart" 
                HorizontalAlignment="Left" 
-               Margin="189,348,0,0" 
+               Margin="196,175,0,0" 
                Style="{StaticResource myLabelStyle}"
                VerticalAlignment="Top"/>
         <TextBox Name="amount" 
                  HorizontalAlignment="Left" 
-                 Margin="467,348,0,0" 
+                 Margin="336,180,0,0" 
                  TextWrapping="Wrap" 
                  Text="amount" 
                  VerticalAlignment="Top" 
                  Style="{StaticResource myTextBoxStyle}"
                  Width="120"/>
-        <Label Name="inStock" 
-               Content="Product is not currently in stcok" 
-               HorizontalAlignment="Left" 
-               Margin="251,395,0,0" 
-               Style="{StaticResource myLabelStyle}"
-               VerticalAlignment="Top"/>
+        <TextBox Name="inStock"
+                 HorizontalAlignment="Left" 
+                 Margin="198,217,0,0" 
+                 TextWrapping="Wrap" 
+                 Text="Product is not currently in stock" 
+                 VerticalAlignment="Top" 
+                 Style="{StaticResource myTextBoxStyle}"
+                 Width="288"/>
 
 
     </Grid>

@@ -19,9 +19,17 @@ namespace PL.Carts
     /// </summary>
     public partial class productItem : Window
     {
-        public productItem(int  x=0)
+        BlApi.IBl? bl = BlApi.Factory.Get();  // get bl
+        public productItem(int x, BO.Cart cart)
         {
             InitializeComponent();
+            id.Text = x.ToString();
+            BO.ProductItem prodItem = bl.Product.GetProductInfo_client(x, cart);
+            name.Text = prodItem.Name;
+            category.Text = prodItem.Category.ToString();
+            amount.Text = prodItem.Amount.ToString();
+            if (prodItem.InStock)
+                inStock.Text = "Product is currently in stock";
         }
     }
 }

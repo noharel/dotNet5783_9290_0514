@@ -30,13 +30,35 @@ public partial class Order : Window
     int idRec = 0;
     public Order(int x = 0)
     {
+
         InitializeComponent();
+  
         idRec = x;
-        status.Text = bl.Order.TrackingOrder(x).Status.ToString();
+        try
+        {
+            status.Text = bl.Order.TrackingOrder(x).Status.ToString();
+        }
+        catch(BO.DoesntExistExeption ex)
+        {
+            string innerEx = "";
+            if (ex.InnerException != null)
+                innerEx = ": " + ex.InnerException.Message;
+            MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
+        }
+
         orderId.Text = x.ToString();
 
-
-        List<(DateTime?, string?)>? tuplelist = bl.Order.TrackingOrder(x).tuplesList!.ToList();
+        try
+        {
+            List<(DateTime?, string?)>? tuplelist = bl.Order.TrackingOrder(x).tuplesList!.ToList();
+        }
+        catch (BO.DoesntExistExeption ex)
+        {
+            string innerEx = "";
+            if (ex.InnerException != null)
+                innerEx = ": " + ex.InnerException.Message;
+            MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
+        }
         int size = tuplelist.Count();
         orderingDate.Text = tuplelist[0].Item1.ToString();
         if (size > 1)

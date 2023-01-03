@@ -21,21 +21,23 @@ namespace PL.Carts
     public partial class productsListForCart : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get(); // get bl from factory
-
+        BO.Cart cart;
         public productsListForCart()
         {
             InitializeComponent();
             producs.ItemsSource = bl.Product.GetListProduct().ToList();
+            List<BO.OrderItem>? list = new List<BO.OrderItem>();
+            cart = new BO.Cart { Items=list};
         }
 
         private void producs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            BO.ProductForList prod = (BO.ProductForList)producs.SelectedItem;
-            var hg = new Carts.productItem(prod.ID); // open ProductWindow on update and action mode
+            BO.ProductForList prodForList = (BO.ProductForList)producs.SelectedItem;
+            var hg = new Carts.productItem(prodForList.ID,cart); // open ProductWindow on update and action mode
             hg.ShowDialog(); // open 
 
 
-            try
+            /*try
             {
                 producs.ItemsSource = bl!.Product.GetListProduct(); // update list of product to see changes
             }
@@ -46,7 +48,7 @@ namespace PL.Carts
                     innerEx = ": " + ex.InnerException.Message;
                 MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); //print exception for user
 
-            }
+            }*/
         }
     }
 }

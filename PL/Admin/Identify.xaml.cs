@@ -36,15 +36,10 @@ namespace PL.Admin
                 products.Visibility = Visibility.Visible;
                 orders.Visibility = Visibility.Visible;
             }
-
             else
             {
                 MessageBox.Show("incorrect information");
             }
-
-
-                
-                
         }
 
         private void products_Click(object sender, RoutedEventArgs e)
@@ -54,7 +49,7 @@ namespace PL.Admin
 
         private void orders_Click(object sender, RoutedEventArgs e)
         {
-            new PL.Orders.OrderInfo().ShowDialog();
+            new PL.Orders.ordersListWindow().ShowDialog();
         }
     }
 }

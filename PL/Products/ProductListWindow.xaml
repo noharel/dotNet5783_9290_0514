@@ -36,7 +36,7 @@
         <Style x:Key="myListViewStyle"
            TargetType="ListView">
             <Setter Property="FontSize"
-              Value="10" />
+              Value="20" />
             <Setter Property="FontFamily"
               Value="Rockwell Condensed" />
             <Setter Property="FontWeight"
@@ -55,7 +55,7 @@
             <Setter Property="FontWeight"
               Value="Bold" />
             <Setter Property="Foreground"
-                    Value="White"/>
+                    Value="Wheat"/>
             <Setter Property="Background"
                     Value="Black"/>
         </Style>

@@ -119,7 +119,7 @@
                 VerticalAlignment="Top" 
                 Style="{StaticResource myButtonStyle}" 
                 Width="285" 
-                Height="72" Grid.ColumnSpan="2" BorderBrush="{x:Null}" BorderThickness="0,0,0,1">
+                Height="72" Grid.ColumnSpan="2" BorderBrush="{x:Null}" BorderThickness="0,0,0,1" Click="adminButton_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" Opacity="0.2">
                     <GradientStop Color="Black" Offset="0"/>

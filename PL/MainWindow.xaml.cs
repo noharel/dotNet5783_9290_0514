@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Printing;
@@ -52,5 +53,9 @@ namespace PL
             
         }
 
+        private void adminButton_Click(object sender, RoutedEventArgs e)
+        {
+            new PL.Admin.Identify().ShowDialog();
+        }
     }
 }

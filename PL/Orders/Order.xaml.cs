@@ -18,8 +18,14 @@ namespace PL.Orders;
 /// <summary>
 /// Interaction logic for Order.xaml
 /// </summary>
+/// 
+
+
+
 public partial class Order : Window
 {
+
+
     BlApi.IBl? bl = BlApi.Factory.Get(); // get bl from factory
     int idRec = 0;
     public Order(int x = 0)

@@ -25,7 +25,7 @@
         <Style x:Key="myPasBoxStyle"
            TargetType="PasswordBox">
             <Setter Property="FontSize"
-              Value="36" />
+              Value="30" />
             <Setter Property="FontFamily"
               Value="Rockwell Condensed" />
             <Setter Property="FontWeight"
@@ -36,11 +36,13 @@
                     Value="Black"/>
             <Setter Property="BorderThickness"
                     Value="0,0,0,1"/>
+            <Setter Property="MaxLength"
+                    Value="6"/>
         </Style>
         <Style x:Key="myButtonStyle"
            TargetType="Button">
             <Setter Property="FontSize"
-              Value="36" />
+              Value="52" />
             <Setter Property="FontFamily"
               Value="Rockwell Condensed" />
             <Setter Property="FontWeight"
@@ -49,6 +51,8 @@
                     Value="White"/>
             <Setter Property="Background"
                     Value="Black"/>
+            <Setter Property="BorderThickness"
+                    Value="0,0,0,0"/>
         </Style>
         <Style x:Key="myLabelStyle"
            TargetType="Label">
@@ -75,36 +79,80 @@
                Margin="-4,0,0,0" 
                VerticalAlignment="Center" 
                Width="804"/>
-        <PasswordBox Style="{StaticResource myPasBoxStyle}" 
+
+        <PasswordBox Name="password" 
+                     Style="{StaticResource myPasBoxStyle}" 
                      HorizontalAlignment="Left" 
                      VerticalAlignment="Top" 
-                     Width="175" 
-                     Height="39" Margin="137,172,0,0">
+                     Width="139" 
+                     Height="39" 
+                     Margin="137,172,0,0"
+                     Visibility="{Binding ElementName=login, Path=Visibility}">
 
         </PasswordBox>
 
         <Label Content="password:" 
                Style="{StaticResource myLabelStyle}"
                Margin="10,165,0,0" 
+               Visibility="{Binding ElementName=login, Path=Visibility}"
                VerticalAlignment="Top"/>
 
         <Label Content="user name:" 
                Style="{StaticResource myLabelStyle}"
                Margin="10,95,0,0" 
+               Visibility="{Binding ElementName=login, Path=Visibility}"
                VerticalAlignment="Top" />
 
-        <TextBox Style="{StaticResource myTextBoxStyle}" 
+        <TextBox Name="user" 
+                 Style="{StaticResource myTextBoxStyle}" 
                  HorizontalAlignment="Left" 
                  Margin="150,99,0,0" 
                  TextWrapping="Wrap" 
                  VerticalAlignment="Top" 
-                 Width="175">
+                 Visibility="{Binding ElementName=login, Path=Visibility}"
+                 Width="165">
+
             <TextBox.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"></Setter>
                 </Style>
             </TextBox.Resources>
         </TextBox>
+        <Button Name="login" 
+                Style="{StaticResource myButtonStyle}" 
+                Content="log in" 
+                HorizontalAlignment="Left" 
+                Margin="232,217,0,0" 
+                VerticalAlignment="Top" 
+                Click="Button_Click" 
+                FontSize="22"
+                BorderBrush="#FF262424">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" Opacity="0.1">
+                    <GradientStop Color="Black" Offset="0.892"/>
+                    <GradientStop Color="White" Offset="0.994"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button Name="orders" 
+                Content="Orders"
+                HorizontalAlignment="Left" 
+                Margin="50,93,0,0" 
+                VerticalAlignment="Top"
+                Visibility="Collapsed"
+                Style="{StaticResource myButtonStyle}" Height="67" Width="225" Click="orders_Click">
+        </Button>
+        <Button Name="products" 
+                Content="Products" 
+                HorizontalAlignment="Left" 
+                Margin="50,0,0,0" 
+                VerticalAlignment="Center"
+                Visibility="Collapsed"
+                Style="{StaticResource myButtonStyle}" Height="65" Width="225" Click="products_Click">
+
+
+        </Button>
+
 
 
     </Grid>

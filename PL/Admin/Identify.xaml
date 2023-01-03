@@ -16,9 +16,11 @@
             <Setter Property="FontWeight"
               Value="Bold" />
             <Setter Property="Foreground"
-                    Value="Black"/>
-            <Setter Property="Background"
                     Value="White"/>
+            <Setter Property="Background"
+                    Value="black"/>
+            <Setter Property="BorderThickness"
+                    Value="0,0,0,1"/>
         </Style>
         <Style x:Key="myPasBoxStyle"
            TargetType="PasswordBox">
@@ -29,9 +31,11 @@
             <Setter Property="FontWeight"
               Value="Bold" />
             <Setter Property="Foreground"
-                    Value="Black"/>
-            <Setter Property="Background"
                     Value="White"/>
+            <Setter Property="Background"
+                    Value="Black"/>
+            <Setter Property="BorderThickness"
+                    Value="0,0,0,1"/>
         </Style>
         <Style x:Key="myButtonStyle"
            TargetType="Button">
@@ -75,23 +79,23 @@
                      HorizontalAlignment="Left" 
                      VerticalAlignment="Top" 
                      Width="175" 
-                     Height="39" Margin="351,217,0,0">
+                     Height="39" Margin="137,172,0,0">
 
         </PasswordBox>
 
         <Label Content="password:" 
                Style="{StaticResource myLabelStyle}"
-               Margin="211,204,0,0" 
+               Margin="10,165,0,0" 
                VerticalAlignment="Top"/>
 
         <Label Content="user name:" 
                Style="{StaticResource myLabelStyle}"
-               Margin="211,134,0,0" 
+               Margin="10,95,0,0" 
                VerticalAlignment="Top" />
 
         <TextBox Style="{StaticResource myTextBoxStyle}" 
                  HorizontalAlignment="Left" 
-                 Margin="351,134,0,0" 
+                 Margin="150,99,0,0" 
                  TextWrapping="Wrap" 
                  VerticalAlignment="Top" 
                  Width="175">
@@ -101,7 +105,7 @@
                 </Style>
             </TextBox.Resources>
         </TextBox>
-        
+
 
     </Grid>
 </Window>

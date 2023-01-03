@@ -7,10 +7,23 @@
         mc:Ignorable="d"
         Title="OrderInfo" Height="450" Width="800">
     <Window.Resources>
+        <Style x:Key="myListViewStyle"
+           TargetType="ListView">
+            <Setter Property="FontSize"
+              Value="10" />
+            <Setter Property="FontFamily"
+              Value="Rockwell Condensed" />
+            <Setter Property="FontWeight"
+              Value="Bold" />
+            <Setter Property="Foreground"
+                    Value="Black"/>
+            <Setter Property="Background"
+                    Value="White"/>
+        </Style>
         <Style x:Key="myTextBoxStyle"
            TargetType="TextBox">
             <Setter Property="FontSize"
-              Value="20" />
+              Value="10" />
             <Setter Property="FontFamily"
               Value="Rockwell Condensed" />
             <Setter Property="FontWeight"
@@ -42,11 +55,15 @@
         <Style x:Key="myLabelStyle"
            TargetType="Label">
             <Setter Property="FontSize"
-              Value="20" />
+              Value="10" />
             <Setter Property="FontFamily"
               Value="Rockwell Condensed" />
             <Setter Property="FontWeight"
               Value="Bold" />
+            <Setter Property="BorderBrush"
+                    Value="{x:Null}"/>
+            <Setter Property="BorderThickness"
+                    Value="0,0,0,0"/>
             <Setter Property="Foreground"
                     Value="Black"/>
             <Setter Property="Background"
@@ -66,8 +83,9 @@
                HorizontalContentAlignment="Center"/>
         <Label Content="Product info for order number" 
                HorizontalAlignment="Left" 
-               Margin="300,73,0,0" 
+               Margin="373,34,0,0" 
                VerticalAlignment="Top" 
+               FontSize="20"
                Style="{StaticResource myLabelStyle}" />
         <Image Source="..\pics\orderInfo.png" 
                HorizontalAlignment="Left" 
@@ -77,20 +95,21 @@
                Margin="0,41,0,0"/>
         <TextBox Name="id" 
                  HorizontalAlignment="Left" 
-                 Margin="602,73,0,0" 
+                 Margin="675,39,0,0" 
                  TextWrapping="Wrap" 
                  Text="id" 
                  VerticalAlignment="Top" 
+                 FontSize="20"
                  Style="{StaticResource myTextBoxStyle}" 
                  Width="163"/>
         <Label Content="Customer's name:" 
                HorizontalAlignment="Left" 
-               Margin="300,107,0,0" 
+               Margin="295,68,0,0" 
                Style="{StaticResource myLabelStyle}" 
                VerticalAlignment="Top"/>
         <TextBox Name="name" 
                  HorizontalAlignment="Left" 
-                 Margin="482,112,0,0" 
+                 Margin="394,74,0,0" 
                  TextWrapping="Wrap" 
                  Text="name" 
                  VerticalAlignment="Top" 
@@ -98,12 +117,12 @@
                  Width="188"/>
         <Label Content="Customer's address:" 
                HorizontalAlignment="Left" 
-               Margin="300,139,0,0" 
+               Margin="295,90,0,0" 
                Style="{StaticResource myLabelStyle}"
                VerticalAlignment="Top"/>
         <TextBox Name="address" 
                  HorizontalAlignment="Left" 
-                 Margin="502,144,0,0" 
+                 Margin="400,95,0,0" 
                  TextWrapping="Wrap" 
                  Text="address" 
                  VerticalAlignment="Top" 
@@ -111,24 +130,24 @@
                  Width="194"/>
         <Label Content="Customer's email:" 
                HorizontalAlignment="Left" 
-               Margin="300,173,0,0" 
+               Margin="295,112,0,0" 
                Style="{StaticResource myLabelStyle}"
                VerticalAlignment="Top"/>
         <TextBox Name="email"
                  HorizontalAlignment="Left" 
-                 Margin="481,178,0,0" 
+                 Margin="388,117,0,0" 
                  TextWrapping="Wrap" 
                  Text="email" 
                  Style="{StaticResource myTextBoxStyle}"
                  VerticalAlignment="Top" Width="120"/>
         <Label Content="Date of order:" 
                HorizontalAlignment="Left" 
-               Margin="300,206,0,0"
+               Margin="497,66,0,0"
                Style="{StaticResource myLabelStyle}"
                VerticalAlignment="Top"/>
         <TextBox Name="orderDate"
                  HorizontalAlignment="Left" 
-                 Margin="448,212,0,0" 
+                 Margin="573,71,0,0" 
                  TextWrapping="Wrap" 
                  Text="orderDate" 
                  VerticalAlignment="Top" 
@@ -137,12 +156,12 @@
         <Label Name="labelShipDate"
                Content="Date of shipment:" 
                HorizontalAlignment="Left" 
-               Margin="300,240,0,0" 
+               Margin="497,86,0,0" 
                Style="{StaticResource myLabelStyle}"
                VerticalAlignment="Top"/>
         <TextBox Name="shipDate"
                  HorizontalAlignment="Left" 
-                 Margin="477,245,0,0" 
+                 Margin="594,93,0,0" 
                  TextWrapping="Wrap" 
                  Text="shipDate" 
                  VerticalAlignment="Top" 
@@ -151,12 +170,12 @@
         <Label Name="labelArrivalDate" 
                Content="Date of arrival:" 
                HorizontalAlignment="Left" 
-               Margin="300,274,0,0" 
+               Margin="497,112,0,0" 
                Style="{StaticResource myLabelStyle}"
                VerticalAlignment="Top"/>
         <TextBox Name="arrivalDate" 
                  HorizontalAlignment="Left" 
-                 Margin="456,279,0,0" 
+                 Margin="582,117,0,0" 
                  TextWrapping="Wrap" 
                  Text="arrivalDate" 
                  VerticalAlignment="Top" 
@@ -164,12 +183,12 @@
                  Width="120"/>
         <Label Content="Status of order:" 
                HorizontalAlignment="Left" 
-               Margin="300,308,0,0" 
+               Margin="670,68,0,0" 
                Style="{StaticResource myLabelStyle}"
                VerticalAlignment="Top"/>
         <TextBox Name="status" 
                  HorizontalAlignment="Left" 
-                 Margin="456,313,0,0" 
+                 Margin="758,73,0,0" 
                  TextWrapping="Wrap" 
                  Text="status" 
                  VerticalAlignment="Top" 
@@ -177,23 +196,30 @@
                  Width="120"/>
         <Label Content="Total price of order:" 
                HorizontalAlignment="Left" 
-               Margin="311,342,0,0" 
+               Margin="670,88,0,0" 
                Style="{StaticResource myLabelStyle}"
                VerticalAlignment="Top"/>
         <TextBox Name="totalPrice" 
                  HorizontalAlignment="Left" 
-                 Margin="516,347,0,0" 
+                 Margin="773,93,0,0" 
                  TextWrapping="Wrap" 
                  Text="totalPrice" 
                  VerticalAlignment="Top" 
                  Style="{StaticResource myTextBoxStyle}"
                  Width="120"/>
-
-
-
-
-
-
-
+        <ListView Name="products" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="295,184,27,21" Style="{StaticResource myListViewStyle}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Label Content="Products in order" 
+               HorizontalAlignment="Left" 
+               Margin="478,184,0,0" 
+               FontSize="15"
+               
+               Style="{StaticResource myLabelStyle}"
+               VerticalAlignment="Top" Background="{x:Null}"/>
     </Grid>
 </Window>

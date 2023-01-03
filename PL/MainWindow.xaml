@@ -130,7 +130,7 @@
                                 </Border>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="BorderThickness" Value="8,3,8,3" TargetName="Border"/>
+                                        <Setter Property="BorderThickness" Value="10,3,10,3" TargetName="Border"/>
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -139,7 +139,7 @@
                 </Style>
             </Button.Style>
 
-            
+
         </Button>
         <TextBox x:Name="orderTrackingNumber" 
                 Text="" 
@@ -173,7 +173,7 @@
                                 </Border>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="BorderThickness" Value="8,3,8,3" TargetName="Border"/>
+                                        <Setter Property="BorderThickness" Value="10,3,10,3" TargetName="Border"/>
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -215,4 +215,3 @@
         </Label>
     </Grid>
 </Window>
-

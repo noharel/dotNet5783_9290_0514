@@ -30,31 +30,54 @@ public partial class Order : Window
     int idRec = 0;
     public Order(int x = 0)
     {
+
         InitializeComponent();
+
         idRec = x;
-        status.Text = bl.Order.TrackingOrder(x).Status.ToString();
-        orderId.Text = x.ToString();
-
-
-        List<(DateTime?, string?)>? tuplelist = bl.Order.TrackingOrder(x).tuplesList!.ToList();
-        int size = tuplelist.Count();
-        orderingDate.Text = tuplelist[0].Item1.ToString();
-        if (size > 1)
-            shippingDate.Text = tuplelist[1].Item1.ToString();
-        if (size > 2) arrivalDate.Text = tuplelist[2].Item1.ToString();
-
-        if (size < 3)
+        try
         {
-            arrivalDate.Visibility = Visibility.Collapsed;
-            labelA.Visibility = Visibility.Collapsed;
-            if (size < 2)
+            status.Text = bl.Order.TrackingOrder(x).Status.ToString();
+            orderId.Text = x.ToString();
+            try
             {
-                shippingDate.Visibility = Visibility.Collapsed;
-                labelS.Visibility = Visibility.Collapsed;
+                List<(DateTime?, string?)>? tuplelist = bl.Order.TrackingOrder(x).tuplesList!.ToList();
+                int size = tuplelist.Count();
+                orderingDate.Text = tuplelist[0].Item1.ToString();
+                if (size > 1)
+                    shippingDate.Text = tuplelist[1].Item1.ToString();
+                if (size > 2) arrivalDate.Text = tuplelist[2].Item1.ToString();
+
+                if (size < 3)
+                {
+                    arrivalDate.Visibility = Visibility.Collapsed;
+                    labelA.Visibility = Visibility.Collapsed;
+                    if (size < 2)
+                    {
+                        shippingDate.Visibility = Visibility.Collapsed;
+                        labelS.Visibility = Visibility.Collapsed;
+                    }
+                }
             }
+            catch (BO.DoesntExistExeption ex)
+            {
+                string innerEx = "";
+                if (ex.InnerException != null)
+                    innerEx = ": " + ex.InnerException.Message;
+                MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
+            }
+            
+
+
+        }
+        catch (BO.DoesntExistExeption ex)
+        {
+            string innerEx = "";
+            if (ex.InnerException != null)
+                innerEx = ": " + ex.InnerException.Message;
+            MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
         }
 
-
+        
 
 
     }

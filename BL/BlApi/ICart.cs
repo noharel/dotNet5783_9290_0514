@@ -36,4 +36,5 @@ public interface ICart
     /// </summary>
     /// <param name="cart"></param>
     public void MakingAnOrder(Cart cart);
+    public BO.ProductItem ProductItemWithAmount(int id);
 }

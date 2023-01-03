@@ -299,4 +299,11 @@ internal class Cart : BlApi.ICart
             throw new BO.DoesntExistExeption("couldn't get prducucts in order list", e);
         }
     }
+    public BO.ProductItem ProductItemWithAmount(int id)
+    {
+        return null;
+        //BO.ProductItem prod = DO.Product;
+
+    }
+
 }

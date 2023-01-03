@@ -46,6 +46,8 @@ namespace PL.Orders
             {
                 shipDate.Visibility = Visibility.Collapsed;
                 labelShipDate.Visibility = Visibility.Collapsed;
+                arrivalDate.Visibility = Visibility.Collapsed;
+                labelArrivalDate.Visibility = Visibility.Collapsed;
             }
             status.Text = order.Status.ToString();
             totalPrice.Text = order.TotalPrice.ToString();

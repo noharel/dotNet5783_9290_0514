@@ -66,6 +66,13 @@
         </Style>
     </Window.Resources>
     <Grid>
+        <Image Name="informationLogo" 
+               Source="../pics/information.png" HorizontalAlignment="Left" 
+               Height="15" 
+               Margin="319,145,0,0" 
+               VerticalAlignment="Top" 
+               Width="37"
+               Visibility="{Binding ElementName=completeAdd, Path=Visibility}"/>
         <Label Content="LUXARY CAR DEALERSHIP" 
                HorizontalAlignment="Center" 
                VerticalAlignment="Top" 
@@ -121,7 +128,8 @@
                  Text="" 
                  VerticalAlignment="Top"
                  TextChanged="TextBoxID" 
-                 Style="{StaticResource myTextBoxStyle}"/>
+                 Style="{StaticResource myTextBoxStyle}"
+                 IsEnabled="{Binding ElementName=completeAdd, Path=IsVisible}"/>
         <TextBox Name="inputName" 
                  HorizontalAlignment="Left" 
                  Margin="214,174,0,0" 
@@ -179,7 +187,26 @@
                 Width="266" 
                 FontFamily="Rockwell Condensed"
                 Style="{StaticResource myButtonStyle}"/>
+        <TextBox HorizontalAlignment="Left" 
+                 Margin="274,123,0,0" 
+                 TextWrapping="Wrap" 
+                 Text="Product ID needs to be 6 numbers" 
+                 VerticalAlignment="Top" 
+                 Width="120"
+                 IsEnabled="False"
+                 FontFamily="Rockwell Condensed"
+                 FontSize="10">
+            <TextBox.Style>
+                <Style TargetType="TextBox">
 
-
+                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=informationLogo, Path=IsMouseOver}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
     </Grid>
 </Window>

@@ -23,6 +23,7 @@ public partial class Order : Window
     public Order(int x = 0)
     {
         InitializeComponent();
+
         status.Text = bl.Order.TrackingOrder(x).Status.ToString();
         orderId.Text = x.ToString();
 

@@ -31,9 +31,9 @@ namespace PL
         private void ProductsMouseEnter(object sender, MouseEventArgs e) // product buttom
         {
             // open the ProductListWindow
-            var win = new PL.Products.ProductListWindow();
-            win.Owner = this; // for the new window to be first
-            win.Show();
+            //var win = new PL.Products.ProductListWindow();
+            //win.Owner = this; // for the new window to be first
+            new PL.Products.ProductListWindow().ShowDialog();
         }
 
         private void TrackOrder_Click(object sender, RoutedEventArgs e)
@@ -43,7 +43,7 @@ namespace PL
             flag = int.TryParse( orderTrackingNumber.Text,out x);
             if (flag)
             {
-                new PL.Orders.Order(x).Show();
+                new PL.Orders.Order(x).ShowDialog();
             }
             else
             {

@@ -88,7 +88,9 @@
                 Click="TrackOrder_Click" 
                 Style="{StaticResource myButtonStyle}" 
                 FontSize="30" 
-                IsEnabled="{Binding ElementName=orderTrackingNumber,Path=Text.Length}" BorderBrush="{x:Null}" BorderThickness="0,1,0,0">
+                IsEnabled="{Binding ElementName=orderTrackingNumber,Path=Text.Length}" 
+                BorderBrush="{x:Null}" 
+                BorderThickness="0,1,0,0">
             <Button.Background>
                 <SolidColorBrush Color="Black" Opacity="0"/>
             </Button.Background>

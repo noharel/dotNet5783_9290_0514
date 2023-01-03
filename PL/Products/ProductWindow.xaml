@@ -198,7 +198,6 @@
                  FontSize="10">
             <TextBox.Style>
                 <Style TargetType="TextBox">
-
                     <Setter Property="Visibility" Value="Collapsed"></Setter>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding ElementName=informationLogo, Path=IsMouseOver}" Value="True">

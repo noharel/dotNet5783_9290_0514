@@ -29,7 +29,7 @@
         <Style x:Key="myButtonStyle"
            TargetType="Button">
             <Setter Property="FontSize"
-              Value="36" />
+              Value="26" />
             <Setter Property="FontFamily"
               Value="Rockwell Condensed" />
             <Setter Property="FontWeight"
@@ -71,8 +71,8 @@
                FontWeight="Bold" 
                Foreground="White"
                Background="Black" 
-               Width="808" 
-               HorizontalContentAlignment="Center" Height="63"/>
+               Width="800" 
+               HorizontalContentAlignment="Center" Height="43"/>
         <TextBox Name="status" 
                  Text="arrived" 
                  HorizontalAlignment="Left" 
@@ -89,7 +89,7 @@
                 </LinearGradientBrush>
             </TextBox.Background>
         </TextBox>
-        <Label Content=" Traking Order For order Number " 
+        <Label Content=" Traking order for order number " 
                Margin="379,69,0,0" 
                FontSize="26" 
                Style="{StaticResource myLabelStyle}" 
@@ -138,5 +138,23 @@
                  VerticalAlignment="Top" 
                  Width="207" 
                  Style="{StaticResource myTextBoxStyle}"/>
+        <Button Name="orderInfoButton" 
+                Content="Order information" 
+                HorizontalAlignment="Left" 
+                Margin="468,344,0,0" 
+                VerticalAlignment="Top"
+                Style="{StaticResource myButtonStyle}" Height="47" Width="170" Click="orderInfoButton_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"></Setter>
+                </Style>
+            </Button.Resources>
+            <Button.BorderBrush>
+                <RadialGradientBrush>
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="White" Offset="1"/>
+                </RadialGradientBrush>
+            </Button.BorderBrush>
+        </Button>
     </Grid>
 </Window>

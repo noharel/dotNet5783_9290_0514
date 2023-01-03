@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -51,5 +52,8 @@ public partial class Order : Window
 
     }
 
-
+    private void orderInfoButton_Click(object sender, RoutedEventArgs e)
+    {
+        new PL.Orders.OrderInfo().ShowDialog();
+    }
 }

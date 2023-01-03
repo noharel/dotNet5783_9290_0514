@@ -36,7 +36,7 @@
         <Style x:Key="myLabelStyle"
            TargetType="Label">
             <Setter Property="FontSize"
-              Value="36" />
+              Value="20" />
             <Setter Property="FontFamily"
               Value="Rockwell Condensed" />
             <Setter Property="FontWeight"
@@ -58,8 +58,24 @@
                Grid.ColumnSpan="2" 
                Width="800" 
                HorizontalContentAlignment="Center"/>
-        <Label Content="Product info for order number" HorizontalAlignment="Center" Margin="0,136,0,0" VerticalAlignment="Top"/>
-        <Image Source="..\pics\orderInfo.png" HorizontalAlignment="Left" Height="399" VerticalAlignment="Top" Width="288" Margin="0,41,0,0"/>
+        <Label Content="Product info for order number" 
+               HorizontalAlignment="Left" 
+               Margin="300,73,0,0" 
+               VerticalAlignment="Top" 
+               Style="{StaticResource myLabelStyle}" />
+        <Image Source="..\pics\orderInfo.png" 
+               HorizontalAlignment="Left" 
+               Height="399" 
+               VerticalAlignment="Top" 
+               Width="288" 
+               Margin="0,41,0,0"/>
+        <TextBox Name="id" 
+                 HorizontalAlignment="Left" 
+                 Margin="652,90,0,0" 
+                 TextWrapping="Wrap" 
+                 Text="TextBox" 
+                 VerticalAlignment="Top" 
+                 Width="120"/>
 
 
     </Grid>

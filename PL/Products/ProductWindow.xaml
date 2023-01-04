@@ -175,8 +175,27 @@
                 Height="27" 
                 Width="266" 
                 Click="CompleteAdd_MouseDoubleClick" 
-                FontFamily="Rockwell Condensed"
-                Style="{StaticResource myButtonStyle}"/>
+                FontFamily="Rockwell Condensed">
+            <Button.Style>
+                <Style BasedOn="{StaticResource myButtonStyle}" TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="black" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border x:Name="Border" Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="BorderThickness" Value="10,3,10,3" TargetName="Border"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+        </Button>
         <Button Name="completeUpdate" 
                 Content="Update" 
                 HorizontalAlignment="Left" 
@@ -185,8 +204,27 @@
                 Click="completeUpdate_Click" 
                 Height="27" 
                 Width="266" 
-                FontFamily="Rockwell Condensed"
-                Style="{StaticResource myButtonStyle}"/>
+                FontFamily="Rockwell Condensed">
+            <Button.Style>
+                <Style BasedOn="{StaticResource myButtonStyle}" TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="black" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border x:Name="Border" Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="BorderThickness" Value="10,3,10,3" TargetName="Border"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+        </Button>
 
         <TextBox HorizontalAlignment="Left" 
                  Margin="256,121,0,0" 

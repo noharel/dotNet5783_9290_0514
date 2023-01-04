@@ -109,23 +109,24 @@
         <Button x:Name="cartButton"
                 Width="50"
                 Height="50"
-                                        BorderBrush="{x:Null}" 
-                                        BorderThickness="0,0,0,0"
-                                        HorizontalAlignment="Right" Margin="8,350,50,16">
+                BorderBrush="{x:Null}" 
+                BorderThickness="0,0,0,0"
+                HorizontalAlignment="Right" Margin="8,350,60,16">
             <Image Source="..\pics\planeCart.png" />
         </Button>
         <Ellipse Width="30"
                  Height="30"
                  Fill="Red"
                  StrokeThickness="0" 
-                 Margin="735,354,35,50" />
+                 Margin="723,348,47,56" />
         <Label Name="amountInCart" 
                Content="0" 
                Foreground="Black"
                Style="{StaticResource myLabelStyle}"
                HorizontalAlignment="Left" 
-               Margin="770,364,0,0" 
-               VerticalAlignment="Top" Background="{x:Null}"/>
+               Margin="726,344,0,0" 
+               VerticalAlignment="Top" 
+               Background="{x:Null}"/>
 
     </Grid>
     

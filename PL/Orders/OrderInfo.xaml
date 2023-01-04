@@ -227,5 +227,6 @@
                
                Style="{StaticResource myLabelStyle}"
                VerticalAlignment="Top" Background="{x:Null}" Grid.Column="2"/>
+        <Button Name="managerButton" Visibility="Collapsed" Content="Button" HorizontalAlignment="Left" Margin="214,77,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

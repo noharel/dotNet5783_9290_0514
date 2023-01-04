@@ -52,6 +52,11 @@ namespace PL.Orders
             status.Text = order.Status.ToString();
             totalPrice.Text = order.TotalPrice.ToString();
             products.ItemsSource = order.Items!.ToList();
+
+            if(manager)
+            {
+
+            }
         }
     }
 }

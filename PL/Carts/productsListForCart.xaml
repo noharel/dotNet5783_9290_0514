@@ -31,7 +31,7 @@
             <Setter Property="Foreground"
                     Value="Black"/>
             <Setter Property="Background"
-                    Value="Black"/>
+                    Value="White"/>
         </Style>
         <Style x:Key="myListViewStyle"
            TargetType="ListView">
@@ -61,17 +61,27 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <Label Content="LUXARY CAR DEALERSHIP" 
-               HorizontalAlignment="Center" 
-               Margin="0,-6,0,0" 
-               VerticalAlignment="Top" 
-               Style="{StaticResource myLabelStyle}" 
-               Width="800" 
-               HorizontalContentAlignment="Center" Height="41"/>
-        <ListView Name="producs" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="producs_SelectionChanged" Style="{StaticResource myListViewStyle}" Margin="0,27,0,99">
+        <ListView Name="producs" d:ItemsSource="{d:SampleData ItemCount=5}" Style="{StaticResource myListViewStyle}" Margin="0,199,10,0">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="600"/>
+                    <GridViewColumn  Width="70">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="info"
+                                        Width="30"
+                                        Height="30"
+                                        VerticalAlignment="Center" 
+                                        BorderBrush="{x:Null}" 
+                                        BorderThickness="0,0,0,0"
+                                        Click="InfoButton_click"
+                                        Style="{StaticResource myButtonStyle}"
+                                        HorizontalAlignment="Right">
+                                    <Image Source="..\pics\information.png" ></Image>
+                                </Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="560"/>
                     <GridViewColumn  Width="70">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -82,6 +92,7 @@
                                         BorderBrush="{x:Null}" 
                                         BorderThickness="0,0,0,0"
                                         Click="AddButton_click"
+                                        Style="{StaticResource myButtonStyle}"
                                         HorizontalAlignment="Right">
                                     <Image Source="..\pics\addToCart.png" ></Image>
 
@@ -97,7 +108,9 @@
                                         Height="50"
                                         VerticalAlignment="Center" 
                                         BorderBrush="{x:Null}" 
+                                        Click="RemoveButton_click"
                                         BorderThickness="0,0,0,0"
+                                        Style="{StaticResource myButtonStyle}"
                                         HorizontalAlignment="Right">
                                     <Image Source="..\pics\removeCart.png" ></Image>
                                 </Button>
@@ -107,26 +120,65 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="cartButton"
-                Width="50"
-                Height="50"
+        <Button Name="ClearChoice" 
+                Content="clear choice" 
+                HorizontalAlignment="Left" 
+                Margin="636,93,0,0" 
+                VerticalAlignment="Top" 
+                Click="ClearChoice_Click_1" 
+                Height="20" 
+                Width="139" 
                 BorderBrush="{x:Null}" 
-                BorderThickness="0,0,0,0"
-                HorizontalAlignment="Right" Margin="8,350,60,16">
-            <Image Source="..\pics\planeCart.png" />
-        </Button>
-        <Image Source="..\pics\redCircle.png" HorizontalAlignment="Left" Height="40" Margin="715,340,0,0" VerticalAlignment="Top" Width="59"/>
+                Style="{StaticResource myButtonStyle}"/>
+
+        <Button x:Name="cartButton"
+                Content="view cart"
+                Width="77"
+                Style="{StaticResource myButtonStyle}"
+                HorizontalAlignment="Right" 
+                Margin="0,46,653,362"/>
+        <Image Source="..\pics\planeCart.png" 
+               Margin="3,40,728,356" />
+        <Image Source="..\pics\redCircle.png" 
+               HorizontalAlignment="Left" 
+               Height="27" 
+               Margin="38,32,0,0" 
+               VerticalAlignment="Top" 
+               Width="39"/>
 
         <Label Name="amountInCart" 
                Content="@" 
                HorizontalAlignment="Left" 
-               Margin="718,344,0,0" 
+               Margin="35,26,0,0" 
                VerticalAlignment="Top"
-               
-               Style="{StaticResource myLabelStyle}" Background="{x:Null}" Foreground="#FF060606">
+               Style="{StaticResource myLabelStyle}" 
+               Background="{x:Null}" 
+               Foreground="#FF060606">
         </Label>
-
-
+        <Label Content="LUXARY CAR DEALERSHIP" 
+               HorizontalAlignment="Center" 
+               Margin="0,-6,0,0" 
+               VerticalAlignment="Top" 
+               Style="{StaticResource myLabelStyle}" 
+               Width="800" 
+               HorizontalContentAlignment="Center" Height="41"/>
+        <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Margin="0,199,25,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions >
+            <ComboBox Name="CategorySelector" 
+                      SelectionChanged="CategorySelector_SelectionChanged" 
+                      Margin="10,35,0,351" 
+                      Style="{StaticResource myComboBoxStyle}" Grid.Column="1" />
+        </Grid>
+        <Label Content="Category" 
+               Grid.Column="0" 
+               HorizontalContentAlignment="Center" 
+               Background="White"
+               Foreground="Black"
+               Style="{StaticResource myLabelStyle}" 
+               Margin="166,38,296,353" 
+                />
     </Grid>
-
 </Window>

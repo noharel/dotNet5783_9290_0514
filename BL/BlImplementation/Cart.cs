@@ -108,45 +108,54 @@ internal class Cart : BlApi.ICart
                                                             where var.ProductID == id
                                                             select var); // get the product 
         BO.OrderItem ourOrderItem = ourItem!.FirstOrDefault()!;
-        int amountItem = ourOrderItem!.Amount ;
-        if (amountItem < amount) // if the new  expected amount is MORE than now
+        if (ourOrderItem != null)
         {
-            for (int i = amountItem; i < amount; i++) // Fills the gap
+            int amountItem = ourOrderItem!.Amount;
+            if (amountItem < amount) // if the new  expected amount is MORE than now
             {
-                try
+                for (int i = amountItem; i < amount; i++) // Fills the gap
                 {
-                    AddProductToCart(cart, id);  // ADD
-                }
+                    try
+                    {
+                        AddProductToCart(cart, id);  // ADD
+                    }
 
-                // Catch AddProductToCart function exception
-                catch (BO.DoesntExistExeption e)
-                {
-                    throw new BO.DoesntExistExeption("couldn't update", e);
-                }
-                catch (BO.ContradictoryDataExeption e)
-                {
-                    throw new BO.ContradictoryDataExeption("couldn't update", e);
+                    // Catch AddProductToCart function exception
+                    catch (BO.DoesntExistExeption e)
+                    {
+                        throw new BO.DoesntExistExeption("couldn't update", e);
+                    }
+                    catch (BO.ContradictoryDataExeption e)
+                    {
+                        throw new BO.ContradictoryDataExeption("couldn't update", e);
+                    }
                 }
             }
-        }
 
-        if(amountItem > amount) // if the new  expected amount is LESS than now
-        {
-            // Update the total price of cart and item, and the amount
-            cart.TotalPrice -= ourOrderItem.Price*(amountItem-amount);
-            ourOrderItem.TotalPrice -= ourOrderItem.Price * (amountItem - amount);
-            ourOrderItem.Amount=amount;
-            
-        }
+            if (amountItem > amount) // if the new  expected amount is LESS than now
+            {
+                // Update the total price of cart and item, and the amount
+                cart.TotalPrice -= ourOrderItem.Price * (amountItem - amount);
+                ourOrderItem.TotalPrice -= ourOrderItem.Price * (amountItem - amount);
+                ourOrderItem.Amount = amount;
 
-        if(amountItem == 0) // If mount of the product in the cart is 0
-        {
-            cart.Items= new List<BO.OrderItem>(from var in cart.Items
-                        where var.ID != id
-                        select var); // Get all the product which are not the given product
-            cart.TotalPrice -= ourOrderItem.TotalPrice;  // Update the total price of cart
+            }
+
+            if (amountItem == 0) // If mount of the product in the cart is 0
+            {
+                cart.Items = new List<BO.OrderItem>(from var in cart.Items
+                                                    where var.ID != id
+                                                    select var); // Get all the product which are not the given product
+                cart.TotalPrice -= ourOrderItem.TotalPrice;  // Update the total price of cart
+            }
+            if (amountItem < 0)
+                throw new BO.ContradictoryDataExeption("can't update to negative numbers");
+            return cart; // Returns the updated cart
         }
-        return cart; // Returns the updated cart
+        else
+        {
+            throw new BO.DoesntExistExeption("A product with this id is not in cart");
+        }
     }
 
     /// <summary>

@@ -34,14 +34,14 @@ namespace PL.Carts
             amountInCart.Content = cart!.Items!.ToList().Count.ToString();
 
         }
-
+        /*
         private void producs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             BO.ProductForList prodForList = (BO.ProductForList)producs.SelectedItem;
             var hg = new Carts.productItem(prodForList.ID, cart!); // open ProductWindow on update and action mode
             hg.ShowDialog(); // open 
             amountInCart.Content = cart!.Items!.ToList().Count.ToString();
-        }
+        }*/
         private void AddButton_click(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
@@ -49,7 +49,12 @@ namespace PL.Carts
             try
             {
                 bl!.Cart.AddProductToCart(cart!, id);
-                amountInCart.Content = cart!.Items!.ToList().Count.ToString();
+                int count = 0;
+                cart!.Items!.ToList().ForEach(delegate (BO.OrderItem var)
+                {
+                    count += var.Amount;
+                });
+                amountInCart.Content = count;
             }
             catch(BO.DoesntExistExeption )
             {
@@ -57,6 +62,85 @@ namespace PL.Carts
 
             }
 
+        }
+        private void RemoveButton_click(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+            int id = ((BO.ProductForList?)button.DataContext)!.ID;
+            try
+            {
+                int count = 0;
+                int num = 0;
+                cart!.Items!.ToList().ForEach(delegate (BO.OrderItem var)
+                {
+                    if (var.ProductID == id) num = var.Amount;
+                    count += var.Amount;
+
+                });
+                if (num != 0)
+                {
+                    bl!.Cart.UpdateAmountInCart(cart!, id, num - 1);
+                    amountInCart.Content = count - 1;
+                }
+                else
+                {
+                    MessageBox.Show("Can't remove, product is not in the cart"); // print exception 
+                }
+
+
+            }
+            catch (BO.DoesntExistExeption)
+            {
+                MessageBox.Show("Can't remove, product is not in the cart"); // print exception 
+
+            }
+            catch(BO.ContradictoryDataExeption)
+            {
+                MessageBox.Show("Can't remove, product is not in the cart"); // print exception 
+            }
+
+
+
+        }
+        private void InfoButton_click(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+            int id = ((BO.ProductForList?)button.DataContext)!.ID;
+            var hg = new Carts.productItem(id, cart!); // open ProductWindow on update and action mode
+            hg.ShowDialog(); // open 
+        }
+        private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e) //get selection for category
+        {
+            BO.Category? category = (BO.Category?)CategorySelector.SelectedItem; // get the asked category
+            try
+            {
+                //return all the products in the asked category
+                producs.ItemsSource = bl!.Product.GetListProduct(x => x == null ? throw new Exception() : x.Category == category);
+            }
+            catch (BO.DoesntExistExeption ex) // get list product exception
+            {
+                string innerEx = "";
+                if (ex.InnerException != null)
+                    innerEx = ": " + ex.InnerException.Message;
+                MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
+
+            }
+
+        }
+        private void ClearChoice_Click_1(object sender, RoutedEventArgs e) //clear choice button
+        {
+            try
+            {
+                producs.ItemsSource = bl!.Product.GetListProduct(); //get all the products
+            }
+            catch (BO.DoesntExistExeption ex) //get list product exception
+            {
+                string innerEx = "";
+                if (ex.InnerException != null)
+                    innerEx = ": " + ex.InnerException.Message;
+                MessageBox.Show("unsucessfull click:" + ex.Message + innerEx); //print exception for user
+
+            }
         }
     }
 }

@@ -21,21 +21,21 @@ namespace PL.Carts
     public partial class productsListForCart : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get(); // get bl from factory
-        BO.Cart cart;
+        private static BO.Cart? cart;
         public productsListForCart()
         {
             InitializeComponent();
-            List <BO.ProductForList?>listProd= bl.Product.GetListProduct().ToList();
+            List<BO.ProductForList?>listProd= bl.Product.GetListProduct().ToList();
             producs.ItemsSource = listProd;
             List<BO.OrderItem>? list = new List<BO.OrderItem>();
             cart = new BO.Cart { Items = list };
-            string Count = listProd.Count().ToString();
         }
+        //public string MyValue { get; set; } = cart!.Items!.ToList().Count.ToString();
 
         private void producs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             BO.ProductForList prodForList = (BO.ProductForList)producs.SelectedItem;
-            var hg = new Carts.productItem(prodForList.ID, cart); // open ProductWindow on update and action mode
+            var hg = new Carts.productItem(prodForList.ID, cart!); // open ProductWindow on update and action mode
             hg.ShowDialog(); // open 
 
 

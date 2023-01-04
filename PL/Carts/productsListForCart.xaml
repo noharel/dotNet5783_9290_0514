@@ -68,7 +68,7 @@
                Style="{StaticResource myLabelStyle}" 
                Width="800" 
                HorizontalContentAlignment="Center" Height="41"/>
-        <ListView Name="producs" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="producs_SelectionChanged" Style="{StaticResource myListViewStyle}" Margin="0,27,0,73">
+        <ListView Name="producs" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="producs_SelectionChanged" Style="{StaticResource myListViewStyle}" Margin="0,27,0,99">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="600"/>
@@ -80,7 +80,7 @@
                                         Height="50"
                                         VerticalAlignment="Center" 
                                         BorderBrush="{x:Null}" 
-                                        BorderThickness="0,1,0,0"
+                                        BorderThickness="0,0,0,0"
                                         HorizontalAlignment="Right">
                                     <Image Source="..\pics\addToCart.png" ></Image>
 
@@ -96,7 +96,7 @@
                                         Height="50"
                                         VerticalAlignment="Center" 
                                         BorderBrush="{x:Null}" 
-                                        BorderThickness="0,1,0,0"
+                                        BorderThickness="0,0,0,0"
                                         HorizontalAlignment="Right">
                                     <Image Source="..\pics\removeCart.png" ></Image>
                                 </Button>
@@ -106,14 +106,27 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="cart"
+        <Button x:Name="cartButton"
                 Width="50"
                 Height="50"
-                VerticalAlignment="Center" 
                                         BorderBrush="{x:Null}" 
-                                        BorderThickness="0,1,0,0"
-                                        HorizontalAlignment="Right">
-            <Image Source="..\pics\removeCart.png" ></Image>
+                                        BorderThickness="0,0,0,0"
+                                        HorizontalAlignment="Right" Margin="8,350,50,16">
+            <Image Source="..\pics\planeCart.png" />
         </Button>
+        <Ellipse Width="30"
+                 Height="30"
+                 Fill="Red"
+                 StrokeThickness="0" 
+                 Margin="735,354,35,50" />
+        <Label Name="amountInCart" 
+               Content="0" 
+               Foreground="Black"
+               Style="{StaticResource myLabelStyle}"
+               HorizontalAlignment="Left" 
+               Margin="770,364,0,0" 
+               VerticalAlignment="Top" Background="{x:Null}"/>
+
     </Grid>
+    
 </Window>

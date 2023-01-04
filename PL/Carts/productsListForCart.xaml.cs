@@ -25,9 +25,11 @@ namespace PL.Carts
         public productsListForCart()
         {
             InitializeComponent();
-            producs.ItemsSource = bl.Product.GetListProduct().ToList();
+            List <BO.ProductForList?>listProd= bl.Product.GetListProduct().ToList();
+            producs.ItemsSource = listProd;
             List<BO.OrderItem>? list = new List<BO.OrderItem>();
             cart = new BO.Cart { Items = list };
+            string Count = listProd.Count().ToString();
         }
 
         private void producs_SelectionChanged(object sender, SelectionChangedEventArgs e)

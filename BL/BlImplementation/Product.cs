@@ -131,7 +131,12 @@ internal class Product : BlApi.IProduct
                 bool ifInStock = false;
                 if (product.InStock > 0)
                     ifInStock = true;
-                BO.ProductItem item = new BO.ProductItem { ID = product.ID, Name = product.Name, Price = product.Price, Category = (BO.Category)product.Category!, Amount = product.InStock, InStock = ifInStock };
+                int amount = 0;//amount of this specific product in cart
+                cart.Items!.ForEach(delegate (BO.OrderItem var)//finds product in cart, if its in the cart even
+                {
+                    if (var.ProductID == product.ID) amount = var.Amount;
+                });
+                BO.ProductItem item = new BO.ProductItem { ID = product.ID, Name = product.Name, Price = product.Price, Category = (BO.Category)product.Category!, Amount = amount, InStock = ifInStock };
                 return item;
             }
             catch (DO.DoesntExistExeption e)//catch for GetByID

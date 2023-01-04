@@ -55,6 +55,7 @@ namespace PL.Orders
 
             if(manager)
             {
+                managerButton.Visibility = Visibility.Hidden;
 
             }
         }

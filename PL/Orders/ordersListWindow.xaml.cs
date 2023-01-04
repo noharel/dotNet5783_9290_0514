@@ -42,7 +42,7 @@ namespace PL.Orders
         {
             BO.OrderForList selectedOrder = (BO.OrderForList)ordersList.SelectedItem;
             
-            new PL.Orders.Order(selectedOrder.ID).ShowDialog();
+            new PL.Orders.Order(selectedOrder.ID, true).ShowDialog();
             /*
             try
             {

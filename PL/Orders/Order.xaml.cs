@@ -28,10 +28,14 @@ public partial class Order : Window
 
     BlApi.IBl? bl = BlApi.Factory.Get(); // get bl from factory
     int idRec = 0;
-    public Order(int x = 0)
+    private bool managerFunc = false;
+    public bool managerFunc1 { get { return managerFunc; } }
+    public Order(int x = 0, bool manager = false)
     {
 
         InitializeComponent();
+
+        managerFunc = manager;
 
         idRec = x;
         try
@@ -55,6 +59,11 @@ public partial class Order : Window
                     {
                         shippingDate.Visibility = Visibility.Collapsed;
                         labelS.Visibility = Visibility.Collapsed;
+                        if (manager) shipOrderByManager.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        if (manager) delinerOrderByManager.Visibility = Visibility.Visible;
                     }
                 }
             }
@@ -77,15 +86,60 @@ public partial class Order : Window
             if (ex.InnerException != null)
                 innerEx = ": " + ex.InnerException.Message;
             MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
-        }
-
-        
+        }     
 
 
     }
 
     private void orderInfoButton_Click(object sender, RoutedEventArgs e)
     {
-        new PL.Orders.OrderInfo(idRec).ShowDialog();
+        
+        new PL.Orders.OrderInfo(idRec, managerFunc).ShowDialog();
+    }
+
+    private void shipOrderByManager_Click(object sender, RoutedEventArgs e)
+    {
+        bl!.Order.UpdateShip(idRec);
+        shipOrderByManager.Visibility = Visibility.Collapsed;
+        try
+        {
+            List<(DateTime?, string?)>? tuplelist = bl.Order.TrackingOrder(idRec).tuplesList!.ToList();
+
+            shippingDate.Text = tuplelist[1].Item1.ToString();
+            shippingDate.Visibility = Visibility.Visible;
+            labelS.Visibility = Visibility.Visible;
+            delinerOrderByManager.Visibility = Visibility.Visible;
+        }
+        catch(BO.DoesntExistExeption ex)
+        {
+
+            string innerEx = "";
+            if (ex.InnerException != null)
+                innerEx = ": " + ex.InnerException.Message;
+            MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
+        }
+    }
+
+    private void delinerOrderByManager_Click(object sender, RoutedEventArgs e)
+    {
+
+        bl!.Order.UpdateDelivery(idRec);
+        delinerOrderByManager.Visibility = Visibility.Collapsed;
+        try
+        {
+            List<(DateTime?, string?)>? tuplelist = bl.Order.TrackingOrder(idRec).tuplesList!.ToList();
+
+            arrivalDate.Text = tuplelist[2].Item1.ToString();
+            arrivalDate.Visibility = Visibility.Visible;
+            labelA.Visibility = Visibility.Visible;
+        }
+        catch(BO.DoesntExistExeption ex)
+        {
+
+            string innerEx = "";
+            if (ex.InnerException != null)
+                innerEx = ": " + ex.InnerException.Message;
+            MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
+        }
     }
 }

@@ -29,14 +29,14 @@
             <Setter Property="FontWeight"
               Value="Bold" />
             <Setter Property="Foreground"
-                    Value="White"/>
+                    Value="Black"/>
             <Setter Property="Background"
                     Value="Black"/>
         </Style>
         <Style x:Key="myListViewStyle"
            TargetType="ListView">
             <Setter Property="FontSize"
-              Value="10" />
+              Value="20" />
             <Setter Property="FontFamily"
               Value="Rockwell Condensed" />
             <Setter Property="FontWeight"
@@ -62,27 +62,58 @@
     </Window.Resources>
     <Grid>
         <Label Content="LUXARY CAR DEALERSHIP" 
-               HorizontalAlignment="Left" 
+               HorizontalAlignment="Center" 
                Margin="0,-6,0,0" 
                VerticalAlignment="Top" 
                Style="{StaticResource myLabelStyle}" 
-               Grid.ColumnSpan="2" 
                Width="800" 
-               HorizontalContentAlignment="Center"/>
-        <ListView Name="producs" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="producs_SelectionChanged">
+               HorizontalContentAlignment="Center" Height="41"/>
+        <ListView Name="producs" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="producs_SelectionChanged" Style="{StaticResource myListViewStyle}" Margin="0,27,0,73">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
-                    <GridViewColumn Header="Fichier CSV" Width="370">
+                    <GridViewColumn Width="600"/>
+                    <GridViewColumn  Width="70">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="OpenFile" Content="Open File" />
+                                <Button x:Name="add"
+                                        Width="50"
+                                        Height="50"
+                                        VerticalAlignment="Center" 
+                                        BorderBrush="{x:Null}" 
+                                        BorderThickness="0,1,0,0"
+                                        HorizontalAlignment="Right">
+                                    <Image Source="..\pics\addToCart.png" ></Image>
+
+                                </Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn  Width="70">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="remove"
+                                        Width="50"
+                                        Height="50"
+                                        VerticalAlignment="Center" 
+                                        BorderBrush="{x:Null}" 
+                                        BorderThickness="0,1,0,0"
+                                        HorizontalAlignment="Right">
+                                    <Image Source="..\pics\removeCart.png" ></Image>
+                                </Button>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                 </GridView>
-              
             </ListView.View>
         </ListView>
+        <Button x:Name="cart"
+                Width="50"
+                Height="50"
+                VerticalAlignment="Center" 
+                                        BorderBrush="{x:Null}" 
+                                        BorderThickness="0,1,0,0"
+                                        HorizontalAlignment="Right">
+            <Image Source="..\pics\removeCart.png" ></Image>
+        </Button>
     </Grid>
 </Window>

@@ -337,10 +337,19 @@ internal class Order : BlApi.IOrder
             {
                 if (DOorder.ShipDate == null) // ORDER NOT SHIPED - MANAGER CAN UPDTE
                 {
-                    DO.OrderItem DOorderItem = (DO.OrderItem)Dal.OrderItem.GetProduct(orderID, orderItemId)!;
-                    DOorderItem.Amount += amount; //UPDATE AMOUNT
-                    Dal.OrderItem.Update(DOorderItem); 
+                    try
+                    {
+                        DO.OrderItem DOorderItem = (DO.OrderItem)Dal.OrderItem.GetProduct(orderID, orderItemId)!;
+                        DOorderItem.Amount += amount; //UPDATE AMOUNT
+                        Dal.OrderItem.Update(DOorderItem);
+                    }
+                    catch(DO.DoesntExistExeption e)
+                    {
+                        throw new BO.DoesntExistExeption("couldn't get product", e);
+                    }
                 }
+
+                
                 else // ORDER SHIPED - MANGER CAN'T UPDATE
                 {
                     throw new BO.ContradictoryDataExeption("Order was already shipped, can not update it");

@@ -137,7 +137,7 @@ public class DalOrderItem: IOrderItem  // A CLASS THAT IMPLEMENTS THE INTERFACE 
    public  OrderItem? GetProduct(int orderID, int itemID)
     {
         //return the order item with the order id and product id wanted
-        return _ds._orderItems.Where(orderItem => (orderItem?.OrderID == orderID) & (orderItem?.PrudoctID == itemID)).FirstOrDefault(); 
+        return _ds._orderItems.Where(orderItem => ((orderItem?.OrderID == orderID) && (orderItem?.PrudoctID == itemID))).FirstOrDefault() ?? throw new DoesntExistExeption("order item does not exict in this order");
         
     }
 

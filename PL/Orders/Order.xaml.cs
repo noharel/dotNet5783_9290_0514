@@ -60,10 +60,12 @@ public partial class Order : Window
             }
             catch (BO.DoesntExistExeption ex)
             {
+
                 string innerEx = "";
                 if (ex.InnerException != null)
                     innerEx = ": " + ex.InnerException.Message;
                 MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
+                
             }
             
 

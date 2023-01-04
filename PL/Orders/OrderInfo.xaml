@@ -23,7 +23,7 @@
         <Style x:Key="myTextBoxStyle"
            TargetType="TextBox">
             <Setter Property="FontSize"
-              Value="10" />
+              Value="15" />
             <Setter Property="FontFamily"
               Value="Rockwell Condensed" />
             <Setter Property="FontWeight"
@@ -55,7 +55,7 @@
         <Style x:Key="myLabelStyle"
            TargetType="Label">
             <Setter Property="FontSize"
-              Value="10" />
+              Value="15" />
             <Setter Property="FontFamily"
               Value="Rockwell Condensed" />
             <Setter Property="FontWeight"
@@ -81,7 +81,7 @@
                HorizontalAlignment="Left" 
                VerticalAlignment="Top" 
                Background="Black"
-               Foreground="White"
+               Foreground="Wheat"
                Style="{StaticResource myLabelStyle}" 
                Grid.ColumnSpan="4" 
                Width="800" 
@@ -112,48 +112,48 @@
                HorizontalAlignment="Left" 
                Margin="286,72,0,0" 
                Style="{StaticResource myLabelStyle}" 
-               VerticalAlignment="Top"/>
+               VerticalAlignment="Top" Width="96"/>
         <TextBox Name="name" 
                  HorizontalAlignment="Left" 
-                 Margin="351,78,0,0" 
+                 Margin="0,77,0,0" 
                  TextWrapping="Wrap" 
                  Text="name" 
                  VerticalAlignment="Top" 
                  Style="{StaticResource myTextBoxStyle}"
-                 Width="188" Grid.ColumnSpan="3"/>
+                 Width="188" Grid.ColumnSpan="2" Grid.Column="1"/>
         <Label Content="Customer's address:" 
                HorizontalAlignment="Left" 
-               Margin="286,94,0,0" 
+               Margin="286,95,0,0" 
                Style="{StaticResource myLabelStyle}"
-               VerticalAlignment="Top"/>
+               VerticalAlignment="Top" Grid.ColumnSpan="2" Width="114"/>
         <TextBox Name="address" 
                  HorizontalAlignment="Left" 
-                 Margin="358,100,0,0" 
+                 Margin="15,100,0,0" 
                  TextWrapping="Wrap" 
                  Text="address" 
                  VerticalAlignment="Top" 
                  Style="{StaticResource myTextBoxStyle}"
-                 Width="194" Grid.ColumnSpan="3"/>
+                 Width="194" Grid.ColumnSpan="2" Grid.Column="1"/>
         <Label Content="Customer's email:" 
                HorizontalAlignment="Left" 
                Margin="286,116,0,0" 
                Style="{StaticResource myLabelStyle}"
-               VerticalAlignment="Top"/>
+               VerticalAlignment="Top" Grid.ColumnSpan="2" Width="98"/>
         <TextBox Name="email"
                  HorizontalAlignment="Left" 
-                 Margin="351,121,0,0" 
+                 Margin="2,121,0,0" 
                  TextWrapping="Wrap" 
                  Text="email" 
                  Style="{StaticResource myTextBoxStyle}"
-                 VerticalAlignment="Top" Width="120" Grid.ColumnSpan="3"/>
+                 VerticalAlignment="Top" Width="141" Grid.ColumnSpan="2" Grid.Column="1"/>
         <Label Content="Date of order:" 
                HorizontalAlignment="Left" 
-               Margin="63,72,0,0"
+               Margin="68,72,0,0"
                Style="{StaticResource myLabelStyle}"
-               VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="2"/>
+               VerticalAlignment="Top" Grid.Column="2"/>
         <TextBox Name="orderDate"
                  HorizontalAlignment="Left" 
-                 Margin="43,78,0,0" 
+                 Margin="145,77,0,0" 
                  TextWrapping="Wrap" 
                  Text="orderDate" 
                  VerticalAlignment="Top" 
@@ -162,12 +162,12 @@
         <Label Name="labelShipDate"
                Content="Date of shipment:" 
                HorizontalAlignment="Left" 
-               Margin="63,94,0,0" 
+               Margin="68,95,0,0" 
                Style="{StaticResource myLabelStyle}"
-               VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="2"/>
+               VerticalAlignment="Top" Grid.Column="2"/>
         <TextBox Name="shipDate"
                  HorizontalAlignment="Left" 
-                 Margin="54,99,0,0" 
+                 Margin="163,100,0,0" 
                  TextWrapping="Wrap" 
                  Text="shipDate" 
                  VerticalAlignment="Top" 
@@ -176,25 +176,25 @@
         <Label Name="labelArrivalDate" 
                Content="Date of arrival:" 
                HorizontalAlignment="Left" 
-               Margin="63,116,0,0" 
+               Margin="68,116,0,0" 
                Style="{StaticResource myLabelStyle}"
-               VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="2"/>
+               VerticalAlignment="Top" Grid.Column="2"/>
         <TextBox Name="arrivalDate" 
                  HorizontalAlignment="Left" 
-                 Margin="48,121,0,0" 
+                 Margin="153,121,0,0" 
                  TextWrapping="Wrap" 
                  Text="arrivalDate" 
                  VerticalAlignment="Top" 
                  Style="{StaticResource myTextBoxStyle}"
                  Width="120" Grid.Column="2"/>
         <Label Content="Status of order:" 
-               HorizontalAlignment="Left" 
-               Margin="142,72,0,0" 
+               HorizontalAlignment="Center" 
+               Margin="0,144,0,0" 
                Style="{StaticResource myLabelStyle}"
-               VerticalAlignment="Top" Grid.Column="2"/>
+               VerticalAlignment="Top" Grid.Column="1" Width="85"/>
         <TextBox Name="status" 
                  HorizontalAlignment="Left" 
-                 Margin="202,78,0,0" 
+                 Margin="3,149,0,0" 
                  TextWrapping="Wrap" 
                  Text="status" 
                  VerticalAlignment="Top" 
@@ -202,12 +202,12 @@
                  Width="120" Grid.Column="2"/>
         <Label Content="Total price of order:" 
                HorizontalAlignment="Left" 
-               Margin="142,94,0,0" 
+               Margin="77,144,0,0" 
                Style="{StaticResource myLabelStyle}"
                VerticalAlignment="Top" Grid.Column="2"/>
         <TextBox Name="totalPrice" 
                  HorizontalAlignment="Left" 
-                 Margin="217,99,0,0" 
+                 Margin="185,149,0,0" 
                  TextWrapping="Wrap" 
                  Text="totalPrice" 
                  VerticalAlignment="Top" 

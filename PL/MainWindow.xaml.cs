@@ -44,7 +44,20 @@ namespace PL
             flag = int.TryParse( orderTrackingNumber.Text,out x);
             if (flag)
             {
-                new PL.Orders.Order(x).ShowDialog();
+                try
+                {
+                    bl!.Order.TrackingOrder(x);
+
+                    new PL.Orders.Order(x).ShowDialog();
+                }
+                catch(BO.DoesntExistExeption ex)
+                {
+                    string innerEx = "";
+                    if (ex.InnerException != null)
+                        innerEx = ": " + ex.InnerException.Message;
+                    MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
+                    
+                }
             }
             else
             {

@@ -69,17 +69,17 @@
                FontSize="36" 
                FontFamily="Rockwell Condensed" 
                FontWeight="Bold" 
-               Foreground="White"
+               Foreground="Wheat"
                Background="Black" 
                Width="800" 
                HorizontalContentAlignment="Center" Height="43"/>
         <TextBox Name="status" 
                  Text="arrived" 
                  HorizontalAlignment="Left" 
-                 Margin="128,65,0,0" 
+                 Margin="134,49,0,0" 
                  TextWrapping="Wrap" 
                  VerticalAlignment="Top" 
-                 Width="181" 
+                 Width="136" 
                  Style="{StaticResource myTextBoxStyle}" 
                  FontSize="35">
             <TextBox.Background>

@@ -32,14 +32,31 @@ namespace PL.Carts
             List<BO.OrderItem>? list = new List<BO.OrderItem>();
             cart = new BO.Cart { Items = list };
             amountInCart.Content = cart!.Items!.ToList().Count.ToString();
-        }        
-        
+
+        }
+
         private void producs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             BO.ProductForList prodForList = (BO.ProductForList)producs.SelectedItem;
             var hg = new Carts.productItem(prodForList.ID, cart!); // open ProductWindow on update and action mode
             hg.ShowDialog(); // open 
             amountInCart.Content = cart!.Items!.ToList().Count.ToString();
+        }
+        private void AddButton_click(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+            int id = ((BO.ProductForList?)button.DataContext)!.ID;
+            try
+            {
+                bl!.Cart.AddProductToCart(cart!, id);
+                amountInCart.Content = cart!.Items!.ToList().Count.ToString();
+            }
+            catch(BO.DoesntExistExeption )
+            {
+                MessageBox.Show("Can't add to cart, product is out of stock"); // print exception 
+
+            }
+
         }
     }
 }

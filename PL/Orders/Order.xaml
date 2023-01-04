@@ -141,12 +141,12 @@
                  Style="{StaticResource myTextBoxStyle}"/>
 
         <Button Name="orderInfoButton" 
-                Content="Order information" 
+                Content="Order information"
                 HorizontalAlignment="Left" 
-                Margin="472,344,0,0" 
+                Margin="440,339,0,0" 
                 VerticalAlignment="Top" 
-                Height="47" 
-                Width="249" 
+                Height="52" 
+                Width="295" 
                 Click="orderInfoButton_Click">
 
             <Button.Style>
@@ -167,13 +167,7 @@
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=OrderWindow, Path=managerFunc1}" Value="True">
-                            <Setter Property="Content" Value="Order information and update"></Setter>
 
-                            <Setter Property="Background" Value="Wheat"/>
-                        </DataTrigger>
-                    </Style.Triggers>
                 </Style>
             </Button.Style>
 

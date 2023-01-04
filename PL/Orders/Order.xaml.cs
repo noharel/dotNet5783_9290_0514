@@ -28,13 +28,16 @@ public partial class Order : Window
 
     BlApi.IBl? bl = BlApi.Factory.Get(); // get bl from factory
     int idRec = 0;
-    private bool managerFunc = false;
-    public bool managerFunc1 { get { return managerFunc; } }
+    bool managerFunc = false;
+    public string Text { get; set; }
     public Order(int x = 0, bool manager = false)
     {
 
         InitializeComponent();
-
+        if(manager)
+        {
+            orderInfoButton.Content = "Order information and update";
+        }
         managerFunc = manager;
 
         idRec = x;

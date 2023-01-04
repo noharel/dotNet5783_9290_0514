@@ -141,11 +141,11 @@
                VerticalAlignment="Top" Grid.ColumnSpan="2" Width="98"/>
         <TextBox Name="email"
                  HorizontalAlignment="Left" 
-                 Margin="2,121,0,0" 
+                 Margin="377,121,0,0" 
                  TextWrapping="Wrap" 
                  Text="email" 
                  Style="{StaticResource myTextBoxStyle}"
-                 VerticalAlignment="Top" Width="141" Grid.ColumnSpan="2" Grid.Column="1"/>
+                 VerticalAlignment="Top" Width="152" Grid.ColumnSpan="3"/>
         <Label Content="Date of order:" 
                HorizontalAlignment="Left" 
                Margin="68,72,0,0"

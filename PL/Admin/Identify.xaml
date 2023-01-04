@@ -101,7 +101,9 @@
                Style="{StaticResource myLabelStyle}"
                Margin="10,95,0,0" 
                Visibility="{Binding ElementName=login, Path=Visibility}"
-               VerticalAlignment="Top" />
+               VerticalAlignment="Top" >
+            
+        </Label>
 
         <TextBox Name="user" 
                  Style="{StaticResource myTextBoxStyle}" 
@@ -155,6 +157,8 @@
                 </Style>
             </Button.Style>
         </Button>
+        
+        
         <Button Name="orders" 
                 Content="Orders"
                 HorizontalAlignment="Left" 
@@ -162,6 +166,11 @@
                 VerticalAlignment="Top"
                 Visibility="Collapsed"
                 Height="67" Width="225" Click="orders_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"></Setter>
+                </Style>
+            </Button.Resources>
             <Button.Style>
                 <Style BasedOn="{StaticResource myButtonStyle}" TargetType="{x:Type Button}">
                     <Setter Property="Background" Value="black" />
@@ -190,6 +199,11 @@
                 Margin="50,0,0,0" 
                 VerticalAlignment="Center"
                 Visibility="Collapsed" Height="65" Width="225" Click="products_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"></Setter>
+                </Style>
+            </Button.Resources>
             <Button.Style>
                 <Style BasedOn="{StaticResource myButtonStyle}" TargetType="{x:Type Button}">
                     <Setter Property="Background" Value="black" />

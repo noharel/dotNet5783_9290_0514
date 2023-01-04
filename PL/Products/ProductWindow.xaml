@@ -193,9 +193,21 @@
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Background" Value="Gray"/>
+                        </Trigger>
+
+                    </Style.Triggers>
                 </Style>
             </Button.Style>
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"></Setter>
+                </Style>
+            </Button.Resources>
         </Button>
+
         <Button Name="completeUpdate" 
                 Content="Update" 
                 HorizontalAlignment="Left" 
@@ -209,6 +221,7 @@
                 <Style BasedOn="{StaticResource myButtonStyle}" TargetType="{x:Type Button}">
                     <Setter Property="Background" Value="black" />
                     <Setter Property="Template">
+
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type Button}">
                                 <Border x:Name="Border" Background="{TemplateBinding Background}">
@@ -221,9 +234,16 @@
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
                         </Setter.Value>
+
                     </Setter>
+
                 </Style>
             </Button.Style>
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"></Setter>
+                </Style>
+            </Button.Resources>
         </Button>
 
         <TextBox HorizontalAlignment="Left" 
@@ -237,7 +257,7 @@
                  FontSize="12">
             <TextBox.Style>
                 <Style TargetType="TextBox">
-                    <Setter Property="Visibility" Value="Visible"></Setter>
+                    <Setter Property="Visibility" Value="Collapsed"></Setter>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding ElementName=informationLogo, Path=IsMouseOver}" Value="True">
                             <Setter Property="Visibility" Value="Visible"></Setter>
@@ -246,5 +266,6 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
+        <Image Source="../pics/addPhoto.png" HorizontalAlignment="Left" Height="375" Margin="550,63,0,0" VerticalAlignment="Top" Width="255"/>
     </Grid>
 </Window>

@@ -75,7 +75,9 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
-            <ComboBox Name="CategorySelector" SelectionChanged="CategorySelector_SelectionChanged" Margin="358,36,0,-36" Style="{StaticResource myComboBoxStyle}" Grid.ColumnSpan="2"/>
+            <ComboBox Name="CategorySelector" SelectionChanged="CategorySelector_SelectionChanged" Margin="358,36,0,-36" Style="{StaticResource myComboBoxStyle}" Grid.ColumnSpan="2" >
+
+            </ComboBox>
             <Label Content="Category" Grid.Column="0" HorizontalContentAlignment="Center" Style="{StaticResource myLabelStyle}" Margin="0,36,33,-36" Foreground="White" />
         </Grid>
         <Label Content="LUXARY CAR DEALERSHIP" 
@@ -86,7 +88,7 @@
                Grid.ColumnSpan="2" 
                Width="800" 
                HorizontalContentAlignment="Center" Height="39"/>
-        <ListView Name="ProductListView" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,37,0,0" Grid.Row="1" Grid.ColumnSpan="2" MouseDoubleClick="ProductListView_SelectionChanged" Style="{StaticResource myListViewStyle}" >
+        <ListView Name="ProductListView" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="232,37,0,0" Grid.Row="1" Grid.ColumnSpan="2" MouseDoubleClick="ProductListView_SelectionChanged" Style="{StaticResource myListViewStyle}" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="650"/>
@@ -143,6 +145,7 @@
                 </Style>
             </Button.Resources>
         </Button>
+        <Image Source="../pics/listOfCarts.png" HorizontalAlignment="Left" Height="302" Margin="-166,37,0,0" Grid.Row="1" VerticalAlignment="Top" Width="436"/>
 
     </Grid>
 </Window>

@@ -81,6 +81,7 @@
                                         VerticalAlignment="Center" 
                                         BorderBrush="{x:Null}" 
                                         BorderThickness="0,0,0,0"
+                                        Click="AddButton_click"
                                         HorizontalAlignment="Right">
                                     <Image Source="..\pics\addToCart.png" ></Image>
 
@@ -114,16 +115,12 @@
                 HorizontalAlignment="Right" Margin="8,350,60,16">
             <Image Source="..\pics\planeCart.png" />
         </Button>
-        <Ellipse
-            Width="30"
-            Height="30"
-            Fill="Red"
-            Canvas.Left="10"
-            Canvas.Top="25" Margin="724,349,46,55" />
+        <Image Source="..\pics\redCircle.png" HorizontalAlignment="Left" Height="40" Margin="715,340,0,0" VerticalAlignment="Top" Width="59"/>
+
         <Label Name="amountInCart" 
                Content="@" 
                HorizontalAlignment="Left" 
-               Margin="722,344,0,0" 
+               Margin="718,344,0,0" 
                VerticalAlignment="Top"
                
                Style="{StaticResource myLabelStyle}" Background="{x:Null}" Foreground="#FF060606">
@@ -131,5 +128,5 @@
 
 
     </Grid>
-    
+
 </Window>

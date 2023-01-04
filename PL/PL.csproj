@@ -21,6 +21,7 @@
     <None Remove="pics\addPhoto.png" />
     <None Remove="pics\addToCart.png" />
     <None Remove="pics\carShipping.png" />
+    <None Remove="pics\forManager.png" />
     <None Remove="pics\IdentifyPhoto.png" />
     <None Remove="pics\information.png" />
     <None Remove="pics\listOfCarts.png" />
@@ -39,6 +40,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="pics\carShipping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="pics\forManager.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="pics\IdentifyPhoto.png">

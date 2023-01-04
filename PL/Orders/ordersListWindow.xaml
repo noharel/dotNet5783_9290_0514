@@ -20,6 +20,19 @@
             <Setter Property="Background"
                     Value="Black"/>
         </Style>
+        <Style x:Key="myListViewStyle"
+           TargetType="ListView">
+            <Setter Property="FontSize"
+              Value="20" />
+            <Setter Property="FontFamily"
+              Value="Rockwell Condensed" />
+            <Setter Property="FontWeight"
+              Value="Bold" />
+            <Setter Property="Foreground"
+                    Value="Black"/>
+            <Setter Property="Background"
+                    Value="White"/>
+        </Style>
         <Style x:Key="myButtonStyle"
            TargetType="Button">
             <Setter Property="FontSize"
@@ -49,10 +62,10 @@
 
     </Window.Resources>
     <Grid>
-        <ListView Name="ordersList" Margin="0,46,0,0" SelectionChanged="ordersList_SelectionChanged">
+        <ListView Name="ordersList" d:ItemsSource="{d:SampleData ItemCount=5}" Style="{StaticResource myListViewStyle}" Margin="0,46,0,10" SelectionChanged="ordersList_SelectionChanged">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
+                    <GridViewColumn Width="500"/>
                 </GridView>
             </ListView.View>
         </ListView>
@@ -64,6 +77,7 @@
                Grid.ColumnSpan="2" 
                Width="800" 
                HorizontalContentAlignment="Center"/>
+        <Image Source="../pics/forManager.png" HorizontalAlignment="Center" Height="181" Margin="0,387,0,0" VerticalAlignment="Top" Width="800"/>
 
     </Grid>
 </Window>

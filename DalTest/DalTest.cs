@@ -707,7 +707,14 @@ partial class DalTest
             Console.WriteLine("enter product ID");
             s = Console.ReadLine();
             int.TryParse(s, out prodID);
-            Console.WriteLine("The product is:" + orderItem.GetProduct(ID, prodID)); //print the product
+            try
+            {
+                Console.WriteLine("The product is:" + orderItem.GetProduct(ID, prodID)); //print the product
+            }
+            catch (DoesntExistExeption e)  //catch eception
+            {
+                Console.WriteLine(e.Message); //print the error
+            }
         }
     }
     static void Main(string[] args)

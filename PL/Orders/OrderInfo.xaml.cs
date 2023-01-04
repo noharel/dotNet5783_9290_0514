@@ -21,7 +21,7 @@ namespace PL.Orders
     {
         BlApi.IBl? bl = BlApi.Factory.Get(); // get bl from factory
 
-        public OrderInfo(int x = 0)
+        public OrderInfo(int x = 0, bool manager = false)
         {
             InitializeComponent();
             id.Text =x.ToString();

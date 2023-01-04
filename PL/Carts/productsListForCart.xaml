@@ -73,7 +73,15 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
+                    <GridViewColumn Header="Fichier CSV" Width="370">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="OpenFile" Content="Open File" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
+              
             </ListView.View>
         </ListView>
     </Grid>

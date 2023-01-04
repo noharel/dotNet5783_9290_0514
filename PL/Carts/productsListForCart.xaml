@@ -114,19 +114,21 @@
                 HorizontalAlignment="Right" Margin="8,350,60,16">
             <Image Source="..\pics\planeCart.png" />
         </Button>
-        <Ellipse Width="30"
-                 Height="30"
-                 Fill="Red"
-                 StrokeThickness="0" 
-                 Margin="723,348,47,56" />
+        <Ellipse
+            Width="30"
+            Height="30"
+            Fill="Red"
+            Canvas.Left="10"
+            Canvas.Top="25" Margin="724,349,46,55" />
         <Label Name="amountInCart" 
-               Content="0" 
-               Foreground="Black"
-               Style="{StaticResource myLabelStyle}"
+               Content="@" 
                HorizontalAlignment="Left" 
-               Margin="726,344,0,0" 
-               VerticalAlignment="Top" 
-               Background="{x:Null}"/>
+               Margin="722,344,0,0" 
+               VerticalAlignment="Top"
+               
+               Style="{StaticResource myLabelStyle}" Background="{x:Null}" Foreground="#FF060606">
+        </Label>
+
 
     </Grid>
     

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using PL.Products;
-
+using System.Runtime.CompilerServices;
 namespace PL.Carts
 {
     /// <summary>
@@ -25,32 +26,20 @@ namespace PL.Carts
         public productsListForCart()
         {
             InitializeComponent();
-            List<BO.ProductForList?>listProd= bl.Product.GetListProduct().ToList();
+
+            List<BO.ProductForList?> listProd = bl.Product.GetListProduct().ToList();
             producs.ItemsSource = listProd;
             List<BO.OrderItem>? list = new List<BO.OrderItem>();
             cart = new BO.Cart { Items = list };
-        }
-        //public string MyValue { get; set; } = cart!.Items!.ToList().Count.ToString();
-
+            amountInCart.Content = cart!.Items!.ToList().Count.ToString();
+        }        
+        
         private void producs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             BO.ProductForList prodForList = (BO.ProductForList)producs.SelectedItem;
             var hg = new Carts.productItem(prodForList.ID, cart!); // open ProductWindow on update and action mode
             hg.ShowDialog(); // open 
-
-
-            /*try
-            {
-                producs.ItemsSource = bl!.Product.GetListProduct(); // update list of product to see changes
-            }
-            catch (BO.DoesntExistExeption ex) // get list product exception
-            {
-                string innerEx = "";
-                if (ex.InnerException != null)
-                    innerEx = ": " + ex.InnerException.Message;
-                MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); //print exception for user
-
-            }*/
+            amountInCart.Content = cart!.Items!.ToList().Count.ToString();
         }
     }
 }

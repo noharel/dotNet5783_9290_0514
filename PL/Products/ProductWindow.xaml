@@ -187,18 +187,19 @@
                 Width="266" 
                 FontFamily="Rockwell Condensed"
                 Style="{StaticResource myButtonStyle}"/>
+
         <TextBox HorizontalAlignment="Left" 
-                 Margin="274,123,0,0" 
+                 Margin="256,121,0,0" 
                  TextWrapping="Wrap" 
                  Text="Product ID needs to be 6 numbers" 
                  VerticalAlignment="Top" 
-                 Width="120"
+                 Width="144"
                  IsEnabled="False"
                  FontFamily="Rockwell Condensed"
-                 FontSize="10">
+                 FontSize="12">
             <TextBox.Style>
                 <Style TargetType="TextBox">
-                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                    <Setter Property="Visibility" Value="Visible"></Setter>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding ElementName=informationLogo, Path=IsMouseOver}" Value="True">
                             <Setter Property="Visibility" Value="Visible"></Setter>

@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace PL
 {
@@ -41,27 +42,37 @@ namespace PL
         {
             int x;
             bool flag;
-            flag = int.TryParse( orderTrackingNumber.Text,out x);
-            if (flag)
-            {
-                try
-                {
-                    bl!.Order.TrackingOrder(x);
 
-                    new PL.Orders.Order(x).ShowDialog();
-                }
-                catch(BO.DoesntExistExeption ex)
-                {
-                    string innerEx = "";
-                    if (ex.InnerException != null)
-                        innerEx = ": " + ex.InnerException.Message;
-                    MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
-                    
-                }
+
+            if (orderTrackingNumber.Text.Length != 4)
+            {
+                MessageBox.Show("Order ID has to be 4 numbers");
             }
             else
             {
-                MessageBox.Show("Order ID has to be a number");
+                flag = int.TryParse(orderTrackingNumber.Text, out x);
+
+                if (flag)
+                {
+                    try
+                    {
+                        bl!.Order.TrackingOrder(x);
+
+                        new PL.Orders.Order(x).ShowDialog();
+                    }
+                    catch (BO.DoesntExistExeption ex)
+                    {
+                        string innerEx = "";
+                        if (ex.InnerException != null)
+                            innerEx = ": " + ex.InnerException.Message;
+                        MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
+
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Order ID has to be a number");
+                }
             }
             
         }

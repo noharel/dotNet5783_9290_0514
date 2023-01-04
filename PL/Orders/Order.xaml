@@ -142,8 +142,31 @@
                 Content="Order information" 
                 HorizontalAlignment="Left" 
                 Margin="468,344,0,0" 
-                VerticalAlignment="Top"
-                Style="{StaticResource myButtonStyle}" Height="47" Width="170" Click="orderInfoButton_Click">
+                VerticalAlignment="Top" 
+                Height="47" 
+                Width="170" 
+                Click="orderInfoButton_Click">
+            
+            <Button.Style>
+                <Style BasedOn="{StaticResource myButtonStyle}" TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="black" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border x:Name="Border" Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="BorderThickness" Value="10,3,10,3" TargetName="Border"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"></Setter>

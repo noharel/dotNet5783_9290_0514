@@ -23,7 +23,7 @@
         <Style x:Key="myButtonStyle"
            TargetType="Button">
             <Setter Property="FontSize"
-              Value="15" />
+              Value="17" />
             <Setter Property="FontFamily"
               Value="Rockwell Condensed" />
             <Setter Property="FontWeight"
@@ -62,21 +62,21 @@
     </Window.Resources>
     <Grid Name="MainGrid">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="387*"/>
-            <ColumnDefinition Width="13*"/>
+            <ColumnDefinition Width="157*"/>
+            <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="42*"/>
-            <RowDefinition Height="323*"/>
-            <RowDefinition Height="69*"/>
+            <RowDefinition Height="339*"/>
+            <RowDefinition Height="53*"/>
         </Grid.RowDefinitions>
         <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
-            <ComboBox Name="CategorySelector" Grid.Column="1" SelectionChanged="CategorySelector_SelectionChanged" Style="{StaticResource myComboBoxStyle}" Margin="0,36,0,-36" />
-            <Label Content="Category" Grid.Column="0" HorizontalContentAlignment="Center" Style="{StaticResource myLabelStyle}" Margin="0,36,0,-36" />
+            <ComboBox Name="CategorySelector" SelectionChanged="CategorySelector_SelectionChanged" Margin="358,36,0,-36" Style="{StaticResource myComboBoxStyle}" Grid.ColumnSpan="2"/>
+            <Label Content="Category" Grid.Column="0" HorizontalContentAlignment="Center" Style="{StaticResource myLabelStyle}" Margin="0,36,33,-36" Foreground="White" />
         </Grid>
         <Label Content="LUXARY CAR DEALERSHIP" 
                HorizontalAlignment="Left" 
@@ -85,15 +85,64 @@
                Style="{StaticResource myLabelStyle}" 
                Grid.ColumnSpan="2" 
                Width="800" 
-               HorizontalContentAlignment="Center"/>
+               HorizontalContentAlignment="Center" Height="39"/>
         <ListView Name="ProductListView" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,37,0,0" Grid.Row="1" Grid.ColumnSpan="2" MouseDoubleClick="ProductListView_SelectionChanged" Style="{StaticResource myListViewStyle}" >
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
+                    <GridViewColumn Width="650"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Name="ClearChoice" Content="clear choice" HorizontalAlignment="Left" Margin="666,37,0,0" VerticalAlignment="Top" Click="ClearChoice_Click_1" Height="19" Width="98" Grid.Row="1" Style="{StaticResource myButtonStyle}"/>
-        <Button Name="AddButton" Content="Add new Product" Grid.Row="2" HorizontalAlignment="Left" Margin="613,5,0,5" Padding="5" Click="AddButton_Click" Width="151" Style="{StaticResource myButtonStyle}"/>
+        <Button Name="ClearChoice" Content="clear choice" HorizontalAlignment="Left" Margin="656,37,0,0" VerticalAlignment="Top" Click="ClearChoice_Click_1" Height="23" Width="129" Grid.Row="1">
+
+            <Button.Style>
+                <Style BasedOn="{StaticResource myButtonStyle}" TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="black" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border x:Name="Border" Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="BorderThickness" Value="10,2,10,2" TargetName="Border"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+        </Button>
+
+        <Button Name="AddButton" Content="Add new Product" Grid.Row="2" HorizontalAlignment="Left" Margin="613,5,0,5" Padding="5" Click="AddButton_Click" Width="151" >
+
+            <Button.Style>
+                <Style BasedOn="{StaticResource myButtonStyle}" TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="black" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border x:Name="Border" Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="BorderThickness" Value="10,3,10,3" TargetName="Border"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"></Setter>
+                </Style>
+            </Button.Resources>
+        </Button>
+
     </Grid>
 </Window>

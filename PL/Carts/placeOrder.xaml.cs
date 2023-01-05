@@ -38,6 +38,9 @@ namespace PL.Carts
                 cart.CustomerAddress = address.SelectedItem.ToString();
                 bl?.Cart.MakingAnOrder(cart);
                 MessageBox.Show("Order placed, enjoy your new car!");
+                List<BO.OrderItem>? list = new List<BO.OrderItem>();
+                cart = new BO.Cart { Items = list };
+                
 
             }
             catch (BO.AlreadyExistExeption )

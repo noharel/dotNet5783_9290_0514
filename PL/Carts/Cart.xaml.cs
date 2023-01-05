@@ -54,6 +54,8 @@ namespace PL.Carts
         {
             var hg = new Carts.placeOrder(cart); // open place order window
             hg.ShowDialog(); // open 
+            List<BO.OrderItem>? list = new List<BO.OrderItem>();
+            cart = new BO.Cart { Items = list };
             this.Close();
 
 
@@ -97,8 +99,10 @@ namespace PL.Carts
             }
             catch (BO.DoesntExistExeption)
             { }
-            catch (BO.ContradictoryDataExeption)
-            { }
+            catch (BO.ContradictoryDataExeption ex)
+            {
+                MessageBox.Show(ex.Message); // print exception 
+            }
             catch (BO.AlreadyExistExeption)
             { }
             catch (BO.InvalidInputExeption)
@@ -116,12 +120,15 @@ namespace PL.Carts
                 bl!.Cart.UpdateAmountInCart(cart, id, amount - 1);
                 items.ItemsSource = cart.Items;
                 totalPrice.Content = cart.TotalPrice;
-
+                ICollectionView view = CollectionViewSource.GetDefaultView(items.ItemsSource);
+                view.Refresh();
             }
             catch (BO.DoesntExistExeption)
             { }
-            catch (BO.ContradictoryDataExeption)
-            { }
+            catch (BO.ContradictoryDataExeption ex)
+            {
+                MessageBox.Show(ex.Message); // print exception 
+            }
             catch (BO.AlreadyExistExeption)
             { }
             catch (BO.InvalidInputExeption)

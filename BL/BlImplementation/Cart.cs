@@ -29,17 +29,17 @@ internal class Cart : BlApi.ICart
     /// <exception cref="BO.DoesntExistExeption"></exception>
     public BO.Cart AddProductToCart(BO.Cart cart, int id)
     {
-        BO.OrderItem orderItem=new BO.OrderItem();
-        orderItem=cart.Items!.Where(p => p.ProductID == id).FirstOrDefault()!; //choose the orderitem with the same product id
- 
-        if (orderItem!=null)//THR PPRODUCT IS IN THE CART
+        BO.OrderItem orderItem = new BO.OrderItem();
+        orderItem = cart.Items!.Where(p => p.ProductID == id).FirstOrDefault()!; //choose the orderitem with the same product id
+
+        if (orderItem != null)//THR PPRODUCT IS IN THE CART
         {
             try
             {
                 if (Dal.Product.GetById(id).InStock > 0) // The product is in stock
                 {
                     // Update amount, price, total price of item and total price of cart
-                    orderItem.Amount++; 
+                    orderItem.Amount++;
                     orderItem.Price = Dal.Product.GetById(id).Price;
                     orderItem.TotalPrice = orderItem.Price * orderItem.Amount;
                     cart.TotalPrice += Dal.Product.GetById(id).Price;
@@ -49,7 +49,7 @@ internal class Cart : BlApi.ICart
                     throw new BO.ContradictoryDataExeption("Not in stock");
                 }
             }
-            catch(DO.DoesntExistExeption e) // Catch exception from GetBYId function
+            catch (DO.DoesntExistExeption e) // Catch exception from GetBYId function
             {
                 throw new BO.DoesntExistExeption("couldn't find", e);
             }
@@ -75,9 +75,9 @@ internal class Cart : BlApi.ICart
                     } while (listProduct.Count > 0); //stops when it finds an id which is not already used
 
                     // makes the product
-                    BO.OrderItem newOrderItem=new BO.OrderItem() { ID =  rand.Next(1000,9999), Name = product.Name, ProductID = product.ID, Price = product.Price, Amount = 1, TotalPrice = product.Price };
+                    BO.OrderItem newOrderItem = new BO.OrderItem() { ID = rand.Next(1000, 9999), Name = product.Name, ProductID = product.ID, Price = product.Price, Amount = 1, TotalPrice = product.Price };
                     cart.Items!.Add(newOrderItem); // ADD
-                    cart.TotalPrice+=product.Price;  //Update the total price of cart
+                    cart.TotalPrice += product.Price;  //Update the total price of cart
                 }
                 else  // The product is not in stock
                 {
@@ -87,7 +87,7 @@ internal class Cart : BlApi.ICart
             }
             catch (DO.DoesntExistExeption e)  // catch GetById function exeption 
             {
-                throw new BO.DoesntExistExeption("couldn't find " , e);
+                throw new BO.DoesntExistExeption("couldn't find ", e);
             }
         }
         return cart;  // Returns the updated cart
@@ -117,28 +117,40 @@ internal class Cart : BlApi.ICart
                                                     where var.ProductID != id
                                                     select var); // Get all the product which are not the given product
                 cart.TotalPrice -= ourOrderItem.TotalPrice;  // Update the total price of cart
+                return cart; // Returns the updated cart
+
             }
             else if (amount < 0)//if amount is a negative number
                 throw new BO.ContradictoryDataExeption("can't update to negative numbers");
             else if (amountItem < amount) // if the new  expected amount is MORE than now
             {
-                for (int i = amountItem; i < amount; i++) // Fills the gap
+                if (Dal.Product.GetById(id).InStock >= amount)
                 {
-                    try
+                    for (int i = amountItem; i < amount; i++) // Fills the gap
                     {
-                        AddProductToCart(cart, id);  // ADD
-                    }
+                        try
+                        {
+                            AddProductToCart(cart, id);  // ADD
 
-                    // Catch AddProductToCart function exception
-                    catch (BO.DoesntExistExeption e)
-                    {
-                        throw new BO.DoesntExistExeption("couldn't update", e);
+                        }
+
+                        // Catch AddProductToCart function exception
+                        catch (BO.DoesntExistExeption e)
+                        {
+                            throw new BO.DoesntExistExeption("couldn't update", e);
+                        }
+                        catch (BO.ContradictoryDataExeption e)
+                        {
+                            throw new BO.ContradictoryDataExeption("couldn't update", e);
+                        }
                     }
-                    catch (BO.ContradictoryDataExeption e)
-                    {
-                        throw new BO.ContradictoryDataExeption("couldn't update", e);
-                    }
+                    return cart; // Returns the updated cart
                 }
+                else
+                {
+                    throw new BO.ContradictoryDataExeption("Not enough of product in stock");
+                }
+
             }
 
             else if (amountItem > amount) // if the new  expected amount is LESS than now
@@ -148,12 +160,17 @@ internal class Cart : BlApi.ICart
                 ourOrderItem.TotalPrice -= ourOrderItem.Price * (amountItem - amount);
                 ourOrderItem.Amount = amount;
 
+                return cart; // Returns the updated cart
             }
-            return cart; // Returns the updated cart
+            else
+            {
+                throw new BO.DoesntExistExeption("A product with this id is not in cart");
+            }
         }
         else
         {
             throw new BO.DoesntExistExeption("A product with this id is not in cart");
+
         }
     }
 
@@ -173,7 +190,8 @@ internal class Cart : BlApi.ICart
 
 
             // go throwgh items in the cart
-            cart.Items!.ForEach(delegate (BO.OrderItem var) { 
+            cart.Items!.ForEach(delegate (BO.OrderItem var)
+            {
                 bool internalFlag = false;
 
                 productsList.ForEach(delegate (DO.Product? prod)  //go throwgh product all te products
@@ -188,7 +206,7 @@ internal class Cart : BlApi.ICart
 
                 flag = flag && internalFlag && var.Amount > 0; // product is in the cart and amount>0
             });
-            
+
             //  CHANGE TO LINQ
 
             //foreach (BO.OrderItem var in cart.Items!)  // go throwgh items in the cart
@@ -211,7 +229,7 @@ internal class Cart : BlApi.ICart
 
             //    flag = flag && internalFlag && var.Amount > 0; // product is in the cart and amount>0
             //}
-            
+
             flag = flag && cart.CustomerName != null && cart.CustomerEmail != null && cart.CustomerAddress != null; //strings are not null
 
             if (flag) //valid values
@@ -302,9 +320,10 @@ internal class Cart : BlApi.ICart
             }
             else throw new BO.InvalidInputExeption("invalid information"); // invalid cart values
         }
-        catch(DO.DoesntExistExeption e)  // Catch GetAll function exception
+        catch (DO.DoesntExistExeption e)  // Catch GetAll function exception
         {
             throw new BO.DoesntExistExeption("couldn't get prducucts in order list", e);
         }
     }
 }
+

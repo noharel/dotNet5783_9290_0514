@@ -14,6 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using PL.Products;
 using System.Runtime.CompilerServices;
+using MaterialDesignThemes.Wpf;
+
 namespace PL.Carts
 {
     /// <summary>
@@ -50,19 +52,34 @@ namespace PL.Carts
             int id = ((BO.ProductForList?)button.DataContext)!.ID;
             try
             {
-                bl!.Cart.AddProductToCart(cart!, id);
                 int count = 0;
+                int num = 0;
                 cart!.Items!.ToList().ForEach(delegate (BO.OrderItem var)
                 {
+                    if (var.ProductID == id) num = var.Amount;
                     count += var.Amount;
+
                 });
-                amountInCart.Content = count;
+                if (num != 0)
+                {
+                    bl!.Cart.UpdateAmountInCart(cart!, id, num +1);
+                }
+                else {
+                    bl!.Cart.AddProductToCart(cart!, id); }
+                
+                amountInCart.Content = count+1;
+                
             }
-            catch(BO.DoesntExistExeption )
+            catch (BO.DoesntExistExeption)
             {
                 MessageBox.Show("Can't add to cart, product is out of stock"); // print exception 
 
             }
+            catch (BO.ContradictoryDataExeption ex)
+            {
+                MessageBox.Show(ex.Message); // print exception 
+            }
+
 
         }
         private void RemoveButton_click(object sender, RoutedEventArgs e)
@@ -96,9 +113,9 @@ namespace PL.Carts
                 MessageBox.Show("Can't remove, product is not in the cart"); // print exception 
 
             }
-            catch(BO.ContradictoryDataExeption)
+            catch(BO.ContradictoryDataExeption ex)
             {
-                MessageBox.Show("Can't remove, product is not in the cart"); // print exception 
+                MessageBox.Show(ex.Message); // print exception 
             }
 
 

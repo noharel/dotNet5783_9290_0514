@@ -147,6 +147,12 @@ namespace PL.Carts
         {
             var hg = new Carts.Cart(cart!); // open ProductWindow on update and action mode
             hg.ShowDialog(); // open 
+            int count = 0;
+            cart!.Items!.ToList().ForEach(delegate (BO.OrderItem var)
+            {
+                count += var.Amount;
+            });
+            amountInCart.Content = count;
         }
     }
 }

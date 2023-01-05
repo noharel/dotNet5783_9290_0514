@@ -273,6 +273,7 @@
                 </RadialGradientBrush>
             </Button.BorderBrush>
         </Button>
+        <Label Name="orderDeleted" Content="Order deleted" Style="{StaticResource myLabelStyle}" FontSize="40" Visibility="Collapsed" Margin="483,192,0,0" Height="66" Width="209"/>
 
     </Grid>
 </Window>

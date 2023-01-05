@@ -41,12 +41,28 @@ public class DalOrder : IOrder // A CLASS THAT IMPLEMENTS THE INTERFACE IORDER
     /// <exception cref="DoesntExistExeption"></exception>
     public void Delete(int id) 
     {
-        if (_ds._orders.RemoveAll(order => order?.ID == id) == 0) //delete 
+        try
         {
-            throw new DoesntExistExeption("Can't delete that does not exist");
+            // check if order exict
+            Order o = GetById(id);
+            o.IsDeleted = true;
         }
-        Order O = GetById(id); 
-        O.IsDeleted = true; // update the IsDeleted
+        catch(DO.DoesntExistExeption e)
+        {
+            throw e;
+        }
+        if (_ds?._orders.RemoveAll(order => order?.ID == id) == 0)
+        {
+            throw new DoesntExistExeption("can't delete, does not exict");
+        }
+        //if (_ds._orders.Where(order => order?.ID == id).ToList().Count() == 0) //delete 
+        //{
+        //    throw new DoesntExistExeption("Can't delete that does not exist");
+        //}
+
+        //Order O = GetById(id); 
+        //O.IsDeleted = true; // update the IsDeleted
+        //_ds._orders.Remove(O);
     }
 
     /// <summary>

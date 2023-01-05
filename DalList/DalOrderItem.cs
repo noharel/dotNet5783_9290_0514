@@ -45,9 +45,10 @@ public class DalOrderItem: IOrderItem  // A CLASS THAT IMPLEMENTS THE INTERFACE 
         {
             throw new DoesntExistExeption("Can't delete that does not exist");
         }
-        _ds._orderItems.Remove(GetById(id));
+
         OrderItem oI = GetById(id);
         oI.IsDeleted = true;  //update IsDelteted
+        _ds._orderItems.Remove(oI);
 
     }
 
@@ -100,7 +101,11 @@ public class DalOrderItem: IOrderItem  // A CLASS THAT IMPLEMENTS THE INTERFACE 
         if (_ds._orderItems == null) throw new DoesntExistExeption("Products list does not exist");
 
         _ds._orderItems.Remove(GetById(orderItem.ID)); //remove the old one
-        _ds._orderItems.Add(orderItem); //add the new one
+        if (orderItem.Amount != 0)
+        {
+            _ds._orderItems.Add(orderItem); //add the new one
+
+        }
 
     }
 

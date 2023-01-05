@@ -1,4 +1,6 @@
 ﻿
+using System.Collections.Specialized;
+
 namespace BlImplementation;
 
 /// <summary>
@@ -346,13 +348,23 @@ internal class Order : BlApi.IOrder
                             try
                             {
                                 Dal.OrderItem.Delete(DOorderItem.ID);
+
+                                //Dal.OrderItem.GetListOrder(DOorder.ID).ToList().ForEach(delegate (DO.OrderItem? var) { Console.WriteLine(var); });
+                                if (Dal.OrderItem.GetListOrder(DOorder.ID).Count() == 1)
+                                    Dal.Order.Delete(DOorder.ID);
+
+                                else Dal.OrderItem.Update(DOorderItem);
+
                             }
-                            catch(DO.DoesntExistExeption e)
+                            catch (DO.DoesntExistExeption e)
                             {
                                 throw new BO.DoesntExistExeption("couldn't delete product", e);
                             }
+
                         }
-                        else    Dal.OrderItem.Update(DOorderItem);
+                        else
+                            if (DOorderItem.Amount < 0) throw new BO.ContradictoryDataExeption("there are not enough to delete");
+                        else Dal.OrderItem.Update(DOorderItem);
                     }
                     catch(DO.DoesntExistExeption e)
                     {

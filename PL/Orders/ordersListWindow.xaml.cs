@@ -40,9 +40,13 @@ namespace PL.Orders
 
         public void ordersList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            BO.OrderForList selectedOrder = (BO.OrderForList)ordersList.SelectedItem;
-            
-            new PL.Orders.Order(selectedOrder.ID, true).ShowDialog();
+            BO.OrderForList? selectedOrder = (BO.OrderForList)ordersList.SelectedItem;
+
+            if (selectedOrder != null)
+            {
+                new PL.Orders.Order(selectedOrder.ID, true).ShowDialog();
+            }
+            ordersList.ItemsSource = bl!.Order.GetOrders();
             /*
             try
             {

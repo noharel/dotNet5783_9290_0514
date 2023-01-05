@@ -39,6 +39,7 @@ public partial class Order : Window
         {
             orderInfoButton.Content = "Order information and update";
         }
+        
         managerFunc = manager;
 
         idRec = x;
@@ -99,6 +100,27 @@ public partial class Order : Window
     {
         
         new PL.Orders.OrderInfo(idRec, managerFunc).ShowDialog();
+
+        try
+        {
+
+            BO.OrderTracking orderT = bl!.Order.TrackingOrder(idRec);
+        }
+        catch(BO.DoesntExistExeption)
+        {
+            orderInfoButton.Visibility = Visibility.Collapsed;
+            orderDeleted.Visibility = Visibility.Visible;
+            labelO.Visibility = Visibility.Collapsed;
+            orderingDate.Visibility = Visibility.Collapsed;
+            shipOrderByManager.Visibility = Visibility.Collapsed;
+        }
+        catch(BO.InvalidInputExeption ex)
+        {
+            string innerEx = "";
+            if (ex.InnerException != null)
+                innerEx = ": " + ex.InnerException.Message;
+            MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
+        }
     }
 
     private void shipOrderByManager_Click(object sender, RoutedEventArgs e)
@@ -114,6 +136,7 @@ public partial class Order : Window
             labelS.Visibility = Visibility.Visible;
             delinerOrderByManager.Visibility = Visibility.Visible;
             orderInfoButton.Content = "Order information";
+            status.Text = "Shipped";
         }
         catch(BO.DoesntExistExeption ex)
         {
@@ -137,6 +160,7 @@ public partial class Order : Window
             arrivalDate.Text = tuplelist[2].Item1.ToString();
             arrivalDate.Visibility = Visibility.Visible;
             labelA.Visibility = Visibility.Visible;
+            status.Text = "Arrived";
         }
         catch(BO.DoesntExistExeption ex)
         {

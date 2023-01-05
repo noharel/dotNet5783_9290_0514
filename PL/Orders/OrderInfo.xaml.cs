@@ -22,12 +22,13 @@ namespace PL.Orders
     {
         BlApi.IBl? bl = BlApi.Factory.Get(); // get bl from factory
         int idRec = 0;
+        BO.Order order;
         public OrderInfo(int x = 0, bool managerUpdate = false)
         {
             InitializeComponent();
             idRec = x;
             id.Text =x.ToString();
-            BO.Order order = bl.Order.OrderInfo(x);
+            order = bl.Order.OrderInfo(x);
             id.Text = x.ToString();
             name.Text = order.CustomerName;
             address.Text = order.CustomerAddress;
@@ -67,11 +68,12 @@ namespace PL.Orders
         {
             Button button = (Button)sender;
             int id = ((BO.OrderItem?)button.DataContext)!.ProductID;
-            int amount = ((BO.OrderItem?)button.DataContext)!.Amount;
             try
             {
                 bl!.Order.UpdateByManager(idRec, id, 1);
-                InitializeComponent();
+                order = bl.Order.OrderInfo(idRec);
+                totalPrice.Text = order.TotalPrice.ToString();
+                products.ItemsSource = order.Items!.ToList();
             }
             catch (BO.DoesntExistExeption ex)
             {
@@ -92,10 +94,27 @@ namespace PL.Orders
         {
             Button button = (Button)sender;
             int id = ((BO.OrderItem?)button.DataContext)!.ProductID;
-            int amount = ((BO.OrderItem?)button.DataContext)!.Amount;
             try
             {
                 bl!.Order.UpdateByManager(idRec, id, -1);
+                try
+                {
+                    order = bl.Order.OrderInfo(idRec);
+                }
+                catch(BO.DoesntExistExeption ex)
+                {
+                    Close();
+                }
+                catch(BO.InvalidInputExeption ex)
+                {
+                    string innerEx = "";
+                    if (ex.InnerException != null)
+                        innerEx = ": " + ex.InnerException.Message;
+                    MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
+                }
+
+                totalPrice.Text = order.TotalPrice.ToString();
+                products.ItemsSource = order.Items!.ToList();
             }
             catch(BO.DoesntExistExeption ex)
             {

@@ -72,19 +72,46 @@
         <Button x:Name="cartButton"
                 Content="             view cart"
                 Width="146"
-                Style="{StaticResource myButtonStyle}"
                 Click="CartButton_Click"
                 HorizontalAlignment="Right" 
-                Margin="0,36,636,340" BorderThickness="0,0,0,0"/>
+                Margin="0,36,636,340" 
+                BorderThickness="0,0,0,0">
+            <Button.Style>
+                <Style BasedOn="{StaticResource myButtonStyle}" TargetType="{x:Type Button}">
+                    <Setter Property="Opacity" Value="15" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border x:Name="Border" Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="BorderBrush" Value="gray" TargetName="Border"/>
+                                        <Setter Property="BorderThickness" Value="3,3,3,3" TargetName="Border"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+
+                    </Setter>
+
+                </Style>
+            </Button.Style>
+        </Button>
         <Image Source="..\pics\planeCart.png" 
-               Margin="3,40,729,340" />
+               Margin="3,40,729,340" >
+            
+        </Image>
         <Image Source="..\pics\redCircle.png" 
                HorizontalAlignment="Left" 
                Height="36" 
                Margin="38,23,0,0" 
                VerticalAlignment="Top" 
                Opacity="100"
-               Width="60"/>
+               Width="60">
+           
+        </Image>
         <Label Name="amountInCart" 
                Content="@" 
                HorizontalAlignment="Left" 
@@ -96,13 +123,13 @@
         </Label>
         <ComboBox Name="CategorySelector" 
                   SelectionChanged="CategorySelector_SelectionChanged" 
-                  Margin="283,36,254,340" 
+                  Margin="249,36,254,340" 
                   Style="{StaticResource myComboBoxStyle}" BorderThickness="0,0,0,0" />
-        <Label Content="Category" 
+        <Label Content="Category:" 
                Grid.Column="0" 
                HorizontalContentAlignment="Center" 
                Style="{StaticResource myLabelStyle}"
-               Margin="169,36,522,340"
+               Margin="164,40,527,340"
                FontSize="20"
                Foreground="#FF060404" Background="{x:Null}" />
 
@@ -121,8 +148,30 @@
                                         BorderBrush="{x:Null}" 
                                         BorderThickness="0,0,0,0"
                                         Click="InfoButton_click"
-                                        Style="{StaticResource myButtonStyle}"
                                         HorizontalAlignment="Right">
+                                    <Button.Style>
+                                        <Style BasedOn="{StaticResource myButtonStyle}" TargetType="{x:Type Button}">
+                                            <Setter Property="Opacity" Value="15" />
+                                            <Setter Property="Template">
+
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                        <Border x:Name="Border" Background="{TemplateBinding Background}">
+                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                        </Border>
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="BorderBrush" Value="gray" TargetName="Border"/>
+                                                                <Setter Property="BorderThickness" Value="3,3,3,3" TargetName="Border"/>
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+
+                                            </Setter>
+
+                                        </Style>
+                                    </Button.Style>
                                     <Image Source="..\pics\information.png" ></Image>
                                 </Button>
                             </DataTemplate>
@@ -139,8 +188,29 @@
                                         BorderBrush="{x:Null}" 
                                         BorderThickness="0,0,0,0"
                                         Click="AddButton_click"
-                                        Style="{StaticResource myButtonStyle}"
                                         HorizontalAlignment="Right">
+                                    <Button.Style>
+                                        <Style BasedOn="{StaticResource myButtonStyle}" TargetType="{x:Type Button}">
+                                            <Setter Property="Opacity" Value="15" />
+                                            <Setter Property="Template">
+
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                        <Border x:Name="Border" Background="{TemplateBinding Background}">
+                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                        </Border>
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="BorderThickness" Value="10,3,10,3" TargetName="Border"/>
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+
+                                            </Setter>
+
+                                        </Style>
+                                    </Button.Style>
                                     <Image Source="..\pics\addToCart.png" ></Image>
 
                                 </Button>
@@ -157,8 +227,29 @@
                                         BorderBrush="{x:Null}" 
                                         Click="RemoveButton_click"
                                         BorderThickness="0,0,0,0"
-                                        Style="{StaticResource myButtonStyle}"
                                         HorizontalAlignment="Right">
+                                    <Button.Style>
+                                        <Style BasedOn="{StaticResource myButtonStyle}" TargetType="{x:Type Button}">
+                                            <Setter Property="Opacity" Value="15" />
+                                            <Setter Property="Template">
+
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                        <Border x:Name="Border" Background="{TemplateBinding Background}">
+                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                        </Border>
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="BorderThickness" Value="10,3,10,3" TargetName="Border"/>
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+
+                                            </Setter>
+
+                                        </Style>
+                                    </Button.Style>
                                     <Image Source="..\pics\removeCart.png" ></Image>
                                 </Button>
                             </DataTemplate>
@@ -176,7 +267,30 @@
                 Height="21" 
                 Width="142" 
                 BorderBrush="{x:Null}" 
-                Style="{StaticResource myButtonStyle}" Background="{x:Null}"/>
+                Background="{x:Null}">
+            <Button.Style>
+                <Style BasedOn="{StaticResource myButtonStyle}" TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="black" />
+                    <Setter Property="Template">
+
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border x:Name="Border" Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="BorderThickness" Value="10,3,10,3" TargetName="Border"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+
+                    </Setter>
+
+                </Style>
+            </Button.Style>
+        </Button>
         <Image Source="\pics\listOfCarts.png" Margin="546,27,-302,-28"/>
 
     </Grid>

@@ -29,12 +29,13 @@ public partial class Order : Window
     BlApi.IBl? bl = BlApi.Factory.Get(); // get bl from factory
     int idRec = 0;
     bool managerFunc = false;
-    public string Text { get; set; }
+    
     public Order(int x = 0, bool manager = false)
     {
 
         InitializeComponent();
-        if(manager)
+        BO.OrderTracking orderT = bl.Order.TrackingOrder(x);
+        if(manager && orderT.tuplesList!.ToList().Count()==1 )
         {
             orderInfoButton.Content = "Order information and update";
         }
@@ -43,11 +44,11 @@ public partial class Order : Window
         idRec = x;
         try
         {
-            status.Text = bl.Order.TrackingOrder(x).Status.ToString();
+            status.Text = orderT.Status.ToString();
             orderId.Text = x.ToString();
             try
             {
-                List<(DateTime?, string?)>? tuplelist = bl.Order.TrackingOrder(x).tuplesList!.ToList();
+                List<(DateTime?, string?)>? tuplelist = orderT.tuplesList!.ToList();
                 int size = tuplelist.Count();
                 orderingDate.Text = tuplelist[0].Item1.ToString();
                 if (size > 1)
@@ -112,6 +113,7 @@ public partial class Order : Window
             shippingDate.Visibility = Visibility.Visible;
             labelS.Visibility = Visibility.Visible;
             delinerOrderByManager.Visibility = Visibility.Visible;
+            orderInfoButton.Content = "Order information";
         }
         catch(BO.DoesntExistExeption ex)
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,10 +21,11 @@ namespace PL.Orders
     public partial class OrderInfo : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get(); // get bl from factory
-
-        public OrderInfo(int x = 0, bool manager = false)
+        int idRec = 0;
+        public OrderInfo(int x = 0, bool managerUpdate = false)
         {
             InitializeComponent();
+            idRec = x;
             id.Text =x.ToString();
             BO.Order order = bl.Order.OrderInfo(x);
             id.Text = x.ToString();
@@ -53,10 +55,60 @@ namespace PL.Orders
             totalPrice.Text = order.TotalPrice.ToString();
             products.ItemsSource = order.Items!.ToList();
 
-            if(manager)
+            if(managerUpdate)
             {
-                managerButton.Visibility = Visibility.Hidden;
+                
+                //addButton.visibility = Visibility.Collapsed;
+            }
+        }
 
+
+        private void addButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+            int id = ((BO.ProductItem?)button.DataContext)!.ID;
+            int amount = ((BO.ProductItem?)button.DataContext)!.Amount;
+            try
+            {
+                bl.Order.UpdateByManager(idRec, id, amount + 1);
+            }
+            catch (BO.DoesntExistExeption ex)
+            {
+                string innerEx = "";
+                if (ex.InnerException != null)
+                    innerEx = ": " + ex.InnerException.Message;
+                MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
+            }
+            catch (BO.ContradictoryDataExeption ex)
+            {
+                string innerEx = "";
+                if (ex.InnerException != null)
+                    innerEx = ": " + ex.InnerException.Message;
+                MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
+            }
+        }
+        private void removeButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+            int id = ((BO.ProductItem?)button.DataContext)!.ID;
+            int amount = ((BO.ProductItem?)button.DataContext)!.Amount;
+            try
+            {
+                bl.Order.UpdateByManager(idRec, id, amount -1);
+            }
+            catch(BO.DoesntExistExeption ex)
+            {
+                string innerEx = "";
+                if (ex.InnerException != null)
+                    innerEx = ": " + ex.InnerException.Message;
+                MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
+            }
+            catch(BO.ContradictoryDataExeption ex)
+            {
+                string innerEx = "";
+                if (ex.InnerException != null)
+                    innerEx = ": " + ex.InnerException.Message;
+                MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
             }
         }
     }

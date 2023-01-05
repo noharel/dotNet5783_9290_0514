@@ -216,7 +216,83 @@
         <ListView Name="products" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="295,184,23,21" Style="{StaticResource myListViewStyle}" Grid.ColumnSpan="3">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
+                    <GridViewColumn Width="350"/>
+                    <GridViewColumn Width="30">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Name="addButton" 
+                                          Width="15"
+                                        Height="15"
+                                        VerticalAlignment="Center" 
+                                        Background="{x:Null}" 
+                                        Click="addButton_Click"
+                                        BorderThickness="0,0,0,0">
+                                    <Button.Style>
+                                        <Style BasedOn="{StaticResource myButtonStyle}" TargetType="{x:Type Button}">
+                                            
+                                            <Setter Property="Template">
+
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                        <Border x:Name="Border" Background="{TemplateBinding Background}">
+                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                        </Border>
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="BorderThickness" Value="1,1,1,1" TargetName="Border"/>
+                                                                <Setter Property="BorderBrush" Value="White"/>
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+
+                                            </Setter>
+
+                                        </Style>
+                                    </Button.Style>
+                                    <Image Source="\pics\plus.png"></Image>
+                                </Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="30">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Name="removeButton" 
+                                          Width="15"
+                                        Height="15"
+                                        VerticalAlignment="Center" 
+                                        Background="{x:Null}" 
+                                        Click="removeButton_Click"
+                                        BorderThickness="0,0,0,0">
+                                    <Button.Style>
+                                        <Style BasedOn="{StaticResource myButtonStyle}" TargetType="{x:Type Button}">
+                                            
+                                            <Setter Property="Template">
+
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                        <Border x:Name="Border" Background="{TemplateBinding Background}">
+                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                        </Border>
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="BorderThickness" Value="1,1,1,1" TargetName="Border"/>
+                                                                <Setter Property="BorderBrush" Value="gray"/>
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+
+                                            </Setter>
+
+                                        </Style>
+                                    </Button.Style>
+                                    <Image Source="\pics\minus.png"></Image>
+                                </Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
@@ -227,6 +303,5 @@
                
                Style="{StaticResource myLabelStyle}"
                VerticalAlignment="Top" Background="{x:Null}" Grid.Column="2"/>
-        <Button Name="managerButton" Visibility="Collapsed" Content="Button" HorizontalAlignment="Left" Margin="214,77,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

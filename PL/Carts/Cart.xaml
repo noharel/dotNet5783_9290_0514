@@ -55,22 +55,39 @@
             <Setter Property="FontWeight"
               Value="Bold" />
             <Setter Property="Foreground"
-                    Value="White"/>
-            <Setter Property="Background"
                     Value="Black"/>
+            <Setter Property="Background"
+                    Value="White"/>
         </Style>
     </Window.Resources>
     <Grid>
-        <ListView Name="items" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="33,110,33,110" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Image Source="\pics\cartWindow.jpg" Margin="-104,14,-124,0" Grid.ColumnSpan="2"></Image>
+
+        <Label Content="LUXARY CAR DEALERSHIP" 
+               HorizontalAlignment="Left" 
+               Margin="0,-6,0,0" 
+               VerticalAlignment="Top" 
+               Style="{StaticResource myLabelStyle}" 
+               Grid.ColumnSpan="2" 
+               Background="Black"
+               Foreground="Wheat"
+               Width="800" 
+               HorizontalContentAlignment="Center" Height="39"/>
+
+        <ListView Name="items" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="471,55,0,39" Grid.ColumnSpan="2" >
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="200"/>
-                    <GridViewColumn  Width="70">
+                    <GridViewColumn Width="240"/>
+                    <GridViewColumn  Width="30">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Button Name="trashButton" 
-                                        Width="40"
-                                        Height="40"
+                                        Width="20"
+                                        Height="20"
                                         VerticalAlignment="Center" 
                                         Background="{x:Null}" 
                                         Click="TrashButton_Click"
@@ -87,7 +104,7 @@
                                                         </Border>
                                                         <ControlTemplate.Triggers>
                                                             <Trigger Property="IsMouseOver" Value="True">
-                                                                <Setter Property="BorderThickness" Value="10,3,10,3" TargetName="Border"/>
+                                                                <Setter Property="BorderThickness" Value="1,1,1,1" TargetName="Border"/>
                                                             </Trigger>
                                                         </ControlTemplate.Triggers>
                                                     </ControlTemplate>
@@ -102,18 +119,179 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="70">
+                    <GridViewColumn  Width="30">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <ComboBox/>
+                                <Button Name="add" 
+                                        Width="15"
+                                        Height="15"
+                                        VerticalAlignment="Center" 
+                                        Background="{x:Null}" 
+                                        Click="ADD_Click"
+                                        BorderThickness="0,0,0,0">
+                                    <Button.Style>
+                                        <Style BasedOn="{StaticResource myButtonStyle}" TargetType="{x:Type Button}">
+                                            <Setter Property="Background" Value="black" />
+                                            <Setter Property="Template">
 
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                        <Border x:Name="Border" Background="{TemplateBinding Background}">
+                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                        </Border>
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="BorderThickness" Value="1,1,1,1" TargetName="Border"/>
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+
+                                            </Setter>
+
+                                        </Style>
+                                    </Button.Style>
+                                    <Image Source="\pics\plus.png"></Image>
+                                </Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn  Width="30">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Name="remove" 
+                                        Width="10"
+                                        Height="10"
+                                        VerticalAlignment="Center" 
+                                        Background="{x:Null}" 
+                                        Click="Remove_Click"
+                                        BorderThickness="0,0,0,0">
+                                    <Button.Style>
+                                        <Style BasedOn="{StaticResource myButtonStyle}" TargetType="{x:Type Button}">
+                                            <Setter Property="Background" Value="black" />
+                                            <Setter Property="Template">
+
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                        <Border x:Name="Border" Background="{TemplateBinding Background}">
+                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                        </Border>
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="BorderThickness" Value="1,1,1,1" TargetName="Border"/>
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+
+                                            </Setter>
+
+                                        </Style>
+                                    </Button.Style>
+                                    <Image Source="\pics\minus.png"></Image>
+                                </Button>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
-        <ComboBox HorizontalAlignment="Left" Margin="580,361,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBox_SelectionChanged"/>
+        <Button Name="placeOrderButton"  
+                Content="PLACE ORDER" 
+                HorizontalAlignment="Left" 
+                Margin="410,402,0,0" 
+                VerticalAlignment="Top" Click="placeOrder_Click" Height="26" Width="232" Grid.ColumnSpan="2">
+            <Button.Style>
+                <Style BasedOn="{StaticResource myButtonStyle}" TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="Red" />
+                    <Setter Property="Foreground" Value="White" />
+
+                    <Setter Property="Template">
+
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border x:Name="Border" Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="BorderThickness" Value="10,3,10,3" TargetName="Border"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+
+                    </Setter>
+
+                </Style>
+            </Button.Style>
+        </Button>
+        <Button Name="empty"
+                Content="EMPTY BASKET" 
+                HorizontalAlignment="Left" 
+                Margin="62,406,0,0" 
+                VerticalAlignment="Top" 
+                Click="Empty_Click" Background="{x:Null}" Foreground="#FFFBF5F5" Grid.Column="1">
+            <Button.Style>
+                <Style BasedOn="{StaticResource myButtonStyle}" TargetType="{x:Type Button}">
+                    <Setter Property="Template">
+
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border x:Name="Border" Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="BorderThickness" Value="10,3,10,3" TargetName="Border"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+
+                    </Setter>
+
+                </Style>
+            </Button.Style>
+        </Button>
+        <Button Name="back" 
+                Content="BACK TO CATALOG" 
+                HorizontalAlignment="Left" 
+                Margin="10,46,0,0" 
+                VerticalAlignment="Top" Click="back_Click" Foreground="#FFFBF5F5" Background="{x:Null}">
+            <Button.Style>
+                <Style BasedOn="{StaticResource myButtonStyle}" TargetType="{x:Type Button}">
+                    <Setter Property="Template">
+
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border x:Name="Border" Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="BorderThickness" Value="3,3,3,3" TargetName="Border"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+
+                    </Setter>
+
+                </Style>
+            </Button.Style>
+        </Button>
+        <Label Content="Total price of order:" 
+               HorizontalAlignment="Left" 
+               Margin="24,372,0,0" 
+               Style="{StaticResource myLabelStyle}"
+               VerticalAlignment="Top" FontSize="20" Foreground="#FFFBF5F5" Background="{x:Null}"/>
+        <Label Name="totalPrice" 
+               Content="total price" 
+               Foreground="White"
+               Style="{StaticResource myLabelStyle}"
+               HorizontalAlignment="Left" Margin="243,372,0,0" VerticalAlignment="Top" FontSize="20" Background="{x:Null}"/>
+
 
 
     </Grid>

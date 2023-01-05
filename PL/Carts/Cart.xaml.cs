@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,7 +27,7 @@ namespace PL.Carts
             InitializeComponent();
             cart = c;
             items.ItemsSource = cart.Items;
-           
+            totalPrice.Content = cart.TotalPrice;
         }
         private void TrashButton_Click(object sender, RoutedEventArgs e)
         {
@@ -36,26 +37,99 @@ namespace PL.Carts
             {
                 bl!.Cart.UpdateAmountInCart(cart, id, 0);
                 items.ItemsSource = cart.Items;
+                totalPrice.Content = cart.TotalPrice;
+
             }
             catch (BO.DoesntExistExeption)
-            {
-                MessageBox.Show("Can't remove"); // print exception 
-
-            }
+            { }
             catch (BO.ContradictoryDataExeption)
+            { }
+            catch (BO.AlreadyExistExeption)
+            { }
+            catch (BO.InvalidInputExeption)
+            { }
+
+        }
+        private void placeOrder_Click(object sender, RoutedEventArgs e)
+        {
+            var hg = new Carts.placeOrder(cart); // open place order window
+            hg.ShowDialog(); // open 
+            this.Close();
+
+
+        }
+
+        private void Empty_Click (object sender, RoutedEventArgs e)//for empty
+        {
+            try
             {
-                MessageBox.Show("Can't remove"); // print exception 
+                cart.Items!.ForEach(delegate (BO.OrderItem var)
+                    {
+                        bl!.Cart.UpdateAmountInCart(cart, var.ProductID, 0);
+                    });
+                items.ItemsSource = cart.Items;
+                totalPrice.Content = cart.TotalPrice;
+                ICollectionView view = CollectionViewSource.GetDefaultView(items.ItemsSource);
+                view.Refresh();
             }
+            catch (BO.DoesntExistExeption)
+            { }
+            catch (BO.ContradictoryDataExeption)
+            { }
+            catch (BO.AlreadyExistExeption)
+            { }
+            catch (BO.InvalidInputExeption)
+            { }
+        }
+        private void ADD_Click(object sender, RoutedEventArgs e)//for empty
+        {
+            Button button = (Button)sender;
+            int id = ((BO.OrderItem)button.DataContext)!.ProductID;
+            int amount = ((BO.OrderItem)button.DataContext)!.Amount;
+
+            try
+            {
+                bl!.Cart.UpdateAmountInCart(cart, id, amount+1);
+                totalPrice.Content = cart.TotalPrice;
+                items.ItemsSource = cart.Items;
+                ICollectionView view = CollectionViewSource.GetDefaultView(items.ItemsSource);
+                view.Refresh();
+            }
+            catch (BO.DoesntExistExeption)
+            { }
+            catch (BO.ContradictoryDataExeption)
+            { }
+            catch (BO.AlreadyExistExeption)
+            { }
+            catch (BO.InvalidInputExeption)
+            { }
 
         }
-        private void AmountSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Remove_Click(object sender, RoutedEventArgs e)//for empty
         {
-            //int amount = (int)AmountSelector.SelectedItem;
+            Button button = (Button)sender;
+            int id = ((BO.OrderItem)button.DataContext)!.ProductID;
+            int amount = ((BO.OrderItem)button.DataContext)!.Amount;
+
+            try
+            {
+                bl!.Cart.UpdateAmountInCart(cart, id, amount - 1);
+                items.ItemsSource = cart.Items;
+                totalPrice.Content = cart.TotalPrice;
+
+            }
+            catch (BO.DoesntExistExeption)
+            { }
+            catch (BO.ContradictoryDataExeption)
+            { }
+            catch (BO.AlreadyExistExeption)
+            { }
+            catch (BO.InvalidInputExeption)
+            { }
         }
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void back_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Close();
         }
     }
 } 

@@ -341,8 +341,18 @@ internal class Order : BlApi.IOrder
                     try
                     {
                         DO.OrderItem DOorderItem = (DO.OrderItem)Dal.OrderItem.GetProduct(orderID, orderItemId)!;
-                        DOorderItem.Amount += amount; //UPDATE AMOUNT
-                        Dal.OrderItem.Update(DOorderItem);
+                        if ((DOorderItem.Amount += amount) == 0)//UPDATE AMOUNT
+                        {
+                            try
+                            {
+                                Dal.OrderItem.Delete(DOorderItem.ID);
+                            }
+                            catch(DO.DoesntExistExeption e)
+                            {
+                                throw new BO.DoesntExistExeption("couldn't delete product", e);
+                            }
+                        }
+                        else    Dal.OrderItem.Update(DOorderItem);
                     }
                     catch(DO.DoesntExistExeption e)
                     {

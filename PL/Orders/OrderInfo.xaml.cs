@@ -66,11 +66,12 @@ namespace PL.Orders
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
-            int id = ((BO.ProductItem?)button.DataContext)!.ID;
-            int amount = ((BO.ProductItem?)button.DataContext)!.Amount;
+            int id = ((BO.OrderItem?)button.DataContext)!.ProductID;
+            int amount = ((BO.OrderItem?)button.DataContext)!.Amount;
             try
             {
-                bl.Order.UpdateByManager(idRec, id, amount + 1);
+                bl!.Order.UpdateByManager(idRec, id, 1);
+
             }
             catch (BO.DoesntExistExeption ex)
             {
@@ -90,11 +91,11 @@ namespace PL.Orders
         private void removeButton_Click(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
-            int id = ((BO.ProductItem?)button.DataContext)!.ID;
-            int amount = ((BO.ProductItem?)button.DataContext)!.Amount;
+            int id = ((BO.OrderItem?)button.DataContext)!.ProductID;
+            int amount = ((BO.OrderItem?)button.DataContext)!.Amount;
             try
             {
-                bl.Order.UpdateByManager(idRec, id, amount -1);
+                bl!.Order.UpdateByManager(idRec, id, -1);
             }
             catch(BO.DoesntExistExeption ex)
             {

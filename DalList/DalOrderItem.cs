@@ -41,10 +41,11 @@ public class DalOrderItem: IOrderItem  // A CLASS THAT IMPLEMENTS THE INTERFACE 
     /// <exception cref="DoesntExistExeption"></exception>
     public void Delete(int id)  
     {
-        if (_ds._orderItems.RemoveAll(orderItem => orderItem?.ID == id) == 0) //delete
+        if (_ds._orderItems.Where(orderItem => (orderItem?.ID == id)).ToList().Count()==0) //delete
         {
             throw new DoesntExistExeption("Can't delete that does not exist");
         }
+        _ds._orderItems.Remove(GetById(id));
         OrderItem oI = GetById(id);
         oI.IsDeleted = true;  //update IsDelteted
 

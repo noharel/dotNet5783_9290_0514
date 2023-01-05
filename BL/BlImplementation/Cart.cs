@@ -111,7 +111,16 @@ internal class Cart : BlApi.ICart
         if (ourOrderItem != null)
         {
             int amountItem = ourOrderItem!.Amount;
-            if (amountItem < amount) // if the new  expected amount is MORE than now
+            if (amount == 0) // If mount of the product in the cart is 0
+            {
+                cart.Items = new List<BO.OrderItem>(from var in cart.Items
+                                                    where var.ProductID != id
+                                                    select var); // Get all the product which are not the given product
+                cart.TotalPrice -= ourOrderItem.TotalPrice;  // Update the total price of cart
+            }
+            else if (amount < 0)//if amount is a negative number
+                throw new BO.ContradictoryDataExeption("can't update to negative numbers");
+            else if (amountItem < amount) // if the new  expected amount is MORE than now
             {
                 for (int i = amountItem; i < amount; i++) // Fills the gap
                 {
@@ -132,7 +141,7 @@ internal class Cart : BlApi.ICart
                 }
             }
 
-            if (amountItem > amount) // if the new  expected amount is LESS than now
+            else if (amountItem > amount) // if the new  expected amount is LESS than now
             {
                 // Update the total price of cart and item, and the amount
                 cart.TotalPrice -= ourOrderItem.Price * (amountItem - amount);
@@ -140,16 +149,6 @@ internal class Cart : BlApi.ICart
                 ourOrderItem.Amount = amount;
 
             }
-
-            if (amountItem == 0) // If mount of the product in the cart is 0
-            {
-                cart.Items = new List<BO.OrderItem>(from var in cart.Items
-                                                    where var.ID != id
-                                                    select var); // Get all the product which are not the given product
-                cart.TotalPrice -= ourOrderItem.TotalPrice;  // Update the total price of cart
-            }
-            if (amountItem < 0)
-                throw new BO.ContradictoryDataExeption("can't update to negative numbers");
             return cart; // Returns the updated cart
         }
         else

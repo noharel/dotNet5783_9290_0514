@@ -10,7 +10,7 @@
         <Style x:Key="myComboBoxStyle"
            TargetType="ComboBox">
             <Setter Property="FontSize"
-              Value="15" />
+              Value="20" />
             <Setter Property="FontFamily"
               Value="Rockwell Condensed" />
             <Setter Property="FontWeight"
@@ -61,41 +61,6 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <Button Name="ClearChoice" 
-                Content="clear choice" 
-                HorizontalAlignment="Left" 
-                Margin="636,93,0,0" 
-                VerticalAlignment="Top" 
-                Click="ClearChoice_Click_1" 
-                Height="20" 
-                Width="139" 
-                BorderBrush="{x:Null}" 
-                Style="{StaticResource myButtonStyle}"/>
-
-        <Button x:Name="cartButton"
-                Content="view cart"
-                Width="77"
-                Style="{StaticResource myButtonStyle}"
-                HorizontalAlignment="Right" 
-                Margin="0,46,653,362"/>
-        <Image Source="..\pics\planeCart.png" 
-               Margin="3,40,728,356" />
-        <Image Source="..\pics\redCircle.png" 
-               HorizontalAlignment="Left" 
-               Height="27" 
-               Margin="38,32,0,0" 
-               VerticalAlignment="Top" 
-               Width="39"/>
-
-        <Label Name="amountInCart" 
-               Content="@" 
-               HorizontalAlignment="Left" 
-               Margin="35,26,0,0" 
-               VerticalAlignment="Top"
-               Style="{StaticResource myLabelStyle}" 
-               Background="{x:Null}" 
-               Foreground="#FF060606">
-        </Label>
         <Label Content="LUXARY CAR DEALERSHIP" 
                HorizontalAlignment="Center" 
                Margin="0,-6,0,0" 
@@ -104,33 +69,46 @@
                Width="800" 
                HorizontalContentAlignment="Center" 
                Height="41"/>
-        <Grid Name="UpGrid" 
-              Height="auto" 
-              Grid.Row="0" 
-              Width="auto"
-              Margin="0,199,25,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions >
-            <ComboBox Name="CategorySelector" 
-                      SelectionChanged="CategorySelector_SelectionChanged" 
-                      Margin="10,35,0,351" 
-                      Style="{StaticResource myComboBoxStyle}"
-                      Grid.Column="1" />
-        </Grid>
+        <Button x:Name="cartButton"
+                Content="             view cart"
+                Width="146"
+                Style="{StaticResource myButtonStyle}"
+                Click="CartButton_Click"
+                HorizontalAlignment="Right" 
+                Margin="0,36,636,340" BorderThickness="0,0,0,0"/>
+        <Image Source="..\pics\planeCart.png" 
+               Margin="3,40,729,340" />
+        <Image Source="..\pics\redCircle.png" 
+               HorizontalAlignment="Left" 
+               Height="36" 
+               Margin="38,23,0,0" 
+               VerticalAlignment="Top" 
+               Opacity="100"
+               Width="60"/>
+        <Label Name="amountInCart" 
+               Content="@" 
+               HorizontalAlignment="Left" 
+               Margin="38,22,0,0" 
+               VerticalAlignment="Top"
+               Style="{StaticResource myLabelStyle}" 
+               Background="{x:Null}" 
+               Foreground="#FF060606" Height="35">
+        </Label>
+        <ComboBox Name="CategorySelector" 
+                  SelectionChanged="CategorySelector_SelectionChanged" 
+                  Margin="283,36,254,340" 
+                  Style="{StaticResource myComboBoxStyle}" BorderThickness="0,0,0,0" />
         <Label Content="Category" 
                Grid.Column="0" 
                HorizontalContentAlignment="Center" 
-               Background="White"
-               Foreground="Black"
-               Style="{StaticResource myLabelStyle}" 
-               Margin="166,38,296,353" 
-                />
+               Style="{StaticResource myLabelStyle}"
+               Margin="169,36,522,340"
+               FontSize="20"
+               Foreground="#FF060404" Background="{x:Null}" />
+
         <ListView Name="producs" 
-                  d:ItemsSource="{d:SampleData ItemCount=5}" 
                   Style="{StaticResource myListViewStyle}" 
-                  Margin="0,199,10,0">
+                  Margin="0,99,254,10" BorderThickness="0,0,0,0" d:ItemsSource="{d:SampleData ItemCount=5}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn  Width="70">
@@ -150,7 +128,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="560"/>
+                    <GridViewColumn Width="300"/>
                     <GridViewColumn  Width="70">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -189,5 +167,17 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <Button Name="ClearChoice" 
+                Content="clear choice" 
+                HorizontalAlignment="Left" 
+                Margin="366,99,0,0" 
+                VerticalAlignment="Top" 
+                Click="ClearChoice_Click_1" 
+                Height="21" 
+                Width="142" 
+                BorderBrush="{x:Null}" 
+                Style="{StaticResource myButtonStyle}" Background="{x:Null}"/>
+        <Image Source="\pics\listOfCarts.png" Margin="546,27,-302,-28"/>
+
     </Grid>
 </Window>

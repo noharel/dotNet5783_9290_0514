@@ -32,6 +32,7 @@ namespace PL.Carts
             List<BO.OrderItem>? list = new List<BO.OrderItem>();
             cart = new BO.Cart { Items = list };
             amountInCart.Content = cart!.Items!.ToList().Count.ToString();
+            CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Category)); // put them in the category selector
 
         }
         /*
@@ -141,6 +142,11 @@ namespace PL.Carts
                 MessageBox.Show("unsucessfull click:" + ex.Message + innerEx); //print exception for user
 
             }
+        }
+        private void CartButton_Click(object sender, RoutedEventArgs e) // cart button
+        {
+            var hg = new Carts.Cart(cart!); // open ProductWindow on update and action mode
+            hg.ShowDialog(); // open 
         }
     }
 }

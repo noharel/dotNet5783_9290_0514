@@ -19,9 +19,34 @@ namespace PL.Carts
     /// </summary>
     public partial class Cart : Window
     {
-        public Cart()
+        BlApi.IBl? bl = BlApi.Factory.Get(); // get bl from factory
+        BO.Cart cart;
+        public Cart(BO.Cart c)
         {
             InitializeComponent();
+            cart = c;
+            items.ItemsSource = cart.Items;
+        }
+        void TrashButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+            int id = ((BO.OrderItem)button.DataContext)!.ProductID;
+            try
+            {
+                bl!.Cart.UpdateAmountInCart(cart, id, 0);
+                items.ItemsSource = cart.Items;
+            }
+            catch (BO.DoesntExistExeption)
+            {
+                MessageBox.Show("Can't remove"); // print exception 
+
+            }
+            catch (BO.ContradictoryDataExeption)
+            {
+                MessageBox.Show("Can't remove"); // print exception 
+            }
+
         }
     }
-}
+} 
+

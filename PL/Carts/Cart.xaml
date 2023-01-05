@@ -6,7 +6,84 @@
         xmlns:local="clr-namespace:PL.Carts"
         mc:Ignorable="d"
         Title="Cart" Height="450" Width="800">
+    <Window.Resources>
+        <Style x:Key="myComboBoxStyle"
+           TargetType="ComboBox">
+            <Setter Property="FontSize"
+              Value="20" />
+            <Setter Property="FontFamily"
+              Value="Rockwell Condensed" />
+            <Setter Property="FontWeight"
+              Value="Bold" />
+            <Setter Property="Foreground"
+                    Value="Black"/>
+            <Setter Property="Background"
+                    Value="White"/>
+        </Style>
+        <Style x:Key="myButtonStyle"
+           TargetType="Button">
+            <Setter Property="FontSize"
+              Value="15" />
+            <Setter Property="FontFamily"
+              Value="Rockwell Condensed" />
+            <Setter Property="FontWeight"
+              Value="Bold" />
+            <Setter Property="Foreground"
+                    Value="Black"/>
+            <Setter Property="Background"
+                    Value="White"/>
+        </Style>
+        <Style x:Key="myListViewStyle"
+           TargetType="ListView">
+            <Setter Property="FontSize"
+              Value="20" />
+            <Setter Property="FontFamily"
+              Value="Rockwell Condensed" />
+            <Setter Property="FontWeight"
+              Value="Bold" />
+            <Setter Property="Foreground"
+                    Value="Black"/>
+            <Setter Property="Background"
+                    Value="White"/>
+        </Style>
+        <Style x:Key="myLabelStyle"
+           TargetType="Label">
+            <Setter Property="FontSize"
+              Value="25" />
+            <Setter Property="FontFamily"
+              Value="Rockwell Condensed" />
+            <Setter Property="FontWeight"
+              Value="Bold" />
+            <Setter Property="Foreground"
+                    Value="White"/>
+            <Setter Property="Background"
+                    Value="Black"/>
+        </Style>
+    </Window.Resources>
     <Grid>
-        
+        <ListView Name="items" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="33,110,33,110">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="200"/>
+                    <GridViewColumn  Width="70">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Name="trashButton" 
+                                        Width="30"
+                                        Height="30"
+                                        VerticalAlignment="Center" 
+                                        Background="{x:Null}" 
+                                        Click="TrashButton_Click"
+                                        BorderThickness="0,0,0,0">
+                                    <Image Source="\pics\trash.png"></Image>
+                                </Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+
     </Grid>
 </Window>

@@ -23,11 +23,12 @@ namespace PL.Carts
     {
         BlApi.IBl? bl = BlApi.Factory.Get(); // get bl from factory
         private static BO.Cart? cart;
+        List<BO.ProductForList?> listProd;
+
         public productsListForCart()
         {
             InitializeComponent();
-
-            List<BO.ProductForList?> listProd = bl.Product.GetListProduct().ToList();
+            listProd = bl.Product.GetListProduct().ToList();
             producs.ItemsSource = listProd;
             List<BO.OrderItem>? list = new List<BO.OrderItem>();
             cart = new BO.Cart { Items = list };
@@ -133,6 +134,8 @@ namespace PL.Carts
             try
             {
                 producs.ItemsSource = bl!.Product.GetListProduct(); //get all the products
+                CategorySelector.SelectedIndex = -1;
+                producs.ItemsSource = listProd;
             }
             catch (BO.DoesntExistExeption ex) //get list product exception
             {

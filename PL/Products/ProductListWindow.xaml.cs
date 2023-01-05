@@ -65,6 +65,8 @@ public partial class ProductListWindow : Window
         try
         {
             ProductListView.ItemsSource = bl!.Product.GetListProduct(); //get all the products
+            CategorySelector.SelectedIndex = -1;
+            ProductListView.ItemsSource = bl.Product.GetListProduct(); // get all products
         }
         catch (BO.DoesntExistExeption ex) //get list product exception
         {

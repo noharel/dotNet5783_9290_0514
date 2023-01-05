@@ -86,6 +86,7 @@ internal class Order : BlApi.IOrder
             try
             {
                 DO.Order newOrder = Dal.Order.GetById(orderId); // GET THE ORDER
+                
                 try
                 {
                     List<DO.OrderItem?> listOrder = Dal.OrderItem.GetListOrder(orderId).ToList(); // GET ALL THE ITEMS IN THE ORDER
@@ -94,7 +95,7 @@ internal class Order : BlApi.IOrder
 
                     listOrder.ForEach(delegate (DO.OrderItem? item) {   // GO THROWGH ALL THE ITEMS
                         // MAKES ITEM
-                        BO.OrderItem newOrderItem = new BO.OrderItem() { ID = (int)item?.ID!, Amount = (int)item?.Amount!, Name = newOrder.CustomerName, Price = (double)item?.Price!, ProductID = (int)item?.PrudoctID!, TotalPrice = (int)(item?.Amount * item?.Price)! };
+                        BO.OrderItem newOrderItem = new BO.OrderItem() { ID = (int)item?.ID!, Amount = (int)item?.Amount!, Name = Dal.Product.GetById((int)item?.PrudoctID!).Name, Price = (double)item?.Price!, ProductID = (int)item?.PrudoctID!, TotalPrice = (int)(item?.Amount * item?.Price)! };
                         totalPriceOrder += (double)(item?.Price * item?.Amount)!; // CALCULATE THE TOTAL PRICE
 
                         BOlistOrder.Add(newOrderItem); // ADD THE ITEM

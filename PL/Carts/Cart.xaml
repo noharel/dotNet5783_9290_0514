@@ -61,7 +61,7 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <ListView Name="items" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="33,110,33,110">
+        <ListView Name="items" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="33,110,33,110" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="200"/>
@@ -102,9 +102,18 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
+                    <GridViewColumn Width="70">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox/>
+
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
+        <ComboBox HorizontalAlignment="Left" Margin="580,361,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBox_SelectionChanged"/>
 
 
     </Grid>

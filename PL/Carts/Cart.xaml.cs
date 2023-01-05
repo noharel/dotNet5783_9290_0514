@@ -26,8 +26,9 @@ namespace PL.Carts
             InitializeComponent();
             cart = c;
             items.ItemsSource = cart.Items;
+           
         }
-        void TrashButton_Click(object sender, RoutedEventArgs e)
+        private void TrashButton_Click(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
             int id = ((BO.OrderItem)button.DataContext)!.ProductID;
@@ -45,6 +46,15 @@ namespace PL.Carts
             {
                 MessageBox.Show("Can't remove"); // print exception 
             }
+
+        }
+        private void AmountSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int amount=(int)AmountSelector.SelectedItem
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
 
         }
     }

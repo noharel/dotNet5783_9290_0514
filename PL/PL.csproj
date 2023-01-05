@@ -21,6 +21,7 @@
     <None Remove="pics\addPhoto.png" />
     <None Remove="pics\addToCart.png" />
     <None Remove="pics\carShipping.png" />
+    <None Remove="pics\cart.jpg" />
     <None Remove="pics\forManager.png" />
     <None Remove="pics\IdentifyPhoto.png" />
     <None Remove="pics\information.png" />

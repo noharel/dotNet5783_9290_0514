@@ -50,7 +50,7 @@ namespace PL.Carts
         }
         private void AmountSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int amount=(int)AmountSelector.SelectedItem
+            //int amount = (int)AmountSelector.SelectedItem;
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -71,7 +71,7 @@ namespace PL.Orders
             try
             {
                 bl!.Order.UpdateByManager(idRec, id, 1);
-
+                InitializeComponent();
             }
             catch (BO.DoesntExistExeption ex)
             {

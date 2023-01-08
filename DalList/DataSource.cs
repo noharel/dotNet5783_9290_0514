@@ -76,7 +76,7 @@ internal class DataSource
                         ID = config.NextOrderNumber,
                         CustomerName = customers[customer],
                         CustomerAddress = cities[s_rand.Next(cities.Length)],
-                        CustomerEmail = customers[customer] + "@jctmail.com",
+                        CustomerEmail = customers[customer].Split(' ')[0] + customers[customer].Split(' ')[1] + "@jctmail.com",
                         OrderDate = order_date,
                         IsDeleted = false,
                         ShipDate = ship_date,
@@ -92,7 +92,7 @@ internal class DataSource
                         ID = config.NextOrderNumber,
                         CustomerName = customers[customer],
                         CustomerAddress = cities[s_rand.Next(cities.Length)],
-                        CustomerEmail = customers[customer] + "@jctmail.com",
+                        CustomerEmail = customers[customer].Split(' ')[0] + customers[customer].Split(' ')[1] + "@jctmail.com",
                         OrderDate = order_date,
                         IsDeleted = false,
 

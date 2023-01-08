@@ -34,6 +34,7 @@ namespace PL.Carts
                 InitializeComponent();
                 listProd = bl.Product.GetListProduct().ToList();//GET LIST OF PRODUCT
                 producs.ItemsSource = listProd;//for listview of products
+                
                 List<BO.OrderItem>? list = new List<BO.OrderItem>();
                 cart = new BO.Cart { Items = list };//initailize cart
                 amountInCart.Content = cart!.Items!.ToList().Count.ToString();//for amount in cart
@@ -45,6 +46,13 @@ namespace PL.Carts
 
             }
         }
+        public Visibility SOLDOUT(BO.ProductForList? item)
+        {
+            if (bl!.Product.GetProductInfo_manager(item!.ID).InStock != 0) return Visibility.Hidden;
+            else return Visibility.Visible;
+            
+        }
+        public Visibility IsSOLDOUT(BO.ProductForList? item) => SOLDOUT(item);
         /// <summary>
         /// Add product to cart button
         /// </summary>

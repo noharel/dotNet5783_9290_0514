@@ -190,7 +190,7 @@
                                        Content="SOLD OUT"
                                        FontSize="9"
                                        Background="Red"
-                                       Visibility="{Binding Path=IsSOLDOUT}"
+                                       Visibility="Hidden"
                                        Style="{StaticResource myLabelStyle}">
                                 </Label>
                             </DataTemplate>

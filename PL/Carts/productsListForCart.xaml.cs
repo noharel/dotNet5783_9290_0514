@@ -39,6 +39,7 @@ namespace PL.Carts
                 cart = new BO.Cart { Items = list };//initailize cart
                 amountInCart.Content = cart!.Items!.ToList().Count.ToString();//for amount in cart
                 CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Category)); // put them in the category selector
+                //producs.ItemsSource
             }
             catch(BO.DoesntExistExeption ex)
             {
@@ -46,13 +47,6 @@ namespace PL.Carts
 
             }
         }
-        public Visibility SOLDOUT(BO.ProductForList? item)
-        {
-            if (bl!.Product.GetProductInfo_manager(item!.ID).InStock != 0) return Visibility.Hidden;
-            else return Visibility.Visible;
-            
-        }
-        public Visibility IsSOLDOUT(BO.ProductForList? item) => SOLDOUT(item);
         /// <summary>
         /// Add product to cart button
         /// </summary>

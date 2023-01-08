@@ -38,14 +38,6 @@ internal class Product : BlApi.IProduct
                 BO.ProductForList productForListsTemp = new BO.ProductForList { ID = (int)var?.ID!, Name = var?.Name, Category = (BO.Category)var?.Category!, Price = (double)var?.Price! };
                 productForLists.Add(productForListsTemp);
             });
-
-            //          CHANGE TO LINQ
-            //foreach (DO.Product? var in productList)//for every item in productList add its content to ProductForList
-            //{
-            //    BO.ProductForList productForListsTemp = new BO.ProductForList { ID = (int)var?.ID!, Name = var?.Name, Category = (BO.Category)var?.Category!, Price = (double)var?.Price! };
-            //    productForLists.Add(productForListsTemp);
-            //}
-
             return productForLists;
         }
         catch (DO.DoesntExistExeption e)//catch exception for getall
@@ -200,28 +192,6 @@ internal class Product : BlApi.IProduct
                     throw new BO.DoesntExistExeption("Couldn't get list of products", e);
                 }
             });
-
-
-            //      CHANGE TO LINQ
-            //foreach (DO.Order? var in orderList)
-            //{
-            //    try
-            //    {
-            //        IEnumerable<DO.OrderItem?> listOfOrder = Dal.OrderItem.GetListOrder((int)var?.ID!);
-            //        flag = flag & listOfOrder.Where(item => item?.PrudoctID == id).FirstOrDefault() == null; //found product in list of orders
-                    
-            //        //        CHANGE TO LINQ
-            //        //foreach (DO.OrderItem? item in listOfOrder)
-            //        //{
-            //        //    if (item?.PrudoctID == id) flag = false;
-            //        //}
-            //    }
-            //    catch (DO.DoesntExistExeption e)//catch for GetLiistOrder
-            //    {
-            //        throw new BO.DoesntExistExeption("Couldn't get list of products", e);
-            //    }
-            //}
-
             if (flag)//product isn't in orders
             {
                 try

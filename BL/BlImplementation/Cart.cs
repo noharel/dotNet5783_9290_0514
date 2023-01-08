@@ -187,8 +187,6 @@ internal class Cart : BlApi.ICart
             // check valid cart values
             List<DO.Product?> productsList = Dal.Product.GetAll().ToList();  // get all products
             bool flag = true;
-
-
             // go throwgh items in the cart
             cart.Items!.ForEach(delegate (BO.OrderItem var)
             {
@@ -206,32 +204,7 @@ internal class Cart : BlApi.ICart
 
                 flag = flag && internalFlag && var.Amount > 0; // product is in the cart and amount>0
             });
-
-            //  CHANGE TO LINQ
-
-            //foreach (BO.OrderItem var in cart.Items!)  // go throwgh items in the cart
-            //{
-            //    bool internalFlag = false;
-            //    //DO.Product? askedproduct = productsList.Where(prod => var.ProductID == prod?.ID).FirstOrDefault(); // find the product
-            //    //flag = flag  & (askedproduct?.InStock > 0); // product is in stock
-            //    //internalFlag = askedproduct != null; // update flag
-
-            //    /*
-            //    foreach (DO.Product? prod in productsList) //go throwgh product all te products
-            //    {
-            //        if (var.ProductID == prod?.ID)
-            //        {
-
-            //            internalFlag = true;
-            //            flag = flag && (prod?.InStock > 0);
-            //        }
-            //    }*/
-
-            //    flag = flag && internalFlag && var.Amount > 0; // product is in the cart and amount>0
-            //}
-
             flag = flag && cart.CustomerName != null && cart.CustomerEmail != null && cart.CustomerAddress != null; //strings are not null
-
             if (flag) //valid values
             {
                 Random rand = new Random();
@@ -254,18 +227,17 @@ internal class Cart : BlApi.ICart
                     try
                     {
                         int newOrderID = Dal.Order.Add(newOrder);  //ADD order
-
-
-
-                        cart.Items.ForEach(delegate (BO.OrderItem var)  // go throwgh all the items in the cart
+                        var query = (from var in cart.Items
+                                    let newOrderItem = new DO.OrderItem() { ID = var.ID, PrudoctID = var.ProductID, OrderID = newOrderID, Price = var.Price, Amount = var.Amount, IsDeleted = false }
+                                    select newOrderItem).ToList();
+                        query.ForEach(delegate (DO.OrderItem var)  // go throwgh all the items in the cart
                         {
                             //copy item
-                            DO.OrderItem newOrderItem = new DO.OrderItem() { ID = var.ID, PrudoctID = var.ProductID, OrderID = newOrderID, Price = var.Price, Amount = var.Amount, IsDeleted = false };
                             try
                             {
-                                Dal.OrderItem.Add(newOrderItem); //ADD item
-                                DO.Product newProduct = Dal.Product.GetById(var.ProductID); // get the product id for update his amount
-                                DO.Product updateProduct = new DO.Product() { ID = newProduct.ID, Name = newProduct.Name, Price = newProduct.Price, Category = newProduct.Category, InStock = newProduct.InStock - newOrderItem.Amount, IsDeleted = false };
+                                Dal.OrderItem.Add(var); //ADD item
+                                DO.Product newProduct = Dal.Product.GetById(var.PrudoctID); // get the product id for update his amount
+                                DO.Product updateProduct = new DO.Product() { ID = newProduct.ID, Name = newProduct.Name, Price = newProduct.Price, Category = newProduct.Category, InStock = newProduct.InStock - var.Amount, IsDeleted = false };
                                 Dal.Product.Update(updateProduct); //update amount
                             }
                             catch (DO.DoesntExistExeption e) // catch exception from GetById/ADD/Update
@@ -278,31 +250,6 @@ internal class Cart : BlApi.ICart
                             }
                         });
                     }
-
-
-                    /*       CHANGE TO LINQ
-
-                    foreach (BO.OrderItem var in cart.Items)  // go throwgh all the items in the cart
-                    {
-                        //copy item
-                        DO.OrderItem newOrderItem = new DO.OrderItem() { ID = var.ID, PrudoctID = var.ProductID, OrderID = newOrderID, Price = var.Price, Amount = var.Amount, IsDeleted = false };
-                        try
-                        {
-                            Dal.OrderItem.Add(newOrderItem); //ADD item
-                            DO.Product newProduct = Dal.Product.GetById(var.ProductID); // get the product id for update his amount
-                            DO.Product updateProduct = new DO.Product() { ID = newProduct.ID, Name = newProduct.Name, Price = newProduct.Price, Category = newProduct.Category, InStock = newProduct.InStock - newOrderItem.Amount, IsDeleted = false };
-                            Dal.Product.Update(updateProduct); //update amount
-                        }
-                        catch (DO.DoesntExistExeption e) // catch exception from GetById/ADD/Update
-                        {
-                            throw new BO.DoesntExistExeption("couldn't find", e);
-                        }
-                        catch (DO.AlreadyExistExeption e)
-                        {
-                            throw new BO.AlreadyExistExeption("can't add,", e);
-                        }
-                    }
-                }*/
                     catch (DO.DoesntExistExeption e) // catch ADD function exception - unsuccessful addition
                     {
                         throw new BO.DoesntExistExeption("couldn't find", e);
@@ -316,7 +263,6 @@ internal class Cart : BlApi.ICart
                 {
                     throw new BO.DoesntExistExeption("couldn't find", e);
                 }
-
             }
             else throw new BO.InvalidInputExeption("invalid information"); // invalid cart values
         }

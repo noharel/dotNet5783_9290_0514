@@ -30,11 +30,11 @@ public partial class Order : Window
     int idRec = 0;
     bool managerFunc = false;
     
-    public Order(int x = 0, bool manager = false)
+    public Order(int x = 0, bool manager = false)//constructor
     {
 
         InitializeComponent();
-        BO.OrderTracking orderT = bl.Order.TrackingOrder(x);
+        BO.OrderTracking orderT = bl.Order.TrackingOrder(x);//get order information for x
         if(manager && orderT.tuplesList!.ToList().Count()==1 )
         {
             orderInfoButton.Content = "Order information and update";

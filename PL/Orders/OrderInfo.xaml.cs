@@ -61,7 +61,8 @@ namespace PL.Orders
             if (managerUpdate && order!.Status == 0)
             {
                 //update.visibility = Visibility.Hidden;
-                
+                update.Visibility = Visibility.Hidden;
+                MessageBox.Show("yes");
             }
         }
 

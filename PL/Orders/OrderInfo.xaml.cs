@@ -58,9 +58,9 @@ namespace PL.Orders
 
             if(managerUpdate && order.Status==0)
             {
-                
-                addButton.visibility = Visibility.Visible;
-                removeButton.visibility = Visibility.Visible;
+                //products.
+                //addButton.visibility = Visibility.Visible;
+                //removeButton.visibility = Visibility.Visible;
             }
         }
 

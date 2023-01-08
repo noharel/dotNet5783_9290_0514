@@ -220,8 +220,8 @@
                     <GridViewColumn Width="30">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Name="addButton" 
-                                          Width="15"
+                                <Button Name="addButton"
+                                        Width="15"
                                         Height="15"
                                         VerticalAlignment="Center" 
                                         Background="{x:Null}" 
@@ -259,8 +259,8 @@
                     <GridViewColumn Width="30">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Name="removeButton" 
-                                          Width="15"
+                                <Button Name="removeButton"
+                                        Width="15"
                                         Height="15"
                                         VerticalAlignment="Center" 
                                         Background="{x:Null}" 

@@ -48,7 +48,10 @@ namespace PL.Carts
                 bl!.Cart.UpdateAmountInCart(cart, id, 0);////UPDATE AMOUNT OF ITEM IN THE CART to 0
                 items.ItemsSource = cart.Items;//refresh items in cart view
                 totalPrice.Content = cart.TotalPrice;//refresh total price of cart view
-
+                if (cart.Items!.Count() == 0)//if the cart is empty you can not place the order, so if the cart is not empty you can press the place order button
+                {
+                    placeOrderButton.IsEnabled = false;//place order button is pressable
+                }
             }
             catch (BO.DoesntExistExeption)//catch for UpdateAmountInCart
             { }
@@ -58,6 +61,7 @@ namespace PL.Carts
             { }
             catch (BO.InvalidInputExeption)//catch for UpdateAmountInCart
             { }
+
 
         }
         /// <summary>
@@ -76,6 +80,10 @@ namespace PL.Carts
                     {
                         bl!.Cart.UpdateAmountInCart(cart, var.ProductID, 0);//update amount of product in cart to 0
                     });
+                if (cart.Items!.Count() == 0)//if the cart is empty you can not place the order, so if the cart is not empty you can press the place order button
+                {
+                    placeOrderButton.IsEnabled = false;//place order button is pressable
+                }
             }
             catch (BO.DoesntExistExeption)//catch for UpdateAmountInCart
             { }
@@ -104,6 +112,10 @@ namespace PL.Carts
                 totalPrice.Content = cart.TotalPrice;//refresh total price of cart view
                 ICollectionView view = CollectionViewSource.GetDefaultView(items.ItemsSource);//refresh view
                 view.Refresh();// refresh view
+                if (cart.Items!.Count() == 0)//if the cart is empty you can not place the order, so if the cart is not empty you can press the place order button
+                {
+                    placeOrderButton.IsEnabled = false;//place order button is pressable
+                }
             }
             catch (BO.DoesntExistExeption)//catch for UpdateAmountInCart
             { }
@@ -132,6 +144,10 @@ namespace PL.Carts
                 items.ItemsSource = cart.Items;//refresh total price of cart view
                 ICollectionView view = CollectionViewSource.GetDefaultView(items.ItemsSource);//refreash view
                 view.Refresh();//refresh view
+                if (cart.Items!.Count() == 0)//if the cart is empty you can not place the order, so if the cart is not empty you can press the place order button
+                {
+                    placeOrderButton.IsEnabled = false;//place order button is pressable
+                }
             }
             catch (BO.DoesntExistExeption)//catch for UpdateAmountInCart
             { }
@@ -163,6 +179,10 @@ namespace PL.Carts
                 items.ItemsSource = cart.Items;//refresh total price of cart view
                 ICollectionView view = CollectionViewSource.GetDefaultView(items.ItemsSource);//refreash view
                 view.Refresh();//refresh view
+                if (cart.Items!.Count() == 0)//if the cart is empty you can not place the order, so if the cart is not empty you can press the place order button
+                {
+                    placeOrderButton.IsEnabled = false;//place order button is pressable
+                }
             }
             catch (BO.DoesntExistExeption)//catch for UpdateAmountInCart
             { }

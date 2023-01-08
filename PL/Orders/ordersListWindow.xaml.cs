@@ -22,12 +22,12 @@ namespace PL.Orders
     {
 
         BlApi.IBl? bl = BlApi.Factory.Get();  // get bl
-        public ordersListWindow()
+        public ordersListWindow() //constructor
         {
             InitializeComponent();
             try
             {
-                ordersList.ItemsSource = bl.Order.GetOrders();
+                ordersList.ItemsSource = bl.Order.GetOrders(); // get all the orders
             }
             catch(BO.DoesntExistExeption ex)  // exepction from get orders func
             {
@@ -38,29 +38,27 @@ namespace PL.Orders
             }
         }
 
-        public void ordersList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public void ordersList_SelectionChanged(object sender, SelectionChangedEventArgs e) //choose order
         {
-            BO.OrderForList? selectedOrder = (BO.OrderForList)ordersList.SelectedItem;
+            BO.OrderForList? selectedOrder = (BO.OrderForList)ordersList.SelectedItem; // the order was choosed
 
-            if (selectedOrder != null)
+            if (selectedOrder != null) //if there is an order
             {
-                new PL.Orders.Order(selectedOrder.ID, true).ShowDialog();
+                new PL.Orders.Order(selectedOrder.ID, true).ShowDialog(); //open the window with all the information
             }
-            ordersList.ItemsSource = bl!.Order.GetOrders();
-            /*
             try
             {
-                ordersList.ItemsSource = bl!.Order.GetOrders(); // update list of product to see changes
+                ordersList.ItemsSource = bl!.Order.GetOrders(); //return to the window - update the orders
             }
-
-            catch (BO.DoesntExistExeption ex) // get list product exception
+            catch(BO.DoesntExistExeption ex) // catch exception from get orders func
             {
                 string innerEx = "";
                 if (ex.InnerException != null)
                     innerEx = ": " + ex.InnerException.Message;
                 MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); //print exception for user
 
-            }*/
+            }
+           
         }
 
  

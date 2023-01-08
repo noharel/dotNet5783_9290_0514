@@ -100,11 +100,13 @@
                 </Style>
             </Button.Style>
         </Button>
-        <Image Source="..\pics\planeCart.png" 
+        <Image Name ="cartImage" 
+               Source="..\pics\planeCart.png" 
                Margin="3,40,729,340" >
             
+            
         </Image>
-        <Image Source="..\pics\redCircle.png" 
+        <Image Name="redCircle" Source="..\pics\redCircle.png" 
                HorizontalAlignment="Left" 
                Height="36" 
                Margin="38,23,0,0" 
@@ -149,7 +151,8 @@
                                         BorderBrush="{x:Null}" 
                                         BorderThickness="0,0,0,0"
                                         Click="InfoButton_click"
-                                        HorizontalAlignment="Right">
+                                        HorizontalAlignment="Right"
+                                        >
                                     <Button.Style>
                                         <Style BasedOn="{StaticResource myButtonStyle}" TargetType="{x:Type Button}">
                                             <Setter Property="Opacity" Value="15" />

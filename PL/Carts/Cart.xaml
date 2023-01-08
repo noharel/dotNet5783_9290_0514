@@ -65,7 +65,11 @@
             <ColumnDefinition Width="3*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Image Source="\pics\cartWindow.jpg" Margin="-104,14,-124,0" Grid.ColumnSpan="2"></Image>
+        
+        <Image Source="\pics\cartWindow.jpg" 
+               Margin="-104,14,-124,0" 
+               Grid.ColumnSpan="2">
+        </Image>
 
         <Label Content="LUXARY CAR DEALERSHIP" 
                HorizontalAlignment="Left" 
@@ -77,7 +81,7 @@
                Foreground="Wheat"
                Width="800" 
                HorizontalContentAlignment="Center" Height="39"/>
-
+        
         <ListView Name="items" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="410,46,35,55" Grid.ColumnSpan="2" >
             <ListView.View>
                 <GridView>
@@ -96,7 +100,6 @@
                                         <Style BasedOn="{StaticResource myButtonStyle}" TargetType="{x:Type Button}">
                                             <Setter Property="Background" Value="black" />
                                             <Setter Property="Template">
-
                                                 <Setter.Value>
                                                     <ControlTemplate TargetType="{x:Type Button}">
                                                         <Border x:Name="Border" Background="{TemplateBinding Background}">
@@ -205,9 +208,7 @@
                 <Style BasedOn="{StaticResource myButtonStyle}" TargetType="{x:Type Button}">
                     <Setter Property="Background" Value="Red" />
                     <Setter Property="Foreground" Value="White" />
-
                     <Setter Property="Template">
-
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type Button}">
                                 <Border x:Name="Border" Background="{TemplateBinding Background}">
@@ -220,8 +221,8 @@
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
                         </Setter.Value>
-
                     </Setter>
+                   
 
                 </Style>
             </Button.Style>

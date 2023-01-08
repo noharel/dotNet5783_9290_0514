@@ -80,7 +80,6 @@ namespace PL.Carts
                 MessageBox.Show(ex.Message); // print exception 
             }
 
-
         }
         private void RemoveButton_click(object sender, RoutedEventArgs e)
         {

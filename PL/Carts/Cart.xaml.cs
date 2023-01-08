@@ -28,6 +28,11 @@ namespace PL.Carts
             cart = c;
             items.ItemsSource = cart.Items;
             totalPrice.Content = cart.TotalPrice;
+            if (cart.Items!.Count()==0)
+            {
+                placeOrderButton.IsEnabled = false;
+            }
+                
         }
         private void TrashButton_Click(object sender, RoutedEventArgs e)
         {
@@ -57,6 +62,7 @@ namespace PL.Carts
             List<BO.OrderItem>? list = new List<BO.OrderItem>();
             cart = new BO.Cart { Items = list };
             this.Close();
+
 
 
         }

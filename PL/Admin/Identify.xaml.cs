@@ -23,33 +23,49 @@ namespace PL.Admin
         string USER_NAME2 = "noa";
         string PASSWORD1 = "123456";
         string PASSWORD2 = "111111";
-        public Identify()
+
+        public Identify()//constructor
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Log in button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if((USER_NAME1==user.Text && PASSWORD1==password.Password) || (USER_NAME2 == user.Text && PASSWORD2 == password.Password))
+            if((USER_NAME1==user.Text && PASSWORD1==password.Password) || (USER_NAME2 == user.Text && PASSWORD2 == password.Password))//if a correct password and username were inputted is is possible to log in
             {
                 login.Visibility = Visibility.Collapsed;
                 products.Visibility = Visibility.Visible;
                 orders.Visibility = Visibility.Visible;
             }
-            else
+            else//incorrect information was inputted
             {
                 MessageBox.Show("incorrect information");
             }
         }
 
+        /// <summary>
+        /// Products button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void products_Click(object sender, RoutedEventArgs e)
         {
-            new PL.Products.ProductListWindow().ShowDialog();
+            new PL.Products.ProductListWindow().ShowDialog();//Open ProductListWindow with list of products
         }
-
+    
+        /// <summary>
+        /// orders button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void orders_Click(object sender, RoutedEventArgs e)
         {
-            new PL.Orders.ordersListWindow().ShowDialog();
+            new PL.Orders.ordersListWindow().ShowDialog();//Open ordersListWindow with list of orders
         }
     }
 }

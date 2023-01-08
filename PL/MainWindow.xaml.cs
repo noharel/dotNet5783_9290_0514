@@ -37,49 +37,57 @@ namespace PL
             //win.Owner = this; // for the new window to be first
             new PL.Carts.productsListForCart().ShowDialog();
         }
-
+        /// <summary>
+        /// Track Order button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TrackOrder_Click(object sender, RoutedEventArgs e)
         {
             int x;
             bool flag;
 
 
-            if (orderTrackingNumber.Text.Length != 4)
+            if (orderTrackingNumber.Text.Length != 4)//order id doesn't have 4 charachters
             {
                 MessageBox.Show("Order ID has to be 4 numbers");
             }
-            else
+            else//order id has 4 charachters
             {
-                flag = int.TryParse(orderTrackingNumber.Text, out x);
+                flag = int.TryParse(orderTrackingNumber.Text, out x);//check if order id is a number
 
-                if (flag)
+                if (flag)//order id is a number
                 {
                     try
                     {
-                        bl!.Order.TrackingOrder(x);
+                        bl!.Order.TrackingOrder(x);//track order with sent id
 
-                        new PL.Orders.Order(x).ShowDialog();
+                        new PL.Orders.Order(x).ShowDialog();//open Order window with tracked order
                     }
-                    catch (BO.DoesntExistExeption ex)
+                    catch (BO.DoesntExistExeption ex)//catch for TrackingOrder
                     {
                         string innerEx = "";
-                        if (ex.InnerException != null)
+                        if (ex.InnerException != null)//print inner exception if it exists
                             innerEx = ": " + ex.InnerException.Message;
                         MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
 
                     }
                 }
-                else
+                else//order id is not a number
                 {
                     MessageBox.Show("Order ID has to be a number");
                 }
             }
             
         }
-
+        /// <summary>
+        /// Admin button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void adminButton_Click(object sender, RoutedEventArgs e)
         {
-            new PL.Admin.Identify().ShowDialog();
+            new PL.Admin.Identify().ShowDialog();//Open Identify window
         }
     }
 }

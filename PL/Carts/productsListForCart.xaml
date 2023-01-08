@@ -152,8 +152,7 @@
                                         BorderBrush="{x:Null}" 
                                         BorderThickness="0,0,0,0"
                                         Click="InfoButton_click"
-                                        HorizontalAlignment="Right"
-                                        >
+                                        HorizontalAlignment="Right" >
                                     <Button.Style>
                                         <Style BasedOn="{StaticResource myButtonStyle}" TargetType="{x:Type Button}">
                                             <Setter Property="Opacity" Value="15" />

@@ -60,7 +60,21 @@ namespace PL.Carts
             var hg = new Carts.placeOrder(cart); // open place order window
             hg.ShowDialog(); // open 
             List<BO.OrderItem>? list = new List<BO.OrderItem>();
-            cart = new BO.Cart { Items = list };
+            try//empty cart
+            {
+                cart.Items!.ForEach(delegate (BO.OrderItem var)
+                    {
+                        bl!.Cart.UpdateAmountInCart(cart, var.ProductID, 0);
+                    });
+            }
+            catch (BO.DoesntExistExeption)
+            { }
+            catch (BO.ContradictoryDataExeption)
+            { }
+            catch (BO.AlreadyExistExeption)
+            { }
+            catch (BO.InvalidInputExeption)
+            { }
             this.Close();
 
 

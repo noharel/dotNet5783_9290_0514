@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BO;
+using MaterialDesignThemes.Wpf;
 
 namespace PL.Carts
 {
@@ -39,7 +41,21 @@ namespace PL.Carts
                 bl?.Cart.MakingAnOrder(cart);
                 MessageBox.Show("Order placed, enjoy your new car!");
                 List<BO.OrderItem>? list = new List<BO.OrderItem>();
-                cart = new BO.Cart { Items = list };
+                try
+                {
+                    cart.Items!.ForEach(delegate (BO.OrderItem var)//empty cart
+                    {
+                        bl!.Cart.UpdateAmountInCart(cart, var.ProductID, 0);
+                    });
+                }
+                catch (BO.DoesntExistExeption)
+                { }
+                catch (BO.ContradictoryDataExeption)
+                { }
+                catch (BO.AlreadyExistExeption)
+                { }
+                catch (BO.InvalidInputExeption)
+                { }
                 this.Close();
 
 

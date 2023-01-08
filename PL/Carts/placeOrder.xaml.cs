@@ -40,7 +40,8 @@ namespace PL.Carts
                 MessageBox.Show("Order placed, enjoy your new car!");
                 List<BO.OrderItem>? list = new List<BO.OrderItem>();
                 cart = new BO.Cart { Items = list };
-                
+                this.Close();
+
 
             }
             catch (BO.AlreadyExistExeption )
@@ -62,7 +63,6 @@ namespace PL.Carts
                 MessageBox.Show("Couldn't place order");
 
             }
-            this.Close();
         }
 
         private void nameTextBox_TextChanged(object sender, TextChangedEventArgs e)

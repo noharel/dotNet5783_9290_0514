@@ -101,7 +101,7 @@ namespace PL.Orders
                 {
                     order = bl.Order.OrderInfo(idRec);
                 }
-                catch(BO.DoesntExistExeption ex)
+                catch(BO.DoesntExistExeption )
                 {
                     Close();
                 }

@@ -185,7 +185,5 @@
                 <SolidColorBrush Color="White" Opacity="0.5"/>
             </TextBox.Background>
         </TextBox>
-
-
     </Grid>
 </Window>

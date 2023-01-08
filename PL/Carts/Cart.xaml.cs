@@ -57,8 +57,6 @@ namespace PL.Carts
             List<BO.OrderItem>? list = new List<BO.OrderItem>();
             cart = new BO.Cart { Items = list };
             this.Close();
-
-
         }
 
         private void Empty_Click (object sender, RoutedEventArgs e)//for empty

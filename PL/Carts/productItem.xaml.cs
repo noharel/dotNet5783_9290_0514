@@ -20,16 +20,27 @@ namespace PL.Carts
     public partial class productItem : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get();  // get bl
-        public productItem(int x, BO.Cart cart)
+        public productItem(int x, BO.Cart cart)//constructor
         {
-            InitializeComponent();
-            id.Text = x.ToString();
-            BO.ProductItem prodItem = bl.Product.GetProductInfo_client(x, cart);
-            name.Text = prodItem.Name;
-            category.Text = prodItem.Category.ToString();
-            amount.Text = prodItem.Amount.ToString();
-            if (prodItem.InStock)
-                inStock.Text = "Product is currently in stock";
+            try
+            {
+                InitializeComponent();
+                id.Text = x.ToString();//for id
+                BO.ProductItem prodItem = bl.Product.GetProductInfo_client(x, cart); //Get Product in cart Info for client
+                name.Text = prodItem.Name;//for name
+                category.Text = prodItem.Category.ToString();//for category
+                amount.Text = prodItem.Amount.ToString();//for amount
+                if (prodItem.InStock)//for in stock
+                    inStock.Text = "Product is currently in stock";
+            }
+            catch(BO.DoesntExistExeption ex)//catch for GetProductInfo_client
+            {
+                MessageBox.Show("Can't  get product info: " + ex.Message); // print exception 
+            }
+            catch (BO.InvalidInputExeption ex)//catch for GetProductInfo_client
+            {
+                MessageBox.Show("Can't  get product info: " + ex.Message); // print exception 
+            }
         }
     }
 }

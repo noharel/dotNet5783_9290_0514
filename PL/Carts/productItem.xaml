@@ -10,7 +10,7 @@
         <Style x:Key="myTextBoxStyle"
            TargetType="TextBox">
             <Setter Property="FontSize"
-              Value="16" />
+              Value="20" />
             <Setter Property="FontFamily"
               Value="Rockwell Condensed" />
             <Setter Property="FontWeight"
@@ -31,7 +31,7 @@
         <Style x:Key="myComboBoxStyle"
            TargetType="ComboBox">
             <Setter Property="FontSize"
-              Value="16" />
+              Value="20" />
             <Setter Property="FontFamily"
               Value="Rockwell Condensed" />
             <Setter Property="FontWeight"
@@ -46,7 +46,7 @@
         <Style x:Key="myButtonStyle"
            TargetType="Button">
             <Setter Property="FontSize"
-              Value="16" />
+              Value="" />
             <Setter Property="FontFamily"
               Value="Rockwell Condensed" />
             <Setter Property="FontWeight"
@@ -121,7 +121,7 @@
         </Label>
         <TextBox Name="name" 
                  HorizontalAlignment="Left" 
-                 Margin="258,109,0,0" 
+                 Margin="265,107,0,0" 
                  TextWrapping="Wrap" 
                  Text="name" 
                  VerticalAlignment="Top" 
@@ -142,7 +142,7 @@
         </Label>
         <TextBox Name="category" 
                  HorizontalAlignment="Left" 
-                 Margin="284,146,0,0" 
+                 Margin="294,144,0,0" 
                  TextWrapping="Wrap" 
                  Text="category" 
                  VerticalAlignment="Top" 
@@ -162,8 +162,8 @@
             </Label.Background>
         </Label>
         <TextBox Name="amount" 
-                 HorizontalAlignment="Left" 
-                 Margin="325,185,0,0" 
+                 HorizontalAlignment="Center" 
+                 Margin="0,183,0,0" 
                  TextWrapping="Wrap" 
                  Text="amount" 
                  VerticalAlignment="Top" 
@@ -175,7 +175,7 @@
         </TextBox>
         <TextBox Name="inStock"
                  HorizontalAlignment="Left" 
-                 Margin="196,217,0,0" 
+                 Margin="196,238,0,0" 
                  TextWrapping="Wrap" 
                  Text="Product is not currently in stock" 
                  VerticalAlignment="Top" 

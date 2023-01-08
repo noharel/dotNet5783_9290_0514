@@ -110,7 +110,7 @@
                  Text="" 
                  Style="{StaticResource myTextBoxStyle}"
                  VerticalAlignment="Top" 
-                 Width="216"/>
+                 Width="216" TextChanged="nameTextBox_TextChanged"/>
         <TextBox Name="email" 
                  HorizontalAlignment="Left" 
                  Margin="251,126,0,0" 
@@ -118,13 +118,13 @@
                  Text="" 
                  Style="{StaticResource myTextBoxStyle}"
                  VerticalAlignment="Top" 
-                 Width="216"/>
+                 Width="216" TextChanged="email_TextChanged"/>
         <ComboBox Name="address" 
                   HorizontalAlignment="Left" 
                   Margin="266,152,0,0" 
                   VerticalAlignment="Top" 
                   Style="{StaticResource myComboBoxStyle}"
-                  Width="201" Height="26"/>
+                  Width="201" Height="26" SelectionChanged="address_SelectionChanged"/>
         <Button Name="checkout" 
                 Content="Checkout" 
                 HorizontalAlignment="Left" 
@@ -132,15 +132,12 @@
                 VerticalAlignment="Top" 
                 Width="136"
                 Click="checkout_Click"
-                Background="#FFE10D0D" 
-                Foreground="#FFFBF5F5">
+                IsEnabled="False">
             <Button.Style>
                 <Style BasedOn="{StaticResource myButtonStyle}" TargetType="{x:Type Button}">
                     <Setter Property="Background" Value="Red" />
                     <Setter Property="Foreground" Value="White" />
-
                     <Setter Property="Template">
-
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type Button}">
                                 <Border x:Name="Border" Background="{TemplateBinding Background}">
@@ -155,7 +152,7 @@
                         </Setter.Value>
 
                     </Setter>
-
+                   
                 </Style>
             </Button.Style>
         </Button>

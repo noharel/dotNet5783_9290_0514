@@ -64,5 +64,29 @@ namespace PL.Carts
             }
             this.Close();
         }
+
+        private void nameTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if(nameTextBox.Text!=null && email.Text!=null && address.SelectedItem!=null)
+            {
+                checkout.IsEnabled = true;
+            }
+        }
+
+        private void email_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (nameTextBox.Text != null && email.Text != null && address.SelectedItem != null)
+            {
+                checkout.IsEnabled = true;
+            }
+        }
+
+        private void address_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (nameTextBox.Text != null && email.Text != null && address.SelectedItem != null)
+            {
+                checkout.IsEnabled = true;
+            }
+        }
     }
 }

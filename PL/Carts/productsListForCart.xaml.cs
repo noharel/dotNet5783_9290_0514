@@ -201,9 +201,5 @@ namespace PL.Carts
             amountInCart.Content = count;//for amount in cart
         }
 
-        private void soldOutIn_Click(object sender, RoutedEventArgs e)
-        {
-            //if ()
-        }
     }
 }

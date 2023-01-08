@@ -22,12 +22,12 @@ namespace PL.Orders
     {
 
         BlApi.IBl? bl = BlApi.Factory.Get();  // get bl
-        public ordersListWindow()
+        public ordersListWindow() //constructor
         {
             InitializeComponent();
             try
             {
-                ordersList.ItemsSource = bl.Order.GetOrders();
+                ordersList.ItemsSource = bl.Order.GetOrders(); // get all the orders
             }
             catch(BO.DoesntExistExeption ex)  // exepction from get orders func
             {
@@ -46,7 +46,18 @@ namespace PL.Orders
             {
                 new PL.Orders.Order(selectedOrder.ID, true).ShowDialog();
             }
-            ordersList.ItemsSource = bl!.Order.GetOrders();
+            try
+            {
+                ordersList.ItemsSource = bl!.Order.GetOrders();
+            }
+            catch(BO.DoesntExistExeption ex)
+            {
+                string innerEx = "";
+                if (ex.InnerException != null)
+                    innerEx = ": " + ex.InnerException.Message;
+                MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); //print exception for user
+
+            }
             /*
             try
             {

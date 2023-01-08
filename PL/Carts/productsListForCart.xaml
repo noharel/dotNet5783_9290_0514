@@ -59,6 +59,7 @@
             <Setter Property="Background"
                     Value="Black"/>
         </Style>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Window.Resources>
     <Grid>
         <Label Content="LUXARY CAR DEALERSHIP" 
@@ -182,7 +183,20 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="300"/>
+                    <GridViewColumn Width="230"/>
+                    <GridViewColumn Width="70">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Name="SoldOut"
+                                       Content="SOLD OUT"
+                                       FontSize="9"
+                                       Background="Red"
+                                       Visibility="{Binding Path=IsSOLDOUT}"
+                                       Style="{StaticResource myLabelStyle}">
+                                </Label>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn  Width="70">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>

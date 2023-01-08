@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -25,6 +26,7 @@ namespace PL.Orders
         BO.Order order;
         public OrderInfo(int x = 0, bool managerUpdate = false)
         {
+        
             InitializeComponent();
             idRec = x;
             id.Text =x.ToString();
@@ -56,11 +58,10 @@ namespace PL.Orders
             totalPrice.Text = order.TotalPrice.ToString();
             products.ItemsSource = order.Items!.ToList();
 
-            if(managerUpdate && order.Status==0)
+            if (managerUpdate && order!.Status == 0)
             {
-                //products.
-                //addButton.visibility = Visibility.Visible;
-                //removeButton.visibility = Visibility.Visible;
+                //update.visibility = Visibility.Hidden;
+                
             }
         }
 

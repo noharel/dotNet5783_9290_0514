@@ -226,7 +226,8 @@
                                         VerticalAlignment="Center" 
                                         Background="{x:Null}" 
                                         Click="addButton_Click"
-                                        BorderThickness="0,0,0,0">
+                                        BorderThickness="0,0,0,0"
+                                        Visibility="Collapsed">
                                     <Button.Style>
                                         <Style BasedOn="{StaticResource myButtonStyle}" TargetType="{x:Type Button}">
                                             
@@ -264,7 +265,8 @@
                                         VerticalAlignment="Center" 
                                         Background="{x:Null}" 
                                         Click="removeButton_Click"
-                                        BorderThickness="0,0,0,0">
+                                        BorderThickness="0,0,0,0"
+                                        Visibility="Collapsed">
                                     <Button.Style>
                                         <Style BasedOn="{StaticResource myButtonStyle}" TargetType="{x:Type Button}">
                                             

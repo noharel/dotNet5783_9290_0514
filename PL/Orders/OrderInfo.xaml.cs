@@ -56,10 +56,11 @@ namespace PL.Orders
             totalPrice.Text = order.TotalPrice.ToString();
             products.ItemsSource = order.Items!.ToList();
 
-            if(managerUpdate)
+            if(managerUpdate && order.Status==0)
             {
                 
-                //addButton.visibility = Visibility.Collapsed;
+                addButton.visibility = Visibility.Visible;
+                removeButton.visibility = Visibility.Visible;
             }
         }
 

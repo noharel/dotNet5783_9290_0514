@@ -27,94 +27,136 @@ public partial class Order : Window
 
 
     BlApi.IBl? bl = BlApi.Factory.Get(); // get bl from factory
+
     int idRec = 0;
     bool managerFunc = false;
     
-    public Order(int x = 0, bool manager = false)//constructor
+    public Order(int x = 0, bool manager = false)  //constructor
     {
 
         InitializeComponent();
-        BO.OrderTracking orderT = bl.Order.TrackingOrder(x);//get order information for x
-        if(manager && orderT.tuplesList!.ToList().Count()==1 )
-        {
-            orderInfoButton.Content = "Order information and update";
-        }
-        
-        managerFunc = manager;
-
-        idRec = x;
         try
         {
-            status.Text = orderT.Status.ToString();
-            orderId.Text = x.ToString();
-            try
-            {
-                List<(DateTime?, string?)>? tuplelist = orderT.tuplesList!.ToList();
-                int size = tuplelist.Count();
-                orderingDate.Text = tuplelist[0].Item1.ToString();
-                if (size > 1)
-                    shippingDate.Text = tuplelist[1].Item1.ToString();
-                if (size > 2) arrivalDate.Text = tuplelist[2].Item1.ToString();
+            BO.OrderTracking orderT = bl.Order.TrackingOrder(x); //get order information for x
 
-                if (size < 3)
+            if (manager && orderT.tuplesList!.ToList().Count() == 1)
+            // if manager mode and order not shipped yet
+            {
+                orderInfoButton.Content = "Order information and update"; //can update
+            }
+
+            managerFunc = manager; // for all the function will have the mode (manager or not)
+
+            idRec = x; // for all the function will have the id
+
+            status.Text = orderT.Status.ToString(); //status on the window
+            orderId.Text = x.ToString(); // id of the order
+
+
+            List<(DateTime?, string?)>? tuplelist = orderT.tuplesList!.ToList(); 
+            int size = tuplelist.Count(); // to know the status
+            orderingDate.Text = tuplelist[0].Item1.ToString(); // ordering date
+            if (size > 1) // if shipped
+                shippingDate.Text = tuplelist[1].Item1.ToString(); //ship date 
+
+            if (size > 2)  // arrived
+                arrivalDate.Text = tuplelist[2].Item1.ToString(); // arrival date
+
+            if (size < 3) // not arrived
+            {
+                // not arrived
+                arrivalDate.Visibility = Visibility.Collapsed; 
+                labelA.Visibility = Visibility.Collapsed;
+
+                if (size < 2) // not shipped
                 {
-                    arrivalDate.Visibility = Visibility.Collapsed;
-                    labelA.Visibility = Visibility.Collapsed;
-                    if (size < 2)
-                    {
-                        shippingDate.Visibility = Visibility.Collapsed;
-                        labelS.Visibility = Visibility.Collapsed;
-                        if (manager) shipOrderByManager.Visibility = Visibility.Visible;
-                    }
-                    else
-                    {
-                        if (manager) delinerOrderByManager.Visibility = Visibility.Visible;
-                    }
+                    // not shipped
+                    shippingDate.Visibility = Visibility.Collapsed;
+                    labelS.Visibility = Visibility.Collapsed;
+
+                    if (manager) 
+                        shipOrderByManager.Visibility = Visibility.Visible; // can ship order
+                }
+                else // shipped
+                {
+                    if (manager) 
+                        delinerOrderByManager.Visibility = Visibility.Visible; // can deliver
                 }
             }
-            catch (BO.DoesntExistExeption ex)
+        }
+        catch(BO.DoesntExistExeption ex) // tracking order exception 
+        {
+            string innerEx = "";
+            if (ex.InnerException != null)
+                innerEx = ": " + ex.InnerException.Message;
+            MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
+        }
+    }
+
+    private void orderInfoButton_Click(object sender, RoutedEventArgs e) // order info button
+    {
+        
+        new PL.Orders.OrderInfo(idRec, managerFunc).ShowDialog(); // open the info window
+
+        try
+        {
+            // try tracking the order after changes in the info window
+            BO.OrderTracking orderT = bl!.Order.TrackingOrder(idRec);
+        }
+        catch(BO.DoesntExistExeption) // if the order is not exist
+        {
+            // all the buttons and label collapsed
+            orderInfoButton.Visibility = Visibility.Collapsed;
+            orderDeleted.Visibility = Visibility.Visible;
+            labelO.Visibility = Visibility.Collapsed;
+            orderingDate.Visibility = Visibility.Collapsed;
+            shipOrderByManager.Visibility = Visibility.Collapsed;
+            status.Visibility = Visibility.Collapsed;
+        }
+        catch(BO.InvalidInputExeption ex) // tracking order exception
+        {
+            string innerEx = "";
+            if (ex.InnerException != null)
+                innerEx = ": " + ex.InnerException.Message;
+            MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
+        }
+    }
+
+    private void shipOrderByManager_Click(object sender, RoutedEventArgs e) //ship order
+    {
+        try
+        {
+            bl!.Order.UpdateShip(idRec); // update ship
+            shipOrderByManager.Visibility = Visibility.Collapsed; // no need for the button
+            try
+            {
+                // get a new tuple
+                List<(DateTime?, string?)>? tuplelist = bl.Order.TrackingOrder(idRec).tuplesList!.ToList(); 
+
+                shippingDate.Text = tuplelist[1].Item1.ToString(); //ship date text
+                shippingDate.Visibility = Visibility.Visible;
+                labelS.Visibility = Visibility.Visible; // ship date label
+                delinerOrderByManager.Visibility = Visibility.Visible; // now the manager can delivery
+                orderInfoButton.Content = "Order information"; // can't update anymore
+                status.Text = "Shipped"; // change status on the window
+            }
+            catch (BO.DoesntExistExeption ex) // tracking order func exception
             {
 
                 string innerEx = "";
                 if (ex.InnerException != null)
                     innerEx = ": " + ex.InnerException.Message;
                 MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
-                
             }
-            
-
-
         }
-        catch (BO.DoesntExistExeption ex)
+        catch(BO.DoesntExistExeption ex) //update ship func exception
         {
             string innerEx = "";
             if (ex.InnerException != null)
                 innerEx = ": " + ex.InnerException.Message;
             MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
-        }     
-
-
-    }
-
-    private void orderInfoButton_Click(object sender, RoutedEventArgs e)
-    {
-        
-        new PL.Orders.OrderInfo(idRec, managerFunc).ShowDialog();
-
-        try
-        {
-
-            BO.OrderTracking orderT = bl!.Order.TrackingOrder(idRec);
         }
-        catch(BO.DoesntExistExeption)
-        {
-            orderInfoButton.Visibility = Visibility.Collapsed;
-            orderDeleted.Visibility = Visibility.Visible;
-            labelO.Visibility = Visibility.Collapsed;
-            orderingDate.Visibility = Visibility.Collapsed;
-            shipOrderByManager.Visibility = Visibility.Collapsed;
-        }
-        catch(BO.InvalidInputExeption ex)
+        catch(BO.ContradictoryDataExeption ex) //update ship func exception
         {
             string innerEx = "";
             if (ex.InnerException != null)
@@ -123,48 +165,41 @@ public partial class Order : Window
         }
     }
 
-    private void shipOrderByManager_Click(object sender, RoutedEventArgs e)
+    private void delinerOrderByManager_Click(object sender, RoutedEventArgs e) // deliver order
     {
-        bl!.Order.UpdateShip(idRec);
-        shipOrderByManager.Visibility = Visibility.Collapsed;
         try
         {
-            List<(DateTime?, string?)>? tuplelist = bl.Order.TrackingOrder(idRec).tuplesList!.ToList();
+            bl!.Order.UpdateDelivery(idRec);
+            delinerOrderByManager.Visibility = Visibility.Collapsed; // no need for the button
 
-            shippingDate.Text = tuplelist[1].Item1.ToString();
-            shippingDate.Visibility = Visibility.Visible;
-            labelS.Visibility = Visibility.Visible;
-            delinerOrderByManager.Visibility = Visibility.Visible;
-            orderInfoButton.Content = "Order information";
-            status.Text = "Shipped";
+            try
+            {
+                // get new tupelist
+                List<(DateTime?, string?)>? tuplelist = bl.Order.TrackingOrder(idRec).tuplesList!.ToList();
+
+                arrivalDate.Text = tuplelist[2].Item1.ToString(); // arrival date text
+                arrivalDate.Visibility = Visibility.Visible; 
+                labelA.Visibility = Visibility.Visible; // arrival date label
+                status.Text = "Arrived"; // changes status on the window
+            }
+            catch (BO.DoesntExistExeption ex) // Tracking order exception
+            {
+
+                string innerEx = "";
+                if (ex.InnerException != null)
+                    innerEx = ": " + ex.InnerException.Message;
+                MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
+            }
         }
-        catch(BO.DoesntExistExeption ex)
+        catch(BO.DoesntExistExeption ex) //update delivery func exception 
         {
-
             string innerEx = "";
             if (ex.InnerException != null)
                 innerEx = ": " + ex.InnerException.Message;
             MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
         }
-    }
-
-    private void delinerOrderByManager_Click(object sender, RoutedEventArgs e)
-    {
-
-        bl!.Order.UpdateDelivery(idRec);
-        delinerOrderByManager.Visibility = Visibility.Collapsed;
-        try
+        catch(BO.ContradictoryDataExeption ex)//update delivery func exception 
         {
-            List<(DateTime?, string?)>? tuplelist = bl.Order.TrackingOrder(idRec).tuplesList!.ToList();
-
-            arrivalDate.Text = tuplelist[2].Item1.ToString();
-            arrivalDate.Visibility = Visibility.Visible;
-            labelA.Visibility = Visibility.Visible;
-            status.Text = "Arrived";
-        }
-        catch(BO.DoesntExistExeption ex)
-        {
-
             string innerEx = "";
             if (ex.InnerException != null)
                 innerEx = ": " + ex.InnerException.Message;

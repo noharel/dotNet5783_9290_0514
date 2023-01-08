@@ -24,91 +24,122 @@ namespace PL.Orders
         BlApi.IBl? bl = BlApi.Factory.Get(); // get bl from factory
         int idRec = 0;
         BO.Order order;
-        public OrderInfo(int x = 0, bool managerUpdate = false)
+        public OrderInfo(int x = 0, bool managerUpdate = false) // consturctor
         {
         
             InitializeComponent();
-            idRec = x;
-            id.Text =x.ToString();
-            order = bl.Order.OrderInfo(x);
-            id.Text = x.ToString();
-            name.Text = order.CustomerName;
-            address.Text = order.CustomerAddress;
-            email.Text = order.CustomerEmail;
-            orderDate.Text = order.OrderDate.ToString();
-            if (order.Status!=BO.OrderStatus.Ordered)
+            idRec = x; // for all the functions will have the id
+
+            
+            try
             {
-                shipDate.Text = order.ShipDate.ToString();
-                if (order.Status == BO.OrderStatus.Arrived)
-                    arrivalDate.Text = order.DeliveryrDate.ToString();
-                else
+                //update the infomation in the window
+                order = bl.Order.OrderInfo(x);
+                id.Text = x.ToString();
+                name.Text = order.CustomerName;
+                address.Text = order.CustomerAddress;
+                email.Text = order.CustomerEmail;
+                orderDate.Text = order.OrderDate.ToString();
+                status.Text = order.Status.ToString();
+                totalPrice.Text = order.TotalPrice.ToString();
+                products.ItemsSource = order.Items!.ToList();
+
+                if (order.Status != BO.OrderStatus.Ordered) // if shipped or delivered
                 {
+                    shipDate.Text = order.ShipDate.ToString(); // ship date
+                    if (order.Status == BO.OrderStatus.Arrived) // if arrived
+                        arrivalDate.Text = order.DeliveryrDate.ToString(); // arrival date
+                    else // if not arrived
+                    {
+                        // no need in arrival text and label
+                        arrivalDate.Visibility = Visibility.Collapsed;
+                        labelArrivalDate.Visibility = Visibility.Collapsed;
+                    }
+                }
+                else  // order just ordered
+                {
+                    // no need in ship and arrival labels and texts
+                    shipDate.Visibility = Visibility.Collapsed;
+                    labelShipDate.Visibility = Visibility.Collapsed;
                     arrivalDate.Visibility = Visibility.Collapsed;
                     labelArrivalDate.Visibility = Visibility.Collapsed;
                 }
-            }
-            else
-            {
-                shipDate.Visibility = Visibility.Collapsed;
-                labelShipDate.Visibility = Visibility.Collapsed;
-                arrivalDate.Visibility = Visibility.Collapsed;
-                labelArrivalDate.Visibility = Visibility.Collapsed;
-            }
-            status.Text = order.Status.ToString();
-            totalPrice.Text = order.TotalPrice.ToString();
-            products.ItemsSource = order.Items!.ToList();
 
-            if (managerUpdate && order!.Status == 0)
-            {
-                //update.visibility = Visibility.Hidden;
-                update.Visibility = Visibility.Hidden;
-                MessageBox.Show("yes");
+                if (managerUpdate && order!.Status == 0) // if manager mode and not shipped yet
+                {
+                    // update button hidden for the minus and plus in list view
+                    update.Visibility = Visibility.Hidden; 
+                }
             }
-        }
-
-
-        private void addButton_Click(object sender, RoutedEventArgs e)
-        {
-            Button button = (Button)sender;
-            int id = ((BO.OrderItem?)button.DataContext)!.ProductID;
-            try
+            catch(BO.InvalidInputExeption ex)// order info func exception
             {
-                bl!.Order.UpdateByManager(idRec, id, 1);
-                order = bl.Order.OrderInfo(idRec);
-                totalPrice.Text = order.TotalPrice.ToString();
-                products.ItemsSource = order.Items!.ToList();
-            }
-            catch (BO.DoesntExistExeption ex)
-            {
+
                 string innerEx = "";
                 if (ex.InnerException != null)
                     innerEx = ": " + ex.InnerException.Message;
                 MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
             }
-            catch (BO.ContradictoryDataExeption ex)
+            catch(BO.DoesntExistExeption ex)// order info func exception
             {
+
                 string innerEx = "";
                 if (ex.InnerException != null)
                     innerEx = ": " + ex.InnerException.Message;
                 MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
             }
         }
-        private void removeButton_Click(object sender, RoutedEventArgs e)
+
+
+        private void addButton_Click(object sender, RoutedEventArgs e) //add button
         {
-            Button button = (Button)sender;
-            int id = ((BO.OrderItem?)button.DataContext)!.ProductID;
+            Button button = (Button)sender; // t knoe which product
+            int id = ((BO.OrderItem?)button.DataContext)!.ProductID; //product id
             try
             {
-                bl!.Order.UpdateByManager(idRec, id, -1);
+                bl!.Order.UpdateByManager(idRec, id, 1); // update the amount of product in order +1
+                order = bl.Order.OrderInfo(idRec); // new order info
+                totalPrice.Text = order.TotalPrice.ToString(); // change total price
+                products.ItemsSource = order.Items!.ToList(); // change the items in list view
+            }
+            catch (BO.DoesntExistExeption ex)  //update by manager and order info funcs exception
+            {
+                string innerEx = "";
+                if (ex.InnerException != null)
+                    innerEx = ": " + ex.InnerException.Message;
+                MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
+            }
+            catch (BO.ContradictoryDataExeption ex) // update by manager func exception
+            {
+                string innerEx = "";
+                if (ex.InnerException != null)
+                    innerEx = ": " + ex.InnerException.Message;
+                MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
+            }
+            catch (BO.InvalidInputExeption ex)// order info func exception
+            {
+
+                string innerEx = "";
+                if (ex.InnerException != null)
+                    innerEx = ": " + ex.InnerException.Message;
+                MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
+            }
+        }
+        private void removeButton_Click(object sender, RoutedEventArgs e) // remove button
+        {
+            Button button = (Button)sender; // to knoe which product
+            int id = ((BO.OrderItem?)button.DataContext)!.ProductID; // product id
+            try
+            {
+                bl!.Order.UpdateByManager(idRec, id, -1);  // update amount of product -1
                 try
                 {
-                    order = bl.Order.OrderInfo(idRec);
+                    order = bl.Order.OrderInfo(idRec); // new order info
                 }
-                catch(BO.DoesntExistExeption )
+                catch(BO.DoesntExistExeption ) //order info exception
                 {
-                    Close();
+                    Close(); //delete the last product
                 }
-                catch(BO.InvalidInputExeption ex)
+                catch(BO.InvalidInputExeption ex) //order info exception
                 {
                     string innerEx = "";
                     if (ex.InnerException != null)
@@ -116,17 +147,17 @@ namespace PL.Orders
                     MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
                 }
 
-                totalPrice.Text = order.TotalPrice.ToString();
-                products.ItemsSource = order.Items!.ToList();
+                totalPrice.Text = order.TotalPrice.ToString(); // update total price
+                products.ItemsSource = order.Items!.ToList(); // update items in list view
             }
-            catch(BO.DoesntExistExeption ex)
+            catch(BO.DoesntExistExeption ex) // update by manager func exception
             {
                 string innerEx = "";
                 if (ex.InnerException != null)
                     innerEx = ": " + ex.InnerException.Message;
                 MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
             }
-            catch(BO.ContradictoryDataExeption ex)
+            catch(BO.ContradictoryDataExeption ex)// update by manager func exception
             {
                 string innerEx = "";
                 if (ex.InnerException != null)

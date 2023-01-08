@@ -68,71 +68,123 @@
                     Value="Black"/>
             <Setter Property="Background"
                     Value="White"/>
+            <Setter Property="Opacity"
+                    Value="50"/>
         </Style>
     </Window.Resources>
     <Grid>
+        <Image Source="..\pics\productItem.jpg" Margin="-110,0,-118,-144"></Image>
+
+        <Label Content="LUXARY CAR DEALERSHIP" 
+               HorizontalAlignment="Center" 
+               Margin="0,-6,0,0" 
+               VerticalAlignment="Top" 
+               Foreground="Wheat"
+               FontSize="36"
+               Background="Black"
+               Opacity="100"
+               Style="{StaticResource myLabelStyle}" 
+               Width="800" 
+               HorizontalContentAlignment="Center" 
+               Height="54"/>
         <Label Content="Product info for product with id:" 
                HorizontalAlignment="Left" 
-               Margin="145,35,0,0" 
+               Margin="196,59,0,0" 
                FontSize="20"
                Style="{StaticResource myLabelStyle}"
-               VerticalAlignment="Top"/>
+               VerticalAlignment="Top">
+            <Label.Background>
+                <SolidColorBrush Color="White" Opacity="0.5"/>
+            </Label.Background>
+        </Label>
         <TextBox Name="id" 
                  HorizontalAlignment="Left" 
-                 Margin="467,41,0,0" 
+                 Margin="518,64,0,0" 
                  TextWrapping="Wrap" 
                  Text="id" 
                  VerticalAlignment="Top" 
                  FontSize="20"
                  Style="{StaticResource myTextBoxStyle}"
-                 Width="120"/>
-        <Label Content="Name" 
+                 Width="120">
+            <TextBox.Background>
+                <SolidColorBrush Color="White" Opacity="0.5"/>
+            </TextBox.Background>
+        </TextBox>
+        <Label Content="Name:" 
                HorizontalAlignment="Left" 
-               Margin="196,109,0,0" 
+               Margin="196,104,0,0" 
                Style="{StaticResource myLabelStyle}"
-               VerticalAlignment="Top"/>
+               VerticalAlignment="Top">
+            <Label.Background>
+                <SolidColorBrush Color="White" Opacity="0.5"/>
+            </Label.Background>
+        </Label>
         <TextBox Name="name" 
                  HorizontalAlignment="Left" 
-                 Margin="276,114,0,0" 
+                 Margin="258,109,0,0" 
                  TextWrapping="Wrap" 
                  Text="name" 
                  VerticalAlignment="Top" 
                  Style="{StaticResource myTextBoxStyle}"
-                 Width="120"/>
-        <Label Content="Category" 
+                 Width="120">
+            <TextBox.Background>
+                <SolidColorBrush Color="White" Opacity="0.5"/>
+            </TextBox.Background>
+        </TextBox>
+        <Label Content="Category:" 
                HorizontalAlignment="Left" 
                Margin="196,141,0,0" 
                Style="{StaticResource myLabelStyle}"
-               VerticalAlignment="Top"/>
+               VerticalAlignment="Top">
+            <Label.Background>
+                <SolidColorBrush Color="White" Opacity="0.5"/>
+            </Label.Background>
+        </Label>
         <TextBox Name="category" 
                  HorizontalAlignment="Left" 
-                 Margin="280,146,0,0" 
+                 Margin="284,146,0,0" 
                  TextWrapping="Wrap" 
                  Text="category" 
                  VerticalAlignment="Top" 
                  Style="{StaticResource myTextBoxStyle}"
-                 Width="120"/>
-        <Label Content="Amount in cart" 
+                 Width="120">
+            <TextBox.Background>
+                <SolidColorBrush Color="White" Opacity="0.5"/>
+            </TextBox.Background>
+        </TextBox>
+        <Label Content="Amount in cart:" 
                HorizontalAlignment="Left" 
-               Margin="196,175,0,0" 
+               Margin="196,180,0,0" 
                Style="{StaticResource myLabelStyle}"
-               VerticalAlignment="Top"/>
+               VerticalAlignment="Top">
+            <Label.Background>
+                <SolidColorBrush Color="White" Opacity="0.5"/>
+            </Label.Background>
+        </Label>
         <TextBox Name="amount" 
                  HorizontalAlignment="Left" 
-                 Margin="336,180,0,0" 
+                 Margin="325,185,0,0" 
                  TextWrapping="Wrap" 
                  Text="amount" 
                  VerticalAlignment="Top" 
                  Style="{StaticResource myTextBoxStyle}"
-                 Width="120"/>
+                 Width="120">
+            <TextBox.Background>
+                <SolidColorBrush Color="White" Opacity="0.5"/>
+            </TextBox.Background>
+        </TextBox>
         <TextBox Name="inStock"
                  HorizontalAlignment="Left" 
-                 Margin="198,217,0,0" 
+                 Margin="196,217,0,0" 
                  TextWrapping="Wrap" 
                  Text="Product is not currently in stock" 
                  VerticalAlignment="Top" 
                  Style="{StaticResource myTextBoxStyle}"
-                 Width="288"/>
+                 Width="288" FontSize="18">
+            <TextBox.Background>
+                <SolidColorBrush Color="White" Opacity="0.5"/>
+            </TextBox.Background>
+        </TextBox>
 
 
     </Grid>

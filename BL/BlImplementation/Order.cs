@@ -17,13 +17,14 @@ internal class Order : BlApi.IOrder
     /// <exception cref="BO.DoesntExistExeption"></exception>
     public IEnumerable<BO.OrderForList> GetOrders()
     {
-        List<DO.Order?> orderList;
+        IEnumerable<DO.Order?> orderList;
         List<BO.OrderForList> orderForList = new List<BO.OrderForList>();
         try
         {
             orderList = Dal.Order.GetAll().ToList(); // GET ALL THE ORDERS FROM DAL
-
-            orderList.ForEach(delegate (DO.Order? var) // GO THROWGH ALL THE ORDERS
+            var groupsByCities = from o in orderList group o by o?.CustomerAddress;
+            List<DO.Order?> gropsOrders = (from g in groupsByCities from o in g select o).ToList();
+            gropsOrders.ForEach(delegate (DO.Order? var) // GO THROWGH ALL THE ORDERS
             {
                 BO.OrderStatus stat = 0;
                 if (var?.ShipDate != null) // ORDER SHIPED
@@ -42,6 +43,7 @@ internal class Order : BlApi.IOrder
                 BO.OrderForList newOrderForList = new BO.OrderForList { ID = id, CustomerName = var?.CustomerName, Status = stat, AmountOfItems = listOrderItem.Count(), TotalPrice = price };
                 orderForList.Add(newOrderForList); // ADD THE NEW ORDER TO THE LIST
             });
+            
             return orderForList; // RETURNS THE LIST WITH ALL THE ORDERS
         }
         catch (DO.DoesntExistExeption e) // CATCH GETALL FUNCTION EXCEPTION

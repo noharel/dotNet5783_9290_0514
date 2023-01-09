@@ -67,6 +67,7 @@
                Height="532" 
                VerticalAlignment="Center" 
                Width="398"/>
+       
         <Label Content="LUXARY CAR DEALERSHIP" 
                HorizontalAlignment="Center" 
                VerticalAlignment="Top" 

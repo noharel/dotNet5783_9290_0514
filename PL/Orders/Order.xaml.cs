@@ -41,7 +41,7 @@ public partial class Order : Window
         try
         {
             orderT = bl.Order.TrackingOrder(x); //get order information for x
-
+            DataContext = orderT;
             if (manager && orderT.tuplesList!.ToList().Count() == 1)
             // if manager mode and order not shipped yet
             {
@@ -54,6 +54,7 @@ public partial class Order : Window
 
             List<(DateTime?, string?)>? tuplelist = orderT.tuplesList!.ToList(); 
             int size = tuplelist.Count(); // to know the status
+
             orderingDate.Text = tuplelist[0].Item1.ToString(); // ordering date
             if (size > 1) // if shipped
                 shippingDate.Text = tuplelist[1].Item1.ToString(); //ship date 
@@ -64,14 +65,13 @@ public partial class Order : Window
             if (size < 3) // not arrived
             {
                 // not arrived
-                arrivalDate.Visibility = Visibility.Collapsed; 
-                labelA.Visibility = Visibility.Collapsed;
+                arrivalDate.Visibility = Visibility.Collapsed;
 
                 if (size < 2) // not shipped
                 {
                     // not shipped
                     shippingDate.Visibility = Visibility.Collapsed;
-                    labelS.Visibility = Visibility.Collapsed;
+                    
 
                     if (manager) 
                         shipOrderByManager.Visibility = Visibility.Visible; // can ship order

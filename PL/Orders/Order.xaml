@@ -104,20 +104,24 @@
                  Text="{Binding ID}" 
                  VerticalAlignment="Top"
                  FontSize="26"
-                 Width="65" Style="{StaticResource myTextBoxStyle}" 
+                 Width="65" 
+                 Style="{StaticResource myTextBoxStyle}" 
                  Height="31"/>
         <Label Name="labelO" 
                Content="Was ordered on:" 
                Margin="400,154,0,0" 
-               Style="{StaticResource myLabelStyle}"/>
+               Style="{StaticResource myLabelStyle}"
+               Visibility="{Binding ElementName=orderingDate, Path=Visibility}"/>
         <Label Name="labelS" 
                Content="Was shipped on:" 
                Margin="400,211,0,0" 
-               Style="{StaticResource myLabelStyle}"/>
+               Style="{StaticResource myLabelStyle}"
+               Visibility="{Binding ElementName=shippingDate, Path=Visibility}"/>
         <Label Name="labelA" 
                Content="Was arrived on:" 
                Margin="400,273,0,0" 
-               Style="{StaticResource myLabelStyle}"/>
+               Style="{StaticResource myLabelStyle}"
+               Visibility="{Binding ElementName=arrivalDate, Path=Visibility}"/>
         <TextBox Name="shippingDate" 
                  HorizontalAlignment="Left" 
                  Margin="541,216,0,0" 

@@ -22,19 +22,9 @@ namespace PL.Carts
         BlApi.IBl? bl = BlApi.Factory.Get();  // get bl
         public productItem(BO.ProductItem prodItem)//constructor
         {
-            try
-            {
-                InitializeComponent();
-                this.DataContext = prodItem;
-            }
-            catch(BO.DoesntExistExeption ex)//catch for GetProductInfo_client
-            {
-                MessageBox.Show("Can't  get product info: " + ex.Message); // print exception 
-            }
-            catch (BO.InvalidInputExeption ex)//catch for GetProductInfo_client
-            {
-                MessageBox.Show("Can't  get product info: " + ex.Message); // print exception 
-            }
+
+            InitializeComponent();
+            this.DataContext = prodItem;
         }
     }
 }

@@ -137,11 +137,29 @@ namespace PL.Carts
         {
             Button button = (Button)sender;
             int id = ((BO.ProductForList?)button.DataContext)!.ID;
-            BO.ProductItem prodItem = bl.Product.GetProductInfo_client(id, cart); //Get Product in cart Info for client
+            try
+            {
+                BO.ProductItem prodItem = bl!.Product.GetProductInfo_client(id, cart!); //Get Product in cart Info for client
+                new Carts.productItem(prodItem).ShowDialog(); // open ProductItem window to view information of product
+               
 
-            var hg = new Carts.productItem(prodItem); // open ProductItem window to view information of product
-            hg.ShowDialog(); // open 
-        }
+            }
+            catch (BO.DoesntExistExeption ex)
+            {
+                string innerEx = "";
+                if (ex.InnerException != null)
+                    innerEx = ": " + ex.InnerException.Message;
+                MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
+            }
+            catch(BO.InvalidInputExeption ex)
+            {
+                string innerEx = "";
+                if (ex.InnerException != null)
+                    innerEx = ": " + ex.InnerException.Message;
+                MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
+            }
+
+                    }
         /// <summary>
         /// Selection chenged on categry selector
         /// </summary>

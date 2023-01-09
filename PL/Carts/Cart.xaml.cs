@@ -21,20 +21,18 @@ namespace PL.Carts
     public partial class Cart : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get(); // get bl from factory
-        BO.Cart cart;
+        public BO.Cart cart { get; set; }
         public Cart(BO.Cart c)//constructor
         {
             InitializeComponent();
             cart = c;
-            //DataContext = cart;
-
+            DataContext = cart;
             //items.ItemsSource = cart.Items;//initailze items in cart
             //totalPrice.Content = cart.TotalPrice;//initialize total proce
             if (cart.Items!.Count()==0)//if the cart is empty you can not place the order, so if the cart is not empty you can press the place order button
             {
                 placeOrderButton.IsEnabled = false;//place order button is pressable
             }
-                
         }
         /// <summary>
         /// remove all of this a product from cart

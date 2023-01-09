@@ -81,6 +81,7 @@
     </Window.DataContext>
 
     <Grid Name="mainGrid">
+        
         <Image Source="..\pics\productItem.jpg" Margin="-110,0,-118,-144"></Image>
 
         <Label Content="LUXARY CAR DEALERSHIP" 
@@ -206,5 +207,10 @@
                 <SolidColorBrush Color="White" Opacity="1"/>
             </TextBox.Background>
         </TextBox>
+        <Line X1="10" Y1="60"
+     X2="2000" Y2="60"
+     Stroke="Black"
+     StrokeThickness="3" Margin="-16,-6,-12,4"/>
+
     </Grid>
 </Window>

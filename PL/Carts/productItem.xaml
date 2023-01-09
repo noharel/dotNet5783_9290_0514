@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Carts"
+        xmlns:converter="clr-namespace:PL.Converter"
+
         xmlns:BO="clr-namespace:BO;assembly=BL"
         mc:Ignorable="d"
         Title="productItem" Height="450" Width="800">

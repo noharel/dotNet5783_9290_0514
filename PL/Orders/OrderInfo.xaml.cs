@@ -37,7 +37,7 @@ namespace PL.Orders
             {
                 //update the infomation in the window
                 order = bl.Order.OrderInfo(x);
-                this.DataContext = this;
+                this.DataContext = order;
                 if (order.Status != BO.OrderStatus.Ordered) // if shipped or delivered
                 {
                     int A;

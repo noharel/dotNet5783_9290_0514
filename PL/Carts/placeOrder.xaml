@@ -80,6 +80,8 @@
         <BO:Cart></BO:Cart>
     </Window.DataContext>
     <Grid>
+        <Image Source="\pics\placeOrder.jpg" Margin="-74,14,-57,-130"></Image>
+
         <Label Content="LUXARY CAR DEALERSHIP" 
                HorizontalAlignment="Left" 
                Margin="0,-6,0,0" 
@@ -91,50 +93,75 @@
                Foreground="Wheat"
                Width="800" 
                HorizontalContentAlignment="Center" Height="39"/>
+
         <Label Name="name" 
                Content="Name:" 
                HorizontalAlignment="Left" 
                Margin="187,92,0,0" 
                Style="{StaticResource myLabelStyle}"
-               VerticalAlignment="Top"/>
+               VerticalAlignment="Top">
+            <Label.Background>
+                <SolidColorBrush Color="White" Opacity="0.35"/>
+            </Label.Background>
+        </Label>
         <Label Content="Address:" 
                HorizontalAlignment="Left" 
-               Margin="187,149,0,0" 
+               Margin="187,174,0,0" 
                Style="{StaticResource myLabelStyle}"
-               VerticalAlignment="Top"/>
+               VerticalAlignment="Top">
+            <Label.Background>
+                <SolidColorBrush Color="White" Opacity="0.35"/>
+            </Label.Background>
+        </Label>
         <Label Content="Email:" 
                HorizontalAlignment="Left" 
-               Margin="189,118,0,0" 
+               Margin="187,133,0,0" 
                Style="{StaticResource myLabelStyle}"
-               VerticalAlignment="Top"/>
+               VerticalAlignment="Top">
+            <Label.Background>
+                <SolidColorBrush Color="White" Opacity="0.35"/>
+            </Label.Background>
+        </Label>
         <TextBox Name="nameTextBox" 
                  HorizontalAlignment="Left"
-                 Margin="251,96,0,0" 
+                 Margin="258,92,0,0" 
                  TextWrapping="Wrap" 
                  Text="" 
                  Style="{StaticResource myTextBoxStyle}"
                  VerticalAlignment="Top" 
-                 Width="216" TextChanged="nameTextBox_TextChanged"/>
+                 Width="216" TextChanged="nameTextBox_TextChanged" Height="29">
+            <TextBox.Background>
+                <SolidColorBrush Color="White" Opacity="0.35"/>
+            </TextBox.Background>
+        </TextBox>
         <TextBox Name="email" 
                  HorizontalAlignment="Left" 
-                 Margin="251,126,0,0" 
+                 Margin="251,133,0,0" 
                  TextWrapping="Wrap" 
                  Text="" 
                  Style="{StaticResource myTextBoxStyle}"
                  VerticalAlignment="Top" 
-                 Width="216" TextChanged="email_TextChanged"/>
+                 Width="223" TextChanged="email_TextChanged" Height="29">
+            <TextBox.Background>
+                <SolidColorBrush Color="White" Opacity="0.35"/>
+            </TextBox.Background>
+        </TextBox>
         <ComboBox Name="address" 
                   HorizontalAlignment="Left" 
-                  Margin="266,152,0,0" 
+                  Margin="266,174,0,0" 
                   VerticalAlignment="Top" 
                   Style="{StaticResource myComboBoxStyle}"
-                  Width="201" Height="26" SelectionChanged="address_SelectionChanged"/>
+                  Width="208" Height="29" SelectionChanged="address_SelectionChanged">
+            <ComboBox.Background>
+                <SolidColorBrush Color="White" Opacity="0.5"/>
+            </ComboBox.Background>
+        </ComboBox>
         <Button Name="checkout" 
                 Content="Checkout" 
                 HorizontalAlignment="Left" 
-                Margin="258,199,0,0" 
+                Margin="187,232,0,0" 
                 VerticalAlignment="Top" 
-                Width="136"
+                Width="287"
                 Click="checkout_Click"
                 IsEnabled="False">
             <Button.Style>
@@ -162,16 +189,25 @@
                         </Trigger>
 
                     </Style.Triggers>
-                   
+
                 </Style>
             </Button.Style>
         </Button>
         <Label Content="Please enter your inforamtion to place order:" 
                HorizontalAlignment="Left" 
-               Margin="148,45,0,0" 
+               Margin="155,57,0,0" 
+               FontSize="17"
                Style="{StaticResource myLabelStyle}"
                VerticalAlignment="Top" 
-               Width="356"/>
+               Width="373">
+            <Label.Background>
+                <SolidColorBrush Color="White" Opacity="0.35"/>
+            </Label.Background>
+        </Label>
+        <Line X1="10" Y1="60"
+     X2="2000" Y2="60"
+     Stroke="Black"
+     StrokeThickness="7" Margin="-46,-20,18,18"/>
 
     </Grid>
 </Window>

@@ -69,6 +69,11 @@
         <BO:ProductForList/>
     </Window.DataContext>
     <Grid>
+        <Line X1="10" Y1="60"
+     X2="2000" Y2="60"
+     Stroke="Black"
+     StrokeThickness="7" Margin="-44,10,16,-12"/>
+
         <Image Name="informationLogo" 
                Source="../pics/information.png" HorizontalAlignment="Left" 
                Height="15" 

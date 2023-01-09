@@ -62,9 +62,9 @@
         </Style>
     </Window.Resources>
     <Window.DataContext>
-        <BO:Cart></BO:Cart>
+        <BO:Cart/>
     </Window.DataContext>
-    <Grid>
+    <Grid> 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
             <ColumnDefinition/>

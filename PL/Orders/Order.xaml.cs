@@ -30,14 +30,17 @@ public partial class Order : Window
 
     int idRec = 0;
     bool managerFunc = false;
-    
+    BO.OrderTracking? orderT;
+    DateTime shipDate;
+    DateTime orderDate;
+    DateTime deliveryDate;
     public Order(int x = 0, bool manager = false)  //constructor
     {
 
         InitializeComponent();
         try
         {
-            BO.OrderTracking orderT = bl.Order.TrackingOrder(x); //get order information for x
+            orderT = bl.Order.TrackingOrder(x); //get order information for x
 
             if (manager && orderT.tuplesList!.ToList().Count() == 1)
             // if manager mode and order not shipped yet
@@ -48,10 +51,6 @@ public partial class Order : Window
             managerFunc = manager; // for all the function will have the mode (manager or not)
 
             idRec = x; // for all the function will have the id
-
-            status.Text = orderT.Status.ToString(); //status on the window
-            orderId.Text = x.ToString(); // id of the order
-
 
             List<(DateTime?, string?)>? tuplelist = orderT.tuplesList!.ToList(); 
             int size = tuplelist.Count(); // to know the status

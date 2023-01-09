@@ -10,6 +10,7 @@
         mc:Ignorable="d"
         Title="productItem" Height="450" Width="800">
     <Window.Resources>
+        <converter:BoolToVisibilityConverter x:Key="boolToVis"/>
         <Style x:Key="myTextBoxStyle"
            TargetType="TextBox">
             <Setter Property="FontSize"
@@ -197,7 +198,7 @@
                  Margin="196,238,0,0" 
                  TextWrapping="Wrap" 
                  Text="Product is currently in stock" 
-                 Visibility="{Binding InStock}"
+                 Visibility="{Binding InStock, Converter={StaticResource boolToVis}}"
                  VerticalAlignment="Top" 
                  Style="{StaticResource myTextBoxStyle}"
                  Width="288" FontSize="18">

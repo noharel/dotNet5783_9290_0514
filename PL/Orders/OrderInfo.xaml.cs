@@ -25,7 +25,7 @@ namespace PL.Orders
         BlApi.IBl? bl = BlApi.Factory.Get(); // get bl from factory
 
         int idRec = 0;
-        public BO.Order order { get; set; }
+        public BO.Order? order { get; set; }
         public bool manager { get; set; }
         public OrderInfo(int x = 0, bool managerUpdate = false) // consturctor
         {
@@ -41,12 +41,7 @@ namespace PL.Orders
                 this.DataContext = order;
                 if (order.Status != BO.OrderStatus.Ordered) // if shipped or delivered
                 {
-                    int A;
-                    //shipDate.Text = order.ShipDate.ToString(); // ship date
-                    if (order.Status == BO.OrderStatus.Arrived)
-                        A = 1;// if arrived
-                                  //arrivalDate.Text = order.DeliveryrDate.ToString(); // arrival date
-                    else // if not arrived
+                    if (order.Status!= BO.OrderStatus.Arrived)
                     {
                         // no need in arrival text and label
                         arrivalDate.Visibility = Visibility.Collapsed;
@@ -144,7 +139,7 @@ namespace PL.Orders
                     MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
                 }
 
-                totalPrice.Text = order.TotalPrice.ToString(); // update total price
+                totalPrice.Text = order!.TotalPrice.ToString(); // update total price
                 products.ItemsSource = order.Items!.ToList(); // update items in list view
             }
             catch(BO.DoesntExistExeption ex) // update by manager func exception

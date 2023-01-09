@@ -26,8 +26,10 @@ namespace PL.Carts
         {
             InitializeComponent();
             cart = c;
-            items.ItemsSource = cart.Items;//initailze items in cart
-            totalPrice.Content = cart.TotalPrice;//initialize total proce
+            DataContext = cart;
+
+            //items.ItemsSource = cart.Items;//initailze items in cart
+            //totalPrice.Content = cart.TotalPrice;//initialize total proce
             if (cart.Items!.Count()==0)//if the cart is empty you can not place the order, so if the cart is not empty you can press the place order button
             {
                 placeOrderButton.IsEnabled = false;//place order button is pressable
@@ -46,8 +48,8 @@ namespace PL.Carts
             try
             {
                 bl!.Cart.UpdateAmountInCart(cart, id, 0);////UPDATE AMOUNT OF ITEM IN THE CART to 0
-                items.ItemsSource = cart.Items;//refresh items in cart view
-                totalPrice.Content = cart.TotalPrice;//refresh total price of cart view
+                //items.ItemsSource = cart.Items;//refresh items in cart view
+                //totalPrice.Content = cart.TotalPrice;//refresh total price of cart view
                 if (cart.Items!.Count() == 0)//if the cart is empty you can not place the order, so if the cart is not empty you can press the place order button
                 {
                     placeOrderButton.IsEnabled = false;//place order button is pressable

@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PL.Admin"
+        xmlns:local="clr-namespace:PL.Admin" xmlns:BO="clr-namespace:BO;assembly=BL"
+        xmlns:PL="clr-namespace=PL"
         mc:Ignorable="d"
         Title="Identify" Height="450" Width="800">
     <Window.Resources>
@@ -71,6 +72,7 @@
 
         </Style>
     </Window.Resources>
+    
     <Grid>
 
         <Image Source="../pics/IdentifyPhoto.png" 
@@ -127,7 +129,7 @@
                 VerticalAlignment="Top" 
                 Click="Button_Click" 
                 FontSize="22"
-                BorderBrush="#FF262424">
+                BorderBrush="#FF262424" >
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" Opacity="0">
                     <GradientStop Color="Black" Offset="0"/>
@@ -137,6 +139,7 @@
             <Button.Style>
                 <Style BasedOn="{StaticResource myButtonStyle}" TargetType="{x:Type Button}">
                     <Setter Property="Background" Value="black" />
+                    <Setter Property="Visibility" Value="Visible"></Setter>
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type Button}">
@@ -154,6 +157,7 @@
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
+             
                 </Style>
             </Button.Style>
         </Button>
@@ -164,7 +168,6 @@
                 HorizontalAlignment="Left" 
                 Margin="50,93,0,0" 
                 VerticalAlignment="Top"
-                Visibility="Collapsed"
                 Height="67" Width="225" Click="orders_Click">
             <Button.Resources>
                 <Style TargetType="Border">
@@ -174,6 +177,7 @@
             <Button.Style>
                 <Style BasedOn="{StaticResource myButtonStyle}" TargetType="{x:Type Button}">
                     <Setter Property="Background" Value="black" />
+                    <Setter Property="Visibility" Value="Collapsed"/>
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type Button}">
@@ -190,6 +194,11 @@
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=login, Path=Visibility}" Value="Collapsed">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
                 </Style>
             </Button.Style>
         </Button>
@@ -197,8 +206,7 @@
                 Content="Products" 
                 HorizontalAlignment="Left" 
                 Margin="50,0,0,0" 
-                VerticalAlignment="Center"
-                Visibility="Collapsed" Height="65" Width="225" Click="products_Click">
+                VerticalAlignment="Center" Height="65" Width="225" Click="products_Click">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"></Setter>
@@ -207,6 +215,7 @@
             <Button.Style>
                 <Style BasedOn="{StaticResource myButtonStyle}" TargetType="{x:Type Button}">
                     <Setter Property="Background" Value="black" />
+                    <Setter Property="Visibility" Value="Collapsed"/>
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type Button}">
@@ -223,6 +232,11 @@
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=login, Path=Visibility}" Value="Collapsed">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
                 </Style>
             </Button.Style>
 

@@ -23,6 +23,7 @@ namespace PL.Orders
     public partial class OrderInfo : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get(); // get bl from factory
+
         int idRec = 0;
         public BO.Order order { get; set; }
         public bool manager { get; set; }

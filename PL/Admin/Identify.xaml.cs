@@ -27,6 +27,7 @@ namespace PL.Admin
         public Identify()//constructor
         {
             InitializeComponent();
+            //DataContext = this;
         }
 
         /// <summary>
@@ -36,11 +37,43 @@ namespace PL.Admin
         /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if((USER_NAME1==user.Text && PASSWORD1==password.Password) || (USER_NAME2 == user.Text && PASSWORD2 == password.Password))//if a correct password and username were inputted is is possible to log in
+            if((USER_NAME1==user.Text && PASSWORD1==password.Password) || (USER_NAME2 == user.Text && PASSWORD2 == password.Password))
+                //if a correct password and username were inputted is is possible to log in
             {
                 login.Visibility = Visibility.Collapsed;
-                products.Visibility = Visibility.Visible;
-                orders.Visibility = Visibility.Visible;
+
+                // trying to make this xaml 
+
+                /*
+                        <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=Click}" Value="True" ></Condition>
+                                <Condition Binding="{Binding ElementName=user, Path=Text}" Value="talel"></Condition>
+                                <Condition Binding="{Binding ElementName=password, Path=Text}" Value="123456"></Condition>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter Property="Visibility" Value="Collapsed" ></Setter>
+                            </MultiDataTrigger.Setters>
+                            
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=ClickMode, Mode=OneWay}" Value="Press" ></Condition>
+                                <Condition Binding="{Binding ElementName=user, Path=Text}" Value="noa"></Condition>
+                                <Condition Binding="{Binding ElementName=password, Path=Text}" Value="111111"></Condition>
+                                
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter Property="Visibility" Value="Collapsed" ></Setter>
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                 */
+
+                // IN XAML
+                //products.Visibility = Visibility.Visible;
+                //orders.Visibility = Visibility.Visible;
             }
             else//incorrect information was inputted
             {

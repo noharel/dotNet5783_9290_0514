@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Products"
-        xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:BO="clr-namespace:BO;assembly=BL"
         mc:Ignorable="d"
         Title="ProductWindow" Height="450" Width="800">
     <Window.Resources>
@@ -65,6 +65,9 @@
                     Value="White"/>
         </Style>
     </Window.Resources>
+    <Window.DataContext>
+        <BO:ProductForList/>
+    </Window.DataContext>
     <Grid>
         <Image Name="informationLogo" 
                Source="../pics/information.png" HorizontalAlignment="Left" 

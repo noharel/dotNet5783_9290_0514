@@ -39,7 +39,7 @@ public partial class ProductWindow : Window
             completeAdd.Visibility = Visibility.Collapsed; // add button not available
             completeUpdate.Visibility = Visibility.Visible; 
             int id = product.ID;
-            
+            DataContext = product;
             // put all the values of the product
             inputID.Text=id.ToString();
             inputName.Text=product.Name;

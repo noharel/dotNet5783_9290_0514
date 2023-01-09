@@ -20,18 +20,12 @@ namespace PL.Carts
     public partial class productItem : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get();  // get bl
-        public bool soldout { get; set; }
-        public BO.ProductItem p { get; set; }
         public productItem(BO.ProductItem prodItem)//constructor
         {
             try
             {
                 InitializeComponent();
-                p = prodItem;
-                this.DataContext = p;
-                soldout = !prodItem.InStock;
-                //if (prodItem.InStock)//for in stock
-                    //inStock.Text = "Product is currently in stock";
+                this.DataContext = prodItem;
             }
             catch(BO.DoesntExistExeption ex)//catch for GetProductInfo_client
             {

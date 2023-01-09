@@ -5,9 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Orders" xmlns:BO="clr-namespace:BO;assembly=BL"
         xmlns:PL="clr-namespace=PL"
+        xmlns:converter="clr-namespace:PL.Converter"
+
         mc:Ignorable="d"
         Title="OrderInfo" Height="450" Width="800">
     <Window.Resources>
+        <converter:StatusToVisibiltyForArrivedConverter x:Key="statToVisArrived"/>
+        <converter:StatusToVisibiltyForShippedConverter x:Key="statToVisShipped"/>
+
+        
         <Style x:Key="myListViewStyle"
            TargetType="ListView">
             <Setter Property="FontSize"

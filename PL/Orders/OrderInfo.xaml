@@ -168,7 +168,7 @@
                  Text="{Binding OrderDate}" 
                  VerticalAlignment="Top" 
                  Style="{StaticResource myTextBoxStyle}"
-                 Width="120" Grid.Column="2"/>
+                 Width="161" Grid.Column="2"/>
         <Label Name="labelShipDate"
                Content="Date of shipment:" 
                HorizontalAlignment="Left" 
@@ -182,7 +182,7 @@
                  Text="{Binding ShipDate}" 
                  VerticalAlignment="Top" 
                  Style="{StaticResource myTextBoxStyle}"
-                 Width="120" Grid.Column="2"/>
+                 Width="148" Grid.Column="2"/>
         <Label Name="labelArrivalDate" 
                Content="Date of arrival:" 
                HorizontalAlignment="Left" 
@@ -196,7 +196,7 @@
                  Text="{Binding DeliveryrDate}" 
                  VerticalAlignment="Top" 
                  Style="{StaticResource myTextBoxStyle}"
-                 Width="120" Grid.Column="2"/>
+                 Width="153" Grid.Column="2"/>
         <Label Content="Status of order:" 
                HorizontalAlignment="Center" 
                Margin="0,144,0,0" 

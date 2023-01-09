@@ -72,7 +72,11 @@
         <Line X1="10" Y1="60"
      X2="2000" Y2="60"
      Stroke="Black"
-     StrokeThickness="7" Margin="-44,10,16,-12"/>
+     StrokeThickness="7" Margin="118,20,-146,-22">
+            <Line.RenderTransform>
+                <RotateTransform Angle="90"/>
+            </Line.RenderTransform>
+        </Line>
 
         <Image Name="informationLogo" 
                Source="../pics/information.png" HorizontalAlignment="Left" 

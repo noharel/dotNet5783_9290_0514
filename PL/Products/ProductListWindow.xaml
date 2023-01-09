@@ -148,6 +148,5 @@
             </Button.Resources>
         </Button>
         <Image Source="../pics/listOfCarts.png" HorizontalAlignment="Left" Height="302" Margin="-166,37,0,0" Grid.Row="1" VerticalAlignment="Top" Width="436"/>
-
     </Grid>
 </Window>

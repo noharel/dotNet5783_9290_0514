@@ -26,7 +26,7 @@ namespace PL.Carts
         {
             InitializeComponent();
             cart = c;
-            DataContext = cart;
+            //DataContext = cart;
 
             //items.ItemsSource = cart.Items;//initailze items in cart
             //totalPrice.Content = cart.TotalPrice;//initialize total proce

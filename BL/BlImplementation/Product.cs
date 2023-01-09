@@ -30,7 +30,7 @@ internal class Product : BlApi.IProduct
         {
             //gets a list of DO.products from dl and turns it into list of BO.products
             List<DO.Product?> productList = Dal.Product.GetAll().ToList();
-
+            productList.Sort((x, y) => x!.Value.Name!.CompareTo(y!.Value.Name));//to make the products in alphabetical order according to thier name
 
             //for every item in productList add its content to ProductForList
             productList.ForEach(delegate (DO.Product? var)
@@ -58,7 +58,7 @@ internal class Product : BlApi.IProduct
         {
             //gets a list of DO.products from dl and turns it into list of BO.products
             List<DO.Product?> productList = Dal.Product.GetAll().ToList();
-
+            productList.Sort((x, y) => x!.Value.Name!.CompareTo(y!.Value.Name));//to make the products in alphabetical order according to thier name
             //for every item in productList add its content to ProductForList
             productList.ForEach(delegate (DO.Product? var)
             {
@@ -67,17 +67,10 @@ internal class Product : BlApi.IProduct
                 productForLists.Add(productForListsTemp);
             });
 
-            //        CHANGE TO LINQ
-            //foreach (DO.Product? var in productList)//for every item in productList add its content to ProductForList
-            //{
-            //    BO.ProductForList productForListsTemp = new BO.ProductForList { ID = (int)var?.ID!, Name = var?.Name, Category = (BO.Category)var?.Category!, Price = (double)var?.Price! };
-            //    productForLists.Add(productForListsTemp);
-            //}
 
             IEnumerable<BO.ProductForList> productForListsFiltered = (from x in productForLists//filters list of all products
                                                                       where filter!(x)
                                                                       select x).ToList();
-
             return productForListsFiltered;
         }
 

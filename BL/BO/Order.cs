@@ -18,7 +18,7 @@ public class Order
     public DateTime? ShipDate { get; set; }//date of ship
     public DateTime? DeliveryrDate { get; set; }//date of delivery
     public OrderStatus Status { get; set; }//status of order
-    public IEnumerable<BO.OrderItem>? Items { get; set; }//list of items
+    public List<BO.OrderItem>? Items { get; set; }//list of items
     public double TotalPrice { get; set; }
 
     public override string ToString()//for printing

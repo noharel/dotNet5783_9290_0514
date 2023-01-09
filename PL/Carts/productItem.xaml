@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Carts"
+        xmlns:BO="clr-namespace:BO;assembly=BL"
         mc:Ignorable="d"
         Title="productItem" Height="450" Width="800">
     <Window.Resources>
@@ -72,7 +73,11 @@
                     Value="50"/>
         </Style>
     </Window.Resources>
-    <Grid>
+    <Window.DataContext>
+        <BO:ProductItem/>
+    </Window.DataContext>
+
+    <Grid Name="mainGrid">
         <Image Source="..\pics\productItem.jpg" Margin="-110,0,-118,-144"></Image>
 
         <Label Content="LUXARY CAR DEALERSHIP" 
@@ -101,7 +106,7 @@
                  HorizontalAlignment="Left" 
                  Margin="518,64,0,0" 
                  TextWrapping="Wrap" 
-                 Text="id" 
+                 Text="{Binding ID}" 
                  VerticalAlignment="Top" 
                  FontSize="20"
                  Style="{StaticResource myTextBoxStyle}"
@@ -123,7 +128,7 @@
                  HorizontalAlignment="Left" 
                  Margin="265,107,0,0" 
                  TextWrapping="Wrap" 
-                 Text="name" 
+                 Text="{Binding Name}" 
                  VerticalAlignment="Top" 
                  Style="{StaticResource myTextBoxStyle}"
                  Width="120">
@@ -144,7 +149,7 @@
                  HorizontalAlignment="Left" 
                  Margin="294,144,0,0" 
                  TextWrapping="Wrap" 
-                 Text="category" 
+                 Text="{Binding Category}" 
                  VerticalAlignment="Top" 
                  Style="{StaticResource myTextBoxStyle}"
                  Width="120">
@@ -165,7 +170,7 @@
                  HorizontalAlignment="Center" 
                  Margin="0,183,0,0" 
                  TextWrapping="Wrap" 
-                 Text="amount" 
+                 Text="{Binding Amount}" 
                  VerticalAlignment="Top" 
                  Style="{StaticResource myTextBoxStyle}"
                  Width="120">
@@ -182,7 +187,20 @@
                  Style="{StaticResource myTextBoxStyle}"
                  Width="288" FontSize="18">
             <TextBox.Background>
-                <SolidColorBrush Color="White" Opacity="0.5"/>
+                <SolidColorBrush Color="White" Opacity="1"/>
+            </TextBox.Background>
+        </TextBox>
+        <TextBox 
+                 HorizontalAlignment="Left" 
+                 Margin="196,238,0,0" 
+                 TextWrapping="Wrap" 
+                 Text="Product is currently in stock" 
+                 Visibility="{Binding InStock}"
+                 VerticalAlignment="Top" 
+                 Style="{StaticResource myTextBoxStyle}"
+                 Width="288" FontSize="18">
+            <TextBox.Background>
+                <SolidColorBrush Color="White" Opacity="1"/>
             </TextBox.Background>
         </TextBox>
     </Grid>

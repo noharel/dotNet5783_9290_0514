@@ -85,7 +85,7 @@ internal class Order : BlApi.IOrder
                         status = BO.OrderStatus.Arrived;
 
                     // RETURN THE NEW ORDER
-                    return new BO.Order() { Items = BOlistOrder, ID = newOrder.ID, CustomerAddress = newOrder.CustomerAddress, CustomerEmail = newOrder.CustomerEmail, ShipDate = newOrder.ShipDate, OrderDate = newOrder.OrderDate, DeliveryrDate = newOrder.DeliveryrDate, CustomerName = newOrder.CustomerName, TotalPrice = totalPriceOrder, Status = status };
+                    return new BO.Order() { Items = BOlistOrder.ToList(), ID = newOrder.ID, CustomerAddress = newOrder.CustomerAddress, CustomerEmail = newOrder.CustomerEmail, ShipDate = newOrder.ShipDate, OrderDate = newOrder.OrderDate, DeliveryrDate = newOrder.DeliveryrDate, CustomerName = newOrder.CustomerName, TotalPrice = totalPriceOrder, Status = status };
                 }
                 catch (DO.DoesntExistExeption e) // CATCH GETLISTORDER FUNCTION EXCPETION 
                 {

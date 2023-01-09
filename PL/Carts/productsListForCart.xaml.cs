@@ -137,7 +137,9 @@ namespace PL.Carts
         {
             Button button = (Button)sender;
             int id = ((BO.ProductForList?)button.DataContext)!.ID;
-            var hg = new Carts.productItem(id, cart!); // open ProductItem window to view information of product
+            BO.ProductItem prodItem = bl.Product.GetProductInfo_client(id, cart); //Get Product in cart Info for client
+
+            var hg = new Carts.productItem(prodItem); // open ProductItem window to view information of product
             hg.ShowDialog(); // open 
         }
         /// <summary>

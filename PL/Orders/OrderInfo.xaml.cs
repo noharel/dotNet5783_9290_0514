@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -23,32 +24,27 @@ namespace PL.Orders
     {
         BlApi.IBl? bl = BlApi.Factory.Get(); // get bl from factory
         int idRec = 0;
-        BO.Order order;
+        public BO.Order order { get; set; }
+        public bool manager { get; set; }
         public OrderInfo(int x = 0, bool managerUpdate = false) // consturctor
         {
         
             InitializeComponent();
             idRec = x; // for all the functions will have the id
-
+            manager = managerUpdate;
             
             try
             {
                 //update the infomation in the window
                 order = bl.Order.OrderInfo(x);
-                id.Text = x.ToString();
-                name.Text = order.CustomerName;
-                address.Text = order.CustomerAddress;
-                email.Text = order.CustomerEmail;
-                orderDate.Text = order.OrderDate.ToString();
-                status.Text = order.Status.ToString();
-                totalPrice.Text = order.TotalPrice.ToString();
-                products.ItemsSource = order.Items!.ToList();
-
+                this.DataContext = this;
                 if (order.Status != BO.OrderStatus.Ordered) // if shipped or delivered
                 {
-                    shipDate.Text = order.ShipDate.ToString(); // ship date
-                    if (order.Status == BO.OrderStatus.Arrived) // if arrived
-                        arrivalDate.Text = order.DeliveryrDate.ToString(); // arrival date
+                    int A;
+                    //shipDate.Text = order.ShipDate.ToString(); // ship date
+                    if (order.Status == BO.OrderStatus.Arrived)
+                        A = 1;// if arrived
+                                  //arrivalDate.Text = order.DeliveryrDate.ToString(); // arrival date
                     else // if not arrived
                     {
                         // no need in arrival text and label

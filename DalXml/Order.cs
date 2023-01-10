@@ -19,7 +19,7 @@ internal class Order : IOrder
 
     public void Delete(int id)
     {
-        throw new NotImplementedException();
+        
     }
 
     public IEnumerable<DO.Order?> GetAll(Func<DO.Order?, bool>? filter = null)

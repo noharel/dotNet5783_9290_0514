@@ -684,6 +684,7 @@ internal class BlTest
     {
         BlApi.IBl? bl = BlApi.Factory.Get(); // DalList object Type
 
+
         string? ch;
         do
         {

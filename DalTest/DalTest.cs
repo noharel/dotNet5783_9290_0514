@@ -8,7 +8,7 @@ using System.Xml.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Linq.Expressions;
 
-//linq done - besides where we need to print each item
+//linq done
 
 namespace DalTest;
 partial class DalTest
@@ -90,11 +90,7 @@ partial class DalTest
             // goes through all the products and prints them
             product.GetAll().ToList().ForEach(delegate (Product? product_from_list) { Console.WriteLine(product_from_list); });
 
-            //  CHANGE TO LINQ
-            //foreach (Product? product_from_list in product.GetAll()) // goes through all the products,there is no linq to do this
-            //{
-            //    Console.WriteLine(product_from_list); 
-            //}
+           
         }
 
         if (ch == "d") // update

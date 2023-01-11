@@ -19,12 +19,12 @@ public class DalOrder : IOrder // A CLASS THAT IMPLEMENTS THE INTERFACE IORDER
     {
         if (_ds._orders == null) // there are no orders
             throw new DoesntExistExeption("Products list does not exist");
-        
-        List< Order?>? orderCheck;
+
+        List<Order?>? orderCheck;
 
         orderCheck = _ds._orders.Where(item => item?.ID == order.ID).ToList();
 
-        if (orderCheck.Count()==0) // if there is no order with the same id
+        if (orderCheck.Count() == 0) // if there is no order with the same id
         {
             // Add and return
             _ds._orders.Add(order);
@@ -39,7 +39,7 @@ public class DalOrder : IOrder // A CLASS THAT IMPLEMENTS THE INTERFACE IORDER
     /// </summary>
     /// <param name="id"></param>
     /// <exception cref="DoesntExistExeption"></exception>
-    public void Delete(int id) 
+    public void Delete(int id)
     {
         try
         {
@@ -47,7 +47,7 @@ public class DalOrder : IOrder // A CLASS THAT IMPLEMENTS THE INTERFACE IORDER
             Order o = GetById(id);
             o.IsDeleted = true;
         }
-        catch(DO.DoesntExistExeption e)
+        catch (DO.DoesntExistExeption e)
         {
             throw e;
         }
@@ -83,7 +83,7 @@ public class DalOrder : IOrder // A CLASS THAT IMPLEMENTS THE INTERFACE IORDER
     /// <param name="filter"></param>
     /// <returns></returns>
     /// <exception cref="DoesntExistExeption"></exception>
-    public Order? GetById(Func<Order?, bool>? filter)=>
+    public Order? GetById(Func<Order?, bool>? filter) =>
         (filter == null ?
         _ds?._orders.Select(item => item).FirstOrDefault() :
         _ds?._orders.Where(filter).FirstOrDefault()) // choose the order by the filter
@@ -100,8 +100,8 @@ public class DalOrder : IOrder // A CLASS THAT IMPLEMENTS THE INTERFACE IORDER
         if (_ds._orders == null)
             throw new DoesntExistExeption("Missing order id");
         return _ds!._orders.Where(o => o?.ID == id).FirstOrDefault() //choose the order by the id
-            ?? throw new DoesntExistExeption("Missing order id"); 
-        
+            ?? throw new DoesntExistExeption("Missing order id");
+
     }
 
     /// <summary>
@@ -109,7 +109,7 @@ public class DalOrder : IOrder // A CLASS THAT IMPLEMENTS THE INTERFACE IORDER
     /// </summary>
     /// <param name="order"></param>
     /// <exception cref="DoesntExistExeption"></exception>
-    public void Update(Order order) 
+    public void Update(Order order)
     {
         if (_ds._orders == null) throw new DoesntExistExeption("Products list does not exist");
 
@@ -122,9 +122,9 @@ public class DalOrder : IOrder // A CLASS THAT IMPLEMENTS THE INTERFACE IORDER
     /// GET ALL ORDERS
     /// </summary>
     /// <returns></returns>
-    public IEnumerable<Order?> GetAll() 
+    public IEnumerable<Order?> GetAll()
     {
-        IEnumerable<Order?> list=(from Order? _orders in _ds._orders select _orders).ToList();
+        IEnumerable<Order?> list = (from Order? _orders in _ds._orders select _orders).ToList();
         if (list == null)
             new DoesntExistExeption("Missing order");
         return list!; // return the orders

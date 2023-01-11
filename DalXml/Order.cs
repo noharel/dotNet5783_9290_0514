@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Linq;
+using System.Xml.Serialization;
 
 using DalApi;
 using DO;
@@ -10,46 +12,68 @@ namespace Dal;
 
 internal class Order : IOrder
 {
+    //DalApi.IDal Dal = DalApi.Factory.Get(); //DalList object Type
+
     const string s_orders = "orders"; //XML Serializer
 
     public IEnumerable<DO.Order?> GetAll(Func<DO.Order?, bool>? filter = null)
     {
         var listOrders = XMLTools.LoadListFromXMLSerializer<DO.Order>(s_orders)!;
-        return filter == null ? listOrders.OrderBy(lec => ((DO.Order)lec!).ID)
-                              : listOrders.Where(filter).OrderBy(lec => ((DO.Order)lec!).ID);
+        return filter == null ? listOrders.OrderBy(o => ((DO.Order)o!).ID)
+                              : listOrders.Where(filter).OrderBy(o => ((DO.Order)o!).ID);
     }
 
-    DalApi.IDal Dal = DalApi.Factory.Get(); //DalList object Type
-    public int Add(DO.Order item)
+    public int Add(DO.Order order)
     {
-        int id = Dal.Order.Add(item);
-        return Dal.Order.Add(item);
+    
+        var listLecturers = XMLTools.LoadListFromXMLSerializer<DO.Order>(s_orders);
+
+        if (listLecturers.Exists(o => o?.ID == order.ID))
+            throw new DO.AlreadyExistExeption("id already exist");
+
+        listLecturers.Add(order);
+
+        XMLTools.SaveListToXMLSerializer(listLecturers, s_orders);
+
+        return order.ID;
     }
 
     public void Delete(int id)
     {
-        
+        var listOrders = XMLTools.LoadListFromXMLSerializer<DO.Order>(s_orders);
+
+        if (listOrders.RemoveAll(p => p?.ID == id) == 0)
+            throw new DO.DoesntExistExeption("missing id");
+
+        XMLTools.SaveListToXMLSerializer(listOrders, s_orders);
     }
 
    
 
     public IEnumerable<DO.Order?> GetAll()
     {
-        throw new NotImplementedException();
+        var listOrders = XMLTools.LoadListFromXMLSerializer<DO.Order>(s_orders)!;
+        return listOrders.OrderBy(o => ((DO.Order)o!).ID);
     }
 
     public DO.Order GetById(int id)
     {
-        throw new NotImplementedException();
+        return XMLTools.LoadListFromXMLSerializer<DO.Order>(s_orders).FirstOrDefault(o => o?.ID == id) 
+            ?? throw new DO.DoesntExistExeption("missing id");
+    }
+
+
+
+    public void Update(DO.Order order)
+    {
+        Delete(order.ID);
+        Add(order);
     }
 
     public DO.Order? GetById(Func<DO.Order?, bool>? filter)
     {
-        throw new NotImplementedException();
-    }
 
-    public void Update(DO.Order item)
-    {
-        throw new NotImplementedException();
+        var listOrders = XMLTools.LoadListFromXMLSerializer<DO.Order>(s_orders)!;
+        return listOrders.Where(filter!).OrderBy(o => ((DO.Order)o!).ID).FirstOrDefault();
     }
 }

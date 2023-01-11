@@ -19,10 +19,8 @@ public class DalProduct: IProduct // A CLASS THAT IMPLEMENTS THE INTERFACE IProd
     {
         if (_ds._products == null) // there are no products
             throw new DoesntExistExeption("Products list does not exist");
-
         List<Product?>? productCheck;
         productCheck = _ds._products.Where(item=>item?.ID== product.ID).ToList(); //GET ALL THE PRODUCTS WITH THE SAME ID
-      
         if (productCheck.Count==0) // if there is no product with the same id
         {
             // Add and return
@@ -31,8 +29,6 @@ public class DalProduct: IProduct // A CLASS THAT IMPLEMENTS THE INTERFACE IProd
         }
         else // The ID is in use
             throw new AlreadyExistExeption("The prouct ID number is already exist");
-
-
     }
 
     /// <summary>
@@ -95,7 +91,6 @@ public class DalProduct: IProduct // A CLASS THAT IMPLEMENTS THE INTERFACE IProd
             throw new DoesntExistExeption("there are no products");
         return _ds._products.Where(p => p?.ID == id).FirstOrDefault() // choose product by id
             ?? throw new DoesntExistExeption("Missing product id");
-
     }
 
     /// <summary>
@@ -106,7 +101,6 @@ public class DalProduct: IProduct // A CLASS THAT IMPLEMENTS THE INTERFACE IProd
     public void Update(Product product)  
     {
         if (_ds._products == null) throw new DoesntExistExeption("Products list does not exist");
-
         _ds._products.Remove(GetById(product.ID)); //remove the old one
         _ds._products.Add(product);  //add new one
     }

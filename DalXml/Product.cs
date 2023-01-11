@@ -12,7 +12,7 @@ namespace Dal;
 
 internal class Product : IProduct
 {
-    int ICrud<DO.Product>.Add(DO.Product product)
+    public int Add(DO.Product product)
     {
         XmlSerializer myDeserilizer = new XmlSerializer(typeof(Dal.Product));
         FileStream myfilestream = new FileStream("\\dotNet5783_9290_0514\\xml\\product.xml\"", FileMode.Open);
@@ -36,7 +36,7 @@ internal class Product : IProduct
         }
     }
 
-    DO.Product ICrud<DO.Product>.GetById(int id)
+    public DO.Product GetById(int id)
     {
         XmlSerializer myDeserilizer = new XmlSerializer(typeof(Dal.Product));
         FileStream myfilestream = new FileStream("\\dotNet5783_9290_0514\\xml\\product.xml\"", FileMode.Open);
@@ -50,7 +50,7 @@ internal class Product : IProduct
             ?? throw new DoesntExistExeption("Missing product id");
     }
 
-    void ICrud<DO.Product>.Update(DO.Product product)
+    public void Update(DO.Product product)
     {
         XmlSerializer myDeserilizer = new XmlSerializer(typeof(Dal.Product));
         FileStream myfilestream = new FileStream("\\dotNet5783_9290_0514\\xml\\product.xml\"", FileMode.Open);
@@ -70,7 +70,7 @@ internal class Product : IProduct
         myfilestream.Close();
     }
 
-    void ICrud<DO.Product>.Delete(int id)
+    public void Delete(int id)
     {
         XmlSerializer myDeserilizer = new XmlSerializer(typeof(Dal.Product));
         FileStream myfilestream = new FileStream("\\dotNet5783_9290_0514\\xml\\product.xml\"", FileMode.Open);
@@ -93,7 +93,7 @@ internal class Product : IProduct
         }
     }
 
-    IEnumerable<DO.Product?> ICrud<DO.Product>.GetAll(Func<DO.Product?, bool>? filter)
+    public IEnumerable<DO.Product?> GetAll(Func<DO.Product?, bool>? filter)
     {
         XmlSerializer myDeserilizer = new XmlSerializer(typeof(Dal.Product));
         FileStream myfilestream = new FileStream("\\dotNet5783_9290_0514\\xml\\product.xml\"", FileMode.Open);
@@ -106,7 +106,7 @@ internal class Product : IProduct
         ?? throw new DoesntExistExeption("Missing product");
     }
 
-    DO.Product? ICrud<DO.Product>.GetById(Func<DO.Product?, bool>? filter)
+    public DO.Product? GetById(Func<DO.Product?, bool>? filter)
     {
         XmlSerializer myDeserilizer = new XmlSerializer(typeof(Dal.Product));
         FileStream myfilestream = new FileStream("\\dotNet5783_9290_0514\\xml\\product.xml\"", FileMode.Open);
@@ -120,7 +120,7 @@ internal class Product : IProduct
      ?? throw new DO.DoesntExistExeption("Missing product");
     }
 
-    IEnumerable<DO.Product?> ICrud<DO.Product>.GetAll()
+    public IEnumerable<DO.Product?> GetAll()
     {
         XmlSerializer myDeserilizer = new XmlSerializer(typeof(Dal.Product));
         FileStream myfilestream = new FileStream("\\dotNet5783_9290_0514\\xml\\product.xml\"", FileMode.Open);

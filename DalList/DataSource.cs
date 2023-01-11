@@ -31,7 +31,7 @@ internal class DataSource
     String[] customers = { "Miley Cyrus","Coco Chanel", "Demi Lovato", "Sabrina Carpenter","Jusstin Beiber", "Chris Hemsworth",
         "Cardi B", "Nicki MInaj","Katy Perry","Shawn Mendes","Kim Kardshian", "Selena Gomez", "Taylor Swift","Adam Levine",
         "Kylie Jenner","Camilla Cabello","Meghan Trainer", "Harry Styles", "Zara Larsson", "Gigi Hadid", "Bella Hadid","Dua Lipa",
-        "Ariana Grande","Riahana"};
+        " ","Riahana"};
     
     String[] cars = {"X8","E20","LS","Q8","CLS","A9","E-tron","Class","Bentayaga","NT","Series 3","F-Type","XC40",
         "MODEL 2","INFINITI","XJ","Phantom"};

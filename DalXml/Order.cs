@@ -10,6 +10,15 @@ namespace Dal;
 
 internal class Order : IOrder
 {
+    const string s_orders = "orders"; //XML Serializer
+
+    public IEnumerable<DO.Order?> GetAll(Func<DO.Order?, bool>? filter = null)
+    {
+        var listOrders = XMLTools.LoadListFromXMLSerializer<DO.Order>(s_orders)!;
+        return filter == null ? listOrders.OrderBy(lec => ((DO.Order)lec!).ID)
+                              : listOrders.Where(filter).OrderBy(lec => ((DO.Order)lec!).ID);
+    }
+
     DalApi.IDal Dal = DalApi.Factory.Get(); //DalList object Type
     public int Add(DO.Order item)
     {
@@ -22,10 +31,7 @@ internal class Order : IOrder
         
     }
 
-    public IEnumerable<DO.Order?> GetAll(Func<DO.Order?, bool>? filter = null)
-    {
-        throw new NotImplementedException();
-    }
+   
 
     public IEnumerable<DO.Order?> GetAll()
     {

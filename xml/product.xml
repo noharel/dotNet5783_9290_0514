@@ -168,12 +168,4 @@
     <InStock>11</InStock>
     <IsDeleted>false</IsDeleted>
   </Product>
-  <Product>
-    <ID>100022</ID>
-    <Name>naaa</Name>
-    <Price>111111</Price>
-    <Category>BMW</Category>
-    <InStock>11</InStock>
-    <IsDeleted></IsDeleted>
-  </Product>
 </product>

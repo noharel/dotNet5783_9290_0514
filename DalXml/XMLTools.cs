@@ -23,6 +23,8 @@ static class XMLTools
 
     public static DateTime? ToDateTimeNullable(this XElement element, string name) =>
         DateTime.TryParse((string?)element.Element(name), out var result) ? (DateTime?)result : null;
+    public static bool? ToBoolNullable(this XElement element, string name) =>
+        bool.TryParse((string?)element.Element(name), out var result) ? (bool?)result : null;
 
     public static double? ToDoubleNullable(this XElement element, string name) =>
         double.TryParse((string?)element.Element(name), out var result) ? (double?)result : null;

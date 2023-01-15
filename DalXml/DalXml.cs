@@ -10,7 +10,7 @@ using System.Diagnostics;
 
 namespace Dal;
 
-sealed class DalXml:IDal
+sealed internal class DalXml:IDal
 {
     public static IDal Instance { get; } = new DalXml(); // singelton
 

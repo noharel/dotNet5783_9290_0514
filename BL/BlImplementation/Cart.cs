@@ -17,7 +17,7 @@ namespace BlImplementation;
 internal class Cart : BlApi.ICart
 {
 
-    DalApi.IDal Dal = DalApi.Factory.Get(); //DalList object Type
+    readonly DalApi.IDal Dal = DalApi.Factory.Get(); //DalList object Type
 
     /// <summary>
     /// ADD A PRODUCT TO CART
@@ -29,7 +29,7 @@ internal class Cart : BlApi.ICart
     /// <exception cref="BO.DoesntExistExeption"></exception>
     public BO.Cart AddProductToCart(BO.Cart cart, int id)
     {
-        BO.OrderItem orderItem = new BO.OrderItem();
+        BO.OrderItem orderItem = new();
         orderItem = cart.Items!.Where(p => p.ProductID == id).FirstOrDefault()!; //choose the orderitem with the same product id
 
         if (orderItem != null)//THR PPRODUCT IS IN THE CART
@@ -40,9 +40,9 @@ internal class Cart : BlApi.ICart
                 {
                     // Update amount, price, total price of item and total price of cart
                     orderItem.Amount++;
-                    orderItem.Price = Dal.Product.GetById(id).Price;
+                    orderItem.Price = (double)Dal.Product.GetById(id).Price!;
                     orderItem.TotalPrice = orderItem.Price * orderItem.Amount;
-                    cart.TotalPrice += Dal.Product.GetById(id).Price;
+                    cart.TotalPrice += (double)Dal.Product.GetById(id).Price!;
                 }
                 else // The product is not in stock
                 {
@@ -64,7 +64,7 @@ internal class Cart : BlApi.ICart
                     ///makes sure that the id that we crate for product is not already a product id
                     int temp;
                     List<DO.Product> listProduct;
-                    Random rand = new Random(); // for product id
+                    Random rand = new(); // for product id
                     do
                     {
                         temp = rand.Next(1000, 9999); // raffels 
@@ -75,9 +75,9 @@ internal class Cart : BlApi.ICart
                     } while (listProduct.Count > 0); //stops when it finds an id which is not already used
 
                     // makes the product
-                    BO.OrderItem newOrderItem = new BO.OrderItem() { ID = rand.Next(1000, 9999), Name = product.Name, ProductID = product.ID, Price = product.Price, Amount = 1, TotalPrice = product.Price };
+                    BO.OrderItem newOrderItem = new() { ID = rand.Next(1000, 9999), Name = product.Name, ProductID = product.ID, Price = (double)product.Price!, Amount = 1, TotalPrice = (double)product.Price };
                     cart.Items!.Add(newOrderItem); // ADD
-                    cart.TotalPrice += product.Price;  //Update the total price of cart
+                    cart.TotalPrice += (double)product.Price;  //Update the total price of cart
                 }
                 else  // The product is not in stock
                 {
@@ -104,7 +104,7 @@ internal class Cart : BlApi.ICart
     /// <exception cref="BO.ContradictoryDataExeption"></exception>
     public BO.Cart UpdateAmountInCart(BO.Cart cart, int id, int amount)
     {
-        List<BO.OrderItem> ourItem = new List<BO.OrderItem>(from var in cart.Items
+        List<BO.OrderItem> ourItem = new (from var in cart.Items
                                                             where var.ProductID == id
                                                             select var); // get the product 
         BO.OrderItem ourOrderItem = ourItem!.FirstOrDefault()!;
@@ -207,7 +207,7 @@ internal class Cart : BlApi.ICart
             flag = flag && cart.CustomerName != null && cart.CustomerEmail != null && cart.CustomerAddress != null; //strings are not null
             if (flag) //valid values
             {
-                Random rand = new Random();
+                Random rand = new();
                 try
                 {
                     //makes sure that the id that we crate for order is not already an order id
@@ -223,7 +223,7 @@ internal class Cart : BlApi.ICart
                     } while (listOrder.Count > 0); //stops when it finds an id which is not already used
 
                     // make the order with dates null besides order date
-                    DO.Order newOrder = new DO.Order() { ID = temp, CustomerAddress = cart.CustomerAddress, CustomerEmail = cart.CustomerEmail, CustomerName = cart.CustomerName, OrderDate = DateTime.Now, IsDeleted = false };
+                    DO.Order newOrder = new() { ID = temp, CustomerAddress = cart.CustomerAddress, CustomerEmail = cart.CustomerEmail, CustomerName = cart.CustomerName, OrderDate = DateTime.Now, IsDeleted = false };
                     try
                     {
                         int newOrderID = Dal.Order.Add(newOrder);  //ADD order
@@ -237,7 +237,7 @@ internal class Cart : BlApi.ICart
                             {
                                 Dal.OrderItem.Add(var); //ADD item
                                 DO.Product newProduct = Dal.Product.GetById(var.PrudoctID); // get the product id for update his amount
-                                DO.Product updateProduct = new DO.Product() { ID = newProduct.ID, Name = newProduct.Name, Price = newProduct.Price, Category = newProduct.Category, InStock = newProduct.InStock - var.Amount, IsDeleted = false };
+                                DO.Product updateProduct = new() { ID = newProduct.ID, Name = newProduct.Name, Price = newProduct.Price, Category = newProduct.Category, InStock = newProduct.InStock - var.Amount, IsDeleted = false };
                                 Dal.Product.Update(updateProduct); //update amount
                             }
                             catch (DO.DoesntExistExeption e) // catch exception from GetById/ADD/Update

@@ -90,7 +90,7 @@ internal class Product : BlApi.IProduct
         try
         {
             DO.Product newProduct = Dal.Product.GetById(id);//get product from dal with the id
-            return new BO.Product { ID = newProduct.ID, Name = newProduct.Name, Price = newProduct.Price, Category = (BO.Category)newProduct.Category!, InStock = newProduct.InStock };
+            return new BO.Product { ID = newProduct.ID, Name = newProduct.Name, Price = (double)newProduct.Price!, Category = (BO.Category)newProduct.Category!, InStock = (int)newProduct.InStock! };
         }
         catch (DO.DoesntExistExeption e)//catch exception for GetByID
         {
@@ -121,7 +121,7 @@ internal class Product : BlApi.IProduct
                 {
                     if (var.ProductID == product.ID) amount = var.Amount;
                 });
-                BO.ProductItem item = new BO.ProductItem { ID = product.ID, Name = product.Name, Price = product.Price, Category = (BO.Category)product.Category!, Amount = amount, InStock = ifInStock };
+                BO.ProductItem item = new BO.ProductItem { ID = product.ID, Name = product.Name, Price = (double)product.Price!, Category = (BO.Category)product.Category!, Amount = amount, InStock = ifInStock };
                 return item;
             }
             catch (DO.DoesntExistExeption e)//catch for GetByID

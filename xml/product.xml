@@ -65,14 +65,6 @@
     <IsDeleted>false</IsDeleted>
   </Product>
   <Product>
-    <ID>100010</ID>
-    <Name>XC40</Name>
-    <Price>2247680</Price>
-    <Category>BMW</Category>
-    <InStock>16</InStock>
-    <IsDeleted>false</IsDeleted>
-  </Product>
-  <Product>
     <ID>100011</ID>
     <Name>F-Type</Name>
     <Price>899769</Price>
@@ -166,6 +158,14 @@
     <Price>2941659</Price>
     <Category>LandRover</Category>
     <InStock>0</InStock>
+    <IsDeleted>false</IsDeleted>
+  </Product>
+  <Product>
+    <ID>100010</ID>
+    <Name>XC40</Name>
+    <Price>2247680</Price>
+    <Category>BMW</Category>
+    <InStock>15</InStock>
     <IsDeleted>false</IsDeleted>
   </Product>
 </product>

@@ -9,19 +9,17 @@ using DalApi;
 using DO;
 
 namespace Dal;
-
-internal class Order : IOrder
+public struct ImportentNumbers
 {
 
+    public int numberSaved { get; set; }
+    public string typeOfnumber { get; set; }
 
-    public struct ImportentNumbers
-    {
-        public int numberSaved { get; set; }
-        public string typeOfnumber { get; set; }
-    }
-
+}
+internal class Order : IOrder
+{
     //DalApi.IDal Dal = DalApi.Factory.Get(); //DalList object Type
-
+   
     const string s_orders = "Order"; //XML Serializer
     public int getRunningId(string asked)
     {

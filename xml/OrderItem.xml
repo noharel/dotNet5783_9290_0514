@@ -240,4 +240,12 @@
     <Amount>1</Amount>
     <IsDeleted>false</IsDeleted>
   </OrderItem>
+  <OrderItem>
+    <ID>1031</ID>
+    <PrudoctID>100010</PrudoctID>
+    <OrderID>1011</OrderID>
+    <Price>2247680</Price>
+    <Amount>1</Amount>
+    <IsDeleted>false</IsDeleted>
+  </OrderItem>
 </ArrayOfOrderItem>

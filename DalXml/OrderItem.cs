@@ -10,7 +10,7 @@ namespace Dal;
 
 internal class OrderItem : IOrderItem
 {
-    const string s_orderItems = "orderItems"; //XML Serializer
+    const string s_orderItems = "OrderItem"; //XML Serializer
     public int Add(DO.OrderItem orderItem) // add an order item
     {
         var listOrderItems = XMLTools.LoadListFromXMLSerializer<DO.OrderItem>(s_orderItems); // get all order items from xml

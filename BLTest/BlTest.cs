@@ -280,12 +280,6 @@ internal class BlTest
                     {
                         // go through all the orders and print each one, there is no linq for this
                         bl.Order.GetOrders().ToList().ForEach(delegate (BO.OrderForList? var) { Console.WriteLine(var); });
-
-                        //   CHANGE TO LINQ
-                        //foreach (BO.OrderForList? var in bl.Order.GetOrders())
-                        //{
-                        //    Console.WriteLine(var);
-                        //}
                     }
                     
                     // catch GetOrders function exception and print it

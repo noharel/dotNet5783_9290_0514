@@ -1,11 +1,1 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ArrayOfImportentNumbers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <ImportentNumbers>
-    <numberSaved>1031</numberSaved>
-    <typeOfnumber>OrderItemID</typeOfnumber>
-  </ImportentNumbers>
-  <ImportentNumbers>
-    <numberSaved>1011</numberSaved>
-    <typeOfnumber>OrderID</typeOfnumber>
-  </ImportentNumbers>
-</ArrayOfImportentNumbers>
+﻿<?xml version="1.0" encoding="utf-8"?><ArrayOfImportentNumbers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><ImportentNumbers><numberSaved>1034</numberSaved><typeOfnumber>OrderItemID</typeOfnumber></ImportentNumbers><ImportentNumbers><numberSaved>1013</numberSaved><typeOfnumber>OrderID</typeOfnumber></ImportentNumbers></ArrayOfImportentNumbers>

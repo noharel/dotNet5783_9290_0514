@@ -41,26 +41,10 @@
     <IsDeleted>false</IsDeleted>
   </Product>
   <Product>
-    <ID>100007</ID>
-    <Name>Bentayaga</Name>
-    <Price>1328528</Price>
-    <Category>RollsRoyce</Category>
-    <InStock>3</InStock>
-    <IsDeleted>false</IsDeleted>
-  </Product>
-  <Product>
     <ID>100008</ID>
     <Name>E20</Name>
     <Price>2677421</Price>
     <Category>BMW</Category>
-    <InStock>16</InStock>
-    <IsDeleted>false</IsDeleted>
-  </Product>
-  <Product>
-    <ID>100009</ID>
-    <Name>A9</Name>
-    <Price>2110421</Price>
-    <Category>Bentley</Category>
     <InStock>16</InStock>
     <IsDeleted>false</IsDeleted>
   </Product>
@@ -145,14 +129,6 @@
     <IsDeleted>false</IsDeleted>
   </Product>
   <Product>
-    <ID>100002</ID>
-    <Name>A9</Name>
-    <Price>1952770</Price>
-    <Category>Mercedes</Category>
-    <InStock>22</InStock>
-    <IsDeleted>false</IsDeleted>
-  </Product>
-  <Product>
     <ID>100020</ID>
     <Name>tallelelel</Name>
     <Price>2941659</Price>
@@ -162,10 +138,34 @@
   </Product>
   <Product>
     <ID>100010</ID>
-    <Name>XC40</Name>
-    <Price>2247680</Price>
+    <Name>C10</Name>
+    <Price>1234</Price>
     <Category>BMW</Category>
+    <InStock>5</InStock>
+    <IsDeleted>false</IsDeleted>
+  </Product>
+  <Product>
+    <ID>100007</ID>
+    <Name>Bentayaga</Name>
+    <Price>1328528</Price>
+    <Category>RollsRoyce</Category>
+    <InStock>2</InStock>
+    <IsDeleted>false</IsDeleted>
+  </Product>
+  <Product>
+    <ID>100009</ID>
+    <Name>A9</Name>
+    <Price>2110421</Price>
+    <Category>Bentley</Category>
     <InStock>15</InStock>
+    <IsDeleted>false</IsDeleted>
+  </Product>
+  <Product>
+    <ID>100002</ID>
+    <Name>A9</Name>
+    <Price>1952770</Price>
+    <Category>Mercedes</Category>
+    <InStock>18</InStock>
     <IsDeleted>false</IsDeleted>
   </Product>
 </product>

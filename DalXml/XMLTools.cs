@@ -93,7 +93,6 @@ static class XMLTools
     public static List<T?> LoadListFromXMLSerializer<T>(string entity) where T : struct
     {
         string filePath = $"{s_dir + entity}.xml";
-        Console.WriteLine(filePath);
         try
         {
             if (!File.Exists(filePath))

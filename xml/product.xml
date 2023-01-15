@@ -145,14 +145,6 @@
     <IsDeleted>false</IsDeleted>
   </Product>
   <Product>
-    <ID>100020</ID>
-    <Name>tallelelel</Name>
-    <Price>2941659</Price>
-    <Category>LandRover</Category>
-    <InStock>3</InStock>
-    <IsDeleted>false</IsDeleted>
-  </Product>
-  <Product>
     <ID>100021</ID>
     <Name>NAA</Name>
     <Price>1111</Price>
@@ -166,6 +158,14 @@
     <Price>1952770</Price>
     <Category>Mercedes</Category>
     <InStock>22</InStock>
+    <IsDeleted>false</IsDeleted>
+  </Product>
+  <Product>
+    <ID>100020</ID>
+    <Name>tallelelel</Name>
+    <Price>2941659</Price>
+    <Category>LandRover</Category>
+    <InStock>0</InStock>
     <IsDeleted>false</IsDeleted>
   </Product>
 </product>

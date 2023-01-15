@@ -18,7 +18,6 @@ public static class Factory // Layer DAl producer class
 
         try
         {
-            //Console.WriteLine(dal);
             Assembly.Load(dal ?? throw new DO.DalConfigException($"Package {dal} is null"));
         }
         catch (Exception)

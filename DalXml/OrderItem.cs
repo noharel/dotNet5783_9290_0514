@@ -11,45 +11,45 @@ namespace Dal;
 internal class OrderItem : IOrderItem
 {
     const string s_orderItems = "orderItems"; //XML Serializer
-    public int Add(DO.OrderItem orderItem)
+    public int Add(DO.OrderItem orderItem) // add an order item
     {
-        var listOrderItems = XMLTools.LoadListFromXMLSerializer<DO.OrderItem>(s_orderItems);
+        var listOrderItems = XMLTools.LoadListFromXMLSerializer<DO.OrderItem>(s_orderItems); // get all order items from xml
 
-        if (listOrderItems.Exists(o => o?.ID == orderItem.ID))
+        if (listOrderItems.Exists(o => o?.ID == orderItem.ID)) // id already exist
             throw new DO.AlreadyExistExeption("id already exist");
 
-        listOrderItems.Add(orderItem);
+        listOrderItems.Add(orderItem); // add to list
 
-        XMLTools.SaveListToXMLSerializer(listOrderItems, s_orderItems);
+        XMLTools.SaveListToXMLSerializer(listOrderItems, s_orderItems); // save to xml
 
         return orderItem.ID;
     }
 
-    public void Delete(int id)
+    public void Delete(int id) // delete an order item
     {
-        var listOrderItems = XMLTools.LoadListFromXMLSerializer<DO.OrderItem>(s_orderItems);
+        var listOrderItems = XMLTools.LoadListFromXMLSerializer<DO.OrderItem>(s_orderItems); // get from xml
 
-        if (listOrderItems.RemoveAll(p => p?.ID == id) == 0)
+        if (listOrderItems.RemoveAll(p => p?.ID == id) == 0) // delete
             throw new DO.DoesntExistExeption("missing id");
 
-        XMLTools.SaveListToXMLSerializer(listOrderItems, s_orderItems);
+        XMLTools.SaveListToXMLSerializer(listOrderItems, s_orderItems); // save to xml
     }
 
-    public IEnumerable<DO.OrderItem?> GetAll(Func<DO.OrderItem?, bool>? filter = null)
+    public IEnumerable<DO.OrderItem?> GetAll(Func<DO.OrderItem?, bool>? filter = null)  // get all by filter
     {
         var listOrderItems = XMLTools.LoadListFromXMLSerializer<DO.OrderItem>(s_orderItems)!;
         return filter == null ? listOrderItems.OrderBy(o => ((DO.OrderItem)o!).ID)
                               : listOrderItems.Where(filter).OrderBy(o => ((DO.OrderItem)o!).ID);
     }
 
-    public IEnumerable<DO.OrderItem?> GetAll()
+    public IEnumerable<DO.OrderItem?> GetAll() // get all order items
     {
         var listOrderItems = XMLTools.LoadListFromXMLSerializer<DO.OrderItem>(s_orderItems)!;
         return listOrderItems.OrderBy(o => ((DO.OrderItem)o!).ID);
 
     }
 
-    public DO.OrderItem GetById(int id)
+    public DO.OrderItem GetById(int id) // get an order item by filter
     {
 
         return XMLTools.LoadListFromXMLSerializer<DO.OrderItem>(s_orderItems).FirstOrDefault(o => o?.ID == id)
@@ -62,7 +62,7 @@ internal class OrderItem : IOrderItem
         return listOrderItems.Where(filter!).OrderBy(o => ((DO.OrderItem)o!).ID).FirstOrDefault();
     }
 
-    public void Update(DO.OrderItem orderItem)
+    public void Update(DO.OrderItem orderItem) // update an order item
     {
         Delete(orderItem.ID);
         Add(orderItem);

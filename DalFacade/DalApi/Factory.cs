@@ -18,11 +18,12 @@ public static class Factory // Layer DAl producer class
 
         try
         {
+            Console.WriteLine(dal);
             Assembly.Load(dal ?? throw new DO.DalConfigException($"Package {dal} is null"));
         }
         catch (Exception)
         {
-            throw new DO.DalConfigException("Failed to load {dal}.dll package");
+            throw new DO.DalConfigException($"Failed to load {dal}.dll package");
         }
 
         Type? type = Type.GetType($"Dal.{dal}, {dal}") // Dal.DalList

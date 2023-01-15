@@ -16,47 +16,47 @@ internal class Order : IOrder
 
     const string s_orders = "orders"; //XML Serializer
 
-    public IEnumerable<DO.Order?> GetAll(Func<DO.Order?, bool>? filter = null)
+    public IEnumerable<DO.Order?> GetAll(Func<DO.Order?, bool>? filter = null) //get all orders by filter
     {
-        var listOrders = XMLTools.LoadListFromXMLSerializer<DO.Order>(s_orders)!;
+        var listOrders = XMLTools.LoadListFromXMLSerializer<DO.Order>(s_orders)!; //get all orders from xml
         return filter == null ? listOrders.OrderBy(o => ((DO.Order)o!).ID)
                               : listOrders.Where(filter).OrderBy(o => ((DO.Order)o!).ID);
     }
 
-    public int Add(DO.Order order)
+    public int Add(DO.Order order) // add an order
     {
     
-        var listLecturers = XMLTools.LoadListFromXMLSerializer<DO.Order>(s_orders);
+        var listOrders = XMLTools.LoadListFromXMLSerializer<DO.Order>(s_orders); // get all orders from xml
 
-        if (listLecturers.Exists(o => o?.ID == order.ID))
+        if (listOrders.Exists(o => o?.ID == order.ID)) // id already exist
             throw new DO.AlreadyExistExeption("id already exist");
 
-        listLecturers.Add(order);
+        listOrders.Add(order); //add
 
-        XMLTools.SaveListToXMLSerializer(listLecturers, s_orders);
+        XMLTools.SaveListToXMLSerializer(listOrders, s_orders); //to xml
 
         return order.ID;
     }
 
-    public void Delete(int id)
+    public void Delete(int id) // delete an order
     {
-        var listOrders = XMLTools.LoadListFromXMLSerializer<DO.Order>(s_orders);
+        var listOrders = XMLTools.LoadListFromXMLSerializer<DO.Order>(s_orders); // get all orders from xml
 
-        if (listOrders.RemoveAll(p => p?.ID == id) == 0)
+        if (listOrders.RemoveAll(p => p?.ID == id) == 0) // delete
             throw new DO.DoesntExistExeption("missing id");
 
-        XMLTools.SaveListToXMLSerializer(listOrders, s_orders);
+        XMLTools.SaveListToXMLSerializer(listOrders, s_orders); //save at xml
     }
 
    
 
-    public IEnumerable<DO.Order?> GetAll()
+    public IEnumerable<DO.Order?> GetAll() // get all orders
     {
         var listOrders = XMLTools.LoadListFromXMLSerializer<DO.Order>(s_orders)!;
         return listOrders.OrderBy(o => ((DO.Order)o!).ID);
     }
 
-    public DO.Order GetById(int id)
+    public DO.Order GetById(int id) // get order by id
     {
         return XMLTools.LoadListFromXMLSerializer<DO.Order>(s_orders).FirstOrDefault(o => o?.ID == id) 
             ?? throw new DO.DoesntExistExeption("missing id");
@@ -64,13 +64,13 @@ internal class Order : IOrder
 
 
 
-    public void Update(DO.Order order)
+    public void Update(DO.Order order) // update an order
     {
         Delete(order.ID);
         Add(order);
     }
 
-    public DO.Order? GetById(Func<DO.Order?, bool>? filter)
+    public DO.Order? GetById(Func<DO.Order?, bool>? filter) // get an order by filter
     {
 
         var listOrders = XMLTools.LoadListFromXMLSerializer<DO.Order>(s_orders)!;

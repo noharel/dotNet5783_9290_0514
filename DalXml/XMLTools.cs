@@ -75,17 +75,13 @@ static class XMLTools
         try
         {
             using FileStream file = new(filePath, FileMode.Create, FileAccess.Write, FileShare.None);
-            //using XmlWriter writer = XmlWriter.Create(file, new XmlWriterSettings() { Indent = true });
 
             XmlSerializer serializer = new(typeof(List<T?>));
-            //if (s_writing)
-            //    serializer.Serialize(writer, list);
-            //else
+            
             serializer.Serialize(file, list);
         }
         catch (Exception ex)
         {
-            // DO.XMLFileLoadCreateException(filePath, $"fail to create xml file: {dir + filePath}", ex);            }
             throw new Exception($"fail to create xml file: {filePath}", ex);
         }
     }

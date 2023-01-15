@@ -17,6 +17,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalList", "DalList\DalList.csproj", "{F94E36DF-5F2E-4889-B32A-21B5F4573E6C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BL", "BL\BL.csproj", "{1198E95A-CD37-4AEC-8A60-C4B8206B4DDF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{901F8CA8-5E00-4EA4-9882-AD17A268C0F3} = {901F8CA8-5E00-4EA4-9882-AD17A268C0F3}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BLTest", "BLTest\BLTest.csproj", "{BB39C8E9-FA55-451F-BDC2-E74D07B15FF9}"
 EndProject
@@ -30,7 +33,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{AB7881A8-0B9
 		xml\product.xml = xml\product.xml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalXml", "DalXml\DalXml.csproj", "{901F8CA8-5E00-4EA4-9882-AD17A268C0F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalXml", "DalXml\DalXml.csproj", "{901F8CA8-5E00-4EA4-9882-AD17A268C0F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -25,7 +25,7 @@ internal class Order : IOrder
     const string s_orders = "Order"; //XML Serializer
     public int getRunningId(string asked)
     {
-        var listNumbers = XMLTools.LoadListFromXMLSerializer<ImportentNumbers>("config").ToList();
+        var listNumbers = XMLTools.LoadListFromXMLSerializer<ImportentNumbers>("Config").ToList();
 
         var runningNum = (ImportentNumbers)(from number in listNumbers
                                        where (number.Value.typeOfnumber == asked)
@@ -34,7 +34,7 @@ internal class Order : IOrder
         runningNum.numberSaved++;
         listNumbers.Add(runningNum);
 
-        XMLTools.SaveListToXMLSerializer<ImportentNumbers>(listNumbers, "config");
+        XMLTools.SaveListToXMLSerializer<ImportentNumbers>(listNumbers, "Config");
         return runningNum.numberSaved;
 
     }

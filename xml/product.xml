@@ -97,6 +97,14 @@
     <IsDeleted>False</IsDeleted>
   </Product>
   <Product>
+    <ID>100013</ID>
+    <Name>Phantom</Name>
+    <Price>2205768</Price>
+    <Category>Ferrari</Category>
+    <InStock>6</InStock>
+    <IsDeleted>False</IsDeleted>
+  </Product>
+  <Product>
     <ID>100014</ID>
     <Name>Series 3</Name>
     <Price>1415085</Price>
@@ -153,10 +161,10 @@
     <IsDeleted>False</IsDeleted>
   </Product>
   <Product>
-    <ID>100013</ID>
-    <Name>Phantom</Name>
-    <Price>2205768</Price>
-    <Category>RollsRoyce</Category>
-    <InStock>6</InStock>
+    <ID>100021</ID>
+    <Name>noa harel</Name>
+    <Price>1222222</Price>
+    <Category>BMW</Category>
+    <InStock>12</InStock>
   </Product>
 </Products>

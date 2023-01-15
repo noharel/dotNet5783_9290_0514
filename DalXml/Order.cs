@@ -14,7 +14,7 @@ internal class Order : IOrder
 {
     //DalApi.IDal Dal = DalApi.Factory.Get(); //DalList object Type
 
-    const string s_orders = "orders"; //XML Serializer
+    const string s_orders = "Order"; //XML Serializer
 
     public IEnumerable<DO.Order?> GetAll(Func<DO.Order?, bool>? filter = null) //get all orders by filter
     {

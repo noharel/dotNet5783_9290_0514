@@ -31,12 +31,8 @@ public partial class Order : Window
     int idRec = 0;
     bool managerFunc = false;
     BO.OrderTracking? orderT;
-    DateTime shipDate;
-    DateTime orderDate;
-    DateTime deliveryDate;
     public Order(int x = 0, bool manager = false)  //constructor
     {
-
         InitializeComponent();
         try
         {

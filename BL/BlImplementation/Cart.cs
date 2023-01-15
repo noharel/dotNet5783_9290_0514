@@ -7,9 +7,7 @@ using System.Xml.Serialization;
 using BlApi;
 using DalApi;
 using System.Linq;
-using System.Text;
 using System.Xml.Linq;
-using System.Xml.Serialization;
 
 
 
@@ -23,7 +21,7 @@ namespace BlImplementation;
 internal class Cart : BlApi.ICart
 {
 
-    readonly DalApi.IDal Dal = DalApi.Factory.Get(); //DalList object Type
+    DalApi.IDal Dal = DalApi.Factory.Get(); //DalList object Type
 
     /// <summary>
     /// ADD A PRODUCT TO CART

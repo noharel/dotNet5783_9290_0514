@@ -16,7 +16,7 @@ namespace Dal;
 /// </summary>
 internal class Product : IProduct
 {
-    const string s_products = "Products"; //Linq to XML
+    const string s_products = "product"; //Linq to XML
     /// <summary>
     /// get Product from xml file
     /// </summary>

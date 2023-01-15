@@ -96,7 +96,11 @@ static class XMLTools
         Console.WriteLine(filePath);
         try
         {
-            if (!File.Exists(filePath)) return new();
+            if (!File.Exists(filePath))
+            {
+                Console.WriteLine("new");
+                return new();
+            }
             using FileStream file = new(filePath, FileMode.Open);
             XmlSerializer x = new(typeof(List<T?>));
             return x.Deserialize(file) as List<T?> ?? new();

@@ -53,4 +53,6 @@ public interface IOrder
     /// <param name="orderItemId"></param>
     /// <param name="amount"></param>
     public void UpdateByManager(int orderID,int orderItemId, int amount);//bonus
+
+    
 }

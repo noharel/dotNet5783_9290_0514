@@ -23,6 +23,7 @@ internal class Product : IProduct
             InStock =(int) p.Element("InStock")!,
             IsDeleted = (bool)p.ToBoolNullable("IsDeleted")!,
         };
+
     /// <summary>
     /// create elemnt for the product
     /// </summary>
@@ -41,6 +42,7 @@ internal class Product : IProduct
             yield return new XElement("InStock", product.InStock);
         yield return new XElement("IsDeleted", false);
     }
+
     /// <summary>
     /// add product to list of products in xml file
     /// </summary>
@@ -57,6 +59,7 @@ internal class Product : IProduct
         XMLTools.SaveListToXMLElement(productsRootElem, s_products);
         return product.ID; ;
     }
+
     /// <summary>
     /// get product with the sent id
     /// </summary>

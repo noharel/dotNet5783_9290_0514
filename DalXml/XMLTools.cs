@@ -97,7 +97,6 @@ static class XMLTools
         {
             if (!File.Exists(filePath))
             {
-                Console.WriteLine("new");
                 return new();
             }
             using FileStream file = new(filePath, FileMode.Open);

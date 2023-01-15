@@ -3,8 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using BlApi;
 using DalApi;
+using System.Linq;
+using System.Text;
+using System.Xml.Linq;
+using System.Xml.Serialization;
+
 
 
 namespace BlImplementation;
@@ -61,21 +67,22 @@ internal class Cart : BlApi.ICart
                 DO.Product product = Dal.Product.GetById(id);  // Get the product
                 if (product.InStock > 0) // The product is in stock
                 {
-                    ///makes sure that the id that we crate for product is not already a product id
-                    int temp;
-                    List<DO.Product> listProduct;
-                    Random rand = new(); // for product id
-                    do
-                    {
-                        temp = rand.Next(1000, 9999); // raffels 
-                        listProduct = new List<DO.Product>(from DO.Product var in Dal.Product.GetAll()
-                                                           where var.ID == temp
-                                                           select var); // get all the products with the same id
+                    /////makes sure that the id that we crate for product is not already a product id
+                    //int temp;
+                    //List<DO.Product> listProduct;
+                    //Random rand = new(); // for product id
+                    //do
+                    //{
+                    //    temp = rand.Next(1000, 9999); // raffels 
+                    //    listProduct = new List<DO.Product>(from DO.Product var in Dal.Product.GetAll()
+                    //                                       where var.ID == temp
+                    //                                       select var); // get all the products with the same id
 
-                    } while (listProduct.Count > 0); //stops when it finds an id which is not already used
+                    //} while (listProduct.Count > 0); //stops when it finds an id which is not already used
 
                     // makes the product
-                    BO.OrderItem newOrderItem = new() { ID = rand.Next(1000, 9999), Name = product.Name, ProductID = product.ID, Price = (double)product.Price!, Amount = 1, TotalPrice = (double)product.Price };
+
+                    BO.OrderItem newOrderItem = new() { ID = Dal.Order.getRunningId("OrderItemID"), Name = product.Name, ProductID = product.ID, Price = (double)product.Price!, Amount = 1, TotalPrice = (double)product.Price };
                     cart.Items!.Add(newOrderItem); // ADD
                     cart.TotalPrice += (double)product.Price;  //Update the total price of cart
                 }
@@ -207,23 +214,23 @@ internal class Cart : BlApi.ICart
             flag = flag && cart.CustomerName != null && cart.CustomerEmail != null && cart.CustomerAddress != null; //strings are not null
             if (flag) //valid values
             {
-                Random rand = new();
+                //Random rand = new();
                 try
                 {
-                    //makes sure that the id that we crate for order is not already an order id
-                    int temp;
-                    List<DO.Order> listOrder;
-                    do
-                    {
-                        temp = rand.Next(1000, 9999); // raffels
-                        listOrder = new List<DO.Order>(from DO.Order var in Dal.Order.GetAll()
-                                                       where var.ID == temp
-                                                       select var); // get all the orders with the same id
+                    ////makes sure that the id that we crate for order is not already an order id
+                    //int temp;
+                    //List<DO.Order> listOrder;
+                    //do
+                    //{
+                    //    temp = rand.Next(1000, 9999); // raffels
+                    //    listOrder = new List<DO.Order>(from DO.Order var in Dal.Order.GetAll()
+                    //                                   where var.ID == temp
+                    //                                   select var); // get all the orders with the same id
 
-                    } while (listOrder.Count > 0); //stops when it finds an id which is not already used
+                    //} while (listOrder.Count > 0); //stops when it finds an id which is not already used
 
                     // make the order with dates null besides order date
-                    DO.Order newOrder = new() { ID = temp, CustomerAddress = cart.CustomerAddress, CustomerEmail = cart.CustomerEmail, CustomerName = cart.CustomerName, OrderDate = DateTime.Now, IsDeleted = false };
+                    DO.Order newOrder = new() { ID = Dal.Order.getRunningId("OrderID"), CustomerAddress = cart.CustomerAddress, CustomerEmail = cart.CustomerEmail, CustomerName = cart.CustomerName, OrderDate = DateTime.Now, IsDeleted = false };
                     try
                     {
                         int newOrderID = Dal.Order.Add(newOrder);  //ADD order

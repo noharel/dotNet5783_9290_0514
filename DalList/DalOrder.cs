@@ -130,4 +130,14 @@ public class DalOrder : IOrder // A CLASS THAT IMPLEMENTS THE INTERFACE IORDER
         return list!; // return the orders
     }
 
+    /// <summary>
+    /// no need 
+    /// </summary>
+    /// <param name="asked"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public int getRunningId(string asked)
+    {
+        throw new NotImplementedException();
+    }
 }

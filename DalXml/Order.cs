@@ -12,10 +12,32 @@ namespace Dal;
 
 internal class Order : IOrder
 {
+
+
+    public struct ImportentNumbers
+    {
+        public int numberSaved { get; set; }
+        public string typeOfnumber { get; set; }
+    }
+
     //DalApi.IDal Dal = DalApi.Factory.Get(); //DalList object Type
 
     const string s_orders = "Order"; //XML Serializer
+    public int getRunningId(string asked)
+    {
+        var listNumbers = XMLTools.LoadListFromXMLSerializer<ImportentNumbers>("config").ToList();
 
+        var runningNum = (ImportentNumbers)(from number in listNumbers
+                                       where (number.Value.typeOfnumber == asked)
+                                       select number).FirstOrDefault()!;
+        listNumbers.Remove(runningNum);
+        runningNum.numberSaved++;
+        listNumbers.Add(runningNum);
+
+        XMLTools.SaveListToXMLSerializer<ImportentNumbers>(listNumbers, "config");
+        return runningNum.numberSaved;
+
+    }
     public IEnumerable<DO.Order?> GetAll(Func<DO.Order?, bool>? filter = null) //get all orders by filter
     {
         var listOrders = XMLTools.LoadListFromXMLSerializer<DO.Order>(s_orders)!; //get all orders from xml

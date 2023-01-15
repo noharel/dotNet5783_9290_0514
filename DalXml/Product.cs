@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using DO;
+﻿namespace Dal;
 using DalApi;
-using System.Xml.Serialization;
 using System.Xml.Linq;
-using static System.Net.WebRequestMethods;
 
-namespace Dal;
 /// <summary>
 /// using xml to linq, WElement
 /// </summary>
@@ -30,7 +21,7 @@ internal class Product : IProduct
             Price = (double?)p.Element("Price"),
             Category = p.ToEnumNullable<DO.Category>("Category"),
             InStock =(int) p.Element("InStock")!,
-            IsDeleted = (bool)p.Element("IsDeleted")!,
+            IsDeleted = (bool)p.ToBoolNullable("IsDeleted")!,
         };
     /// <summary>
     /// create elemnt for the product
@@ -48,8 +39,7 @@ internal class Product : IProduct
             yield return new XElement("Category", product.Category);
         if (product.InStock is not null)
             yield return new XElement("InStock", product.InStock);
-        if (product.IsDeleted is not null)
-            yield return new XElement("IsDeleted", product.IsDeleted);
+        yield return new XElement("IsDeleted", false);
     }
     /// <summary>
     /// add product to list of products in xml file
@@ -62,7 +52,7 @@ internal class Product : IProduct
         XElement productsRootElem = XMLTools.LoadListFromXMLElement(s_products);
         if (XMLTools.LoadListFromXMLElement(s_products)?.Elements()
             .FirstOrDefault(st => st.ToIntNullable("ID") == product.ID) is not null)
-            throw new AlreadyExistExeption("The prouct ID number is already exist");
+            throw new DO.AlreadyExistExeption("The prouct ID number is already exist");
         productsRootElem.Add(new XElement("Product", createProductElement(product)));
         XMLTools.SaveListToXMLElement(productsRootElem, s_products);
         return product.ID; ;
@@ -76,7 +66,7 @@ internal class Product : IProduct
     public DO.Product GetById(int id) =>
         (DO.Product)getProduct(XMLTools.LoadListFromXMLElement(s_products)?.Elements()
         .FirstOrDefault(st => st.ToIntNullable("ID") == id)
-            ?? throw new DoesntExistExeption("Missing product id"))!;
+            ?? throw new DO.DoesntExistExeption("Missing product id"))!;
 
     /// <summary>
     /// update product with id of product that was sent to info of product that was sent
@@ -96,7 +86,7 @@ internal class Product : IProduct
     {
         XElement productsRootElem = XMLTools.LoadListFromXMLElement(s_products);
         (productsRootElem.Elements()
-            .FirstOrDefault(st => (int?)st.Element("ID") == id) ?? throw new DoesntExistExeption("Missing product id"))
+            .FirstOrDefault(st => (int?)st.Element("ID") == id) ?? throw new DO.DoesntExistExeption("Missing product id"))
             .Remove();
         XMLTools.SaveListToXMLElement(productsRootElem, s_products);
     }

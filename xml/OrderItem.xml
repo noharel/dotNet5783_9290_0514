@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfOrderItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <OrderItems>
     <OrderItem>
       <ID>1001</ID>
       <ProductID>100002</ProductID>
@@ -241,5 +240,4 @@
       <Amount>1</Amount>
       <IsDeleted>false</IsDeleted>
     </OrderItem>
-  </OrderItems>
 </ArrayOfOrderItem>

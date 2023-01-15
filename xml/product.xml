@@ -9,14 +9,6 @@
     <IsDeleted>false</IsDeleted>
   </Product>
   <Product>
-    <ID>100002</ID>
-    <Name>A9</Name>
-    <Price>1952770</Price>
-    <Category>Mercedes</Category>
-    <InStock>0</InStock>
-    <IsDeleted>false</IsDeleted>
-  </Product>
-  <Product>
     <ID>100003</ID>
     <Name>Series 3</Name>
     <Price>2070177</Price>
@@ -166,6 +158,14 @@
     <Price>1111</Price>
     <Category>BMW</Category>
     <InStock>11</InStock>
+    <IsDeleted>false</IsDeleted>
+  </Product>
+  <Product>
+    <ID>100002</ID>
+    <Name>A9</Name>
+    <Price>1952770</Price>
+    <Category>Mercedes</Category>
+    <InStock>22</InStock>
     <IsDeleted>false</IsDeleted>
   </Product>
 </product>

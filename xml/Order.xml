@@ -1,97 +1,97 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfOrder xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Orders>
-    <Order>
-      <ID>1001</ID>
-      <CustomerName>Miley Cyrus</CustomerName>
-      <CustomerEmail>MileyCyrus@jctmail.com</CustomerEmail>
-      <CustomerAddress>Jerusalem</CustomerAddress>
-      <OrderDate>01/10/2022 15:34:29</OrderDate>
-      <ShipDate>20/10/2022 16:45:34</ShipDate>
-      <DeliveryrDate>23/10/2022 12:00:32</DeliveryrDate>
-      <IsDeleted>false</IsDeleted>
-    </Order>
-    <Order>
-      <ID>1002</ID>
-      <CustomerName>Selena Gomez</CustomerName>
-      <CustomerEmail>SelenaGomez@jctmail.com</CustomerEmail>
-      <CustomerAddress>Yafo</CustomerAddress>
-      <OrderDate>21/10/2022 15:34:29</OrderDate>
-      <ShipDate>27/10/2022 16:45:34</ShipDate>
-      <DeliveryrDate>01/11/2022 12:00:32</DeliveryrDate>
-      <IsDeleted>false</IsDeleted>
-    </Order>
-    <Order>
-      <ID>1003</ID>
-      <CustomerName>Cardi B</CustomerName>
-      <CustomerEmail>CardiB@jctmail.com</CustomerEmail>
-      <CustomerAddress>Karnei Shomron</CustomerAddress>
-      <OrderDate>03/11/2022 12:34:29</OrderDate>
-      <ShipDate>07/11/2022 16:45:34</ShipDate>
-      <DeliveryrDate>20/11/2022 12:00:32</DeliveryrDate>
-      <IsDeleted>false</IsDeleted>
-    </Order>
-    <Order>
-      <ID>1004</ID>
-      <CustomerName>Katy Perry</CustomerName>
-      <CustomerEmail>KatyPerry@jctmail.com</CustomerEmail>
-      <CustomerAddress>Rishon le-zion</CustomerAddress>
-      <OrderDate>03/12/2022 12:34:29</OrderDate>
-      <ShipDate>07/12/2022 16:45:34</ShipDate>
-      <DeliveryrDate>20/12/2022 12:00:32</DeliveryrDate>
-      <IsDeleted>false</IsDeleted>
-    </Order>
-    <Order>
-      <ID>1005</ID>
-      <CustomerName>Ariana Grande</CustomerName>
-      <CustomerEmail>ArianaGrande@jctmail.com</CustomerEmail>
-      <CustomerAddress>Rishon le-zion</CustomerAddress>
-      <OrderDate>04/12/2022 18:34:29</OrderDate>
-      <ShipDate>08/12/2022 10:45:34</ShipDate>
-      <DeliveryrDate>20/12/2022 12:45:32</DeliveryrDate>
-      <IsDeleted>false</IsDeleted>
-    </Order>
-    <Order>
-      <ID>1006</ID>
-      <CustomerName>Camilla Cabello</CustomerName>
-      <CustomerEmail>CamillaCabello@jctmail.com</CustomerEmail>
-      <CustomerAddress>Bat Yam</CustomerAddress>
-      <OrderDate>02/01/2023 12:34:29</OrderDate>
-      <ShipDate>07/01/2023 16:45:34</ShipDate>
-      <IsDeleted>false</IsDeleted>
-    </Order>
-    <Order>
-      <ID>1007</ID>
-      <CustomerName>Demi Lovato</CustomerName>
-      <CustomerEmail>DemiLovato@jctmail.com</CustomerEmail>
-      <CustomerAddress>Holon</CustomerAddress>
-      <OrderDate>06/01/2023 19:34:29</OrderDate>
-      <ShipDate>08/01/2023 13:45:34</ShipDate>
-      <IsDeleted>false</IsDeleted>
-    </Order>
-    <Order>
-      <ID>1008</ID>
-      <CustomerName>Coco Chanel</CustomerName>
-      <CustomerEmail>CocoChanel@jctmail.com</CustomerEmail>
-      <CustomerAddress>Haifa</CustomerAddress>
-      <OrderDate>09/01/2023 15:34:29</OrderDate>
-      <IsDeleted>false</IsDeleted>
-    </Order>
-    <Order>
-      <ID>1009</ID>
-      <CustomerName>Riahana</CustomerName>
-      <CustomerEmail>Riahana@jctmail.com</CustomerEmail>
-      <CustomerAddress>Efrat</CustomerAddress>
-      <OrderDate>10/01/2023 09:34:29</OrderDate>
-      <IsDeleted>false</IsDeleted>
-    </Order>
-    <Order>
-      <ID>1010</ID>
-      <CustomerName>Zara Larsson</CustomerName>
-      <CustomerEmail>ZaraLarsson@jctmail.com</CustomerEmail>
-      <CustomerAddress>Nokdim</CustomerAddress>
-      <OrderDate>10/01/2023 20:34:29</OrderDate>
-      <IsDeleted>false</IsDeleted>
-    </Order>
-  </Orders>
+	<Order>
+		<ID>1001</ID>
+		<CustomerName>Miley Cyrus</CustomerName>
+		<CustomerEmail>MileyCyrus@jctmail.com</CustomerEmail>
+		<CustomerAddress>Jerusalem</CustomerAddress>
+		<OrderDate>2022-03-12T20:00:00</OrderDate>
+		<ShipDate>2022-05-12T10:00:00</ShipDate>
+		<DeliveryrDate>2022-12-12T20:20:11</DeliveryrDate>
+		<IsDeleted>false</IsDeleted>
+	</Order>
+	<Order>
+		<ID>1002</ID>
+		<CustomerName>Selena Gomez</CustomerName>
+		<CustomerEmail>SelenaGomez@jctmail.com</CustomerEmail>
+		<CustomerAddress>Yafo</CustomerAddress>
+		<OrderDate>2022-03-11T20:00:00</OrderDate>
+		<ShipDate>2022-03-12T20:00:00</ShipDate>
+		<DeliveryrDate>2022-12-12T20:00:00</DeliveryrDate>
+		<IsDeleted>false</IsDeleted>
+	</Order>
+	<Order>
+		<ID>1003</ID>
+		<CustomerName>Cardi B</CustomerName>
+		<CustomerEmail>CardiB@jctmail.com</CustomerEmail>
+		<CustomerAddress>Karnei Shomron</CustomerAddress>
+		<OrderDate>2023-03-01T20:00:00</OrderDate>
+		<ShipDate>2023-05-01T20:00:00</ShipDate>
+		<DeliveryrDate>2023-06-01T20:00:00</DeliveryrDate>
+		<IsDeleted>false</IsDeleted>
+	</Order>
+	<Order>
+		<ID>1004</ID>
+		<CustomerName>Katy Perry</CustomerName>
+		<CustomerEmail>KatyPerry@jctmail.com</CustomerEmail>
+		<CustomerAddress>Rishon le-zion</CustomerAddress>
+		<OrderDate>2022-03-09T20:00:00</OrderDate>
+		<ShipDate>2022-07-09T20:00:00</ShipDate>
+		<DeliveryrDate>2022-11-09T20:00:00</DeliveryrDate>
+		<IsDeleted>false</IsDeleted>
+	</Order>
+	<Order>
+		<ID>1005</ID>
+		<CustomerName>Ariana Grande</CustomerName>
+		<CustomerEmail>ArianaGrande@jctmail.com</CustomerEmail>
+		<CustomerAddress>Rishon le-zion</CustomerAddress>
+		<OrderDate>2022-03-11T20:00:00</OrderDate>
+		<ShipDate>2022-07-11T20:00:00</ShipDate>
+		<DeliveryrDate>2022-12-11T20:00:00</DeliveryrDate>
+		<IsDeleted>false</IsDeleted>
+	</Order>
+	<Order>
+		<ID>1006</ID>
+		<CustomerName>Camilla Cabello</CustomerName>
+		<CustomerEmail>CamillaCabello@jctmail.com</CustomerEmail>
+		<CustomerAddress>Bat Yam</CustomerAddress>
+		<OrderDate>2022-03-08T20:00:00</OrderDate>
+		<ShipDate>2022-10-08T20:00:00</ShipDate>
+		<IsDeleted>false</IsDeleted>
+	</Order>
+	<Order>
+		<ID>1007</ID>
+		<CustomerName>Demi Lovato</CustomerName>
+		<CustomerEmail>DemiLovato@jctmail.com</CustomerEmail>
+		<CustomerAddress>Holon</CustomerAddress>
+		<OrderDate>2022-03-11T20:00:00</OrderDate>
+		<ShipDate>2022-09-12T20:00:00</ShipDate>
+		<IsDeleted>false</IsDeleted>
+	</Order>
+	<Order>
+		<ID>1008</ID>
+		<CustomerName>Coco Chanel</CustomerName>
+		<CustomerEmail>CocoChanel@jctmail.com</CustomerEmail>
+		<CustomerAddress>Haifa</CustomerAddress>
+		<OrderDate>2023-01-01T20:00:00</OrderDate>
+		<IsDeleted>false</IsDeleted>
+	</Order>
+	<Order>
+		<ID>1009</ID>
+		<CustomerName>Riahana</CustomerName>
+		<CustomerEmail>Riahana@jctmail.com</CustomerEmail>
+		<CustomerAddress>Efrat</CustomerAddress>
+		<OrderDate>2023-12-01T20:00:00</OrderDate>
+		<IsDeleted>false</IsDeleted>
+	</Order>
+	<Order>
+		<ID>1010</ID>
+		<CustomerName>Zara Larsson</CustomerName>
+		<CustomerEmail>ZaraLarsson@jctmail.com</CustomerEmail>
+		<CustomerAddress>Nokdim</CustomerAddress>
+		<OrderDate>2023-12-01T20:00:00</OrderDate>
+		<IsDeleted>false</IsDeleted>
+	</Order>
 </ArrayOfOrder>
+
+

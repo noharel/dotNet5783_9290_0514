@@ -8,8 +8,6 @@ using System.Windows;
 using System.Windows.Data;
 
 namespace PL.Converter;
-
-
 public class IntToStringConverter : IValueConverter
 {
     //convert from source property type to target property type
@@ -45,25 +43,6 @@ public class StatusToVisibiltyForShippedConverter : IValueConverter
     //convert from target property type to source property type
 
 }
-
-public class StatusToPicPathForShippedConverter : IValueConverter
-{
-    //convert from source property type to target property type
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-
-        if (((BO.Order)value).Status == BO.OrderStatus.Ordered) return "..\\pics\\box.png";
-        return Visibility.Visible;
-    }
-
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        return "";
-    }
-
-    //convert from target property type to source property type
-
-}
 public class StatusToVisibiltyForArrivedConverter : IValueConverter
 {
     //convert from source property type to target property type
@@ -74,7 +53,6 @@ public class StatusToVisibiltyForArrivedConverter : IValueConverter
         if (orderStatusValue.Status == BO.OrderStatus.Shipped) return Visibility.Visible;
         return Visibility.Collapsed;
     }
-
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
         return "";
@@ -99,7 +77,6 @@ public class BoolToVisibilityConverter : IValueConverter
         }
     }
 
-
     //convert from target property type to source property type
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
@@ -113,6 +90,28 @@ public class BoolToVisibilityConverter : IValueConverter
             return false;
         }
     }
+}
+
+public class StatusToPicPathForShippedConverter : IValueConverter
+{
+    //convert from source property type to target property type
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        BO.Order orderValue = (BO.Order)value;
+
+        if (orderValue.Status == BO.OrderStatus.Ordered) return "..\\pics\\box.png".ToString();
+        else if (orderValue.Status == BO.OrderStatus.Shipped) return "..\\pics\\delivery-truck.webp".ToString();
+        else if (orderValue.Status == BO.OrderStatus.Arrived) return "..\\pics\\house.webp".ToString();
+        else return "ERRORR";//invalid status
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        return "";
+    }
+
+    //convert from target property type to source property type
+
 }
 
 

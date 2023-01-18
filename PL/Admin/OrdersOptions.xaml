@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Admin"
         mc:Ignorable="d"
-        Title="OrdersOptions" Height="200" Width="200">
+        Title="OrdersOptions" Height="250" Width="350">
     <Window.Resources>
         <Style x:Key="myTextBoxStyle"
            TargetType="TextBox">
@@ -42,7 +42,7 @@
         <Style x:Key="myButtonStyle"
            TargetType="Button">
             <Setter Property="FontSize"
-              Value="52" />
+              Value="32" />
             <Setter Property="FontFamily"
               Value="Rockwell Condensed" />
             <Setter Property="FontWeight"
@@ -72,11 +72,12 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <Button Name="products" 
-                Content="Products" 
-                HorizontalAlignment="Left" 
-                Margin="50,0,0,0" 
-                VerticalAlignment="Center" Height="65" Width="225" >
+        <Image Source="..\pics\OrdersOptionsImage.png" HorizontalAlignment="Left" Height="244" Margin="-16,0,0,0" VerticalAlignment="Center" Width="379"/>
+        <Button Name="orders" 
+                Content="View" 
+                HorizontalAlignment="Center" 
+                Margin="0,28,0,0" 
+                VerticalAlignment="Top" Height="84" Width="212" Click="orders_Click" >
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"></Setter>
@@ -112,5 +113,46 @@
 
 
         </Button>
+        <Button Name="simulator" 
+                Content="Simulator" 
+                HorizontalAlignment="Center" 
+                Margin="0,117,0,0" 
+                VerticalAlignment="Top" Height="83" Width="212" Click="simulator_Click" >
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"></Setter>
+                </Style>
+            </Button.Resources>
+            <Button.Style>
+                <Style BasedOn="{StaticResource myButtonStyle}" TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="black" />
+                    <Setter Property="Visibility" Value="Visible"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border x:Name="Border" Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="BorderThickness" Value="10,3,10,3" TargetName="Border"/>
+                                        <Setter Property="Background" Value="White" TargetName="Border"/>
+                                        <Setter Property="Foreground" Value="Black"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=login, Path=Visibility}" Value="Collapsed">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+
+
+        </Button>
+
     </Grid>
 </Window>

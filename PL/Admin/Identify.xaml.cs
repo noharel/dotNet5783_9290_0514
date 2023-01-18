@@ -98,7 +98,7 @@ namespace PL.Admin
         /// <param name="e"></param>
         private void orders_Click(object sender, RoutedEventArgs e)
         {
-            new PL.Orders.ordersListWindow().ShowDialog();//Open ordersListWindow with list of orders
+            new PL.Admin.OrdersOptions().ShowDialog(); // open orders options
         }
     }
 }

@@ -41,13 +41,13 @@ namespace PL.Admin
             InitializeComponent();
             lisOftOrders = new(bl?.Order.GetOrders()!);
 
-            tracking!.DoWork += Tracking_DoWork;
+            //tracking!.DoWork += Tracking_DoWork;
 
-            tracking.ProgressChanged += Tracking_ProgressChanged;
-            tracking.RunWorkerCompleted += Tracking_RunWorkerCompleted;
+            //tracking.ProgressChanged += Tracking_ProgressChanged;
+            //tracking.RunWorkerCompleted += Tracking_RunWorkerCompleted;
 
-            tracking.WorkerReportsProgress = true;
-            tracking.WorkerSupportsCancellation = true;
+            //tracking.WorkerReportsProgress = true;
+            //tracking.WorkerSupportsCancellation = true;
         }
 
         private void Tracking_DoWork(object? sender, DoWorkEventArgs e)

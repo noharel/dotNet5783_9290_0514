@@ -7,7 +7,7 @@
 
         xmlns:local="clr-namespace:PL.Products"
         mc:Ignorable="d"
-        Title="ProductListWindow" Height="450" Width="800">
+        Title="NTcars" Icon="..\pics\icon.jpg" Height="450" Width="800">
     <Window.Resources>
         <Style x:Key="myComboBoxStyle"
            TargetType="ComboBox">

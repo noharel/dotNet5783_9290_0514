@@ -10,25 +10,92 @@
         x:Class="PL.Admin.OrdersSimulator"
         mc:Ignorable="d"
         DataContext="{Binding lisOftOrders,RelativeSource={RelativeSource Self} }"
-        Title="OrdersSimulator" Height="450" Width="800">
+        Title="NTcars" Icon="..\pics\icon.jpg" Height="450" Width="800">
     <Window.Resources>
-        <converter:StatusToPicPathForShippedConverter x:Key="aa"/>
-        <converter:BoolToVisibilityConverter x:Key="boolToVis"/>
+        <converter:StatusToPicPathForShippedConverter x:Key="statToPath"/>
+        <Style x:Key="myTextBoxStyle"
+           TargetType="TextBox">
+            <Setter Property="FontSize"
+              Value="36" />
+            <Setter Property="FontFamily"
+              Value="Rockwell Condensed" />
+            <Setter Property="FontWeight"
+              Value="Bold" />
+            <Setter Property="Foreground"
+                    Value="White"/>
+            <Setter Property="Background"
+                    Value="black"/>
+            <Setter Property="BorderThickness"
+                    Value="0,0,0,1"/>
+        </Style>
+        <Style x:Key="myButtonStyle"
+           TargetType="Button">
+            <Setter Property="FontSize"
+              Value="52" />
+            <Setter Property="FontFamily"
+              Value="Rockwell Condensed" />
+            <Setter Property="FontWeight"
+              Value="Bold" />
+            <Setter Property="Foreground"
+                    Value="White"/>
+            <Setter Property="Background"
+                    Value="Black"/>
+            <Setter Property="BorderThickness"
+                    Value="0,0,0,0"/>
+        </Style>
+        <Style x:Key="myLabelStyle"
+           TargetType="Label">
+            <Setter Property="FontSize"
+              Value="36" />
+            <Setter Property="FontFamily"
+              Value="Rockwell Condensed" />
+            <Setter Property="FontWeight"
+              Value="Bold" />
+            <Setter Property="Foreground"
+                    Value="White"/>
+            <Setter Property="Background"
+                    Value="Black"/>
+            <Setter Property="HorizontalAlignment"
+                    Value="Left"/>
+        </Style>
     </Window.Resources>
     <Grid>
         <DataGrid Width="Auto" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding}" Margin="0,76,10,0">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="id"
-                                    
-                                    Binding="{Binding ID}" Header="ID" Width="Auto" />
+                                    Binding="{Binding ID}" Header="ID" Width="Auto" >
+                    <DataGridTextColumn.ElementStyle>
+                    <Style TargetType="TextBlock">
+                            <Setter Property="FontSize" Value="36" />
+                            <Setter Property="FontFamily" Value="Rockwell Condensed" />
+                            <Setter Property="FontWeight" Value="Bold" />
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="Background" Value="black"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
                 <DataGridTextColumn x:Name="CustomerName"
                                     Binding="{Binding CustomerName}" Header="Customer Name" Width="Auto"/>
-                <DataGridTextColumn x:Name="Status"
-                                    Binding="{Binding Status}" Header="Status" Width="Auto"/>
+                <DataGridTemplateColumn Header="Status" Width="30" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding Status,Converter={StaticResource statToPath}}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn x:Name="AmountOfItems"
                                     Binding="{Binding AmountOfItems}" Header="AmountOfItems" Width="Auto"/>
                 <DataGridTextColumn x:Name="TotalPrice"
                                     Binding="{Binding TotalPrice}" Header="Total Price" Width="Auto"/>
+                <DataGridTemplateColumn  Width="100" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ProgressBar x:Name="progressBar" Minimum="0" Maximum="100" Value="75">
+                                
+                            </ProgressBar>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Button Name="start" Content="Start tracking" HorizontalAlignment="Left" Margin="299,32,0,0" VerticalAlignment="Top" Click="start_Click"/>

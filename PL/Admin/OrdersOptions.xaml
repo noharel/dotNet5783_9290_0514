@@ -5,7 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Admin"
         mc:Ignorable="d"
-        Title="OrdersOptions" Height="250" Width="350">
+        Title="NTcars" 
+        Height="250" 
+        Icon="..\pics\icon.jpg"
+        Width="350">
     <Window.Resources>
         <Style x:Key="myTextBoxStyle"
            TargetType="TextBox">

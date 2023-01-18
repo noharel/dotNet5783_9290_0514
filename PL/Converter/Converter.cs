@@ -97,11 +97,11 @@ public class StatusToPicPathForShippedConverter : IValueConverter
     //convert from source property type to target property type
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        BO.Order orderValue = (BO.Order)value;
+        BO.OrderStatus stat = (BO.OrderStatus)value;
 
-        if (orderValue.Status == BO.OrderStatus.Ordered) return "..\\pics\\box.png".ToString();
-        else if (orderValue.Status == BO.OrderStatus.Shipped) return "..\\pics\\delivery-truck.webp".ToString();
-        else if (orderValue.Status == BO.OrderStatus.Arrived) return "..\\pics\\house.webp".ToString();
+        if (stat == BO.OrderStatus.Ordered) return "..\\pics\\box.png".ToString();
+        else if (stat == BO.OrderStatus.Shipped) return "..\\pics\\delivery-truck.webp".ToString();
+        else if (stat == BO.OrderStatus.Arrived) return "..\\pics\\house.webp".ToString();
         else return "ERRORR";//invalid status
     }
 

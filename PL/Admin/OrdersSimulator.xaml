@@ -21,6 +21,8 @@
                                     Binding="{Binding Status}" Header="Status" Width="Auto"/>
                 <DataGridTextColumn x:Name="AmountOfItems"
                                     Binding="{Binding AmountOfItems}" Header="AmountOfItems" Width="Auto"/>
+                <DataGridTextColumn x:Name="TotalPrice"
+                                    Binding="{Binding TotalPrice}" Header="Total Price" Width="Auto"/>
             </DataGrid.Columns>
         </DataGrid>
 

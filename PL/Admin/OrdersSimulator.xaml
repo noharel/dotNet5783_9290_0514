@@ -30,6 +30,5 @@
         <Button Name="stop" Content="Stop tracking"  HorizontalAlignment="Left" Margin="496,32,0,0" VerticalAlignment="Top" Click="stop_Click"/>
 
 
-
     </Grid>
 </Window>

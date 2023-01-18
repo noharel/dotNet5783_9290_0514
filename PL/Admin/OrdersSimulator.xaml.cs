@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,8 +27,8 @@ namespace PL.Admin
         BackgroundWorker tracking;
 
         static readonly BlApi.IBl? bl = BlApi.Factory.Get();
-       
-        bool keepWork = true;
+
+       // bool keepWork = false;
         public ObservableCollection<BO.OrderForList> lisOftOrders
         {
             get { return (ObservableCollection<BO.OrderForList>)GetValue(listOfOrdersDependency); }
@@ -41,6 +42,7 @@ namespace PL.Admin
             lisOftOrders = new(bl?.Order.GetOrders()!);
 
             tracking!.DoWork += Tracking_DoWork;
+
             tracking.ProgressChanged += Tracking_ProgressChanged;
             tracking.RunWorkerCompleted += Tracking_RunWorkerCompleted;
 
@@ -50,31 +52,86 @@ namespace PL.Admin
 
         private void Tracking_DoWork(object? sender, DoWorkEventArgs e)
         {
-            while(keepWork)
+            int len = (int)e.Argument!;
+            while (true)
             {
 
-            }
-         
-        }
+                for (int i = 0; i < len; i++)
+                {
 
+                    if (tracking.CancellationPending == true)
+                    {
+                        e.Cancel = true;
+                        //e.Result = stopwatch.ElapsedMilliseconds; // Unnecessary
+                        break;
+                    }
+                    else
+                    {
+                        // Perform a time consuming operation and report progress.
+                        System.Threading.Thread.Sleep(500);
+                        tracking.ReportProgress(i * 100 / len);
+                    }
+
+
+                }
+            }
+        }
         private void Tracking_ProgressChanged(object? sender, ProgressChangedEventArgs e)
         {
-            throw new NotImplementedException();
+            List<BO.OrderForList> listO = bl!.Order.GetOrders().ToList()!;
+            listO.ForEach(delegate (BO.OrderForList o)
+            {
+                if(o.Status == BO.OrderStatus.Ordered)
+                {
+                    o.Status = BO.OrderStatus.Shipped;
+
+                }
+                if(o.Status == BO.OrderStatus.Shipped)
+                {
+                    o.Status = BO.OrderStatus.Arrived;
+                }
+            });
+
+
+            int progress = e.ProgressPercentage;
+            //resultLabel.Content = (progress + "%");
+            //resultProgressBar.Value = progress;
+
         }
 
         private void Tracking_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e)
         {
-            throw new NotImplementedException();
+            if (e.Cancelled == true)
+            {
+                // e.Result throw System.InvalidOperationException
+                //resultLabel.Content = "Canceled!";
+            }
+            else if (e.Error != null)
+            {
+                // e.Result throw System.Reflection.TargetInvocationException
+                //resultLabel.Content = "Error: " + e.Error.Message; //Exception Message
+            }
+            else
+            {
+                /*
+                long result = (long)e.Result;
+                if (result < 1000)
+                    resultLabel.Content = "Done after " + result + " ms.";
+                else
+                    resultLabel.Content = "Done after " + result / 1000 + " sec.";*/
+            }
+
         }
 
         private void start_Click(object sender, RoutedEventArgs e)
         {
-
+            //keepWork = true;
+            tracking.RunWorkerAsync();
         }
 
         private void stop_Click(object sender, RoutedEventArgs e)
         {
-
+            tracking.CancelAsync();
         }
     }
 

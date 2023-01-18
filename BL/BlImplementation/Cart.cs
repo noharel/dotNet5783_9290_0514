@@ -80,7 +80,7 @@ internal class Cart : BlApi.ICart
 
                     // makes the product
 
-                    BO.OrderItem newOrderItem = new() { ID = Dal.Order.getRunningId("OrderItemID"), Name = product.Name, ProductID = product.ID, Price = (double)product.Price!, Amount = 1, TotalPrice = (double)product.Price };
+                    BO.OrderItem newOrderItem = new() { Name = product.Name, ProductID = product.ID, Price = (double)product.Price!, Amount = 1, TotalPrice = (double)product.Price };
                     cart.Items!.Add(newOrderItem); // ADD
                     cart.TotalPrice += (double)product.Price;  //Update the total price of cart
                 }
@@ -189,19 +189,21 @@ internal class Cart : BlApi.ICart
     {
         try
         {
+            
             // check valid cart values
             List<DO.Product?> productsList = Dal.Product.GetAll().ToList();  // get all products
             bool flag = true;
             // go throwgh items in the cart
             cart.Items!.ForEach(delegate (BO.OrderItem var)
             {
+                var.ID = Dal.Order.getRunningId("OrderItemID");
                 bool internalFlag = false;
 
                 productsList.ForEach(delegate (DO.Product? prod)  //go throwgh product all te products
                 {
                     if (var.ProductID == prod?.ID)
                     {
-
+                        
                         internalFlag = true;
                         flag = flag && (prod?.InStock > 0);
                     }

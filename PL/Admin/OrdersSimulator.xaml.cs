@@ -37,11 +37,15 @@ namespace PL.Admin
             get { return (ObservableCollection<BO.OrderForList>)GetValue(listOfOrdersDependency); }
             set { SetValue(listOfOrdersDependency, value); }
         }
-        public static readonly DependencyProperty listOfOrdersDependency = DependencyProperty.Register("lisOftOrders", typeof(ObservableCollection<BO.OrderForList>), typeof(Window), new PropertyMetadata(null));
+        public static readonly DependencyProperty listOfOrdersDependency =
+            DependencyProperty.Register("lisOftOrders", typeof(ObservableCollection<BO.OrderForList>), typeof(Window), new PropertyMetadata(null));
 
         public OrdersSimulator()
         {
             InitializeComponent();
+
+           
+
             lisOftOrders = new(bl?.Order.GetOrders()!);
             tracking= new BackgroundWorker();
             //tracking.DoWork += Tracking_DoWork;

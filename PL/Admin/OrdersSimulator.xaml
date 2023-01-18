@@ -71,12 +71,29 @@
                Foreground="Wheat"
                Width="800" 
                HorizontalContentAlignment="Center" Height="39"/>
+        <Button Name="start" 
+                HorizontalAlignment="Left" 
+                Margin="13,1,0,0" 
+                VerticalAlignment="Top" 
+                Height="30" Width="30"
+                Click="start_Click">
+            <Image Source="..\pics\play.png"></Image>
+        </Button>
+        <Button Name="stop" 
+                HorizontalAlignment="Left" 
+                Margin="13,1,0,0" 
+                VerticalAlignment="Top"
+                Click="stop_Click" Height="30" Width="30">
+            <Image Source="..\pics\pause.png" ></Image>
+
+        </Button>
+
         <DataGrid Width="Auto" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding}" Margin="0,34,0,0">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="id"
                                     Binding="{Binding ID}" Header="ID" Width="80" >
                     <DataGridTextColumn.ElementStyle>
-                    <Style TargetType="TextBlock">
+                        <Style TargetType="TextBlock">
                             <Setter Property="FontSize" Value="16" />
                             <Setter Property="FontFamily" Value="Rockwell Condensed" />
                             <Setter Property="FontWeight" Value="Bold" />
@@ -89,12 +106,12 @@
                 <DataGridTextColumn x:Name="CustomerName"
                                     Binding="{Binding CustomerName}" Header="Customer Name" Width="Auto">
                     <DataGridTextColumn.ElementStyle>
-                    <Style TargetType="TextBlock">
-                        <Setter Property="FontSize" Value="16" />
-                        <Setter Property="FontFamily" Value="Rockwell Condensed" />
-                        <Setter Property="FontWeight" Value="Bold" />
-                        <Setter Property="Foreground" Value="Black"/>
-                        <Setter Property="Background" Value="White"/>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="FontSize" Value="16" />
+                            <Setter Property="FontFamily" Value="Rockwell Condensed" />
+                            <Setter Property="FontWeight" Value="Bold" />
+                            <Setter Property="Foreground" Value="Black"/>
+                            <Setter Property="Background" Value="White"/>
                             <Setter Property="HorizontalAlignment" Value="Center" />
                         </Style>
                     </DataGridTextColumn.ElementStyle>
@@ -141,23 +158,7 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Name="start" 
-                HorizontalAlignment="Left" 
-                Margin="682,13,0,0" 
-                VerticalAlignment="Top" 
-                Click="start_Click">
-            <Image Source="">
-            </Image>
-        </Button>
-        <Button Name="stop" 
-                HorizontalAlignment="Left" 
-                Margin="583,14,0,0" 
-                VerticalAlignment="Top"
-                Click="stop_Click">
-            <Image Source=""></Image>
-            
-        </Button>
-
+        
 
     </Grid>
 </Window>

@@ -45,6 +45,25 @@ public class StatusToVisibiltyForShippedConverter : IValueConverter
     //convert from target property type to source property type
 
 }
+
+public class StatusToPicPathForShippedConverter : IValueConverter
+{
+    //convert from source property type to target property type
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+
+        if (((BO.Order)value).Status == BO.OrderStatus.Ordered) return "..\\pics\\box.png";
+        return Visibility.Visible;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        return "";
+    }
+
+    //convert from target property type to source property type
+
+}
 public class StatusToVisibiltyForArrivedConverter : IValueConverter
 {
     //convert from source property type to target property type

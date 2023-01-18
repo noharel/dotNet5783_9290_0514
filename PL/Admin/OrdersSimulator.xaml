@@ -11,10 +11,11 @@
         DataContext="{Binding lisOftOrders,RelativeSource={RelativeSource Self} }"
         Title="OrdersSimulator" Height="450" Width="800">
     <Grid>
-        <DataGrid Width="Auto" IsReadOnly="True" AutoGenerateColumns="False" >
+        <DataGrid Width="Auto" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding}" Margin="0,76,10,0">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="id"
-                                    Binding="{Binding ID}" Header="ID" Width="Auto"/>
+                                    
+                                    Binding="{Binding ID}" Header="ID" Width="Auto" />
                 <DataGridTextColumn x:Name="CustomerName"
                                     Binding="{Binding CustomerName}" Header="Customer Name" Width="Auto"/>
                 <DataGridTextColumn x:Name="Status"
@@ -25,6 +26,9 @@
                                     Binding="{Binding TotalPrice}" Header="Total Price" Width="Auto"/>
             </DataGrid.Columns>
         </DataGrid>
+        <Button Name="start" Content="Start tracking" HorizontalAlignment="Left" Margin="299,32,0,0" VerticalAlignment="Top"/>
+        <Button Name="stop" Content="Stop tracking"  HorizontalAlignment="Left" Margin="496,32,0,0" VerticalAlignment="Top"/>
+
 
 
     </Grid>

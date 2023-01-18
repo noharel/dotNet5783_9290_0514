@@ -46,7 +46,7 @@
         <Style x:Key="myLabelStyle"
            TargetType="Label">
             <Setter Property="FontSize"
-              Value="36" />
+              Value="25" />
             <Setter Property="FontFamily"
               Value="Rockwell Condensed" />
             <Setter Property="FontWeight"
@@ -60,23 +60,46 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <DataGrid Width="Auto" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding}" Margin="0,76,10,0">
+
+        <Label Content="LUXARY CAR DEALERSHIP" 
+               HorizontalAlignment="Left" 
+               Margin="0,-6,0,0" 
+               VerticalAlignment="Top" 
+               Style="{StaticResource myLabelStyle}" 
+               Grid.ColumnSpan="2" 
+               Background="Black"
+               Foreground="Wheat"
+               Width="800" 
+               HorizontalContentAlignment="Center" Height="39"/>
+        <DataGrid Width="Auto" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding}" Margin="0,34,0,0">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="id"
-                                    Binding="{Binding ID}" Header="ID" Width="Auto" >
+                                    Binding="{Binding ID}" Header="ID" Width="80" >
                     <DataGridTextColumn.ElementStyle>
                     <Style TargetType="TextBlock">
-                            <Setter Property="FontSize" Value="36" />
+                            <Setter Property="FontSize" Value="16" />
                             <Setter Property="FontFamily" Value="Rockwell Condensed" />
                             <Setter Property="FontWeight" Value="Bold" />
-                            <Setter Property="Foreground" Value="White"/>
-                            <Setter Property="Background" Value="black"/>
+                            <Setter Property="Foreground" Value="Black"/>
+                            <Setter Property="Background" Value="White"/>
+                            <Setter Property="HorizontalAlignment" Value="Center" />
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
                 <DataGridTextColumn x:Name="CustomerName"
-                                    Binding="{Binding CustomerName}" Header="Customer Name" Width="Auto"/>
-                <DataGridTemplateColumn Header="Status" Width="30" IsReadOnly="True">
+                                    Binding="{Binding CustomerName}" Header="Customer Name" Width="Auto">
+                    <DataGridTextColumn.ElementStyle>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="FontSize" Value="16" />
+                        <Setter Property="FontFamily" Value="Rockwell Condensed" />
+                        <Setter Property="FontWeight" Value="Bold" />
+                        <Setter Property="Foreground" Value="Black"/>
+                        <Setter Property="Background" Value="White"/>
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTemplateColumn Header="Status" Width="60" IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Image Source="{Binding Status,Converter={StaticResource statToPath}}" />
@@ -84,22 +107,56 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTextColumn x:Name="AmountOfItems"
-                                    Binding="{Binding AmountOfItems}" Header="AmountOfItems" Width="Auto"/>
+                                    Binding="{Binding AmountOfItems}" Header="Amount Of Items" Width="Auto">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="FontSize" Value="26" />
+                            <Setter Property="FontFamily" Value="Rockwell Condensed" />
+                            <Setter Property="FontWeight" Value="Bold" />
+                            <Setter Property="Foreground" Value="Black"/>
+                            <Setter Property="Background" Value="White"/>
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
                 <DataGridTextColumn x:Name="TotalPrice"
-                                    Binding="{Binding TotalPrice}" Header="Total Price" Width="Auto"/>
-                <DataGridTemplateColumn  Width="100" IsReadOnly="True">
+                                    Binding="{Binding TotalPrice}"  Header="Total Price" Width="100">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="FontSize" Value="16" />
+                            <Setter Property="FontFamily" Value="Rockwell Condensed" />
+                            <Setter Property="FontWeight" Value="Bold" />
+                            <Setter Property="Foreground" Value="Black"/>
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="Background" Value="White"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTemplateColumn  Width="300" IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <ProgressBar x:Name="progressBar" Minimum="0" Maximum="100" Value="75">
-                                
-                            </ProgressBar>
+                            <ProgressBar x:Name="progressBar" Minimum="0" Maximum="100" Value="75"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Name="start" Content="Start tracking" HorizontalAlignment="Left" Margin="299,32,0,0" VerticalAlignment="Top" Click="start_Click"/>
-        <Button Name="stop" Content="Stop tracking"  HorizontalAlignment="Left" Margin="496,32,0,0" VerticalAlignment="Top" Click="stop_Click"/>
+        <Button Name="start" 
+                HorizontalAlignment="Left" 
+                Margin="682,13,0,0" 
+                VerticalAlignment="Top" 
+                Click="start_Click">
+            <Image Source="">
+            </Image>
+        </Button>
+        <Button Name="stop" 
+                HorizontalAlignment="Left" 
+                Margin="583,14,0,0" 
+                VerticalAlignment="Top"
+                Click="stop_Click">
+            <Image Source=""></Image>
+            
+        </Button>
 
 
     </Grid>

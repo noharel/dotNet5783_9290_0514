@@ -153,19 +153,19 @@
     <IsDeleted>false</IsDeleted>
   </Product>
   <Product>
-    <ID>100009</ID>
-    <Name>A9</Name>
-    <Price>2110421</Price>
-    <Category>Bentley</Category>
-    <InStock>15</InStock>
-    <IsDeleted>false</IsDeleted>
-  </Product>
-  <Product>
     <ID>100002</ID>
     <Name>A9</Name>
     <Price>1952770</Price>
     <Category>Mercedes</Category>
     <InStock>18</InStock>
+    <IsDeleted>false</IsDeleted>
+  </Product>
+  <Product>
+    <ID>100009</ID>
+    <Name>A9</Name>
+    <Price>2110421</Price>
+    <Category>Bentley</Category>
+    <InStock>12</InStock>
     <IsDeleted>false</IsDeleted>
   </Product>
 </product>

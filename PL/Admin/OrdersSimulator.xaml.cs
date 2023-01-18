@@ -19,20 +19,57 @@ namespace PL.Admin
     /// <summary>
     /// Interaction logic for OrdersSimulator.xaml
     /// </summary>
+
+    
     public partial class OrdersSimulator : Window
     {
+        BackgroundWorker tracking;
+
         static readonly BlApi.IBl? bl = BlApi.Factory.Get();
-        BackgroundWorker tracking = new BackgroundWorker();
+       
+        bool keepWork = true;
         public ObservableCollection<BO.OrderForList> lisOftOrders
         {
             get { return (ObservableCollection<BO.OrderForList>)GetValue(listOfOrdersDependency); }
             set { SetValue(listOfOrdersDependency, value); }
         }
         public static readonly DependencyProperty listOfOrdersDependency = DependencyProperty.Register("lisOftOrders", typeof(ObservableCollection<BO.OrderForList>), typeof(Window), new PropertyMetadata(null));
+
         public OrdersSimulator()
         {
             InitializeComponent();
             lisOftOrders = new(bl?.Order.GetOrders()!);
+
+            tracking!.DoWork += Tracking_DoWork;
+            tracking.ProgressChanged += Tracking_ProgressChanged;
+            tracking.RunWorkerCompleted += Tracking_RunWorkerCompleted;
+
+            tracking.WorkerReportsProgress = true;
+            tracking.WorkerSupportsCancellation = true;
         }
+
+        private void Tracking_DoWork(object? sender, DoWorkEventArgs e)
+        {
+            while(keepWork)
+            {
+
+            }
+         
+        }
+
+        private void Tracking_ProgressChanged(object? sender, ProgressChangedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Tracking_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+
+
     }
+
+
 }

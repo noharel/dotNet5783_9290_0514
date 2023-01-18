@@ -23,5 +23,16 @@ namespace PL.Admin
         {
             InitializeComponent();
         }
+
+        private void orders_Click(object sender, RoutedEventArgs e)
+        {
+
+            new PL.Orders.ordersListWindow().ShowDialog();//Open ordersListWindow with list of orders
+        }
+
+        private void simulator_Click(object sender, RoutedEventArgs e)
+        {
+            //new PL.Admin.OrdersSimulator().show();
+        }
     }
 }

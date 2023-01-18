@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -24,11 +25,13 @@ namespace PL.Admin
     
     public partial class OrdersSimulator : Window
     {
+
+
         BackgroundWorker tracking;
 
         static readonly BlApi.IBl? bl = BlApi.Factory.Get();
 
-       // bool keepWork = false;
+        bool keepWork = false;
         public ObservableCollection<BO.OrderForList> lisOftOrders
         {
             get { return (ObservableCollection<BO.OrderForList>)GetValue(listOfOrdersDependency); }
@@ -40,20 +43,24 @@ namespace PL.Admin
         {
             InitializeComponent();
             lisOftOrders = new(bl?.Order.GetOrders()!);
-
-            //tracking!.DoWork += Tracking_DoWork;
-
-            //tracking.ProgressChanged += Tracking_ProgressChanged;
-            //tracking.RunWorkerCompleted += Tracking_RunWorkerCompleted;
-
-            //tracking.WorkerReportsProgress = true;
-            //tracking.WorkerSupportsCancellation = true;
+            tracking= new BackgroundWorker();
+            //tracking.DoWork += Tracking_DoWork;
+            tracking!.DoWork += Tracking_DoWork;
+              
+            tracking.ProgressChanged += Tracking_ProgressChanged;
+            tracking.RunWorkerCompleted += Tracking_RunWorkerCompleted;
+            MessageBox.Show("initi");
+            tracking.WorkerReportsProgress = true;
+            tracking.WorkerSupportsCancellation = true;
         }
+
 
         private void Tracking_DoWork(object? sender, DoWorkEventArgs e)
         {
+
+            MessageBox.Show("track start");
             int len = (int)e.Argument!;
-            while (true)
+            while (keepWork)
             {
 
                 for (int i = 0; i < len; i++)
@@ -84,9 +91,10 @@ namespace PL.Admin
                 if(o.Status == BO.OrderStatus.Ordered)
                 {
                     o.Status = BO.OrderStatus.Shipped;
+                    MessageBox.Show("shipped");
 
                 }
-                if(o.Status == BO.OrderStatus.Shipped)
+                else if(o.Status == BO.OrderStatus.Shipped)
                 {
                     o.Status = BO.OrderStatus.Arrived;
                 }
@@ -125,12 +133,13 @@ namespace PL.Admin
 
         private void start_Click(object sender, RoutedEventArgs e)
         {
-            //keepWork = true;
-            tracking.RunWorkerAsync();
+            keepWork = true;
+            tracking.RunWorkerAsync(50);
         }
 
         private void stop_Click(object sender, RoutedEventArgs e)
         {
+            keepWork = false;
             tracking.CancelAsync();
         }
     }

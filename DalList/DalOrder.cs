@@ -138,6 +138,19 @@ public class DalOrder : IOrder // A CLASS THAT IMPLEMENTS THE INTERFACE IORDER
     /// <exception cref="NotImplementedException"></exception>
     public int getRunningId(string asked)
     {
-        throw new NotImplementedException();
+        ///makes sure that the id that we crate for product is not already a product id
+        int temp;
+        List<DO.OrderItem> listProduct;
+        Random rand = new(); // for product id
+        do
+        {
+            temp = rand.Next(1000, 9999); // raffels 
+            listProduct = new List<DO.OrderItem>(from DO.OrderItem var in _ds._orderItems
+                                               where var.ID == temp
+                                               select var); // get all the products with the same id
+
+        } while (listProduct.Count > 0); //stops when it finds an id which is not already used
+        return temp;
+        //throw new NotImplementedException();
     }
 }

@@ -106,11 +106,7 @@
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=login, Path=Visibility}" Value="Collapsed">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
-                    </Style.Triggers>
+
                 </Style>
             </Button.Style>
 
@@ -146,11 +142,7 @@
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=login, Path=Visibility}" Value="Collapsed">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
-                    </Style.Triggers>
+                    
                 </Style>
             </Button.Style>
 

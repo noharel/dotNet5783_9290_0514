@@ -32,7 +32,7 @@ namespace PL.Admin
 
         private void simulator_Click(object sender, RoutedEventArgs e)
         {
-            //new PL.Admin.OrdersSimulator().show();
+            new PL.Admin.OrdersSimulator().Show();
         }
     }
 }

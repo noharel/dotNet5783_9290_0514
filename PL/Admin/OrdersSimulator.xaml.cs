@@ -67,8 +67,15 @@ namespace PL.Admin
             throw new NotImplementedException();
         }
 
+        private void start_Click(object sender, RoutedEventArgs e)
+        {
 
+        }
 
+        private void stop_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 
 

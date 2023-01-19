@@ -245,6 +245,12 @@ namespace PL.Admin
             start.Visibility = Visibility.Visible;
             stop.Visibility = Visibility.Collapsed;
         }
+        private void InfoButton_click(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+            int id = ((BO.ProductForList?)button.DataContext)!.ID;
+            new Orders.OrderInfo(id).ShowDialog();
+        }
     }
 
 

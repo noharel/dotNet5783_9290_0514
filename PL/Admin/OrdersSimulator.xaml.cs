@@ -21,22 +21,16 @@ namespace PL.Admin
     /// <summary>
     /// Interaction logic for OrdersSimulator.xaml
     /// </summary>
-
-
-  
-
     public partial class OrdersSimulator : Window
     {
-       
-
-        BackgroundWorker tracking;
+        BackgroundWorker tracking; // tahalihon
 
         static readonly BlApi.IBl? bl = BlApi.Factory.Get();
 
         bool keepWork = false;
 
 
-
+        // OBSERVER
         public static readonly DependencyProperty listOfOrdersDependency =
                 DependencyProperty.Register("lisOftOrders", typeof(ObservableCollection<BO.OrderForList>), typeof(Window), new PropertyMetadata(null));
         public ObservableCollection<BO.OrderForList> lisOftOrders
@@ -44,52 +38,55 @@ namespace PL.Admin
             get { return (ObservableCollection<BO.OrderForList>)GetValue(listOfOrdersDependency); }
             set { SetValue(listOfOrdersDependency, value); }
         }
-        public OrdersSimulator()
+
+        public OrdersSimulator() // constructor
         {
             InitializeComponent();
-            lisOftOrders = new(bl?.Order.GetOrders()!.OrderBy(o => o!.ID)!);
-            string s = "";
-            bl!.Order.GetOrders().ToList().ForEach(delegate (BO.OrderForList o) { s += (o.Status+" "); }!);
-            //MessageBox.Show(s);
+            lisOftOrders = new(bl?.Order.GetOrders()!.OrderBy(o => o!.ID)!); // update list of orders
+            
             var x = from h in lisOftOrders
                     where h.Status == BO.OrderStatus.Arrived
-                    select h;
-            if (x.Count() == lisOftOrders.Count())
+                    select h; // to know if there is order that was noe delivered
+
+            if (x.Count() == lisOftOrders.Count()) // all orders delivered
             {
-                playDontWork.Visibility = Visibility.Visible; //להוסיף טריגר!!!
+                //can't start simulator
+                playDontWork.Visibility = Visibility.Visible; 
                 start.Visibility = Visibility.Collapsed;
             }
             else
             {
+                //can start simulator
                 start.Visibility = Visibility.Visible;
             }
             
             tracking= new BackgroundWorker();
-            //tracking.DoWork += Tracking_DoWork;
             tracking!.DoWork += Tracking_DoWork;
-              
             tracking.ProgressChanged += Tracking_ProgressChanged;
             tracking.RunWorkerCompleted += Tracking_RunWorkerCompleted;
-            //MessageBox.Show("initi");
+            
+            // to make progress and cancel
             tracking.WorkerReportsProgress = true;
             tracking.WorkerSupportsCancellation = true;
         }
 
-
+        /// <summary>
+        /// DO WORK
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Tracking_DoWork(object? sender, DoWorkEventArgs e)
         {
 
-            //MessageBox.Show("track start");
             int len = (int)e.Argument!;
-            while (keepWork)
+
+            while (keepWork) // not canceled
             {
                 for (int i = 0; i < len; i++)
                 {
-                    //lisOftOrders = new(bl?.Order.GetOrders()!);
                     if (tracking.CancellationPending == true)
                     {
                         e.Cancel = true;
-                        //e.Result = stopwatch.ElapsedMilliseconds; // Unnecessary
                         break;
                     }
                     else
@@ -101,126 +98,89 @@ namespace PL.Admin
                 }
                 keepWork = false;
             }
-        }
+        } 
+
+        /// <summary>
+        /// PROGRESS CHANGED
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Tracking_ProgressChanged(object? sender, ProgressChangedEventArgs e)
         {
-
-
-
             int count = 0;
-            ////int er = e.ProgressPercentage
-            DateTime minOrder = DateTime.MaxValue;
 
+            // to know the first order that was not already shiped
+            DateTime minOrder = DateTime.MaxValue; 
             int minOrderID = 0;
 
+            // to know the first order that was not already arrived
             DateTime minShip = DateTime.MaxValue;
             int minShipID = 0;
 
-
-            //MessageBox.Show("progress func");
-            //var listO = from x in bl!.Order.GetOrders().ToList()! let sta=x.Status++ select x;
             List<BO.OrderForList> listO = bl!.Order.GetOrders().ToList()!;
             listO.ForEach(delegate (BO.OrderForList o)
             {
-                //count = 0;
-                //DateTime dat = (DateTime)bl.Order.OrderInfo(o.ID).OrderDate!;
-                //int num = new System.Globalization.CultureInfo("th-TH").DateTimeFormat.Calendar.GetWeekOfYear(dat, System.Globalization.CalendarWeekRule.FirstDay, DayOfWeek.Sunday);
+                // if order is ordered and was ordered first
                 if (o.Status == BO.OrderStatus.Ordered && bl.Order.OrderInfo(o.ID).OrderDate < minOrder)
                 {
-                    // && bl.Order.OrderInfo(o.ID).OrderDate< minOrder 
-
-                    minOrderID = o.ID;
-
-                    //bl.Order.UpdateShip(o.ID);
-                    //o.Status = BO.OrderStatus.Shipped;
-                    //MessageBox.Show("shipped");
-
+                    minOrderID = o.ID; // save id
                 }
+
+                // if order is shiped and was shipped first
                 else if (o.Status == BO.OrderStatus.Shipped && bl.Order.OrderInfo(o.ID).ShipDate < minShip)
                 {
-                    // && bl.Order.OrderInfo(o.ID).ShipDate < minShip 
-
-
                     minShipID = o.ID;
-                    //bl.Order.UpdateDelivery(o.ID);
-                    //MessageBox.Show("arrive");
-                    //o.Status = BO.OrderStatus.Arrived;
                 }
-                if (o.Status == BO.OrderStatus.Arrived)
+
+                if (o.Status == BO.OrderStatus.Arrived) // to know how amny orders arrived
                     count++;
-                //lisOftOrders = new(bl?.Order.GetOrders()!);
-
-
-
             });
 
-            Random s_rand = new();
-
-
+            Random s_rand = new(); // for dates
             try
             {
-                //MessageBox.Show("shipped + " + minOrderID);
-                //MessageBox.Show("arrive + " + minShipID);
-                if (minOrderID != 0 && keepWork)
+                if (minOrderID != 0 && keepWork) // need to update ship
                 {
                     try
                     {
-                        //DateTime ship_date = (order_date + );
-                        //delivery_date = ship_date + ;
-
+                        //  update ship by the order date - make sence
                         bl!.Order.UpdateShip(minOrderID, bl.Order.OrderInfo(minOrderID).OrderDate + new TimeSpan(s_rand.NextInt64(10L * 1000L * 1000L * 3600L * 24L * 7L)));
                     }
-                    catch (BO.DoesntExistExeption)
-                    {
-
-                    }
-                    catch (BO.ContradictoryDataExeption)
-                    {
-
-                    }
+                    catch (BO.DoesntExistExeption) { }
+                    catch (BO.ContradictoryDataExeption) { }
                 }
-                if (minShipID != 0 && keepWork)
+                if (minShipID != 0 && keepWork) // need to deliver 
                 {
-                    if (count == listO.Count() - 1)
+                    if (count == listO.Count() - 1) // if this is the last order was not delivered
                     {
+                        // can't play simulator
                         stop.Visibility = Visibility.Collapsed;
-                        start.Visibility = Visibility.Visible;
+                        playDontWork.Visibility = Visibility.Visible;
                     }
+                    // update delivery by the ship date - make sence
                     bl.Order.UpdateDelivery(minShipID, bl.Order.OrderInfo(minShipID).ShipDate + new TimeSpan(s_rand.NextInt64(10L * 1000L * 1000L * 3600L * 24L * 3L)));
-                    //string s = "";
-                    //bl.Order.GetOrders().ToList().ForEach(delegate (BO.OrderForList o) { s += (o.Status + " "); });
-                    lisOftOrders = new(bl?.Order.GetOrders()!.OrderBy(o => o!.ID)!);
+
+                    lisOftOrders = new(bl?.Order.GetOrders()!.OrderBy(o => o!.ID)!); // update list of products
                 }
             }
-            catch (BO.DoesntExistExeption)
-            {
+            catch (BO.DoesntExistExeption) { }
+            catch (BO.ContradictoryDataExeption) { }
 
-            }
-            catch (BO.ContradictoryDataExeption)
+            if (count == listO.Count()) // all was delivered
             {
-
-            }
-
-            if (count == listO.Count())
-            {
-                //MessageBox.Show("all arivved");
                 keepWork = false;
-                tracking.CancelAsync();
+                tracking.CancelAsync(); // cancel
                 stop.Visibility = Visibility.Collapsed;
                 start.Visibility = Visibility.Visible;
-
             }
 
-            int progress = e.ProgressPercentage;
-            //resultLabel.Content = (progress + "%");
-            //resultProgressBar.Value = progress;
-            lisOftOrders = new(bl?.Order.GetOrders()!.OrderBy(o => o!.ID)!);
+            lisOftOrders = new(bl?.Order.GetOrders()!.OrderBy(o => o!.ID)!); // update list of products
             var x = from h in lisOftOrders
                     where h.Status == BO.OrderStatus.Arrived
                     select h;
-            if (x.Count() == lisOftOrders.Count())
+            if (x.Count() == lisOftOrders.Count()) // all was delivered
             {
-                playDontWork.Visibility = Visibility.Visible; //להוסיף טריגר!!!
+                playDontWork.Visibility = Visibility.Visible;
                 start.Visibility = Visibility.Collapsed;
             }
             else
@@ -230,10 +190,14 @@ namespace PL.Admin
 
         }
 
+        /// <summary>
+        /// RUN WORKER COMPLETED
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Tracking_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e)
         {
 
-            //MessageBox.Show("stop func");
             if (e.Cancelled == true)
             {
                 // e.Result throw System.InvalidOperationException
@@ -244,45 +208,53 @@ namespace PL.Admin
                 // e.Result throw System.Reflection.TargetInvocationException
                 //resultLabel.Content = "Error: " + e.Error.Message; //Exception Message
             }
-            else
+            else // everything was OK
             {
-
-                //MessageBox.Show("finished");
-                new PL.Admin.OrdersSimulator().Show();
-                /*
-                long result = (long)e.Result;
-                if (result < 1000)
-                    resultLabel.Content = "Done after " + result + " ms.";
-                else
-                    resultLabel.Content = "Done after " + result / 1000 + " sec.";*/
+                allArrived.Visibility = Visibility.Visible;
+               
             }
 
         }
 
+        /// <summary>
+        /// START CLICK
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void start_Click(object sender, RoutedEventArgs e)
         {
-            //lisOftOrders = new(bl?.Order.GetOrders()!.OrderBy(o => o!.ID)!);
            
-            //MessageBox.Show("start click");
             keepWork = true;
-            tracking.RunWorkerAsync(10);
+            tracking.RunWorkerAsync(20); // start do work
+            // can stop
             stop.Visibility = Visibility.Visible;
             start.Visibility = Visibility.Collapsed;
         }
 
+        /// <summary>
+        /// STOP CLICK
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void stop_Click(object sender, RoutedEventArgs e)
         {
-            //MessageBox.Show("stop click");
             keepWork = false;
-            tracking.CancelAsync();
+            tracking.CancelAsync(); // cancel
+            // can play
             start.Visibility = Visibility.Visible;
             stop.Visibility = Visibility.Collapsed;
         }
+        
+        /// <summary>
+        /// INFORMATION BUTTON
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void InfoButton_click(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
             int id = ((BO.OrderForList?)button.DataContext)!.ID;
-            new Orders.OrderInfo(id).ShowDialog();
+            new Orders.OrderInfo(id).ShowDialog(); // open inforamtion window
         }
     }
 

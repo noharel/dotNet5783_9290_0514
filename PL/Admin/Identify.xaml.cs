@@ -19,15 +19,15 @@ namespace PL.Admin
     /// </summary>
     public partial class Identify : Window
     {
+        // PASSWORDS
         string USER_NAME1 = "talel";
         string USER_NAME2 = "noa";
         string PASSWORD1 = "123456";
         string PASSWORD2 = "111111";
 
-        public Identify()//constructor
+        public Identify() //constructor
         {
             InitializeComponent();
-            //DataContext = this;
         }
 
         /// <summary>
@@ -41,41 +41,8 @@ namespace PL.Admin
                 //if a correct password and username were inputted is is possible to log in
             {
                 login.Visibility = Visibility.Collapsed;
-
-                // trying to make this xaml 
-
-                /*
-                        <Style.Triggers>
-                        <MultiDataTrigger>
-                            <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding Path=Click}" Value="True" ></Condition>
-                                <Condition Binding="{Binding ElementName=user, Path=Text}" Value="talel"></Condition>
-                                <Condition Binding="{Binding ElementName=password, Path=Text}" Value="123456"></Condition>
-                            </MultiDataTrigger.Conditions>
-                            <MultiDataTrigger.Setters>
-                                <Setter Property="Visibility" Value="Collapsed" ></Setter>
-                            </MultiDataTrigger.Setters>
-                            
-                        </MultiDataTrigger>
-                        <MultiDataTrigger>
-                            <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding Path=ClickMode, Mode=OneWay}" Value="Press" ></Condition>
-                                <Condition Binding="{Binding ElementName=user, Path=Text}" Value="noa"></Condition>
-                                <Condition Binding="{Binding ElementName=password, Path=Text}" Value="111111"></Condition>
-                                
-                            </MultiDataTrigger.Conditions>
-                            <MultiDataTrigger.Setters>
-                                <Setter Property="Visibility" Value="Collapsed" ></Setter>
-                            </MultiDataTrigger.Setters>
-                        </MultiDataTrigger>
-                    </Style.Triggers>
-                 */
-
-                // IN XAML
-                //products.Visibility = Visibility.Visible;
-                //orders.Visibility = Visibility.Visible;
             }
-            else//incorrect information was inputted
+            else //incorrect information was inputted
             {
                 MessageBox.Show("incorrect information");
             }
@@ -88,7 +55,7 @@ namespace PL.Admin
         /// <param name="e"></param>
         private void products_Click(object sender, RoutedEventArgs e)
         {
-            new PL.Products.ProductListWindow().ShowDialog();//Open ProductListWindow with list of products
+            new PL.Products.ProductListWindow().ShowDialog(); //Open ProductListWindow with list of products
         }
     
         /// <summary>

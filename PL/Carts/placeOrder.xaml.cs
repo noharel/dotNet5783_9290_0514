@@ -68,23 +68,35 @@ namespace PL.Carts
 
 
             }
-            catch (BO.AlreadyExistExeption )//catch for MakingAnOrder
+            catch (BO.AlreadyExistExeption ex)//catch for MakingAnOrder
             {
-                MessageBox.Show("Couldn't place order");
+                string innerEx = "";
+                if (ex.InnerException != null)
+                    innerEx = ": " + ex.InnerException.Message;
+                MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
             }
-            catch(BO.ContradictoryDataExeption)//catch for MakingAnOrder
+            catch(BO.ContradictoryDataExeption ex)//catch for MakingAnOrder
             {
-                MessageBox.Show("Couldn't place order");
+                string innerEx = "";
+                if (ex.InnerException != null)
+                    innerEx = ": " + ex.InnerException.Message;
+                MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
 
             }
-            catch (BO.DoesntExistExeption)//catch for MakingAnOrder
+            catch (BO.DoesntExistExeption ex)//catch for MakingAnOrder
             {
-                MessageBox.Show("Couldn't place order");
+                string innerEx = "";
+                if (ex.InnerException != null)
+                    innerEx = ": " + ex.InnerException.Message;
+                MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
 
             }
-            catch (BO.InvalidInputExeption)//catch for MakingAnOrder
+            catch (BO.InvalidInputExeption ex)//catch for MakingAnOrder
             {
-                MessageBox.Show("Couldn't place order");
+                string innerEx = "";
+                if (ex.InnerException != null)
+                    innerEx = ": " + ex.InnerException.Message;
+                MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
 
             }
         }

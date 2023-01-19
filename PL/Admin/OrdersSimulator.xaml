@@ -73,7 +73,7 @@
                Foreground="Wheat"
                Width="800" 
                HorizontalContentAlignment="Center" Height="39"/>
-        
+
         <Button Name="start" 
                 HorizontalAlignment="Left" 
                 Margin="13,1,0,0" 
@@ -92,7 +92,7 @@
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
-                    
+
                 </Style>
 
             </Button.Style>
@@ -116,7 +116,7 @@
                         </Setter.Value>
                     </Setter>
 
-                    
+
                 </Style>
             </Button.Style>
         </Button>
@@ -232,7 +232,7 @@
             </DataGrid.Columns>
         </DataGrid>
         <Image Name="playDontWork" Visibility="Collapsed" Source="../pics/playDontWork.png" Margin="9,1,739,583">
-           
+
         </Image>
         <Label Content="All orders delivered" 
                HorizontalAlignment="Left" 
@@ -249,6 +249,7 @@
                 </Style>
             </Label.Style>
         </Label>
+        <Label Name="allArrived" Visibility="Collapsed" Content="Mazel Tov! All orders arrived at their destination" Style="{StaticResource myLabelStyle}" HorizontalAlignment="Center" Margin="0,278,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

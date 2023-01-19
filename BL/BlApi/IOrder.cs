@@ -30,7 +30,7 @@ public interface IOrder
     /// </summary>
     /// <param name="orderId"></param>
     /// <returns></returns>
-    public BO.Order UpdateShip(int orderId);
+    public BO.Order UpdateShip(int orderId, DateTime? dat = null);
 
     /// <summary>
     /// UPDATE DELIVERY DATE - FOR MANAGER

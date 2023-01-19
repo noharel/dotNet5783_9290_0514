@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Media;
 
 namespace PL.Converter;
+
 public class IntToStringConverter : IValueConverter
 {
     //convert from source property type to target property type
@@ -157,5 +158,26 @@ public class StatusToColorrConverter : IValueConverter
     //convert from target property type to source property type
 
 }
+public class IDToSoldOutVisibiltyConverter : IValueConverter
+{
+    BlApi.IBl? bl = BlApi.Factory.Get(); // get bl from factory
 
+    //convert from source property type to target property type
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        int id = (int)value;
+        BO.Product prod = bl!.Product.GetProductInfo_manager(id);
+
+        if (prod.InStock > 0) return Visibility.Collapsed;
+        else return Visibility.Visible;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        return "";
+    }
+
+    //convert from target property type to source property type
+
+}
 

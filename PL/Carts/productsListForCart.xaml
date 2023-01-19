@@ -4,10 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Carts"
+        xmlns:converter="clr-namespace:PL.Converter"
         mc:Ignorable="d"
         DataContext="{Binding listOfProductForList,RelativeSource={RelativeSource Self}}"
         Title="NTcars" Icon="..\pics\icon.jpg" Height="450" Width="800">
     <Window.Resources>
+        <converter:IDToSoldOutVisibiltyConverter x:Key="idToVis"/>
         <Style x:Key="myComboBoxStyle"
            TargetType="ComboBox">
             <Setter Property="FontSize"
@@ -191,7 +193,7 @@
                                        Content="SOLD OUT"
                                        FontSize="9"
                                        Background="Red"
-                                       Visibility="Hidden"
+                                       Visibility="{Binding ID,Converter={StaticResource idToVis}}"
                                        Style="{StaticResource myLabelStyle}">
                                 </Label>
                             </DataTemplate>

@@ -190,7 +190,7 @@ namespace PL.Admin
         private void Tracking_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e)
         {
 
-            MessageBox.Show("stop func");
+            //MessageBox.Show("stop func");
             if (e.Cancelled == true)
             {
                 // e.Result throw System.InvalidOperationException

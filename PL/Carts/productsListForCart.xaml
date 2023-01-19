@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PL.Carts"
         xmlns:converter="clr-namespace:PL.Converter"
         mc:Ignorable="d"
-        DataContext="{Binding listOfProductForList,RelativeSource={RelativeSource Self}}"
+        DataContext="{Binding listOfProductForListCart,RelativeSource={RelativeSource Self}}"
         Title="NTcars" Icon="..\pics\icon.jpg" Height="450" Width="800">
     <Window.Resources>
         <converter:IDToSoldOutVisibiltyConverter x:Key="idToVis"/>

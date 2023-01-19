@@ -32,10 +32,7 @@ namespace PL
 
         private void ProductsMouseEnter(object sender, RoutedEventArgs e) // product buttom
         {
-            // open the ProductListWindow
-            //var win = new PL.Products.ProductListWindow();
-            //win.Owner = this; // for the new window to be first
-            new PL.Carts.productsListForCart().ShowDialog();
+            new PL.Carts.productsListForCart().ShowDialog();//open window of list of products
         }
         /// <summary>
         /// Track Order button

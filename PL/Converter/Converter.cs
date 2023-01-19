@@ -8,8 +8,12 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
 
+//converters for PL
 namespace PL.Converter;
 
+/// <summary>
+/// int to string converter
+/// </summary>
 public class IntToStringConverter : IValueConverter
 {
     //convert from source property type to target property type
@@ -27,6 +31,9 @@ public class IntToStringConverter : IValueConverter
         else return null;
     }
 }
+/// <summary>
+/// status to visibilty for shipped label
+/// </summary>
 public class StatusToVisibiltyForShippedConverter : IValueConverter
 {
     //convert from source property type to target property type
@@ -45,6 +52,9 @@ public class StatusToVisibiltyForShippedConverter : IValueConverter
     //convert from target property type to source property type
 
 }
+/// <summary>
+/// status to visibilty for arrived label
+/// </summary>
 public class StatusToVisibiltyForArrivedConverter : IValueConverter
 {
     //convert from source property type to target property type
@@ -63,6 +73,9 @@ public class StatusToVisibiltyForArrivedConverter : IValueConverter
     //convert from target property type to source property type
 
 }
+/// <summary>
+/// convert bool to visibilty
+/// </summary>
 public class BoolToVisibilityConverter : IValueConverter
 {
     //convert from source property type to target property type
@@ -93,7 +106,12 @@ public class BoolToVisibilityConverter : IValueConverter
         }
     }
 }
-
+/// <summary> 
+/// convert status to corresponding pic path
+/// pic of box-ordered
+/// pic of delivery truck-shipped
+/// pic of house-delivered
+/// </summary>
 public class StatusToPicPathForShippedConverter : IValueConverter
 {
     //convert from source property type to target property type
@@ -115,7 +133,12 @@ public class StatusToPicPathForShippedConverter : IValueConverter
     //convert from target property type to source property type
 
 }
-
+/// <summary>
+/// convert status to amount thats should be filled in progress bar
+/// 10-ordered
+/// 50-shipped
+/// 100-delivered
+/// </summary>
 public class StatusToProgressBarConverter : IValueConverter
 {
     //convert from source property type to target property type
@@ -137,6 +160,12 @@ public class StatusToProgressBarConverter : IValueConverter
     //convert from target property type to source property type
 
 }
+/// <summary>
+/// convert status to matching color
+/// red-ordered
+/// yellow-shipped
+/// green-delivered
+/// </summary>
 public class StatusToColorrConverter : IValueConverter
 {
     //convert from source property type to target property type
@@ -158,6 +187,9 @@ public class StatusToColorrConverter : IValueConverter
     //convert from target property type to source property type
 
 }
+/// <summary>
+/// convert a given id of product to visibilty for sold out
+/// </summary>
 public class IDToSoldOutVisibiltyConverter : IValueConverter
 {
     BlApi.IBl? bl = BlApi.Factory.Get(); // get bl from factory

@@ -57,7 +57,7 @@ namespace PL.Orders
             }
             try
             {
-                listOfOrderForList = new(bl.Order.GetOrders()!); // get all the orders
+                listOfOrderForList = new(bl!.Order.GetOrders()!); // get all the orders
             }
             catch (BO.DoesntExistExeption ex) // catch exception from get orders func
             {

@@ -71,25 +71,66 @@
                Foreground="Wheat"
                Width="800" 
                HorizontalContentAlignment="Center" Height="39"/>
+        
         <Button Name="start" 
                 HorizontalAlignment="Left" 
                 Margin="13,1,0,0" 
                 VerticalAlignment="Top" 
                 Height="30" Width="30"
                 Click="start_Click">
-            <Image Source="..\pics\play.png"></Image>
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Visibility" Value="Visible"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <Grid>
+                                    <Image Source="..\pics\play.png"/>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=stop, Path=Visibility}" Value="Visible">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+
+            </Button.Style>
+
         </Button>
         <Button Name="stop" 
                 HorizontalAlignment="Left" 
-                Margin="13,1,0,0" 
+                Margin="74,1,0,0" 
                 VerticalAlignment="Top"
                 Click="stop_Click" Height="30" Width="30">
-            <Image Source="..\pics\pause.png" ></Image>
-
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Visibility" Value="Visible"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <Grid>
+                                    <Image Source="..\pics\pause.png" ></Image>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                 
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=start, Path=Visibility}" Value="Visible">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
         </Button>
+        
 
-        <DataGrid Width="Auto" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding}" Margin="0,34,0,0">
+        <DataGrid Width="Auto" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding}" Margin="0,34,0,0" IsSynchronizedWithCurrentItem="True">
             <DataGrid.Columns>
+                
                 <DataGridTextColumn x:Name="id"
                                     Binding="{Binding ID}" Header="ID" Width="80" >
                     <DataGridTextColumn.ElementStyle>
@@ -116,7 +157,7 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTemplateColumn Header="Status" Width="60" IsReadOnly="True">
+                <DataGridTemplateColumn Header="Status" Width="60" IsReadOnly="False">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Image Source="{Binding Status,Converter={StaticResource statToPath}}" />

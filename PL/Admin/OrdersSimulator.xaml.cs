@@ -15,6 +15,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Globalization;
 
 namespace PL.Admin
 {
@@ -25,26 +26,31 @@ namespace PL.Admin
     
     public partial class OrdersSimulator : Window
     {
-
+       
 
         BackgroundWorker tracking;
 
         static readonly BlApi.IBl? bl = BlApi.Factory.Get();
 
         bool keepWork = false;
+
+      
+
+
+        public static readonly DependencyProperty listOfOrdersDependency =
+                DependencyProperty.Register("lisOftOrders", typeof(ObservableCollection<BO.OrderForList>), typeof(Window), new PropertyMetadata(null));
         public ObservableCollection<BO.OrderForList> lisOftOrders
         {
             get { return (ObservableCollection<BO.OrderForList>)GetValue(listOfOrdersDependency); }
             set { SetValue(listOfOrdersDependency, value); }
         }
-        public static readonly DependencyProperty listOfOrdersDependency =
-            DependencyProperty.Register("lisOftOrders", typeof(ObservableCollection<BO.OrderForList>), typeof(Window), new PropertyMetadata(null));
-
         public OrdersSimulator()
         {
             InitializeComponent();
-
-           
+            start.Visibility = Visibility.Visible;
+            string s = "";
+            bl.Order.GetOrders().ToList().ForEach(delegate (BO.OrderForList o) { s += (o.Status+" "); });
+            MessageBox.Show(s);
 
             lisOftOrders = new(bl?.Order.GetOrders()!);
             tracking= new BackgroundWorker();
@@ -62,14 +68,13 @@ namespace PL.Admin
         private void Tracking_DoWork(object? sender, DoWorkEventArgs e)
         {
 
-            MessageBox.Show("track start");
+            //MessageBox.Show("track start");
             int len = (int)e.Argument!;
             while (keepWork)
             {
-
                 for (int i = 0; i < len; i++)
                 {
-
+                    //lisOftOrders = new(bl?.Order.GetOrders()!);
                     if (tracking.CancellationPending == true)
                     {
                         e.Cancel = true;
@@ -79,40 +84,97 @@ namespace PL.Admin
                     else
                     {
                         // Perform a time consuming operation and report progress.
-                        System.Threading.Thread.Sleep(500);
+                        System.Threading.Thread.Sleep(5000);
                         tracking.ReportProgress(i * 100 / len);
                     }
 
 
                 }
+                keepWork = false;
             }
+
         }
         private void Tracking_ProgressChanged(object? sender, ProgressChangedEventArgs e)
         {
+            int count = 0;
+            ////int er = e.ProgressPercentage
+            DateTime minOrder = DateTime.MaxValue;
+            
+            int minOrderID = 0;
+
+            DateTime minShip = DateTime.MaxValue;
+            int minShipID = 0;
+
+
+            MessageBox.Show("progress func");
+            //var listO = from x in bl!.Order.GetOrders().ToList()! let sta=x.Status++ select x;
             List<BO.OrderForList> listO = bl!.Order.GetOrders().ToList()!;
             listO.ForEach(delegate (BO.OrderForList o)
             {
-                if(o.Status == BO.OrderStatus.Ordered)
+                //count = 0;
+                //DateTime dat = (DateTime)bl.Order.OrderInfo(o.ID).OrderDate!;
+                //int num = new System.Globalization.CultureInfo("th-TH").DateTimeFormat.Calendar.GetWeekOfYear(dat, System.Globalization.CalendarWeekRule.FirstDay, DayOfWeek.Sunday);
+                if (o.Status == BO.OrderStatus.Ordered && bl.Order.OrderInfo(o.ID).OrderDate < minOrder)
                 {
-                    o.Status = BO.OrderStatus.Shipped;
-                    MessageBox.Show("shipped");
+                    // && bl.Order.OrderInfo(o.ID).OrderDate< minOrder 
+
+                    minOrderID = o.ID;
+                    //bl.Order.UpdateShip(o.ID);
+                    //o.Status = BO.OrderStatus.Shipped;
+                    //MessageBox.Show("shipped");
 
                 }
-                else if(o.Status == BO.OrderStatus.Shipped)
+                else if (o.Status == BO.OrderStatus.Shipped && bl.Order.OrderInfo(o.ID).ShipDate < minShip)
                 {
-                    o.Status = BO.OrderStatus.Arrived;
+                    // && bl.Order.OrderInfo(o.ID).ShipDate < minShip 
+
+
+                    minShipID= o.ID;
+                    //bl.Order.UpdateDelivery(o.ID);
+                    // MessageBox.Show("arrive");
+                    //o.Status = BO.OrderStatus.Arrived;
                 }
+                if (o.Status == BO.OrderStatus.Arrived)
+                    count++;
+                //lisOftOrders = new(bl?.Order.GetOrders()!);
+
+
+
             });
+            
 
+            if (count==listO.Count())
+            {
+                keepWork = false;
+                tracking.CancelAsync();
+            }
+            try
+            {
+               bl!.Order.UpdateShip(minOrderID);
+               bl.Order.UpdateDelivery(minShipID);
+               lisOftOrders = new(bl?.Order.GetOrders()!);
+            }
+            catch(BO.DoesntExistExeption ex)
+            {
+
+            }
+            catch(BO.ContradictoryDataExeption ex)
+            {
+
+            }
+            
 
             int progress = e.ProgressPercentage;
             //resultLabel.Content = (progress + "%");
             //resultProgressBar.Value = progress;
+            
 
         }
 
         private void Tracking_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e)
         {
+
+            MessageBox.Show("stop func");
             if (e.Cancelled == true)
             {
                 // e.Result throw System.InvalidOperationException
@@ -125,6 +187,9 @@ namespace PL.Admin
             }
             else
             {
+
+                MessageBox.Show("finished");
+                new PL.Admin.OrdersSimulator().Show();
                 /*
                 long result = (long)e.Result;
                 if (result < 1000)
@@ -137,14 +202,21 @@ namespace PL.Admin
 
         private void start_Click(object sender, RoutedEventArgs e)
         {
+
+            MessageBox.Show("start click");
             keepWork = true;
-            tracking.RunWorkerAsync(50);
+            tracking.RunWorkerAsync(10);
+            stop.Visibility = Visibility.Visible;
+            start.Visibility = Visibility.Collapsed;
         }
 
         private void stop_Click(object sender, RoutedEventArgs e)
         {
+            MessageBox.Show("stop click");
             keepWork = false;
             tracking.CancelAsync();
+            start.Visibility = Visibility.Visible;
+            stop.Visibility = Visibility.Collapsed;
         }
     }
 

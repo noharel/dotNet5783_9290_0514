@@ -246,7 +246,7 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Image Source="../pics/playDontWork.png">
+        <Image Name="playDontWork" Source="../pics/playDontWork.png">
 
     </Grid>
 </Window>

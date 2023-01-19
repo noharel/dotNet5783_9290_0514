@@ -213,7 +213,10 @@
                                     <Button.Style>
                                         <Style BasedOn="{StaticResource myButtonStyle}" TargetType="{x:Type Button}">
                                             <Setter Property="Opacity" Value="15" />
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                            <Setter Property="IsEnabled" Value="True"/>
                                             <Setter Property="Template">
+                                                
 
                                                 <Setter.Value>
                                                     <ControlTemplate TargetType="{x:Type Button}">
@@ -224,11 +227,19 @@
                                                             <Trigger Property="IsMouseOver" Value="True">
                                                                 <Setter Property="BorderThickness" Value="3,3,3,3" TargetName="Border"/>
                                                             </Trigger>
+                                                           
                                                         </ControlTemplate.Triggers>
                                                     </ControlTemplate>
                                                 </Setter.Value>
 
                                             </Setter>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ElementName=SoldOut, Path=Visibility}" Value="Visible">
+                                                    <Setter Property="IsEnabled" Value="False"/>
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                    <Setter Property="BorderThickness" Value="0,10,10,10"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
 
                                         </Style>
                                     </Button.Style>

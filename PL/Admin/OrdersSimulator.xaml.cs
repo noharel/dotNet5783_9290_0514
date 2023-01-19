@@ -52,7 +52,7 @@ namespace PL.Admin
             bl.Order.GetOrders().ToList().ForEach(delegate (BO.OrderForList o) { s += (o.Status+" "); });
             MessageBox.Show(s);
 
-            lisOftOrders = new(bl?.Order.GetOrders()!);
+            lisOftOrders = new(bl?.Order.GetOrders()!.OrderBy(o => o!.ID)!);
             tracking= new BackgroundWorker();
             //tracking.DoWork += Tracking_DoWork;
             tracking!.DoWork += Tracking_DoWork;
@@ -87,12 +87,9 @@ namespace PL.Admin
                         System.Threading.Thread.Sleep(5000);
                         tracking.ReportProgress(i * 100 / len);
                     }
-
-
                 }
                 keepWork = false;
             }
-
         }
         private void Tracking_ProgressChanged(object? sender, ProgressChangedEventArgs e)
         {
@@ -106,7 +103,7 @@ namespace PL.Admin
             int minShipID = 0;
 
 
-            MessageBox.Show("progress func");
+            //MessageBox.Show("progress func");
             //var listO = from x in bl!.Order.GetOrders().ToList()! let sta=x.Status++ select x;
             List<BO.OrderForList> listO = bl!.Order.GetOrders().ToList()!;
             listO.ForEach(delegate (BO.OrderForList o)
@@ -119,6 +116,7 @@ namespace PL.Admin
                     // && bl.Order.OrderInfo(o.ID).OrderDate< minOrder 
 
                     minOrderID = o.ID;
+
                     //bl.Order.UpdateShip(o.ID);
                     //o.Status = BO.OrderStatus.Shipped;
                     //MessageBox.Show("shipped");
@@ -131,7 +129,7 @@ namespace PL.Admin
 
                     minShipID= o.ID;
                     //bl.Order.UpdateDelivery(o.ID);
-                    // MessageBox.Show("arrive");
+                    //MessageBox.Show("arrive");
                     //o.Status = BO.OrderStatus.Arrived;
                 }
                 if (o.Status == BO.OrderStatus.Arrived)
@@ -141,34 +139,52 @@ namespace PL.Admin
 
 
             });
-            
 
-            if (count==listO.Count())
-            {
-                keepWork = false;
-                tracking.CancelAsync();
-            }
+
+
             try
             {
-               bl!.Order.UpdateShip(minOrderID);
-               bl.Order.UpdateDelivery(minShipID);
-               lisOftOrders = new(bl?.Order.GetOrders()!);
+                //MessageBox.Show("shipped + " + minOrderID);
+                //MessageBox.Show("arrive + " + minShipID);
+                try
+                {
+                    bl!.Order.UpdateShip(minOrderID);
+                }
+                catch (BO.DoesntExistExeption ex)
+                {
+
+                }
+                catch (BO.ContradictoryDataExeption ex)
+                {
+
+                }
+                bl.Order.UpdateDelivery(minShipID);
+                //string s = "";
+                //bl.Order.GetOrders().ToList().ForEach(delegate (BO.OrderForList o) { s += (o.Status + " "); });
+                lisOftOrders = new(bl?.Order.GetOrders()!.OrderBy(o => o!.ID)!;
             }
-            catch(BO.DoesntExistExeption ex)
+            catch (BO.DoesntExistExeption ex)
             {
 
             }
-            catch(BO.ContradictoryDataExeption ex)
+            catch (BO.ContradictoryDataExeption ex)
             {
 
             }
-            
+            if (count == listO.Count())
+            {
+                //MessageBox.Show("all arivved");
+                keepWork = false;
+                tracking.CancelAsync();
+                stop.Visibility = Visibility.Collapsed;
+                start.Visibility = Visibility.Visible;
+                
+            }
 
             int progress = e.ProgressPercentage;
             //resultLabel.Content = (progress + "%");
             //resultProgressBar.Value = progress;
             
-
         }
 
         private void Tracking_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e)

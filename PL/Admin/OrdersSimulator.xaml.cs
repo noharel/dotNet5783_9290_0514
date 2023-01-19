@@ -47,11 +47,21 @@ namespace PL.Admin
         public OrdersSimulator()
         {
             InitializeComponent();
-            start.Visibility = Visibility.Visible;
+           
             string s = "";
             bl.Order.GetOrders().ToList().ForEach(delegate (BO.OrderForList o) { s += (o.Status+" "); });
             //MessageBox.Show(s);
-
+            var x = from h in lisOftOrders
+                    where h.Status == BO.OrderStatus.Arrived
+                    select h;
+            if (x.Count() == lisOftOrders.Count())
+            {
+                playDontWork.Visibility = Visibility.Visible; //להוסיף טריגר!!!
+            }
+            else
+            {
+                start.Visibility = Visibility.Visible;
+            }
             lisOftOrders = new(bl?.Order.GetOrders()!.OrderBy(o => o!.ID)!);
             tracking= new BackgroundWorker();
             //tracking.DoWork += Tracking_DoWork;
@@ -219,13 +229,7 @@ namespace PL.Admin
         private void start_Click(object sender, RoutedEventArgs e)
         {
             //lisOftOrders = new(bl?.Order.GetOrders()!.OrderBy(o => o!.ID)!);
-            var x = from h in lisOftOrders
-                    where h.Status==BO.OrderStatus.Arrived 
-                    select h;
-            if (x.Count()==lisOftOrders.Count())
-            {
-                
-            }
+           
             //MessageBox.Show("start click");
             keepWork = true;
             tracking.RunWorkerAsync(10);

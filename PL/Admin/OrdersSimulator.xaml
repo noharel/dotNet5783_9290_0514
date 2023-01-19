@@ -120,7 +120,7 @@
                 </Style>
             </Button.Style>
         </Button>
-        <DataGrid Width="Auto" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding}" Margin="0,34,0,0" IsSynchronizedWithCurrentItem="True">
+        <DataGrid Width="Auto" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding}" Margin="0,33,0,0" IsSynchronizedWithCurrentItem="True">
             <DataGrid.Columns>
                 <DataGridTemplateColumn  Width="40" IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
@@ -217,7 +217,7 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTemplateColumn  Width="300" IsReadOnly="True">
+                <DataGridTemplateColumn  Width="280" IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <ProgressBar x:Name="progressBar" 
@@ -231,7 +231,7 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Image Name="playDontWork" Visibility="Collapsed" Source="../pics/playDontWork.png" Margin="10,-8,739,388">
+        <Image Name="playDontWork" Visibility="Collapsed" Source="../pics/playDontWork.png" Margin="8,0,742,586">
            
         </Image>
         <Label Content="All orders delivered" 

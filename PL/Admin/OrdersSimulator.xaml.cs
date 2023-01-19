@@ -22,7 +22,9 @@ namespace PL.Admin
     /// Interaction logic for OrdersSimulator.xaml
     /// </summary>
 
-    
+
+  
+
     public partial class OrdersSimulator : Window
     {
        
@@ -33,7 +35,6 @@ namespace PL.Admin
 
         bool keepWork = false;
 
-      
 
 
         public static readonly DependencyProperty listOfOrdersDependency =
@@ -103,6 +104,7 @@ namespace PL.Admin
         }
         private void Tracking_ProgressChanged(object? sender, ProgressChangedEventArgs e)
         {
+
             int count = 0;
             ////int er = e.ProgressPercentage
             DateTime minOrder = DateTime.MaxValue;
@@ -150,28 +152,38 @@ namespace PL.Admin
 
             });
 
+            Random s_rand = new();
 
-
+            
             try
             {
                 //MessageBox.Show("shipped + " + minOrderID);
                 //MessageBox.Show("arrive + " + minShipID);
-                try
+                if (minOrderID != 0)
                 {
-                    bl!.Order.UpdateShip(minOrderID);
-                }
-                catch (BO.DoesntExistExeption)
-                {
+                    try
+                    {
+                        //DateTime ship_date = (order_date + );
+                        //delivery_date = ship_date + ;
 
-                }
-                catch (BO.ContradictoryDataExeption)
-                {
+                        bl!.Order.UpdateShip(minOrderID, bl.Order.OrderInfo(minOrderID).OrderDate + new TimeSpan(s_rand.NextInt64(10L * 1000L * 1000L * 3600L * 24L * 7L)));
+                    }
+                    catch (BO.DoesntExistExeption)
+                    {
 
+                    }
+                    catch (BO.ContradictoryDataExeption)
+                    {
+
+                    }
                 }
-                bl.Order.UpdateDelivery(minShipID);
-                //string s = "";
-                //bl.Order.GetOrders().ToList().ForEach(delegate (BO.OrderForList o) { s += (o.Status + " "); });
-                lisOftOrders = new(bl?.Order.GetOrders()!.OrderBy(o => o!.ID)!);
+                if (minShipID != 0)
+                {
+                    bl.Order.UpdateDelivery(minShipID, bl.Order.OrderInfo(minShipID).ShipDate + new TimeSpan(s_rand.NextInt64(10L * 1000L * 1000L * 3600L * 24L * 3L)));
+                    //string s = "";
+                    //bl.Order.GetOrders().ToList().ForEach(delegate (BO.OrderForList o) { s += (o.Status + " "); });
+                    lisOftOrders = new(bl?.Order.GetOrders()!.OrderBy(o => o!.ID)!);
+                }
             }
             catch (BO.DoesntExistExeption )
             {
@@ -181,6 +193,7 @@ namespace PL.Admin
             {
 
             }
+            
             if (count == listO.Count())
             {
                 //MessageBox.Show("all arivved");

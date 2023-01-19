@@ -92,11 +92,7 @@
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=stop, Path=Visibility}" Value="Visible">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </DataTrigger>
-                    </Style.Triggers>
+                    
                 </Style>
 
             </Button.Style>
@@ -104,12 +100,12 @@
         </Button>
         <Button Name="stop" 
                 HorizontalAlignment="Left" 
-                Margin="74,1,0,0" 
+                Margin="13,1,0,0" 
                 VerticalAlignment="Top"
                 Click="stop_Click" Height="30" Width="30">
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
-                    <Setter Property="Visibility" Value="Visible"/>
+                    <Setter Property="Visibility" Value="Collapsed"/>
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate>
@@ -120,11 +116,7 @@
                         </Setter.Value>
                     </Setter>
 
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=start, Path=Visibility}" Value="Visible">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </DataTrigger>
-                    </Style.Triggers>
+                    
                 </Style>
             </Button.Style>
         </Button>
@@ -239,7 +231,7 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Image Name="playDontWork" Visibility="Collapsed" Source="../pics/playDontWork.png" Margin="12,1,756,403">
+        <Image Name="playDontWork" Visibility="Collapsed" Source="../pics/playDontWork.png" Margin="10,-8,739,388">
            
         </Image>
         <Label Content="All orders delivered" 

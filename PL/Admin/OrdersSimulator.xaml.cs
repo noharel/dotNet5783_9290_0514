@@ -50,18 +50,20 @@ namespace PL.Admin
             string s = "";
             bl!.Order.GetOrders().ToList().ForEach(delegate (BO.OrderForList o) { s += (o.Status+" "); }!);
             //MessageBox.Show(s);
+            lisOftOrders = new(bl?.Order.GetOrders()!.OrderBy(o => o!.ID)!);
             var x = from h in lisOftOrders
                     where h.Status == BO.OrderStatus.Arrived
                     select h;
             if (x.Count() == lisOftOrders.Count())
             {
                 playDontWork.Visibility = Visibility.Visible; //להוסיף טריגר!!!
+                start.Visibility = Visibility.Collapsed;
             }
             else
             {
                 start.Visibility = Visibility.Visible;
             }
-            lisOftOrders = new(bl?.Order.GetOrders()!.OrderBy(o => o!.ID)!);
+            
             tracking= new BackgroundWorker();
             //tracking.DoWork += Tracking_DoWork;
             tracking!.DoWork += Tracking_DoWork;
@@ -193,7 +195,19 @@ namespace PL.Admin
             int progress = e.ProgressPercentage;
             //resultLabel.Content = (progress + "%");
             //resultProgressBar.Value = progress;
-            
+            lisOftOrders = new(bl?.Order.GetOrders()!.OrderBy(o => o!.ID)!);
+            var x = from h in lisOftOrders
+                    where h.Status == BO.OrderStatus.Arrived
+                    select h;
+            if (x.Count() == lisOftOrders.Count())
+            {
+                playDontWork.Visibility = Visibility.Visible; //להוסיף טריגר!!!
+                start.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                start.Visibility = Visibility.Visible;
+            }
         }
 
         private void Tracking_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e)

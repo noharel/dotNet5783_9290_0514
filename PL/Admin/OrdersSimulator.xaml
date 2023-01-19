@@ -13,6 +13,8 @@
         Title="NTcars" Icon="..\pics\icon.jpg" Height="450" Width="800">
     <Window.Resources>
         <converter:StatusToPicPathForShippedConverter x:Key="statToPath"/>
+        <converter:StatusToProgressBarConverter x:Key="statToProgressBar"/>
+        <converter:StatusToColorrConverter x:Key="statToColor"/>
         <Style x:Key="myTextBoxStyle"
            TargetType="TextBox">
             <Setter Property="FontSize"
@@ -193,7 +195,12 @@
                 <DataGridTemplateColumn  Width="300" IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <ProgressBar x:Name="progressBar" Minimum="0" Maximum="100" Value="75"/>
+                            <ProgressBar x:Name="progressBar" 
+                                         Minimum="0" 
+                                         Maximum="100" 
+                                         Value="{Binding Status,Converter={StaticResource statToProgressBar}}"
+                                         Background="{Binding Status,Converter={StaticResource statToColor}}"/>
+                                
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Media;
 
 namespace PL.Converter;
 public class IntToStringConverter : IValueConverter
@@ -102,6 +103,49 @@ public class StatusToPicPathForShippedConverter : IValueConverter
         if (stat == BO.OrderStatus.Ordered) return "..\\pics\\box.png".ToString();
         else if (stat == BO.OrderStatus.Shipped) return "..\\pics\\delivery-truck.webp".ToString();
         else if (stat == BO.OrderStatus.Arrived) return "..\\pics\\house.webp".ToString();
+        else return "ERRORR";//invalid status
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        return "";
+    }
+
+    //convert from target property type to source property type
+
+}
+
+public class StatusToProgressBarConverter : IValueConverter
+{
+    //convert from source property type to target property type
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        BO.OrderStatus stat = (BO.OrderStatus)value;
+
+        if (stat == BO.OrderStatus.Ordered) return "10";
+        else if (stat == BO.OrderStatus.Shipped) return "50";
+        else if (stat == BO.OrderStatus.Arrived) return "100";
+        else return "ERRORR";//invalid status
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        return "";
+    }
+
+    //convert from target property type to source property type
+
+}
+public class StatusToColorrConverter : IValueConverter
+{
+    //convert from source property type to target property type
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        BO.OrderStatus stat = (BO.OrderStatus)value;
+
+        if (stat == BO.OrderStatus.Ordered) return System.Drawing.Color.Green;
+        else if (stat == BO.OrderStatus.Shipped) return System.Drawing.Color.Yellow;
+        else if (stat == BO.OrderStatus.Arrived) return System.Drawing.Color.Red;
         else return "ERRORR";//invalid status
     }
 

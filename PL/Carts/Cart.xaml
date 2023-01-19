@@ -85,11 +85,22 @@
                Foreground="Wheat"
                Width="800" 
                HorizontalContentAlignment="Center" Height="39"/>
-        
         <ListView Name="items" ItemsSource="{Binding Items}" Margin="410,46,35,55" Grid.ColumnSpan="2" >
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="240"/>
+                    <GridViewColumn Width="240">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Amount}"/>
+                                <TextBlock Text="{Binding Name}"/>
+                                <TextBlock Text="{Binding Price}"/>
+                                <TextBlock Text="{Binding TotalPrice}"/>
+                                
+                            </StackPanel>
+                        </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn  Width="30">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>

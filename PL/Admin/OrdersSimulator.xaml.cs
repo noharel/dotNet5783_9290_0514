@@ -50,7 +50,7 @@ namespace PL.Admin
             start.Visibility = Visibility.Visible;
             string s = "";
             bl.Order.GetOrders().ToList().ForEach(delegate (BO.OrderForList o) { s += (o.Status+" "); });
-            MessageBox.Show(s);
+            //MessageBox.Show(s);
 
             lisOftOrders = new(bl?.Order.GetOrders()!.OrderBy(o => o!.ID)!);
             tracking= new BackgroundWorker();
@@ -59,7 +59,7 @@ namespace PL.Admin
               
             tracking.ProgressChanged += Tracking_ProgressChanged;
             tracking.RunWorkerCompleted += Tracking_RunWorkerCompleted;
-            MessageBox.Show("initi");
+            //MessageBox.Show("initi");
             tracking.WorkerReportsProgress = true;
             tracking.WorkerSupportsCancellation = true;
         }
@@ -204,7 +204,7 @@ namespace PL.Admin
             else
             {
 
-                MessageBox.Show("finished");
+                //MessageBox.Show("finished");
                 new PL.Admin.OrdersSimulator().Show();
                 /*
                 long result = (long)e.Result;
@@ -219,7 +219,7 @@ namespace PL.Admin
         private void start_Click(object sender, RoutedEventArgs e)
         {
 
-            MessageBox.Show("start click");
+            //MessageBox.Show("start click");
             keepWork = true;
             tracking.RunWorkerAsync(10);
             stop.Visibility = Visibility.Visible;
@@ -228,7 +228,7 @@ namespace PL.Admin
 
         private void stop_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("stop click");
+            //MessageBox.Show("stop click");
             keepWork = false;
             tracking.CancelAsync();
             start.Visibility = Visibility.Visible;

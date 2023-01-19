@@ -202,8 +202,10 @@ namespace PL.Carts
         {
             try
             {
-                listOfProductForList = new(bl!.Product.GetListProduct()!); //get all the products
+                //listOfProductForList = new(bl!.Product.GetListProduct()!); //get all the products
                 CategorySelector.SelectedIndex = -1;//initialize the selected category on screen
+                listOfProductForList = new(bl!.Product.GetListProduct()!); //get all the products
+
                 //producs.ItemsSource = listProd;//refresh products 
             }
             catch (BO.DoesntExistExeption ex) //get list product exception

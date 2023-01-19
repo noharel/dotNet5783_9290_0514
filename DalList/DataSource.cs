@@ -42,7 +42,7 @@ internal class DataSource
     {       
         for (int i = order_total; i > 0; i--)  // initialize orders
         {
-            int customer = s_rand.Next(customers.Length);
+            int customer = s_rand.Next(customers.Length - 1);
             bool shipped = s_rand.NextDouble() < 0.7D;
             bool delivered = s_rand.NextDouble() < 0.3D;
             DateTime order_date = DateTime.Now - new TimeSpan(s_rand.NextInt64(10L * 1000L * 1000L * 3600L * 24L * 100L));
@@ -61,7 +61,7 @@ internal class DataSource
                         ID = config.NextOrderNumber,
                         
                         CustomerName = customers[customer],
-                        CustomerAddress = cities[s_rand.Next(cities.Length)],
+                        CustomerAddress = cities[s_rand.Next(cities.Length-1)],
                         CustomerEmail = customers[customer].Split(' ')[0]+ customers[customer].Split(' ')[1] + "@jctmail.com",
                         OrderDate = order_date,
                         IsDeleted = false,
@@ -79,7 +79,7 @@ internal class DataSource
                     {
                         ID = config.NextOrderNumber,
                         CustomerName = customers[customer],
-                        CustomerAddress = cities[s_rand.Next(cities.Length)],
+                        CustomerAddress = cities[s_rand.Next(cities.Length - 1)],
                         CustomerEmail = customers[customer].Split(' ')[0] + customers[customer].Split(' ')[1] + "@jctmail.com",
                         OrderDate = order_date,
                         IsDeleted = false,
@@ -95,7 +95,7 @@ internal class DataSource
                     {
                         ID = config.NextOrderNumber,
                         CustomerName = customers[customer],
-                        CustomerAddress = cities[s_rand.Next(cities.Length)],
+                        CustomerAddress = cities[s_rand.Next(cities.Length - 1)],
                         CustomerEmail = customers[customer].Split(' ')[0] + customers[customer].Split(' ')[1] + "@jctmail.com",
                         OrderDate = order_date,
                         IsDeleted = false,
@@ -113,8 +113,8 @@ internal class DataSource
 
         for (int i = 0; i < product_total; i++)  //  initlialize
         {
-            int car = s_rand.Next(cars.Length);
-            int category = s_rand.Next(Enum.GetNames(typeof(Category)).Length);
+            int car = s_rand.Next(cars.Length-1);
+            int category = s_rand.Next(Enum.GetNames(typeof(Category)).Length-1);
             int in_stock = 0;
             if (i > product_total * 0.05)
             {
@@ -142,7 +142,7 @@ internal class DataSource
         for (int i = 0; i < 50; i++)  // initialize
         {
 
-            Product? product = _products[s_rand.Next(_products.Count)];
+            Product? product = _products[s_rand.Next(_products.Count - 1)];
             if (i < order_total)
             {
                 OrderItem orderitem = new() // add new order item
@@ -170,10 +170,7 @@ internal class DataSource
                 };
                 _orderItems.Add(orderitem);
             }
-            
-            
         }
-        
     }
 
 

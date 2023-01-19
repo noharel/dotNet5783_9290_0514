@@ -1,6 +1,7 @@
 ﻿using PL.Products;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,14 +23,22 @@ namespace PL.Orders
     {
 
         BlApi.IBl? bl = BlApi.Factory.Get();  // get bl
+        public static readonly DependencyProperty listOfOrderForListDependency =
+               DependencyProperty.Register("listOfOrderForList", typeof(ObservableCollection<BO.OrderForList>), typeof(Window), new PropertyMetadata(null));
+        public ObservableCollection<BO.OrderForList> listOfOrderForList
+        {
+            get { return (ObservableCollection<BO.OrderForList>)GetValue(listOfOrderForListDependency); }
+            set { SetValue(listOfOrderForListDependency, value); }
+        }
+
         public ordersListWindow() //constructor
         {
-            InitializeComponent();
             try
             {
-                ordersList.ItemsSource = bl.Order.GetOrders(); // get all the orders
+                listOfOrderForList = new(bl.Order.GetOrders()!); // get all the orders
+                InitializeComponent();
             }
-            catch(BO.DoesntExistExeption ex)  // exepction from get orders func
+            catch (BO.DoesntExistExeption ex)  // exepction from get orders func
             {
                 string innerEx = "";
                 if (ex.InnerException != null)
@@ -48,9 +57,9 @@ namespace PL.Orders
             }
             try
             {
-                ordersList.ItemsSource = bl!.Order.GetOrders(); //return to the window - update the orders
+                listOfOrderForList = new(bl.Order.GetOrders()!); // get all the orders
             }
-            catch(BO.DoesntExistExeption ex) // catch exception from get orders func
+            catch (BO.DoesntExistExeption ex) // catch exception from get orders func
             {
                 string innerEx = "";
                 if (ex.InnerException != null)

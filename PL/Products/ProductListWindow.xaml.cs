@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,12 +21,20 @@ namespace PL.Products;
 public partial class ProductListWindow : Window
 {
     BlApi.IBl? bl = BlApi.Factory.Get();  // get bl
+    public static readonly DependencyProperty listOfProductForListDependency =
+               DependencyProperty.Register("listOfProductForList", typeof(ObservableCollection<BO.ProductForList>), typeof(Window), new PropertyMetadata(null));
+    public ObservableCollection<BO.ProductForList> listOfProductForList
+    {
+        get { return (ObservableCollection<BO.ProductForList>)GetValue(listOfProductForListDependency); }
+        set { SetValue(listOfProductForListDependency, value); }
+    }
+
     public ProductListWindow() // constructor
     {
         InitializeComponent();
         try
         {
-            ProductListView.ItemsSource = bl.Product.GetListProduct(); // get all products
+            listOfProductForList = new(bl.Product.GetListProduct()!); // get all products
         }
         catch(BO.DoesntExistExeption ex)
         {
@@ -47,7 +56,7 @@ public partial class ProductListWindow : Window
         try
         {
             //return all the products in the asked category
-            ProductListView.ItemsSource = bl!.Product.GetListProduct(x => x == null ? throw new Exception() : x.Category == category);
+            listOfProductForList = new(bl!.Product.GetListProduct(x => x == null ? throw new Exception() : x.Category == category)!);
         }
         catch(BO.DoesntExistExeption ex) // get list product exception
         {
@@ -64,9 +73,9 @@ public partial class ProductListWindow : Window
     {
         try
         {
-            ProductListView.ItemsSource = bl!.Product.GetListProduct(); //get all the products
             CategorySelector.SelectedIndex = -1;
-            ProductListView.ItemsSource = bl.Product.GetListProduct(); // get all products
+            listOfProductForList = new(bl!.Product.GetListProduct()!); // get all products
+
         }
         catch (BO.DoesntExistExeption ex) //get list product exception
         {
@@ -84,7 +93,7 @@ public partial class ProductListWindow : Window
 
         try
         {
-            ProductListView.ItemsSource = bl!.Product.GetListProduct(); // update the list product to see the new one
+            listOfProductForList = new(bl!.Product.GetListProduct()!); // get all products
         }
         catch (BO.DoesntExistExeption ex) // gat list product exception
         {
@@ -105,7 +114,7 @@ public partial class ProductListWindow : Window
 
         try
         {
-            ProductListView.ItemsSource = bl!.Product.GetListProduct(); // update list of product to see changes
+            listOfProductForList = new(bl!.Product.GetListProduct()!); // get all products
         }
         catch (BO.DoesntExistExeption ex) // get list product exception
         {

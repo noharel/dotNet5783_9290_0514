@@ -7,6 +7,7 @@
 
         xmlns:local="clr-namespace:PL.Products"
         mc:Ignorable="d"
+        DataContext="{Binding listOfProductForList,RelativeSource={RelativeSource Self}}"
         Title="NTcars" Icon="..\pics\icon.jpg" Height="450" Width="800">
     <Window.Resources>
         <Style x:Key="myComboBoxStyle"
@@ -90,7 +91,7 @@
                Grid.ColumnSpan="2" 
                Width="800" 
                HorizontalContentAlignment="Center" Height="39"/>
-        <ListView Name="ProductListView" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="232,37,0,0" Grid.Row="1" Grid.ColumnSpan="2" MouseDoubleClick="ProductListView_SelectionChanged" Style="{StaticResource myListViewStyle}" >
+        <ListView Name="ProductListView" ItemsSource="{Binding}" Margin="232,37,0,0" Grid.Row="1" Grid.ColumnSpan="2" MouseDoubleClick="ProductListView_SelectionChanged" Style="{StaticResource myListViewStyle}" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="650"/>

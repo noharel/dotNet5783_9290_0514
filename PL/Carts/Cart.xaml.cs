@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -22,13 +23,24 @@ namespace PL.Carts
     {
         BlApi.IBl? bl = BlApi.Factory.Get(); // get bl from factory
         public BO.Cart cart { get; set; }
+        public static readonly DependencyProperty listOfOrderItemDependency =
+               DependencyProperty.Register("listOfOrderItem", typeof(ObservableCollection<BO.OrderItem>), typeof(Window), new PropertyMetadata(null));
+        public ObservableCollection<BO.OrderItem> listOfOrderItem
+        {
+            get { return (ObservableCollection<BO.OrderItem>)GetValue(listOfOrderItemDependency); }
+            set { SetValue(listOfOrderItemDependency, value); }
+        }
+
         public Cart(BO.Cart c)//constructor
         {
-            InitializeComponent();
             cart = c;
-            DataContext = cart;
+            listOfOrderItem = new(cart!.Items!.ToList()!);
+
+            InitializeComponent();
+            //cart = c;
+            //DataContext = cart;
             //items.ItemsSource = cart.Items;//initailze items in cart
-            //totalPrice.Content = cart.TotalPrice;//initialize total proce
+            totalPrice.Content = cart.TotalPrice;//initialize total proce
             if (cart.Items!.Count()==0)//if the cart is empty you can not place the order, so if the cart is not empty you can press the place order button
             {
                 placeOrderButton.IsEnabled = false;//place order button is pressable
@@ -47,7 +59,9 @@ namespace PL.Carts
             {
                 bl!.Cart.UpdateAmountInCart(cart, id, 0);////UPDATE AMOUNT OF ITEM IN THE CART to 0
                 //items.ItemsSource = cart.Items;//refresh items in cart view
-                //totalPrice.Content = cart.TotalPrice;//refresh total price of cart view
+                totalPrice.Content = cart.TotalPrice;//refresh total price of cart view
+                listOfOrderItem = new(cart.Items!.ToList()!);
+
                 if (cart.Items!.Count() == 0)//if the cart is empty you can not place the order, so if the cart is not empty you can press the place order button
                 {
                     placeOrderButton.IsEnabled = false;//place order button is pressable
@@ -108,10 +122,12 @@ namespace PL.Carts
                 {
                         bl!.Cart.UpdateAmountInCart(cart, var.ProductID, 0);//update amount of product in cart to 0
                 });
-                items.ItemsSource = cart.Items;//refresh items in cart view
+                //items.ItemsSource = cart.Items;//refresh items in cart view
                 totalPrice.Content = cart.TotalPrice;//refresh total price of cart view
-                ICollectionView view = CollectionViewSource.GetDefaultView(items.ItemsSource);//refresh view
-                view.Refresh();// refresh view
+                listOfOrderItem = new(cart.Items!.ToList()!);
+
+                //ICollectionView view = CollectionViewSource.GetDefaultView(items.ItemsSource);//refresh view
+                //view.Refresh();// refresh view
                 if (cart.Items!.Count() == 0)//if the cart is empty you can not place the order, so if the cart is not empty you can press the place order button
                 {
                     placeOrderButton.IsEnabled = false;//place order button is pressable
@@ -141,9 +157,11 @@ namespace PL.Carts
             {
                 bl!.Cart.UpdateAmountInCart(cart, id, amount+1);//update amount of product in cart to 1 more
                 totalPrice.Content = cart.TotalPrice;//refresh items in cart view
-                items.ItemsSource = cart.Items;//refresh total price of cart view
-                ICollectionView view = CollectionViewSource.GetDefaultView(items.ItemsSource);//refreash view
-                view.Refresh();//refresh view
+                                                     //items.ItemsSource = cart.Items;//refresh total price of cart view
+                listOfOrderItem = new(cart.Items!.ToList()!);
+
+                //ICollectionView view = CollectionViewSource.GetDefaultView(items.ItemsSource);//refreash view
+                //view.Refresh();//refresh view
                 if (cart.Items!.Count() == 0)//if the cart is empty you can not place the order, so if the cart is not empty you can press the place order button
                 {
                     placeOrderButton.IsEnabled = false;//place order button is pressable
@@ -176,9 +194,11 @@ namespace PL.Carts
             {
                 bl!.Cart.UpdateAmountInCart(cart, id, amount - 1);//update amount of product in cart to 1 less
                 totalPrice.Content = cart.TotalPrice;//refresh items in cart view
-                items.ItemsSource = cart.Items;//refresh total price of cart view
-                ICollectionView view = CollectionViewSource.GetDefaultView(items.ItemsSource);//refreash view
-                view.Refresh();//refresh view
+                listOfOrderItem = new(cart.Items!.ToList()!);
+
+                //items.ItemsSource = cart.Items;//refresh total price of cart view
+                //ICollectionView view = CollectionViewSource.GetDefaultView(items.ItemsSource);//refreash view
+                //view.Refresh();//refresh view
                 if (cart.Items!.Count() == 0)//if the cart is empty you can not place the order, so if the cart is not empty you can press the place order button
                 {
                     placeOrderButton.IsEnabled = false;//place order button is pressable

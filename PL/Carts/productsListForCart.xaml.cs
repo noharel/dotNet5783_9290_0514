@@ -33,6 +33,7 @@ namespace PL.Carts
             {
                 InitializeComponent();
                 listProd = bl.Product.GetListProduct().ToList();//GET LIST OF PRODUCT
+                producs.DataContext = listProd;
                 producs.ItemsSource = listProd;//for listview of products
                 
                 List<BO.OrderItem>? list = new List<BO.OrderItem>();

@@ -46,11 +46,10 @@ namespace PL.Admin
         public OrdersSimulator()
         {
             InitializeComponent();
-           
+            lisOftOrders = new(bl?.Order.GetOrders()!.OrderBy(o => o!.ID)!);
             string s = "";
             bl!.Order.GetOrders().ToList().ForEach(delegate (BO.OrderForList o) { s += (o.Status+" "); }!);
             //MessageBox.Show(s);
-            lisOftOrders = new(bl?.Order.GetOrders()!.OrderBy(o => o!.ID)!);
             var x = from h in lisOftOrders
                     where h.Status == BO.OrderStatus.Arrived
                     select h;
@@ -261,7 +260,7 @@ namespace PL.Admin
         private void InfoButton_click(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
-            int id = ((BO.ProductForList?)button.DataContext)!.ID;
+            int id = ((BO.OrderForList?)button.DataContext)!.ID;
             new Orders.OrderInfo(id).ShowDialog();
         }
     }

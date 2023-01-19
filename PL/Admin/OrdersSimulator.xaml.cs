@@ -161,7 +161,7 @@ namespace PL.Admin
                 bl.Order.UpdateDelivery(minShipID);
                 //string s = "";
                 //bl.Order.GetOrders().ToList().ForEach(delegate (BO.OrderForList o) { s += (o.Status + " "); });
-                lisOftOrders = new(bl?.Order.GetOrders()!.OrderBy(o => o!.ID)!;
+                lisOftOrders = new(bl?.Order.GetOrders()!.OrderBy(o => o!.ID)!);
             }
             catch (BO.DoesntExistExeption ex)
             {

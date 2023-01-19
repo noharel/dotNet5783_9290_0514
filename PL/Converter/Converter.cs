@@ -143,9 +143,9 @@ public class StatusToColorrConverter : IValueConverter
     {
         BO.OrderStatus stat = (BO.OrderStatus)value;
 
-        if (stat == BO.OrderStatus.Ordered) return System.Drawing.Color.Green;
-        else if (stat == BO.OrderStatus.Shipped) return System.Drawing.Color.Yellow;
-        else if (stat == BO.OrderStatus.Arrived) return System.Drawing.Color.Red;
+        if (stat == BO.OrderStatus.Ordered) return "Green";
+        else if (stat == BO.OrderStatus.Shipped) return "Yellow";
+        else if (stat == BO.OrderStatus.Arrived) return "Red";
         else return "ERRORR";//invalid status
     }
 

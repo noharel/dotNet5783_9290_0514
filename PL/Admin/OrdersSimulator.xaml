@@ -199,7 +199,7 @@
                                          Minimum="0" 
                                          Maximum="100" 
                                          Value="{Binding Status,Converter={StaticResource statToProgressBar}}"
-                                         Background="{Binding Status,Converter={StaticResource statToColor}}"/>
+                                         Foreground="{Binding Status,Converter={StaticResource statToColor}}"/>
                                 
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

@@ -151,7 +151,7 @@ internal class DataSource
                     PrudoctID = product?.ID ?? 0,
                     Price = product?.Price ?? 0,
                     Amount = s_rand.Next(1, 5),
-                    ID = config.NextOrderNumber,
+                    ID = configForOrderItem.NextOrderNumber,
                     IsDeleted = false,
                 };
                 orderRunID++;
@@ -165,7 +165,7 @@ internal class DataSource
                     PrudoctID = product?.ID ?? 0,
                     Price = product?.Price ?? 0,
                     Amount = s_rand.Next(1, 5),
-                    ID = config.NextOrderNumber,
+                    ID = configForOrderItem.NextOrderNumber,
                     IsDeleted = false,
                 };
                 _orderItems.Add(orderitem);
@@ -184,13 +184,21 @@ internal class DataSource
         createOrderItems();
     }
 
-    internal static class config // for the order and order item id
+    internal static class config // for the order
     {
         internal const int s_startOrderNumber = 1000;
         private static int s_nextOrderNumber = s_startOrderNumber;
         internal static int NextOrderNumber { get => ++ s_nextOrderNumber; }
 
         
+    }
+
+    internal static class configForOrderItem // for order item
+    {
+        internal const int s_startOrderNumber = 1000;
+        private static int s_nextOrderNumber = s_startOrderNumber;
+        internal static int NextOrderNumber { get => ++s_nextOrderNumber; }
+
     }
 
     internal static class configP  // for the product ID

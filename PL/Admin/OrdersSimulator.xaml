@@ -231,7 +231,7 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Image Name="playDontWork" Visibility="Collapsed" Source="../pics/playDontWork.png" Margin="8,0,742,586">
+        <Image Name="playDontWork" Visibility="Collapsed" Source="../pics/playDontWork.png" Margin="9,1,739,583">
            
         </Image>
         <Label Content="All orders delivered" 

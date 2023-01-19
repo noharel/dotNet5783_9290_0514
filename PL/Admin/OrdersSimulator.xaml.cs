@@ -95,7 +95,7 @@ namespace PL.Admin
                     else
                     {
                         // Perform a time consuming operation and report progress.
-                        System.Threading.Thread.Sleep(5000);
+                        System.Threading.Thread.Sleep(3000);
                         tracking.ReportProgress(i * 100 / len);
                     }
                 }
@@ -105,10 +105,12 @@ namespace PL.Admin
         private void Tracking_ProgressChanged(object? sender, ProgressChangedEventArgs e)
         {
 
+
+
             int count = 0;
             ////int er = e.ProgressPercentage
             DateTime minOrder = DateTime.MaxValue;
-            
+
             int minOrderID = 0;
 
             DateTime minShip = DateTime.MaxValue;
@@ -139,7 +141,7 @@ namespace PL.Admin
                     // && bl.Order.OrderInfo(o.ID).ShipDate < minShip 
 
 
-                    minShipID= o.ID;
+                    minShipID = o.ID;
                     //bl.Order.UpdateDelivery(o.ID);
                     //MessageBox.Show("arrive");
                     //o.Status = BO.OrderStatus.Arrived;
@@ -154,12 +156,12 @@ namespace PL.Admin
 
             Random s_rand = new();
 
-            
+
             try
             {
                 //MessageBox.Show("shipped + " + minOrderID);
                 //MessageBox.Show("arrive + " + minShipID);
-                if (minOrderID != 0)
+                if (minOrderID != 0 && keepWork)
                 {
                     try
                     {
@@ -177,23 +179,28 @@ namespace PL.Admin
 
                     }
                 }
-                if (minShipID != 0)
+                if (minShipID != 0 && keepWork)
                 {
+                    if (count == listO.Count() - 1)
+                    {
+                        stop.Visibility = Visibility.Collapsed;
+                        start.Visibility = Visibility.Visible;
+                    }
                     bl.Order.UpdateDelivery(minShipID, bl.Order.OrderInfo(minShipID).ShipDate + new TimeSpan(s_rand.NextInt64(10L * 1000L * 1000L * 3600L * 24L * 3L)));
                     //string s = "";
                     //bl.Order.GetOrders().ToList().ForEach(delegate (BO.OrderForList o) { s += (o.Status + " "); });
                     lisOftOrders = new(bl?.Order.GetOrders()!.OrderBy(o => o!.ID)!);
                 }
             }
-            catch (BO.DoesntExistExeption )
+            catch (BO.DoesntExistExeption)
             {
 
             }
-            catch (BO.ContradictoryDataExeption )
+            catch (BO.ContradictoryDataExeption)
             {
 
             }
-            
+
             if (count == listO.Count())
             {
                 //MessageBox.Show("all arivved");
@@ -201,7 +208,7 @@ namespace PL.Admin
                 tracking.CancelAsync();
                 stop.Visibility = Visibility.Collapsed;
                 start.Visibility = Visibility.Visible;
-                
+
             }
 
             int progress = e.ProgressPercentage;
@@ -220,6 +227,7 @@ namespace PL.Admin
             {
                 start.Visibility = Visibility.Visible;
             }
+
         }
 
         private void Tracking_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e)

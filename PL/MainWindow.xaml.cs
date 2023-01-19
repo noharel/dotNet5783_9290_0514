@@ -30,7 +30,7 @@ namespace PL
             InitializeComponent();
         }
 
-        private void ProductsMouseEnter(object sender, MouseEventArgs e) // product buttom
+        private void ProductsMouseEnter(object sender, RoutedEventArgs e) // product buttom
         {
             // open the ProductListWindow
             //var win = new PL.Products.ProductListWindow();

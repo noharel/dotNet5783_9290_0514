@@ -69,7 +69,7 @@
                 HorizontalAlignment="Left" 
                 Margin="257,40,0,0" 
                 VerticalAlignment="Top" 
-                MouseDoubleClick="ProductsMouseEnter" 
+                Click="ProductsMouseEnter" 
                 Height="72" 
                 Width="258"
                 BorderBrush="{x:Null}" 

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -49,7 +48,7 @@ namespace PL.Admin
             InitializeComponent();
            
             string s = "";
-            bl.Order.GetOrders().ToList().ForEach(delegate (BO.OrderForList o) { s += (o.Status+" "); });
+            bl!.Order.GetOrders().ToList().ForEach(delegate (BO.OrderForList o) { s += (o.Status+" "); }!);
             //MessageBox.Show(s);
             var x = from h in lisOftOrders
                     where h.Status == BO.OrderStatus.Arrived
@@ -160,11 +159,11 @@ namespace PL.Admin
                 {
                     bl!.Order.UpdateShip(minOrderID);
                 }
-                catch (BO.DoesntExistExeption ex)
+                catch (BO.DoesntExistExeption)
                 {
 
                 }
-                catch (BO.ContradictoryDataExeption ex)
+                catch (BO.ContradictoryDataExeption)
                 {
 
                 }
@@ -173,11 +172,11 @@ namespace PL.Admin
                 //bl.Order.GetOrders().ToList().ForEach(delegate (BO.OrderForList o) { s += (o.Status + " "); });
                 lisOftOrders = new(bl?.Order.GetOrders()!.OrderBy(o => o!.ID)!);
             }
-            catch (BO.DoesntExistExeption ex)
+            catch (BO.DoesntExistExeption )
             {
 
             }
-            catch (BO.ContradictoryDataExeption ex)
+            catch (BO.ContradictoryDataExeption )
             {
 
             }

@@ -140,12 +140,12 @@ public class DalOrder : IOrder // A CLASS THAT IMPLEMENTS THE INTERFACE IORDER
     {
         if (asked == "OrderID")
         {
-            return _ds._orders.LastOrDefault()!.Value.ID +1;
+            return _ds._orders.OrderBy(o=>o!.Value.ID).LastOrDefault()!.Value.ID +1;
             
         }
         if (asked == "OrderItemID")
         {
-            return _ds._orderItems.LastOrDefault()!.Value.ID + 1;
+            return _ds._orderItems.OrderBy(o => o!.Value.ID).LastOrDefault()!.Value.ID + 1;
         }
         return 0;
     }

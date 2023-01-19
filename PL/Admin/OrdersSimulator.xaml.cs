@@ -218,7 +218,14 @@ namespace PL.Admin
 
         private void start_Click(object sender, RoutedEventArgs e)
         {
-
+            //lisOftOrders = new(bl?.Order.GetOrders()!.OrderBy(o => o!.ID)!);
+            var x = from h in lisOftOrders
+                    where h.Status==BO.OrderStatus.Arrived 
+                    select h;
+            if (x.Count()==lisOftOrders.Count())
+            {
+                
+            }
             //MessageBox.Show("start click");
             keepWork = true;
             tracking.RunWorkerAsync(10);

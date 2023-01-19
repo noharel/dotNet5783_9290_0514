@@ -1,4 +1,5 @@
-﻿using DO;
+﻿using DalApi;
+using DO;
 using System;
 using System.Diagnostics;
 using System.Globalization;
@@ -10,6 +11,7 @@ namespace Dal;
 
 internal class DataSource 
 {
+    
     
     private static readonly Random s_rand = new Random(); // randome
 
@@ -23,15 +25,15 @@ internal class DataSource
     internal List<Product?> _products { get; } = new List<Product?> { };
 
     private const int product_total = 20;
-    private const int order_total = 10;
+    private const int order_total = 20;
 
     String[] cities = { "Tel Aviv", "Jerusalem", "Haifa","Ashdod","Lod","Bnei Brak","Ramat Gan", "Giv'ataim",
         "Holon", "Bat Yam", "Rishon le-zion", "Karnei Shomron", "Ariel","Efrat","Nokdim","Ashkelon", "Kiriat Gat" };
     
     String[] customers = { "Miley Cyrus","Coco Chanel", "Demi Lovato", "Sabrina Carpenter","Jusstin Beiber", "Chris Hemsworth",
         "Cardi B", "Nicki MInaj","Katy Perry","Shawn Mendes","Kim Kardshian", "Selena Gomez", "Taylor Swift","Adam Levine",
-        "Kylie Jenner","Camilla Cabello","Meghan Trainer", "Harry Styles", "Zara Larsson", "Gigi Hadid", "Bella Hadid","Dua Lipa",
-        " ","Riahana"};
+        "Kylie Jenner","Camilla Cabello","Meghan Trainer", "Harry Styles", "Zara Larsson", "Gigi Hadid", "Bella Hadid","Dua Lipa"
+        ,"Riahana"};
     
     String[] cars = {"X8","E20","LS","Q8","CLS","A9","E-tron","Class","Bentayaga","NT","Series 3","F-Type","XC40",
         "MODEL 2","INFINITI","XJ","Phantom"};
@@ -57,6 +59,7 @@ internal class DataSource
                     Order order = new()  // create new order
                     {
                         ID = config.NextOrderNumber,
+                        
                         CustomerName = customers[customer],
                         CustomerAddress = cities[s_rand.Next(cities.Length)],
                         CustomerEmail = customers[customer].Split(' ')[0]+ customers[customer].Split(' ')[1] + "@jctmail.com",
@@ -65,6 +68,7 @@ internal class DataSource
                         DeliveryrDate = delivery_date,
                         ShipDate = ship_date
                     };
+                   
                     _orders.Add(order); // add the order
                 }
                 else
@@ -101,6 +105,7 @@ internal class DataSource
 
             }
         }
+        
     }
 
     private void createProducts()  // create products list
@@ -133,21 +138,42 @@ internal class DataSource
     
     private void createOrderItems()  // craete order items list
     {
-        for (int i = 0; i < 40; i++)  // initialize
+        int orderRunID = 1001;
+        for (int i = 0; i < 50; i++)  // initialize
         {
+
             Product? product = _products[s_rand.Next(_products.Count)];
-            _orderItems.Add(
-                new OrderItem  // new order item
+            if (i < order_total)
+            {
+                OrderItem orderitem = new() // add new order item
                 {
-                    OrderID = s_rand.Next(config.s_startOrderNumber-1, config.s_startOrderNumber + _orders.Count +1),
+                    OrderID = orderRunID,
                     PrudoctID = product?.ID ?? 0,
                     Price = product?.Price ?? 0,
-                    Amount = s_rand.Next(1,5),
+                    Amount = s_rand.Next(1, 5),
                     ID = config.NextOrderNumber,
-                    IsDeleted=false,
-
-                });
+                    IsDeleted = false,
+                };
+                orderRunID++;
+                _orderItems.Add(orderitem);
+            }
+            else
+            {
+                OrderItem orderitem = new() // add new order item
+                {
+                    OrderID = s_rand.Next(config.s_startOrderNumber - 1, config.s_startOrderNumber + _orders.Count + 1),
+                    PrudoctID = product?.ID ?? 0,
+                    Price = product?.Price ?? 0,
+                    Amount = s_rand.Next(1, 5),
+                    ID = config.NextOrderNumber,
+                    IsDeleted = false,
+                };
+                _orderItems.Add(orderitem);
+            }
+            
+            
         }
+        
     }
 
 

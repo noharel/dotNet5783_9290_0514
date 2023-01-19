@@ -239,7 +239,24 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Image Name="playDontWork" Source="../pics/playDontWork.png"/>
+        <Image Name="playDontWork" Visibility="Collapsed" Source="../pics/playDontWork.png" Margin="12,1,756,403">
+           
+        </Image>
+        <Label Content="All orders delivered" 
+               HorizontalAlignment="Left" 
+               Margin="13,34,0,0" 
+               VerticalAlignment="Top">
+            <Label.Style>
+                <Style TargetType="Label" BasedOn="{StaticResource myLabelStyle }">
+                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=playDontWork, Path=IsMouseOver}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
 
     </Grid>
 </Window>

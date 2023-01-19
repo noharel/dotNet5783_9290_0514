@@ -35,7 +35,7 @@ partial class DalTest
             Category category;
             Product p = new Product();  // new product
             Console.WriteLine("enter information for a product to add: ");
-            Console.WriteLine("enter ID: ");
+            Console.WriteLine("enter product ID: ");
             s=Console.ReadLine();
             int.TryParse(s, out ID);
             p.ID = ID;  // new ID
@@ -69,7 +69,7 @@ partial class DalTest
         {
             string? s;
             int ID;
-            Console.WriteLine("enter ID: ");
+            Console.WriteLine("enter product ID: ");
             s = Console.ReadLine();  // get the ID
             int.TryParse(s, out ID);
 
@@ -100,7 +100,7 @@ partial class DalTest
             int ID, iS, price;
             Product p = new Product();
             Category category;
-            Console.WriteLine("enter ID: ");//prints product before update
+            Console.WriteLine("enter product ID: ");//prints product before update
             s = Console.ReadLine();//prints product before update
             int.TryParse(s, out ID);//prints product before update
 
@@ -236,7 +236,7 @@ partial class DalTest
             DateTime dt;
             Order o = new Order();  //build a new order
             Console.WriteLine("enter information for an order to add: ");
-            Console.WriteLine("enter ID: ");
+            Console.WriteLine("enter order ID: ");
             s = Console.ReadLine(); //get the ID
             int.TryParse(s, out ID);
             o.ID = ID;
@@ -256,11 +256,25 @@ partial class DalTest
             Console.WriteLine("enter ship date: ");
             s = Console.ReadLine(); //get the ship date
             DateTime.TryParse(s, out dt);
-            o.ShipDate = dt;
+            if (dt == DateTime.MinValue)
+            {
+                o.ShipDate = null;
+            }
+            else
+            {
+                o.ShipDate = dt;
+            }
             Console.WriteLine("enter delivery date: ");
             s = Console.ReadLine(); //get the delivery date
-            DateTime.TryParse(s, out dt); 
-            o.DeliveryrDate = dt;
+            DateTime.TryParse(s, out dt);
+            if (dt == DateTime.MinValue)
+            {
+                o.DeliveryrDate = null;
+            }
+            else
+            {
+                o.DeliveryrDate = dt;
+            }
             o.IsDeleted = false;
 
             try

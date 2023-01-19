@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Orders"
         mc:Ignorable="d"
+        DataContext="{Binding listOfOrderForList,RelativeSource={RelativeSource Self}}"
         Title="NTcars" Icon="..\pics\icon.jpg" Height="450" Width="800">
     <Window.Resources>
         <Style x:Key="myTextBoxStyle"
@@ -62,7 +63,7 @@
 
     </Window.Resources>
     <Grid>
-        <ListView Name="ordersList" d:ItemsSource="{d:SampleData ItemCount=5}" Style="{StaticResource myListViewStyle}" Margin="0,46,0,10" SelectionChanged="ordersList_SelectionChanged">
+        <ListView Name="ordersList" ItemsSource="{Binding}" Style="{StaticResource myListViewStyle}" Margin="0,46,0,10" SelectionChanged="ordersList_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="500"/>

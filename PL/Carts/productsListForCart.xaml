@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Carts"
         mc:Ignorable="d"
+        DataContext="{Binding listOfProductForList,RelativeSource={RelativeSource Self}}"
         Title="NTcars" Icon="..\pics\icon.jpg" Height="450" Width="800">
     <Window.Resources>
         <Style x:Key="myComboBoxStyle"
@@ -139,7 +140,7 @@
 
         <ListView Name="producs" 
                   Style="{StaticResource myListViewStyle}" 
-                  Margin="0,99,254,10" BorderThickness="0,0,0,0" d:ItemsSource="{d:SampleData ItemCount=5}">
+                  Margin="0,99,254,10" BorderThickness="0,0,0,0" ItemsSource="{Binding}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn  Width="70">

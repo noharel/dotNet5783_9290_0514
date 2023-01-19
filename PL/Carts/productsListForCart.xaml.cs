@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using PL.Products;
 using System.Runtime.CompilerServices;
 using MaterialDesignThemes.Wpf;
+using System.Collections.ObjectModel;
 
 namespace PL.Carts
 {
@@ -25,16 +26,23 @@ namespace PL.Carts
     {
         BlApi.IBl? bl = BlApi.Factory.Get(); // get bl from factory
         private static BO.Cart? cart;
-        List<BO.ProductForList?>? listProd;
+        public static readonly DependencyProperty listOfProductForListDependency =
+               DependencyProperty.Register("listOfProductForList", typeof(ObservableCollection<BO.ProductForList>), typeof(Window), new PropertyMetadata(null));
+        public ObservableCollection<BO.ProductForList> listOfProductForList
+        {
+            get { return (ObservableCollection<BO.ProductForList>)GetValue(listOfProductForListDependency); }
+            set { SetValue(listOfProductForListDependency, value); }
+        }
 
         public productsListForCart()//constructor
         {
             try
             {
+                listOfProductForList = new(bl.Product.GetListProduct().ToList()!);//GET LIST OF PRODUCT
+
                 InitializeComponent();
-                listProd = bl.Product.GetListProduct().ToList();//GET LIST OF PRODUCT
-                producs.DataContext = listProd;
-                producs.ItemsSource = listProd;//for listview of products
+                //producs.DataContext = listProd;
+                //producs.ItemsSource = listProd;//for listview of products
                 
                 List<BO.OrderItem>? list = new List<BO.OrderItem>();
                 cart = new BO.Cart { Items = list };//initailize cart
@@ -173,7 +181,7 @@ namespace PL.Carts
             try
             {
                 //return all the products in the asked category
-                producs.ItemsSource = bl!.Product.GetListProduct(x => x == null ? throw new Exception() : x.Category == category);
+                listOfProductForList = new(bl!.Product.GetListProduct(x => x == null ? throw new Exception() : x.Category == category)!);
             }
             catch (BO.DoesntExistExeption ex) // get list product exception
             {
@@ -194,9 +202,9 @@ namespace PL.Carts
         {
             try
             {
-                producs.ItemsSource = bl!.Product.GetListProduct(); //get all the products
+                listOfProductForList = new(bl!.Product.GetListProduct()!); //get all the products
                 CategorySelector.SelectedIndex = -1;//initialize the selected category on screen
-                producs.ItemsSource = listProd;//refresh products 
+                //producs.ItemsSource = listProd;//refresh products 
             }
             catch (BO.DoesntExistExeption ex) //get list product exception
             {

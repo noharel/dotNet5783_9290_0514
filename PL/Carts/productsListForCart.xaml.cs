@@ -26,29 +26,25 @@ namespace PL.Carts
     {
         BlApi.IBl? bl = BlApi.Factory.Get(); // get bl from factory
         private static BO.Cart? cart;
-        public static readonly DependencyProperty listOfProductForListDependency =
-               DependencyProperty.Register("listOfProductForList", typeof(ObservableCollection<BO.ProductForList>), typeof(Window), new PropertyMetadata(null));
-        public ObservableCollection<BO.ProductForList> listOfProductForList
+        public static readonly DependencyProperty listOfProductForListCartDependency =
+               DependencyProperty.Register("listOfProductForListCart", typeof(ObservableCollection<BO.ProductForList>), typeof(Window), new PropertyMetadata(null));
+        public ObservableCollection<BO.ProductForList> listOfProductForListCart
         {
-            get { return (ObservableCollection<BO.ProductForList>)GetValue(listOfProductForListDependency); }
-            set { SetValue(listOfProductForListDependency, value); }
+            get { return (ObservableCollection<BO.ProductForList>)GetValue(listOfProductForListCartDependency); }
+            set { SetValue(listOfProductForListCartDependency, value); }
         }
 
         public productsListForCart()//constructor
         {
             try
             {
-                listOfProductForList = new(bl.Product.GetListProduct().ToList()!);//GET LIST OF PRODUCT
+                listOfProductForListCart = new(bl.Product.GetListProduct().ToList()!);//GET LIST OF PRODUCT
 
                 InitializeComponent();
-                //producs.DataContext = listProd;
-                //producs.ItemsSource = listProd;//for listview of products
-                
                 List<BO.OrderItem>? list = new List<BO.OrderItem>();
                 cart = new BO.Cart { Items = list };//initailize cart
                 amountInCart.Content = cart!.Items!.ToList().Count.ToString();//for amount in cart
                 CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Category)); // put them in the category selector
-                //producs.ItemsSource
             }
             catch(BO.DoesntExistExeption ex)
             {
@@ -181,7 +177,7 @@ namespace PL.Carts
             try
             {
                 //return all the products in the asked category
-                listOfProductForList = new(bl!.Product.GetListProduct(x => x == null ? throw new Exception() : x.Category == category)!);
+                listOfProductForListCart = new(bl!.Product.GetListProduct(x => x == null ? throw new Exception() : x.Category == category)!);
             }
             catch (BO.DoesntExistExeption ex) // get list product exception
             {
@@ -202,11 +198,8 @@ namespace PL.Carts
         {
             try
             {
-                //listOfProductForList = new(bl!.Product.GetListProduct()!); //get all the products
                 CategorySelector.SelectedIndex = -1;//initialize the selected category on screen
-                listOfProductForList = new(bl!.Product.GetListProduct()!); //get all the products
-
-                //producs.ItemsSource = listProd;//refresh products 
+                listOfProductForListCart = new(bl!.Product.GetListProduct()!); //get all the products
             }
             catch (BO.DoesntExistExeption ex) //get list product exception
             {

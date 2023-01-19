@@ -4,7 +4,6 @@ using Microsoft.VisualBasic;
 
 namespace BLTest;
 
-//linq done besides where we need to print each item
 internal class BlTest
 {
     static void funcProduct(IBl bl) // check products functions
@@ -343,7 +342,7 @@ internal class BlTest
 
                 case "3":  // Update ship date
 
-                    Console.WriteLine("Enter  Id:");
+                    Console.WriteLine("Enter order Id:");
                     s = Console.ReadLine(); // get order id
 
                     if (int.TryParse(s, out id)) // valid input
@@ -382,7 +381,7 @@ internal class BlTest
 
                 case "4": // Update delivery date
 
-                    Console.WriteLine("Enter  Id:");
+                    Console.WriteLine("Enter order Id:");
                     s = Console.ReadLine(); // get order id
 
                     if(int.TryParse(s, out id)) // valid input id
@@ -510,7 +509,7 @@ internal class BlTest
             }
         } while (ch != "e");
     }
-    static void funcCart(IBl bl)
+    static void funcCart(IBl bl) // check cart functions
     { 
         // get all the values for cart to make on it action
         int id,amount;
@@ -544,7 +543,7 @@ internal class BlTest
             {
                 case "1": // Add product to cart
 
-                    Console.WriteLine("Enter  Id:");
+                    Console.WriteLine("Enter product Id:");
                     s = Console.ReadLine(); // get product id
 
                     if (int.TryParse(s, out id)) // valid input id
@@ -586,7 +585,7 @@ internal class BlTest
                 case "2": // Update amount in cart  
                     
                     // get input
-                    Console.WriteLine("Enter  Id:");
+                    Console.WriteLine("Enter product Id:");
                     s = Console.ReadLine();
                     flag=int.TryParse(s, out id)&&flag;
                     Console.WriteLine("Enter  amount:");

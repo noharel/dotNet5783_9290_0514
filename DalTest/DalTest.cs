@@ -8,7 +8,6 @@ using System.Xml.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Linq.Expressions;
 
-//linq done
 
 namespace DalTest;
 partial class DalTest
@@ -291,7 +290,7 @@ partial class DalTest
         {
             string? s;
             int ID;
-            Console.WriteLine("enter ID: ");
+            Console.WriteLine("enter order ID: ");
             s = Console.ReadLine();  //get the ID
             int.TryParse(s, out ID);
             try
@@ -324,9 +323,9 @@ partial class DalTest
             int ID;
             Order o = new Order();
             DateTime dt;
-            Console.WriteLine("enter ID: ");//prints product before update
-            s = Console.ReadLine();//prints product before update
-            int.TryParse(s, out ID);//prints product before update
+            Console.WriteLine("enter order ID: ");
+            s = Console.ReadLine();
+            int.TryParse(s, out ID);
             try
             {
                 Console.WriteLine(order.GetById(ID));//prints product before update
@@ -499,7 +498,7 @@ partial class DalTest
             string? s;
             OrderItem oi = new OrderItem();  // build a new order item
             Console.WriteLine("enter information for an order Item to add: ");
-            Console.WriteLine("enter ID: ");
+            Console.WriteLine("enter order item ID: ");
             s = Console.ReadLine(); // get ID
             int.TryParse(s, out ID);
             oi.ID = ID;
@@ -535,7 +534,7 @@ partial class DalTest
         {
             string? s;
             int ID;
-            Console.WriteLine("enter ID: ");
+            Console.WriteLine("enter order item ID: ");
             s = Console.ReadLine(); //get ID
             int.TryParse(s, out ID);
             try
@@ -568,9 +567,9 @@ partial class DalTest
             string? s;
             int ID, price, amount;
             OrderItem oi = new OrderItem();
-            Console.WriteLine("enter ID: ");//prints product before update
-            s = Console.ReadLine();//prints product before update
-            int.TryParse(s, out ID);//prints product before update
+            Console.WriteLine("enter order item ID: ");
+            s = Console.ReadLine();
+            int.TryParse(s, out ID);
             try
             {
                 Console.WriteLine(orderItem.GetById(ID));//prints product before update
@@ -692,7 +691,7 @@ partial class DalTest
         {
             int ID;
             string? s;
-            Console.WriteLine("enter ID");
+            Console.WriteLine("enter order ID");
             s = Console.ReadLine(); //get order ID
             int.TryParse(s, out ID);
             Console.WriteLine("The List of the orders with this Id are:");
@@ -711,7 +710,7 @@ partial class DalTest
         {
             int ID, prodID;
             string ?s;
-            Console.WriteLine("enter ID");
+            Console.WriteLine("enter order ID");
             s = Console.ReadLine();
             int.TryParse(s, out ID);
             Console.WriteLine("enter product ID");

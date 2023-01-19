@@ -37,7 +37,7 @@ public interface IOrder
     /// </summary>
     /// <param name="orderId"></param>
     /// <returns></returns>
-    public BO.Order UpdateDelivery(int orderId);
+    public BO.Order UpdateDelivery(int orderId, DateTime? dat = null);
 
     /// <summary>
     /// TRACKING ORDER - FOR MANAGER

@@ -176,8 +176,12 @@ internal class Order : BlApi.IOrder
     /// <returns></returns>
     /// <exception cref="BO.DoesntExistExeption"></exception>
     /// <exception cref="BO.ContradictoryDataExeption"></exception>
-    public BO.Order UpdateDelivery(int orderId)
+    public BO.Order UpdateDelivery(int orderId, DateTime? dat)
     {
+        if (dat == null)
+        {
+            dat = DateTime.Now;
+        }
         try
         {
             DO.Order DOorder = Dal.Order.GetById(orderId);// GET THE ORDER
@@ -198,8 +202,8 @@ internal class Order : BlApi.IOrder
                         BOlistOrder.Add(newOrderItem); // ADD ITEM
                         totalPriceOrder += newOrderItem.TotalPrice; // CALCULATES THE TOTAL PRICE OF ORDER
                     });
-                    DOorder.DeliveryrDate = DateTime.Now; // UPDATES DELIVERY DATE
-
+                    //DOorder.DeliveryrDate = DateTime.Now; // UPDATES DELIVERY DATE
+                    DOorder.DeliveryrDate = dat; // UPDATES DELIVERY DATE
                     // MAKES THE UPDATED ORDER
                     BOorder = new BO.Order() { ID = DOorder.ID, ShipDate = DOorder.ShipDate, CustomerAddress = DOorder.CustomerAddress, CustomerEmail = DOorder.CustomerEmail, CustomerName = DOorder.CustomerName, DeliveryrDate = DOorder.DeliveryrDate, Items = BOlistOrder, TotalPrice = totalPriceOrder, OrderDate = DOorder.OrderDate, Status = BO.OrderStatus.Arrived };
                     try

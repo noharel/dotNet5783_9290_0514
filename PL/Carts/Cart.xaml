@@ -96,6 +96,7 @@
                                 <TextBlock Text="{Binding Name}"/>
                                 <TextBlock Text="{Binding Price}"/>
                                 <TextBlock Text="{Binding TotalPrice}"/>
+                                
                             </StackPanel>
                         </DataTemplate>
                         </GridViewColumn.CellTemplate>

@@ -116,14 +116,13 @@ internal class Cart : BlApi.ICart
         if (ourOrderItem != null)
         {
             int amountItem = ourOrderItem!.Amount;
-            if (amount == 0) // If mount of the product in the cart is 0
+            if (amount == 0) // If amount of the product in the cart is 0
             {
                 cart.Items = new List<BO.OrderItem>(from var in cart.Items
                                                     where var.ProductID != id
                                                     select var); // Get all the product which are not the given product
                 cart.TotalPrice -= ourOrderItem.TotalPrice;  // Update the total price of cart
                 return cart; // Returns the updated cart
-
             }
             else if (amount < 0)//if amount is a negative number
                 throw new BO.ContradictoryDataExeption("can't update to negative numbers");

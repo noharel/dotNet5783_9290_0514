@@ -76,7 +76,7 @@ public partial class ProductWindow : Window
             string innerEx = "";
             if(ex.InnerException!=null)
                 innerEx = ": "+ex.InnerException.Message;
-            MessageBox.Show("unsucessfull addition:"+ex.Message+innerEx); // print exception 
+            MessageBox.Show("Unsucessfull addition: "+ex.Message+innerEx+"."); // print exception 
             
         }
         catch (BO.InvalidInputExeption ex)
@@ -84,7 +84,7 @@ public partial class ProductWindow : Window
             string innerEx = "";
             if (ex.InnerException != null)
                 innerEx = ": " + ex.InnerException.Message;
-            MessageBox.Show("unsucessfull addition:" + ex.Message + innerEx); // print exception
+            MessageBox.Show("Unsucessfull addition: " + ex.Message + innerEx+ "."); // print exception
 
 
         }
@@ -93,14 +93,14 @@ public partial class ProductWindow : Window
             string innerEx = "";
             if (ex.InnerException != null)
                 innerEx = ": " + ex.InnerException.Message;
-            MessageBox.Show("unsucessfull addition:" + ex.Message + innerEx); // print exception
+            MessageBox.Show("Unsucessfull addition: " + ex.Message + innerEx + "."); // print exception
         }
         catch (BO.AlreadyExistExeption ex)
         {
             string innerEx = "";
             if (ex.InnerException != null)
                 innerEx = ": " + ex.InnerException.Message;
-            MessageBox.Show("unsucessfull addition:" + ex.Message + innerEx); // print exception
+            MessageBox.Show("Unsucessfull addition: " + ex.Message + innerEx + "."); // print exception
         }
     }
 
@@ -172,7 +172,7 @@ public partial class ProductWindow : Window
             string innerEx = "";
             if (ex.InnerException != null)
                 innerEx = ": " + ex.InnerException.Message;
-            MessageBox.Show("unsucessfull update:" + ex.Message + innerEx); // print the exception
+            MessageBox.Show("Unsucessfull update: " + ex.Message + innerEx + "."); // print the exception
 
         }
         catch (BO.InvalidInputExeption ex)
@@ -180,7 +180,7 @@ public partial class ProductWindow : Window
             string innerEx = "";
             if (ex.InnerException != null)
                 innerEx = ": " + ex.InnerException.Message;
-            MessageBox.Show("unsucessfull update:" + ex.Message + innerEx); // print the exception
+            MessageBox.Show("Unsucessfull update: " + ex.Message + innerEx + "."); // print the exception
 
         }
         catch (BO.ContradictoryDataExeption ex)
@@ -188,7 +188,7 @@ public partial class ProductWindow : Window
             string innerEx = "";
             if (ex.InnerException != null)
                 innerEx = ": " + ex.InnerException.Message;
-            MessageBox.Show("unsucessfull update:" + ex.Message + innerEx); // print the exception
+            MessageBox.Show("Unsucessfull update: " + ex.Message + innerEx + "."); // print the exception
 
         }
 

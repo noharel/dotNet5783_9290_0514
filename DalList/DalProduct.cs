@@ -28,7 +28,7 @@ public class DalProduct: IProduct // A CLASS THAT IMPLEMENTS THE INTERFACE IProd
             return product.ID;
         }
         else // The ID is in use
-            throw new AlreadyExistExeption("The prouct ID number is already exist");
+            throw new AlreadyExistExeption("A product with same ID already exists");
     }
 
     /// <summary>
@@ -50,7 +50,7 @@ public class DalProduct: IProduct // A CLASS THAT IMPLEMENTS THE INTERFACE IProd
         }
         if (_ds?._products.RemoveAll(product => product?.ID == id) == 0)  //delete
         {
-            throw new DoesntExistExeption("Can't delete that does not exist");
+            throw new DoesntExistExeption("Can't delete a product that does not exist");
         }
         
     }
@@ -88,7 +88,7 @@ public class DalProduct: IProduct // A CLASS THAT IMPLEMENTS THE INTERFACE IProd
     public Product GetById(int id) 
     {
         if (_ds._products == null) // there are no products
-            throw new DoesntExistExeption("there are no products");
+            throw new DoesntExistExeption("There are no products");
         return _ds._products.Where(p => p?.ID == id).FirstOrDefault() // choose product by id
             ?? throw new DoesntExistExeption("Missing product id");
     }

@@ -143,7 +143,7 @@ internal class Product : BlApi.IProduct
     public void AddProdut(BO.Product product)
     {
         if ((product.ID < 0) || (product.ID.ToString().Length != 6) || (product.Name == "") || (product.Price < 0) || (product.InStock < 0))//if invalid information for a product was sent
-            throw new BO.InvalidInputExeption("incorrect product information");
+            throw new BO.InvalidInputExeption("Incorrect product information");
         try
         {
             Dal.Product.Add(new DO.Product { ID = product.ID, Name = product.Name, Category = (DO.Category)product.Category!, InStock = product.InStock, Price = product.Price });//adds the product to list of all products
@@ -152,11 +152,11 @@ internal class Product : BlApi.IProduct
         // catch for Add
         catch (DO.DoesntExistExeption e) 
         {
-            throw new BO.DoesntExistExeption("couldn't add product", e);
+            throw new BO.DoesntExistExeption("Couldn't add product", e);
         }
         catch(DO.AlreadyExistExeption e)
         {
-            throw new BO.AlreadyExistExeption("can't add,", e);
+            throw new BO.AlreadyExistExeption("Couldn't add product", e);
         }
     }
     /// <summary>
@@ -193,7 +193,7 @@ internal class Product : BlApi.IProduct
                 }
                 catch (DO.DoesntExistExeption e)//catch for delele
                 {
-                    throw new BO.DoesntExistExeption("couldn't get product", e);
+                    throw new BO.DoesntExistExeption("Couldn't get product", e);
                 }
             }
             else//product is in orders
@@ -215,7 +215,7 @@ internal class Product : BlApi.IProduct
     public void UpdateProduct(BO.Product product)
     {
         if ((product.ID < 0) || (((product.ID).ToString()).Length != 6) || (product.Name == "") || (product.Price < 0) || (product.InStock < 0))//if invalid information for a product was sent
-            throw new BO.InvalidInputExeption("incorrect product information");
+            throw new BO.InvalidInputExeption("Incorrect product information");
         try
         {
             Dal.Product.Update(new DO.Product { ID = product.ID, Name = product.Name, Category = (DO.Category)product.Category!, InStock = product.InStock, Price = product.Price });//updates information of product in the list of products

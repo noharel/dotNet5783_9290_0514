@@ -295,26 +295,41 @@ internal class Order : BlApi.IOrder
                     try
                     {
                         DO.OrderItem DOorderItem = (DO.OrderItem)Dal.OrderItem.GetProduct(orderID, orderItemId)!;
-                        if ((DOorderItem.Amount += amount) == 0)//UPDATE AMOUNT
+                        if (Dal.Product.GetById(DOorderItem.PrudoctID).InStock - (amount+DOorderItem.Amount) > 0)
                         {
-                            try
+                            if ((DOorderItem.Amount += amount) == 0)//UPDATE AMOUNT
                             {
-                                Dal.OrderItem.Delete(DOorderItem.ID);
-                                if (Dal.OrderItem.GetListOrder(DOorder.ID).Count() == 1)
-                                    Dal.Order.Delete(DOorder.ID);
+                                try
+                                {
+                                    try
+                                    {
+                                        Dal.OrderItem.Delete(DOorderItem.ID);
+                                        if (Dal.OrderItem.GetListOrder(DOorder.ID).Count() == 0)
+                                        {
 
+                                            Dal.Order.Delete(DOorder.ID);
+                                        }
+
+                                    }
+                                    catch (DO.DoesntExistExeption) { };
+ 
+                                }
+                                catch (DO.DoesntExistExeption e)
+                                {
+                                    throw new BO.DoesntExistExeption("couldn't delete product", e);
+                                }
+
+                            }
+                            else
+                            {
+                                if (DOorderItem.Amount < 0) throw new BO.ContradictoryDataExeption("Can not have a negative amount of product in cart");
                                 else Dal.OrderItem.Update(DOorderItem);
-
                             }
-                            catch (DO.DoesntExistExeption e)
-                            {
-                                throw new BO.DoesntExistExeption("couldn't delete product", e);
-                            }
-
                         }
                         else
-                            if (DOorderItem.Amount < 0) throw new BO.ContradictoryDataExeption("there are not enough to delete");
-                        else Dal.OrderItem.Update(DOorderItem);
+                        {
+                            throw new BO.ContradictoryDataExeption("There are not enough products in stock");
+                        }
                     }
                     catch(DO.DoesntExistExeption e)
                     {

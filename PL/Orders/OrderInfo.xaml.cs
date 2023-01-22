@@ -88,7 +88,7 @@ namespace PL.Orders
             int id = ((BO.OrderItem?)button.DataContext)!.ProductID; //product id
             try
             {
-                bl!.Order.UpdateByManager(idRec, id, 1); // update the amount of product in order +1
+                bl!.Order.UpdateByManager(idRec, id,1); // update the amount of product in order +1
                 order = bl.Order.OrderInfo(idRec); // new order info
                 totalPrice.Text = order.TotalPrice.ToString(); // change total price
                 products.ItemsSource = order.Items!.ToList(); // change the items in list view
@@ -98,14 +98,14 @@ namespace PL.Orders
                 string innerEx = "";
                 if (ex.InnerException != null)
                     innerEx = ": " + ex.InnerException.Message;
-                MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
+                MessageBox.Show("Can't add: " + ex.Message + innerEx); // for user print exception
             }
             catch (BO.ContradictoryDataExeption ex) // update by manager func exception
             {
                 string innerEx = "";
                 if (ex.InnerException != null)
                     innerEx = ": " + ex.InnerException.Message;
-                MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
+                MessageBox.Show("Can't add: " + ex.Message + innerEx); // for user print exception
             }
             catch (BO.InvalidInputExeption ex)// order info func exception
             {
@@ -147,14 +147,14 @@ namespace PL.Orders
                 string innerEx = "";
                 if (ex.InnerException != null)
                     innerEx = ": " + ex.InnerException.Message;
-                MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
+                MessageBox.Show("unsucessfull removel: " + ex.Message + innerEx); // for user print exception
             }
             catch(BO.ContradictoryDataExeption ex)// update by manager func exception
             {
                 string innerEx = "";
                 if (ex.InnerException != null)
                     innerEx = ": " + ex.InnerException.Message;
-                MessageBox.Show("unsucessfull selection:" + ex.Message + innerEx); // for user print exception
+                MessageBox.Show("unsucessfull removel: " + ex.Message + innerEx); // for user print exception
             }
         }
     }

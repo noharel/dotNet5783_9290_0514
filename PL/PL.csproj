@@ -45,6 +45,7 @@
     <None Remove="pics\redCircle.png" />
     <None Remove="pics\removeCart.png" />
     <None Remove="pics\trash.png" />
+    <None Remove="pics\X.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -121,6 +122,9 @@
 
   <ItemGroup>
     <Content Include="pics\box.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="pics\X.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

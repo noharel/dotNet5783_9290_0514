@@ -28,6 +28,7 @@ namespace PL.Admin
         static readonly BlApi.IBl? bl = BlApi.Factory.Get();
 
         bool keepWork = false;
+        bool arrived = false;
 
 
         // OBSERVER
@@ -63,7 +64,7 @@ namespace PL.Admin
             tracking= new BackgroundWorker();
             tracking!.DoWork += Tracking_DoWork;
             tracking.ProgressChanged += Tracking_ProgressChanged;
-            tracking.RunWorkerCompleted += Tracking_RunWorkerCompleted;
+            //tracking.RunWorkerCompleted += Tracking_RunWorkerCompleted;
             
             // to make progress and cancel
             tracking.WorkerReportsProgress = true;
@@ -123,12 +124,14 @@ namespace PL.Admin
                 // if order is ordered and was ordered first
                 if (o.Status == BO.OrderStatus.Ordered && bl.Order.OrderInfo(o.ID).OrderDate < minOrder)
                 {
+                    minOrder = (DateTime)bl.Order.OrderInfo(o.ID).OrderDate!;
                     minOrderID = o.ID; // save id
                 }
 
                 // if order is shiped and was shipped first
                 else if (o.Status == BO.OrderStatus.Shipped && bl.Order.OrderInfo(o.ID).ShipDate < minShip)
                 {
+                    minShip = (DateTime)bl.Order.OrderInfo(o.ID).ShipDate!;
                     minShipID = o.ID;
                 }
 
@@ -178,9 +181,12 @@ namespace PL.Admin
             var x = from h in lisOftOrders
                     where h.Status == BO.OrderStatus.Arrived
                     select h;
-            if (x.Count() == lisOftOrders.Count()) // all was delivered
+            if (x.Count() == lisOftOrders.Count() && !arrived) // all was delivered
             {
                 playDontWork.Visibility = Visibility.Visible;
+                close.Visibility = Visibility.Visible;
+
+                allArrived.Visibility = Visibility.Visible;
                 start.Visibility = Visibility.Collapsed;
             }
             else
@@ -195,26 +201,26 @@ namespace PL.Admin
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Tracking_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e)
-        {
+        //private void Tracking_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e)
+        //{
 
-            if (e.Cancelled == true)
-            {
-                // e.Result throw System.InvalidOperationException
-                //resultLabel.Content = "Canceled!";
-            }
-            else if (e.Error != null)
-            {
-                // e.Result throw System.Reflection.TargetInvocationException
-                //resultLabel.Content = "Error: " + e.Error.Message; //Exception Message
-            }
-            else // everything was OK
-            {
-                allArrived.Visibility = Visibility.Visible;
+        //    if (e.Cancelled == true)
+        //    {
+        //        // e.Result throw System.InvalidOperationException
+        //        //resultLabel.Content = "Canceled!";
+        //    }
+        //    else if (e.Error != null)
+        //    {
+        //        // e.Result throw System.Reflection.TargetInvocationException
+        //        //resultLabel.Content = "Error: " + e.Error.Message; //Exception Message
+        //    }
+        //    else // everything was OK
+        //    {
+        //        allArrived.Visibility = Visibility.Visible;
                
-            }
+        //    }
 
-        }
+        //}
 
         /// <summary>
         /// START CLICK
@@ -225,7 +231,7 @@ namespace PL.Admin
         {
            
             keepWork = true;
-            tracking.RunWorkerAsync(20); // start do work
+            tracking.RunWorkerAsync(bl!.Order.GetOrders().Count()); // start do work
             // can stop
             stop.Visibility = Visibility.Visible;
             start.Visibility = Visibility.Collapsed;
@@ -255,6 +261,13 @@ namespace PL.Admin
             Button button = (Button)sender;
             int id = ((BO.OrderForList?)button.DataContext)!.ID;
             new Orders.OrderInfo(id).ShowDialog(); // open inforamtion window
+        }
+
+        private void close_Click(object sender, RoutedEventArgs e)
+        {
+            allArrived.Visibility=Visibility.Collapsed;
+            close.Visibility = Visibility.Collapsed;
+            arrived = true;
         }
     }
 

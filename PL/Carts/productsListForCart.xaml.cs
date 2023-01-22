@@ -225,6 +225,8 @@ namespace PL.Carts
                 count += var.Amount;
             });
             amountInCart.Content = count;//for amount in cart
+            listOfProductForListCart = new(bl.Product.GetListProduct().ToList()!);//GET LIST OF PRODUCT
+
         }
 
     }

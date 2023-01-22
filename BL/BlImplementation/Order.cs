@@ -295,7 +295,7 @@ internal class Order : BlApi.IOrder
                     try
                     {
                         DO.OrderItem DOorderItem = (DO.OrderItem)Dal.OrderItem.GetProduct(orderID, orderItemId)!;
-                        if (Dal.Product.GetById(DOorderItem.PrudoctID).InStock - (amount+DOorderItem.Amount) > 0)
+                        if ((Dal.Product.GetById(DOorderItem.PrudoctID).InStock - (amount+DOorderItem.Amount) > 0) || (amount < 1))
                         {
                             if ((DOorderItem.Amount += amount) == 0)//UPDATE AMOUNT
                             {
@@ -306,10 +306,9 @@ internal class Order : BlApi.IOrder
                                         Dal.OrderItem.Delete(DOorderItem.ID);
                                         if (Dal.OrderItem.GetListOrder(DOorder.ID).Count() == 0)
                                         {
-
                                             Dal.Order.Delete(DOorder.ID);
                                         }
-
+ 
                                     }
                                     catch (DO.DoesntExistExeption) { };
  
